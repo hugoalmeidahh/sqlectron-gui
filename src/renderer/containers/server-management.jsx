@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'proptypes';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as ServersActions from '../actions/servers.js';
@@ -29,7 +30,7 @@ class ServerManagerment extends Component {
     servers: PropTypes.object.isRequired,
     config: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-    router: PropTypes.object.isRequired,
+    //router: PropTypes.object.isRequired,
     children: PropTypes.node,
   };
 
@@ -39,7 +40,8 @@ class ServerManagerment extends Component {
   }
 
   onConnectClick({ id }) {
-    this.props.router.push(`/server/${id}`);
+    //console.log(this.props);
+    this.props.history.push(`/server/${id}`);
   }
 
   onTestConnectionClick(server) {

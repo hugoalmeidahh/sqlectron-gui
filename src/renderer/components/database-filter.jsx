@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-
+import React, { Component } from 'react';
+import PropTypes from 'proptypes';
 
 export default class DatabaseFilter extends Component {
   static propTypes = {

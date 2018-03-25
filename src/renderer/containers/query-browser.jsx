@@ -1,6 +1,7 @@
 import debounce from 'lodash.debounce';
 import union from 'lodash.union';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'proptypes';
 import ReactDOM from 'react-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
@@ -89,7 +90,7 @@ class QueryBrowserContainer extends Component {
     sqlscripts: PropTypes.object.isRequired,
     keys: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-    router: PropTypes.object.isRequired,
+    //router: PropTypes.object.isRequired,
     params: PropTypes.object.isRequired,
     children: PropTypes.node,
   };
@@ -114,12 +115,12 @@ class QueryBrowserContainer extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const { dispatch, router, connections } = nextProps;
+    const { dispatch, history, connections } = nextProps;
 
     if (connections.error ||
        (!connections.connecting && !connections.server && !connections.waitingSSHPassword)
     ) {
-      router.push('/');
+      history.push('/');
       return;
     }
 

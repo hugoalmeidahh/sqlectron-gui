@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-
+import React, { Component} from 'react';
+import PropTypes from 'proptypes';
 export default class Message extends Component {
   static propTypes = {
     closeable: PropTypes.bool,

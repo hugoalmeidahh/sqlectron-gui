@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'proptypes';
 import { shell } from 'electron'; // eslint-disable-line import/no-unresolved
 import UpdateChecker from './update-checker.jsx';
 import LogStatus from './log-status.jsx';

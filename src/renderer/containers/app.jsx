@@ -1,5 +1,6 @@
 import { webFrame } from 'electron'; // eslint-disable-line import/no-unresolved
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'proptypes';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as ConfigActions from '../actions/config.js';
@@ -16,7 +17,7 @@ class AppContainer extends Component {
   static propTypes = {
     config: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-    router: PropTypes.object.isRequired,
+    //router: PropTypes.object.isRequired,
     children: PropTypes.node,
   };
 

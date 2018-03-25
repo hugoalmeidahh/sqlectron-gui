@@ -1,5 +1,6 @@
 import groupBy from 'lodash.groupby';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'proptypes';
 import Loader from './loader.jsx';
 import Message from './message.jsx';
 import QueryResultTable from './query-result-table.jsx';
@@ -14,12 +15,12 @@ export default class QueryResult extends Component {
     copied: PropTypes.bool,
     saved: PropTypes.bool,
     query: PropTypes.string,
-    results: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
+    results: PropTypes.arrayOf(
+      PropTypes.shape({
         fields: PropTypes.array,
         rows: PropTypes.array,
-        rowCount: React.PropTypes.number,
-        affectedRows: React.PropTypes.number,
+        rowCount: PropTypes.number,
+        affectedRows: PropTypes.number,
       }),
     ),
     isExecuting: PropTypes.bool,

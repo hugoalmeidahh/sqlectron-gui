@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React  from 'react';
+import PropTypes from 'proptypes';
 import { requireLogos } from './require-context';
 import { sqlectron } from '../../browser/remote';
 
