@@ -3,7 +3,7 @@ import union from 'lodash.union';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import ReactDOM from 'react-dom';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ResizableBox } from 'react-resizable';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';

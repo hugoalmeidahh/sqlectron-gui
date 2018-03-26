@@ -12,7 +12,7 @@ import { requireLogos } from './require-context';
 require('react-select/dist/react-select.css');
 require('./override-select.css');
 
-
+console.log(sqlectron.db.CLIENTS);
 const CLIENTS = sqlectron.db.CLIENTS.map(dbClient => ({
   value: dbClient.key,
   logo: requireLogos(`./server-db-client-${dbClient.key}.png`),
@@ -100,11 +100,20 @@ export default class ServerModalForm extends Component {
   }
 
   isFeatureDisabled(feature) {
+    //console.log("isFeatureDisabled");
+    //console.log(feature);
     if (!this.state.client) {
       return false;
     }
+    //console.log("("+CLIENTS);
+    //console.log(this.state.client);
 
-    const dbClient = CLIENTS.find(dbc => dbc.value === this.state.client);
+    const dbClient = CLIENTS.find((dbc) =>{
+      //console.log(dbc.value);
+      return dbc.value === this.state.client.value;
+    });
+    //console.log(dbClient);
+    //console.log(dbClient.disabledFeatures);
     return !!(dbClient.disabledFeatures && ~dbClient.disabledFeatures.indexOf(feature));
   }
 
@@ -158,7 +167,8 @@ export default class ServerModalForm extends Component {
         delete server.filter;
       }
     }
-
+    console.log("gen server");
+    console.log(server);
     return server;
   }
 
@@ -237,10 +247,40 @@ export default class ServerModalForm extends Component {
   }
 
   renderBasicPanel() {
+    console.log("renderBasicPanel======");
+    var className_name=`nine wide field ${this.highlightError('name')}`;
+    var className_client=`six wide field ${this.highlightError('client')}`;
+    var className_host=`five wide field ${this.highlightError('host')}`;
+    var className_port= `two wide field ${this.highlightError('port')}`;
+    var className_domain= `four wide field ${this.highlightError('domain')}`;
+    var className_socketPath=`five wide field ${this.highlightError('socketPath')}`;
+    var className_user=`four wide field ${this.highlightError('user')}`;
+    var className_passwd=`four wide field ${this.highlightError('password')}`;
+    var className_database=`four wide field ${this.highlightError('database')}`;
+    var className_schema=`four wide field ${this.highlightError('schema')}`;
+    let className_sqlite1="";
+    let input_sqlite;
+    if(this.state.client && this.state.client.value=== 'sqlite')
+    { 
+      className_sqlite1='ui action input';
+      input_sqlite=
+                <label htmlFor="file.database" className="ui icon button btn-file">
+                  <i className="file outline icon" />
+                  <input
+                    type="file"
+                    id="file.database"
+                    name="file.database"
+                    onChange={::this.handleChange}
+                    style={{ display: 'none' }} />
+                </label>;
+    }
+    console.log(className_client);
+    console.log("hiiiiiiiiiiiiiiiii");
+    console.log(this.state.client);
     return (
       <div>
         <div className="fields">
-          <div className={`nine wide field ${this.highlightError('name')}`}>
+          <div className={className_name}>
             <label>Name</label>
             <input type="text"
               name="name"
@@ -248,7 +288,7 @@ export default class ServerModalForm extends Component {
               value={this.state.name || ''}
               onChange={::this.handleChange} />
           </div>
-          <div className={`six wide field ${this.highlightError('client')}`}>
+          <div className={className_client}>
             <label>Database Type</label>
             <Select
               name="client"
@@ -273,7 +313,7 @@ export default class ServerModalForm extends Component {
         <div className="field">
           <label>Server Address</label>
           <div className="fields">
-            <div className={`five wide field ${this.highlightError('host')}`}>
+            <div className={className_host}>
               <input type="text"
                 name="host"
                 placeholder="Host"
@@ -281,7 +321,7 @@ export default class ServerModalForm extends Component {
                 onChange={::this.handleChange}
                 disabled={this.isFeatureDisabled('server:host') || this.state.socketPath} />
             </div>
-            <div className={`two wide field ${this.highlightError('port')}`}>
+            <div className={className_port}>
               <input type="number"
                 name="port"
                 maxLength="5"
@@ -290,7 +330,7 @@ export default class ServerModalForm extends Component {
                 onChange={::this.handleChange}
                 disabled={this.isFeatureDisabled('server:port') || this.state.socketPath} />
             </div>
-            <div className={`four wide field ${this.highlightError('domain')}`}>
+            <div className={className_domain}>
               <input type="text"
                 name="domain"
                 placeholder="Domain"
@@ -298,7 +338,7 @@ export default class ServerModalForm extends Component {
                 disabled={this.isFeatureDisabled('server:domain')}
                 onChange={::this.handleChange} />
             </div>
-            <div className={`five wide field ${this.highlightError('socketPath')}`}>
+            <div className={className_socketPath}>
               <div className="ui action input">
                 <input type="text"
                   name="socketPath"
@@ -329,7 +369,7 @@ export default class ServerModalForm extends Component {
           </div>
         </div>
         <div className="fields">
-          <div className={`four wide field ${this.highlightError('user')}`}>
+          <div className={className_user}>
             <label>User</label>
             <input type="text"
               name="user"
@@ -338,7 +378,7 @@ export default class ServerModalForm extends Component {
               disabled={this.isFeatureDisabled('server:user')}
               onChange={::this.handleChange} />
           </div>
-          <div className={`four wide field ${this.highlightError('password')}`}>
+          <div className={className_passwd}>
             <div>
               <label>Password</label>
             </div>
@@ -355,28 +395,18 @@ export default class ServerModalForm extends Component {
               </span>
             </div>
           </div>
-          <div className={`four wide field ${this.highlightError('database')}`}>
+          <div className={className_database}>
             <label>Initial Database/Keyspace</label>
-            <div className={this.state.client === 'sqlite' && 'ui action input'}>
+            <div className={className_sqlite1}>
               <input type="text"
                 name="database"
                 placeholder="Database"
                 value={this.state.database || ''}
                 onChange={::this.handleChange} />
-              {this.state.client === 'sqlite' &&
-                <label htmlFor="file.database" className="ui icon button btn-file">
-                  <i className="file outline icon" />
-                  <input
-                    type="file"
-                    id="file.database"
-                    name="file.database"
-                    onChange={::this.handleChange}
-                    style={{ display: 'none' }} />
-                </label>
-              }
+              {  input_sqlite     }
             </div>
           </div>
-          <div className={`four wide field ${this.highlightError('schema')}`}>
+          <div className={className_schema}>
             <label>Initial Schema</label>
             <input type="text"
               name="schema"
@@ -392,6 +422,7 @@ export default class ServerModalForm extends Component {
   }
 
   renderSSHPanel() {
+    console.log("renderSSHPanel");
     const isSSHChecked = !!this.state.ssh;
     const ssh = this.state.ssh || {};
 
@@ -531,13 +562,24 @@ export default class ServerModalForm extends Component {
 
   renderFilterPanel() {
     /* eslint max-len:0 */
+    console.log("renderFilterPanel");
     const isFilterChecked = !!this.state.filter;
     const filter = this.state.filter || {};
 
     if (this.isFeatureDisabled('server:filter')) {
       return null;
     }
-
+    let addDiv;
+    if (isFilterChecked){
+        addDiv=<div>
+            <p><em>Allow to pre filter the data available in the sidebar. It improves the rendering performance for large servers.<br />Separate values by break line</em></p>
+            {this.renderFilterPanelItem(isFilterChecked, filter, 'Database', 'database')}
+            {this.renderFilterPanelItem(isFilterChecked, filter, 'Schema', 'schema')}
+          </div>
+    }
+    else{
+      addDiv=null;
+    }
     return (
       <div className="ui segment">
         <div className="one field">
@@ -548,12 +590,8 @@ export default class ServerModalForm extends Component {
             onChecked={() => this.setState({ filter: {} })}
             onUnchecked={() => this.setState({ filter: null })} />
         </div>
-        {isFilterChecked &&
-          <div>
-            <p><em>Allow to pre filter the data available in the sidebar. It improves the rendering performance for large servers.<br />Separate values by break line</em></p>
-            {this.renderFilterPanelItem(isFilterChecked, filter, 'Database', 'database')}
-            {this.renderFilterPanelItem(isFilterChecked, filter, 'Schema', 'schema')}
-          </div>
+        { 
+          addDiv
         }
       </div>
     );
@@ -568,6 +606,8 @@ export default class ServerModalForm extends Component {
       client ? '' : 'disabled',
       testConnection.connecting ? 'loading' : '',
     ].join(' ');
+    //console.log("renderActionsPanel");
+    //console.log(classStatusButtons);
 
     return (
       <div className="actions">
@@ -605,6 +645,7 @@ export default class ServerModalForm extends Component {
   }
 
   renderConfirmRemoveModal() {
+    console.log("renderConfirmRemoveModal");
     const { confirmingRemove } = this.state;
 
     if (!confirmingRemove) {
@@ -631,7 +672,9 @@ export default class ServerModalForm extends Component {
           {this.renderMessage()}
           <form className="ui form">
             {this.renderBasicPanel()}
-            {this.renderSSHPanel()}
+            {
+              this.renderSSHPanel()
+            }
             {this.renderFilterPanel()}
           </form>
         </div>

@@ -4,7 +4,7 @@ import PropTypes from 'proptypes';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as ConfigActions from '../actions/config.js';
-
+import ServerManagement from './server-management.jsx';
 
 import '../../../vendor/renderer/semantic-ui/semantic';
 require('../../../vendor/renderer/lato/latofonts.css');
@@ -62,10 +62,14 @@ class AppContainer extends Component {
     const { children, config } = this.props;
     console.log("render========");
     console.log(this.props);
+    let cs;
+    if(config.isLoaded)
+    {cs=<ServerManagement />}
+
     return (
       <div className="ui">
         {
-          config.isLoaded ? children : null
+          cs
         }
       </div>
     );

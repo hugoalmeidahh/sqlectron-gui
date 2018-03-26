@@ -42,6 +42,7 @@ export function getDBConnByName(database) {
 
 export function connect (id, databaseName, reconnecting = false, sshPassphrase) {
   return async (dispatch, getState) => {
+    console.log("connect==============");
     let server;
     let dbConn;
     let database;
@@ -86,6 +87,8 @@ export function connect (id, databaseName, reconnecting = false, sshPassphrase) 
             server.ssh.passphrase = sshPassphrase;
           }
         }
+        console.log("here==============")
+        console.log(sqlectron.db);
         serverSession = sqlectron.db.createServer(server);
       }
 
