@@ -58,9 +58,11 @@ class AppContainer extends Component {
   }
 
   render() {
+    //console.log("App render=======");
     const { children, config } = this.props;
     return (
       <div className="ui">
+        <div>I am the App;</div>
         {config.isLoaded ? children : null}
       </div>
     );
@@ -74,4 +76,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(withRouter(AppContainer));
+export default connect(mapStateToProps)(AppContainer);

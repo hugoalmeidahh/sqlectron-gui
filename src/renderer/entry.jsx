@@ -13,11 +13,10 @@ var Router=BrowserRouter;
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <div>
-        <Route path="/" component={App} />
+      <App>
         <Route path="/" component={ServerManagementContainer} />
         <Route path="/server/:id" component={QueryBrowserContainer} />
-       </div>
+      </App>
     </Router>
   </Provider>,
   document.getElementById('content')

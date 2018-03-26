@@ -160,7 +160,9 @@ export default class SettingsModalForm extends Component {
     /* eslint max-len:0 */
     const { zoomFactor } = this.state;
     const zoomFactorLabel = `${Math.round(zoomFactor * 100)}%`;
-
+    console.log("render basic");
+    var zoomFactorClass=this.highlightError('zoomFactor');
+    console.log(zoomFactorClass);
     return (
       <div>
         <div className="two fields">
@@ -173,7 +175,7 @@ export default class SettingsModalForm extends Component {
               name="zoomFactor"
               value={zoomFactor}
               onChange={::this.handleChange}
-              style={{ width: '100%', 'margin-top': '10px' }} />
+              style={{ width: '100%', 'marginTop': '10px' }} />
           </div>
           <div className={`field ${this.highlightError('limitQueryDefaultSelectTop')}`}>
             <label>Limit of Rows from Select Top Query</label>
