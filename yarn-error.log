@@ -6888,7 +6888,7 @@ Trace:
   Exit code: 3221225786
   Command: C:\Windows\system32\cmd.exe
   Arguments: /d /s /c webpack-dev-server --color --config ./webpack.dev.config.js
-  Directory: D:\nodejs\apps\sql
+  Directory: D:\nodejs\apps\sqlui
   Output:
   
       at ProcessTermError.MessageError (D:\nodejs\lib\cli.js:186:110)

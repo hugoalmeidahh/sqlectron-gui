@@ -91,7 +91,7 @@ class QueryBrowserContainer extends Component {
     keys: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     //router: PropTypes.object.isRequired,
-    params: PropTypes.object.isRequired,
+    //params: PropTypes.object.isRequired,
     children: PropTypes.node,
   };
 
@@ -106,8 +106,9 @@ class QueryBrowserContainer extends Component {
   }
 
   componentWillMount () {
-    const { dispatch, params } = this.props;
-    dispatch(ConnActions.connect(params.id));
+    console.log(this.props);
+    const { dispatch, match } = this.props;
+    dispatch(ConnActions.connect(match.params.id));
   }
 
   componentDidMount() {

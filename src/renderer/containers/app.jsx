@@ -59,9 +59,14 @@ class AppContainer extends Component {
 
   render() {
     const { children, config } = this.props;
+    console.log("render========");
+    console.log(this.props);
     return (
       <div className="ui">
-        {config.isLoaded ? children : null}
+        {
+          config.isLoaded ? children : null
+          //children
+        }
       </div>
     );
   }
