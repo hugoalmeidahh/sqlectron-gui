@@ -1,12 +1,13 @@
-const sqlectron = require('sqlectron-core');
-// console.log(sqlectron);
+//const sqlectron = require('sqlectron-core');
+const sqlectron = require('./src/core/src/index.js');
+console.log(sqlectron);
 // //sqlectron.servers.getAll();
 // console.log(sqlectron.db.CLIENTS.length);
 // console.log(sqlectron.db.CLIENTS[3]);
 var serverConfig={client:sqlectron.db.CLIENTS[3].key}
-db=sqlectron.db.createServer(serverConfig);
+var db=sqlectron.db.createServer(serverConfig);
 //console.log(db);
-con=db.createConnection("D:/nodejs/apps/electron1/data.sqlite")
+var con=db.createConnection("D:/nodejs/apps/electron1/data.sqlite")
 console.log(con);
 con.connect().then(()=>{
 	console.log("connected");
