@@ -100,8 +100,9 @@ export default class ServerModalForm extends Component {
   }
 
   isFeatureDisabled(feature) {
-    //console.log("isFeatureDisabled");
-    //console.log(feature);
+    console.log("isFeatureDisabled");
+    console.log(feature);
+    console.log(this.state.client);
     if (!this.state.client) {
       return false;
     }
@@ -109,7 +110,8 @@ export default class ServerModalForm extends Component {
     //console.log(this.state.client);
 
     const dbClient = CLIENTS.find((dbc) =>{
-      //console.log(dbc.value);
+      console.log(dbc.value);
+      console.log(this.state);
       return dbc.value === this.state.client.value;
     });
     //console.log(dbClient);
@@ -260,7 +262,7 @@ export default class ServerModalForm extends Component {
     var className_schema=`four wide field ${this.highlightError('schema')}`;
     let className_sqlite1="";
     let input_sqlite;
-    if(this.state.client && this.state.client.value=== 'sqlite')
+    if(this.state.client && this.state.client.value === 'sqlite')
     { 
       className_sqlite1='ui action input';
       input_sqlite=

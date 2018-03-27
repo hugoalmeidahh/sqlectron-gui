@@ -48,7 +48,10 @@ class ServerManagerment extends Component {
   }
 
   onTestConnectionClick(server) {
+    console.log("onTestConnectionClick")
+    console.log(server);
     const { dispatch } = this.props;
+    server.client=server.client.value;
     dispatch(ConnActions.test(server));
   }
 
@@ -73,6 +76,7 @@ class ServerManagerment extends Component {
   }
 
   onSaveClick(server) {
+    server.client=server.client.value;
     const { dispatch, servers } = this.props;
     const id = servers.editingServer && servers.editingServer.id;
     dispatch(ServersActions.saveServer({ id, server }));

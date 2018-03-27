@@ -78,6 +78,8 @@ class AppContainer extends Component {
 
 
 function mapStateToProps(state) {
+  console.log("mapStateToProps");
+  console.log(state);
   return {
     config: state.config,
   };
