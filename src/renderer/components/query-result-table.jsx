@@ -154,7 +154,7 @@ export default class QueryResultTable extends Component {
     }
 
     return (
-      <div className="item">
+      <div style={params.style} key={params.key} className="item">
         <span>{field.name}</span>
         {resizeDrag}
       </div>
@@ -358,11 +358,15 @@ export default class QueryResultTable extends Component {
 
     return averageRowsCellWidth > maxWidth ? maxWidth : averageRowsCellWidth;
   }
-
+  //
   renderCell(params) {
+    //console.log("renderCell");
+    //console.log(params);
     const field = this.props.fields[params.columnIndex];
     return (
       <TableCell
+        style={params.style}
+        key={params.key} 
         rowIndex={params.rowIndex}
         data={this.props.rows}
         col={field.name}
