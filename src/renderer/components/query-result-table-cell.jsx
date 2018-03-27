@@ -55,7 +55,7 @@ export default class TableCell extends Component {
     });
 
     return (
-      <div className="item" onContextMenu={::this.onContextMenu}>
+      <div style={this.props.style} className="item" onContextMenu={::this.onContextMenu}>
         {
           value === null
             ? <span className={className}>NULL</span>

@@ -37,7 +37,14 @@ export default class ServerModalForm extends Component {
 
   constructor(props, context) {
     super(props, context);
-    const server = props.server || {};
+    let server = props.server || {};
+    if(server.client instanceof Object){
+    }
+    else{
+      server.client=CLIENTS.find((dbc) =>{
+        return dbc.value === server.client;
+      });
+    }
     this.state = {
       ...server,
       isNew: !server.id,
@@ -665,6 +672,8 @@ export default class ServerModalForm extends Component {
   }
 
   render() {
+    console.log("render== ServerModalForm")
+    console.log(this.state);
     return (
       <div id="server-modal" className="ui modal" ref="serverModal">
         <div className="header">

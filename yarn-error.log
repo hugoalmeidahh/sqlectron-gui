@@ -1,11 +1,11 @@
 Arguments: 
-  d:\nodejs\node.exe d:\nodejs\node_modules\yarn\bin\yarn.js add react-redux
+  d:\nodejs\node.exe C:\Program Files\Yarn\bin\yarn.js dev:webpack
 
 PATH: 
-  C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Windows Kits\8.1\Windows Performance Toolkit\;C:\MinGW\bin;c:\Python27;d:\nodejs;D:\Program Files\Microsoft Visual Studio 14.0\VC;C:\Users\group2\AppData\Roaming\npm;C:\Program Files\Git\bin;
+  C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Yarn\bin\;D:\nodejs\node_modules\.bin;C:\MinGW\bin;c:\Python27;d:\nodejs;D:\Program Files\Microsoft Visual Studio 14.0\VC;C:\Users\group2\AppData\Roaming\npm;C:\Program Files\Git\bin;C:\Users\group2\AppData\Local\Yarn\bin
 
 Yarn version: 
-  1.3.2
+  1.5.1
 
 Node version: 
   8.4.0
@@ -2322,7 +2322,7 @@ Lockfile:
     version "1.3.40"
     resolved "http://registry.npm.taobao.org/electron-to-chromium/download/electron-to-chromium-1.3.40.tgz#1fbd6d97befd72b8a6f921dc38d22413d2f6fddf"
   
-  electron@^1.7.9:
+  electron@^1.8.2:
     version "1.8.4"
     resolved "http://registry.npm.taobao.org/electron/download/electron-1.8.4.tgz#cca8d0e6889f238f55b414ad224f03e03b226a38"
     dependencies:
@@ -6884,4 +6884,17 @@ Lockfile:
       fd-slicer "~1.0.1"
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'D:\nodejs\apps\sqlectron-gui\node_modules\node-sass\vendor\win32-ia32-57\binding.node'
+  Error: Command failed.
+  Exit code: 3221225786
+  Command: C:\Windows\system32\cmd.exe
+  Arguments: /d /s /c webpack-dev-server --color --config ./webpack.dev.config.js
+  Directory: D:\nodejs\apps\sqlectron-gui
+  Output:
+  
+      at ProcessTermError.MessageError (C:\Program Files\Yarn\lib\cli.js:186:110)
+      at new ProcessTermError (C:\Program Files\Yarn\lib\cli.js:226:113)
+      at ChildProcess.<anonymous> (C:\Program Files\Yarn\lib\cli.js:30281:17)
+      at emitTwo (events.js:125:13)
+      at ChildProcess.emit (events.js:213:7)
+      at maybeClose (internal/child_process.js:927:16)
+      at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
