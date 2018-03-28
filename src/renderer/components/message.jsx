@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import PropTypes from 'proptypes';
-
+import $ from 'jquery';
 export default class Message extends Component {
   static propTypes = {
     closeable: PropTypes.bool,

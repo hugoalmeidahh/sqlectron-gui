@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash.clonedeep';
-import { config, sqlectron } from '../../browser/remote';
+//import { config, sqlectron } from '../../browser/remote';
 
-
+//var app = require('electron').remote; 
 export const LOAD_CONFIG_REQUEST = 'LOAD_CONFIG_REQUEST';
 export const LOAD_CONFIG_SUCCESS = 'LOAD_CONFIG_SUCCESS';
 export const LOAD_CONFIG_FAILURE = 'LOAD_CONFIG_FAILURE';
@@ -11,7 +11,7 @@ export const SAVE_CONFIG_FAILURE = 'SAVE_CONFIG_FAILURE';
 export const START_EDITING_CONFIG = 'START_EDITING_CONFIG';
 export const FINISH_EDITING_CONFIG = 'FINISH_EDITING_CONFIG';
 
-
+var { config, sqlectron }= require('electron').remote; 
 export function loadConfig() {
   return async dispatch => {
     dispatch({ type: LOAD_CONFIG_REQUEST });

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { sqlectron } from '../../browser/remote';
-
+import $ from 'jquery';
 
 const CLIENTS = sqlectron.db.CLIENTS.map(dbClient => ({
   key: dbClient.key,
   name: dbClient.name,
 }));
 
-
+//var { sqlectron }= require('electron').remote; 
 export default class ServerDBClientInfoModal extends Component {
   static propTypes = {
     client: PropTypes.string.isRequired,

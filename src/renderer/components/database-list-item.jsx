@@ -73,18 +73,18 @@ export default class DatabaseListItem extends Component {
     }));
   }
 
-  onContextMenu(event) {
+  onContextMenu=(event)=> {
     event.preventDefault();
     if (this.contextMenu) {
       this.contextMenu.popup(event.clientX, event.clientY);
     }
   }
 
-  onFilterChange(value) {
+  onFilterChange=(value)=> {
     this.setState({ filter: value });
   }
 
-  onHeaderDoubleClick(database) {
+  onHeaderDoubleClick=(database)=> {
     if (!this.isMetadataLoaded()) {
       this.props.onSelectDatabase(database);
       return;

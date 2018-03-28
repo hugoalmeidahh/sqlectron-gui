@@ -2,7 +2,7 @@ import joint from 'jointjs/dist/joint';
 import bindAll from 'lodash.bindall';
 import template from 'lodash.template';
 
-
+import $ from 'jquery';
 joint.shapes.sqlectron.TableCell = joint.shapes.basic.Rect.extend({
   defaults: joint.util.deepSupplement({
     type: 'sqlectron.TableCell',

@@ -5,11 +5,11 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as ConfigActions from '../actions/config.js';
 import ServerManagement from './server-management.jsx';
-
-import '../../../vendor/renderer/semantic-ui/semantic';
-require('../../../vendor/renderer/lato/latofonts.css');
-require('../../../vendor/renderer/semantic-ui/semantic.css');
-require('./app.css');
+import $ from 'jquery';
+//import '../../../vendor/renderer/semantic-ui/semantic';
+// require('../../../vendor/renderer/lato/latofonts.css');
+// require('../../../vendor/renderer/semantic-ui/semantic.css');
+// require('./app.css');
 
 const preventDefault = e => e.preventDefault();
 

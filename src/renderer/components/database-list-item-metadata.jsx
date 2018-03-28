@@ -37,7 +37,7 @@ export default class DbMetadataList extends Component {
     }
   }
 
-  toggleCollapse() {
+  toggleCollapse=()=> {
     this.setState({ collapsed: !this.state.collapsed });
   }
 

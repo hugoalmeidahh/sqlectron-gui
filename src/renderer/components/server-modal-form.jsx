@@ -7,11 +7,11 @@ import ConfirmModal from './confim-modal.jsx';
 import Message from './message.jsx';
 import Checkbox from './checkbox.jsx';
 import { requireLogos } from './require-context';
-
-
+import $ from 'jquery';
+//var { sqlectron }= require('electron').remote; 
 require('react-select/dist/react-select.css');
 require('./override-select.css');
-var $=window.jQuery;
+
 console.log(sqlectron.db.CLIENTS);
 const CLIENTS = sqlectron.db.CLIENTS.map(dbClient => ({
   value: dbClient.key,

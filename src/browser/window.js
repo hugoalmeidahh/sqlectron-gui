@@ -41,7 +41,7 @@ export function buildNewWindow(app) {
 
   // and load the index.html of the app.
 
-  const entryBasePath = devMode ? 'http://localhost:8080' : ('file://' + resolve(__dirname, '..'));
+  const entryBasePath = devMode ? 'http://localhost:3000' : ('file://' + resolve(__dirname, '..'));
 
   mainWindow.loadURL(entryBasePath + '/static/index.html');
 

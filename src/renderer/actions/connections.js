@@ -1,6 +1,5 @@
 import { sqlectron } from '../../browser/remote';
-
-
+//var { sqlectron }= require('electron').remote; 
 export const CLOSE_CONNECTION = 'CLOSE_CONNECTION';
 export const CONNECTION_REQUEST = 'CONNECTION_REQUEST';
 export const CONNECTION_SUCCESS = 'CONNECTION_SUCCESS';

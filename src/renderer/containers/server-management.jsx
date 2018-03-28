@@ -55,7 +55,7 @@ class ServerManagerment extends Component {
     dispatch(ConnActions.test(server));
   }
 
-  onAddClick() {
+  onAddClick=()=> {
     const { dispatch } = this.props;
     dispatch(ServersActions.startEditing());
   }
