@@ -74,7 +74,7 @@ export default class Query extends Component {
   componentDidMount() {
     this.refs.queryBoxTextarea.editor.on(
       EVENT_KEYS.onSelectionChange,
-      debounce(::this.onSelectionChange, 100),
+      debounce(this.onSelectionChange, 100),
     );
 
     // init with the auto complete disabled
@@ -142,7 +142,7 @@ export default class Query extends Component {
   componentWillUnmount() {
     this.refs.queryBoxTextarea.editor.removeListener(
       EVENT_KEYS.onSelectionChange,
-      ::this.onSelectionChange,
+      this.onSelectionChange,
     );
   }
 
@@ -282,7 +282,7 @@ export default class Query extends Component {
             className="react-resizable react-resizable-se-resize ui segment"
             height={QUERY_EDITOR_HEIGTH}
             width={500}
-            onResizeStop={::this.onQueryBoxResize}>
+            onResizeStop={this.onQueryBoxResize}>
             <AceEditor
               mode="sql"
               theme="github"
@@ -303,8 +303,8 @@ export default class Query extends Component {
                 <CheckBox
                   name="wrapQueryContents"
                   label="Wrap Contents"
-                  onChecked={::this.onWrapContentsChecked}
-                  onUnchecked={::this.onWrapContentsUnchecked} />
+                  onChecked={this.onWrapContentsChecked}
+                  onUnchecked={this.onWrapContentsUnchecked} />
               </div>
             </div>
           </ResizableBox>
@@ -314,7 +314,7 @@ export default class Query extends Component {
                 <span>
                   <button className="ui icon button small"
                     title="Query Information"
-                    onClick={::this.onShowInfoClick}>
+                    onClick={this.onShowInfoClick}>
                     <i className="icon info"></i>
                   </button>
                 </span>
@@ -325,19 +325,19 @@ export default class Query extends Component {
                 <div className="ui buttons">
                   <button
                     className={`ui positive button ${query.isExecuting ? 'loading' : ''}`}
-                    onClick={::this.onExecQueryClick}>Execute</button>
+                    onClick={this.onExecQueryClick}>Execute</button>
                   <div className="or"></div>
                   {
                     query.isExecuting && allowCancel
                     ? (
                       <button
                         className={`ui negative button ${query.isCanceling ? 'loading' : ''}`}
-                        onClick={::this.onCancelQueryClick}>Cancel</button>
+                        onClick={this.onCancelQueryClick}>Cancel</button>
                     )
                     : (
                       <button
                         className="ui button"
-                        onClick={::this.onDiscQueryClick}>Discard</button>
+                        onClick={this.onDiscQueryClick}>Discard</button>
                     )
                   }
                 </div>

@@ -1,5 +1,5 @@
-import * as connTypes from '../actions/connections';
-import * as types from '../actions/queries';
+import  connTypes from '../actions/connections';
+import  types from '../actions/queries';
 
 
 const INITIAL_STATE = {

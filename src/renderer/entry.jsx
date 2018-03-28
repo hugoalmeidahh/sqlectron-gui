@@ -1,37 +1,32 @@
+import AppSql from './AppSql.jsx';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import App from './App.jsx';
-import ServerManagementContainer from './containers/server-management2.jsx';
-import QueryBrowserContainer from './containers/query-browser2.jsx';
-
-// import App from './containers/app.jsx';
-// import ServerManagementContainer from './containers/server-management.jsx';
-// import QueryBrowserContainer from './containers/query-browser.jsx';
-
-import { BrowserRouter,Link,Route,Switch} from 'react-router-dom'
-import configureStore from './store/configure';
-const store = configureStore();
-class Root extends Component<Props> {
+import {  BrowserRouter as Router,Link,Route} from 'react-router-dom'
+class Items extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <BrowserRouter>
-            <App>
-              <Switch>
-
-                <Route path="/server/:id" component={QueryBrowserContainer} />
-                <Route path="/" component={ServerManagementContainer} />
-                
-            </Switch>
-            </App>
-        </BrowserRouter>
-      </Provider>
+      <div>items</div>);
+    }
+}
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div>
+          <div id="todoapp" className="table-responsive">
+              <Link to="/">sqlui</Link>
+              <Link style={{paddingLeft:"20px"}} to ="/items">备件</Link>
+          </div>
+          <Route exact path="/" component={AppSql}/>
+          <Route path="/Items" component={Items}/>
+        </div>
+           
+      </Router>
     );
   }
 }
 
 ReactDOM.render(
-  <Root />,
+  <App />,
   document.getElementById('content')
 );

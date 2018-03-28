@@ -153,7 +153,7 @@ export default class DatabaseItem extends Component {
           style={style}
           className="item"
           onClick={onSingleClick}
-          onContextMenu={::this.onContextMenu}>
+          onContextMenu={this.onContextMenu}>
           {dbObjectType === 'Table'
             ? <CollapseIcon arrowDirection={collapseArrowDirection} />
             : null

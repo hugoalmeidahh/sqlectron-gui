@@ -35,7 +35,7 @@ import { requireLogos } from '../components/require-context';
 require('./query-browser.css');
 require('../components/react-resizable.css');
 require('../components/react-tabs.scss');
-
+var $=window.jQuery;
 const SIDEBAR_WIDTH = 235;
 const STYLES = {
   wrapper: {},
@@ -403,12 +403,12 @@ class QueryBrowserContainer extends Component {
         tableKeys={keys.keysByTable[selectedDB]}
         diagramJSON={databases.diagramJSON}
         isSaving={databases.isSaving}
-        onGenerateDatabaseDiagram={::this.onGenerateDatabaseDiagram}
-        addRelatedTables={::this.onAddRelatedTables}
-        onSaveDatabaseDiagram={::this.onSaveDatabaseDiagram}
-        onExportDatabaseDiagram={::this.onExportDatabaseDiagram}
-        onOpenDatabaseDiagram={::this.onOpenDatabaseDiagram}
-        onClose={::this.onCloseDiagramModal} />
+        onGenerateDatabaseDiagram={this.onGenerateDatabaseDiagram}
+        addRelatedTables={this.onAddRelatedTables}
+        onSaveDatabaseDiagram={this.onSaveDatabaseDiagram}
+        onExportDatabaseDiagram={this.onExportDatabaseDiagram}
+        onOpenDatabaseDiagram={this.onOpenDatabaseDiagram}
+        onClose={this.onCloseDiagramModal} />
     );
   }
 
@@ -514,12 +514,12 @@ class QueryBrowserContainer extends Component {
             functions={routines.functionsByDatabase[query.database]}
             procedures={routines.proceduresByDatabase[query.database]}
             widthOffset={this.state.sideBarWidth}
-            onExecQueryClick={::this.handleExecuteQuery}
-            onCancelQueryClick={::this.handleCancelQuery}
-            onCopyToClipboardClick={::this.copyToClipboard}
-            onSaveToFileClick={::this.saveToFile}
-            onSQLChange={::this.onSQLChange}
-            onSelectionChange={::this.onQuerySelectionChange} />
+            onExecQueryClick={this.handleExecuteQuery}
+            onCancelQueryClick={this.handleCancelQuery}
+            onCopyToClipboardClick={this.copyToClipboard}
+            onSaveToFileClick={this.saveToFile}
+            onSQLChange={this.onSQLChange}
+            onSelectionChange={this.onQuerySelectionChange} />
         </TabPanel>
       );
     });
@@ -528,9 +528,9 @@ class QueryBrowserContainer extends Component {
       this.tabListTotalWidthChildren - Math.abs(this.state.tabNavPosition) <= this.tabListTotalWidth
     );
     const selectedIndex = queries.queryIds.indexOf(queries.currentQueryId);
-    const isTabsFitOnScreen = this.tabListTotalWidthChildren >= this.tabListTotalWidth;
+    const isTabsFitOnScreen = (this.tabListTotalWidthChildren >= this.tabListTotalWidth);
     return (
-      <Tabs onSelect={::this.handleSelectTab} selectedIndex={selectedIndex} forceRenderTabPanel>
+      <Tabs onSelect={this.handleSelectTab} selectedIndex={selectedIndex} forceRenderTabPanel>
         <div id="tabs-nav-wrapper" className="ui pointing secondary menu">
           {isTabsFitOnScreen &&
             <button className="ui icon button"
@@ -590,8 +590,8 @@ class QueryBrowserContainer extends Component {
           type="password"
           title={'SSH Private Key Passphrase'}
           message="Enter the private key passphrase:"
-          onCancelClick={::this.onPromptCancelClick}
-          onOKClick={::this.onPromptOKClick} />
+          onCancelClick={this.onPromptCancelClick}
+          onOKClick={this.onPromptOKClick} />
       );
     }
 
@@ -611,10 +611,10 @@ class QueryBrowserContainer extends Component {
         {isLoading && <Loader message={status} type="page" />}
         <div style={STYLES.header}>
           <Header items={breadcrumb}
-            onCloseConnectionClick={::this.onCloseConnectionClick}
-            onReConnectionClick={::this.onReConnectionClick} />
+            onCloseConnectionClick={this.onCloseConnectionClick}
+            onReConnectionClick={this.onReConnectionClick} />
         </div>
-        <div onClick={::this.onCollapseClick} style={STYLES.collapse}>
+        <div onClick={this.onCollapseClick} style={STYLES.collapse}>
           <i
             className={`${this.state.sidebarCollapsed ? 'right' : 'left'} triangle icon`}
             style={{ top: 'calc(100vh/2 - 7px)', position: 'absolute', marginLeft: -3 }}
@@ -645,7 +645,7 @@ class QueryBrowserContainer extends Component {
                     ref="databaseFilter"
                     value={filter}
                     isFetching={databases.isFetching}
-                    onFilterChange={::this.onFilterChange} />
+                    onFilterChange={this.onFilterChange} />
                 </div>
                 <DatabaseList
                   ref="databaseList"
@@ -661,12 +661,12 @@ class QueryBrowserContainer extends Component {
                   viewsByDatabase={views.viewsByDatabase}
                   functionsByDatabase={routines.functionsByDatabase}
                   proceduresByDatabase={routines.proceduresByDatabase}
-                  onSelectDatabase={::this.onSelectDatabase}
-                  onExecuteDefaultQuery={::this.onExecuteDefaultQuery}
-                  onSelectTable={::this.onSelectTable}
-                  onGetSQLScript={::this.onGetSQLScript}
-                  onRefreshDatabase={::this.onRefreshDatabase}
-                  onShowDiagramModal={::this.onShowDiagramModal} />
+                  onSelectDatabase={this.onSelectDatabase}
+                  onExecuteDefaultQuery={this.onExecuteDefaultQuery}
+                  onSelectTable={this.onSelectTable}
+                  onGetSQLScript={this.onGetSQLScript}
+                  onRefreshDatabase={this.onRefreshDatabase}
+                  onShowDiagramModal={this.onShowDiagramModal} />
               </div>
             </ResizableBox>
           </div>

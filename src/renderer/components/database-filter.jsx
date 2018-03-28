@@ -26,7 +26,7 @@ export default class DatabaseFilter extends Component {
           value={value}
           ref="searchInput"
           disabled={isFetching}
-          onChange={::this.onFilterChange} />
+          onChange={this.onFilterChange} />
         <i className="search icon"></i>
       </div>
     );

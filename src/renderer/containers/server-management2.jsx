@@ -10,7 +10,7 @@ import '../../../vendor/renderer/semantic-ui/semantic';
 require('../../../vendor/renderer/lato/latofonts.css');
 require('../../../vendor/renderer/semantic-ui/semantic.css');
 require('./app.css');
-
+var $=window.jQuery;
 const preventDefault = e => e.preventDefault();
 
 class AppContainer extends Component {
