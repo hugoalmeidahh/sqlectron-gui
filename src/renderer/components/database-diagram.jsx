@@ -7,7 +7,6 @@ import './jointjs-diagram-table-cell';
 require('jointjs/dist/joint.min.css');
 require('./database-diagram.css');
 
-var $=window.jQuery;
 export default class DatabaseDiagram extends Component {
   static propTypes = {
     tables: PropTypes.array,

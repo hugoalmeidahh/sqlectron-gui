@@ -1,6 +1,7 @@
 {
   "name": "Sqlectron",
   "version": "1.29.0",
+  "homepage": ".",
   "description": "A simple and lightweight SQL client with cross database and platform support",
   "author": {
     "name": "The Sqlectron Team",
@@ -86,6 +87,7 @@
     "react-ace": "^5.9.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^1.1.1",
+    "semantic-react": "^0.12.0",
     "sqlectron-core": "^8.0.0"
   },
   "devDependencies": {

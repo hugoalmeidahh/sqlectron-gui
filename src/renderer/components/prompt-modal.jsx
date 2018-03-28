@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 
-var $=window.jQuery;
+
 export default class PromptModal extends Component {
   static propTypes = {
     onCancelClick: PropTypes.func.isRequired,

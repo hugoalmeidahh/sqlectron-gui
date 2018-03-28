@@ -1,5 +1,5 @@
-import  connTypes from '../actions/connections';
-import  types from '../actions/queries';
+import  * as connTypes from '../actions/connections';
+import  * as types from '../actions/queries';
 
 
 const INITIAL_STATE = {
@@ -114,7 +114,7 @@ export default function (state = INITIAL_STATE, action) {
         copied: true,
       });
     }
-    case types.COPY_QUERY_RESULT_TO_CLIPBOARD_FAIL: {
+    case types.COPY_QUERY_RESULT_TO_CLIPBOARD_FAILURE: {
       return changeStateByCurrentQuery(state, {
         error: action.error,
         copied: false,

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { sqlectron } from '../../browser/remote';
 
-var $=window.jQuery;
+
 const CLIENTS = sqlectron.db.CLIENTS.map(dbClient => ({
   key: dbClient.key,
   name: dbClient.name,

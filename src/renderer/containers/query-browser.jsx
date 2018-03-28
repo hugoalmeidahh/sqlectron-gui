@@ -35,7 +35,7 @@ import { requireLogos } from '../components/require-context';
 require('./query-browser.css');
 require('../components/react-resizable.css');
 require('../components/react-tabs.scss');
-var $=window.jQuery;
+
 const SIDEBAR_WIDTH = 235;
 const STYLES = {
   wrapper: {},

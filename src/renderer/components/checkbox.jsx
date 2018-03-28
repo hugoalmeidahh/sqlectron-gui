@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-var $=window.jQuery;
+
 export default class Checkbox extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
