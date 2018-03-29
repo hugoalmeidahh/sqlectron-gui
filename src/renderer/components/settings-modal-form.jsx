@@ -9,7 +9,7 @@ import Checkbox from './checkbox.jsx';
 require('react-select/dist/react-select.css');
 require('./override-select.css');
 
-if(!$) $=window.$;
+if(!$){ var $=window.$};
 export default class SettingsModalForm extends Component {
   static propTypes = {
     onSaveClick: PropTypes.func.isRequired,
@@ -131,7 +131,7 @@ export default class SettingsModalForm extends Component {
         </div>
         <div className="small ui green right labeled icon button"
           tabIndex="0"
-          onClick={::this.onSaveClick}>
+          onClick={this.onSaveClick.bind(this)}>
           Save
           <i className="checkmark icon"></i>
         </div>
@@ -174,7 +174,7 @@ export default class SettingsModalForm extends Component {
               step="0.2"
               name="zoomFactor"
               value={zoomFactor}
-              onChange={::this.handleChange}
+              onChange={this.handleChange.bind(this)}
               style={{ width: '100%', 'margin-top': '10px' }} />
           </div>
           <div className={`field ${this.highlightError('limitQueryDefaultSelectTop')}`}>
@@ -182,7 +182,7 @@ export default class SettingsModalForm extends Component {
             <input type="number"
               name="limitQueryDefaultSelectTop"
               value={this.state.limitQueryDefaultSelectTop || ''}
-              onChange={::this.handleChange} />
+              onChange={this.handleChange.bind(this)} />
             <p className="help">The limit used in the default select from the sidebar context menu.</p>
           </div>
         </div>
@@ -266,14 +266,14 @@ export default class SettingsModalForm extends Component {
                   name="log.path"
                   placeholder="~/.sqlectron.log"
                   value={log.path || ''}
-                  onChange={::this.handleChange} />
+                  onChange={this.handleChange.bind(this)} />
                 <label htmlFor="file.log.path" className="ui icon button btn-file">
                   <i className="file outline icon" />
                   <input
                     type="file"
                     id="file.log.path"
                     name="file.log.path"
-                    onChange={::this.handleChange}
+                    onChange={this.handleChange.bind(this)}
                     style={{ display: 'none' }} />
                 </label>
               </div>
@@ -290,7 +290,7 @@ export default class SettingsModalForm extends Component {
                   { value: 'error', label: 'Error', icon: 'remove circle' },
                 ]}
                 clearable={false}
-                onChange={::this.handleOnLogLevelChange}
+                onChange={this.handleOnLogLevelChange.bind(this)}
                 optionRenderer={this.renderLogLevelItem}
                 valueRenderer={this.renderLogLevelItem}
                 value={log.level || 'error'} />

@@ -9,7 +9,7 @@ const Menu = remote.Menu;
 const MenuItem = remote.MenuItem;
 const CLIENTS = sqlectron.db.CLIENTS;
 
-if(!$) $=window.$;
+//if($) $=window.$;
 export default class DatabaseItem extends Component {
   static propTypes = {
     client: PropTypes.string.isRequired,
@@ -153,7 +153,7 @@ export default class DatabaseItem extends Component {
           style={style}
           className="item"
           onClick={onSingleClick}
-          onContextMenu={::this.onContextMenu}>
+          onContextMenu={this.onContextMenu.bind(this)}>
           {dbObjectType === 'Table'
             ? <CollapseIcon arrowDirection={collapseArrowDirection} />
             : null

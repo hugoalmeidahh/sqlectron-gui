@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import classNames from 'classnames';
 
-if(!$) $=window.$;
+if(!$){ var $=window.$};
 export default class PreviewModal extends Component {
   static propTypes = {
     value: PropTypes.oneOfType([

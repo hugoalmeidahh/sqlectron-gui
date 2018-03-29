@@ -4,7 +4,7 @@ import DatabaseListItemMetatada from './database-list-item-metadata.jsx';
 import DatabaseFilter from './database-filter.jsx';
 import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
 
-if(!$)  $=window.$;
+if(!$){ var $=window.$};
 const { Menu, MenuItem } = remote;
 
 
@@ -166,7 +166,7 @@ export default class DatabaseListItem extends Component {
             ref="filter"
             value={filter}
             isFetching={!isMetadataLoaded}
-            onFilterChange={::this.onFilterChange} />
+            onFilterChange={this.onFilterChange.bind(this)} />
         </div>
         <DatabaseListItemMetatada
           title="Tables"
@@ -220,7 +220,7 @@ export default class DatabaseListItem extends Component {
       <span
         className="header"
         onDoubleClick={() => this.onHeaderDoubleClick(database)}
-        onContextMenu={::this.onContextMenu}
+        onContextMenu={this.onContextMenu.bind(this)}
         style={STYLE.database}>
         <i className={`${collapseCssClass} triangle icon`}
           style={{ cursor: 'pointer' }}

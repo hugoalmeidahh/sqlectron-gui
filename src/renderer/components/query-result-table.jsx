@@ -39,7 +39,7 @@ export default class QueryResultTable extends Component {
       columnWidths: {},
       autoColumnWidths: [],
     };
-    this.resizeHandler = debounce(::this.onResize, 20);
+    this.resizeHandler = debounce(this.onResize.bind(this), 20);
   }
 
   componentDidMount() {
@@ -103,7 +103,7 @@ export default class QueryResultTable extends Component {
 
   onResize() {
     clearTimeout(this.resizeTimer);
-    this.resizeTimer = setTimeout(::this.resize, 16);
+    this.resizeTimer = setTimeout(this.resize.bind(this), 16);
   }
 
   getTextWidth(text, font) {
@@ -194,7 +194,7 @@ export default class QueryResultTable extends Component {
     }
   }
 
-  resize=(nextProps)=> {
+  resize(nextProps) {
     const props = nextProps || this.props;
     const tableWidth = window.innerWidth - (props.widthOffset + 27);
     const tableHeight = window.innerHeight - (props.heigthOffset + 225);
@@ -263,7 +263,7 @@ export default class QueryResultTable extends Component {
     return (
       <PreviewModal
         value={this.state.valuePreview}
-        onCloseClick={::this.onClosePreviewClick}
+        onCloseClick={this.onClosePreviewClick.bind(this)}
       />
     );
   }
@@ -281,16 +281,16 @@ export default class QueryResultTable extends Component {
       <Grid
         className="grid-body"
         ref={(ref) => { this.rowsGrid = ref; }}
-        cellRenderer={::this.renderCell}
+        cellRenderer={this.renderCell.bind(this)}
         width={tableWidth}
         height={Math.min((tableHeight - headerHeight), fixedHeightRows)}
         rowHeight={rowHeight}
         onScroll={onScroll}
         rowCount={rowCount}
         columnCount={fields.length}
-        columnWidth={::this.getColumnWidth}
+        columnWidth={this.getColumnWidth.bind(this)}
         rowsCount={rowCount}
-        noContentRenderer={::this.renderNoRows} />
+        noContentRenderer={this.renderNoRows.bind(this)} />
 
     );
   }
@@ -306,10 +306,10 @@ export default class QueryResultTable extends Component {
     return (
       <Grid
         ref={(ref) => { this.headerGrid = ref; }}
-        columnWidth={::this.getColumnWidth}
+        columnWidth={this.getColumnWidth.bind(this)}
         columnCount={fields.length}
         height={30}
-        cellRenderer={::this.renderHeaderCell}
+        cellRenderer={this.renderHeaderCell.bind(this)}
         className="grid-header-row"
         rowHeight={30}
         rowCount={1}
@@ -368,7 +368,7 @@ export default class QueryResultTable extends Component {
         rowIndex={params.rowIndex}
         data={this.props.rows}
         col={field.name}
-        onOpenPreviewClick={::this.onOpenPreviewClick} />
+        onOpenPreviewClick={this.onOpenPreviewClick.bind(this)} />
     );
   }
 

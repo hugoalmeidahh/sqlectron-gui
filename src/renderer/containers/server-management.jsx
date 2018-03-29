@@ -131,9 +131,9 @@ class ServerManagerment extends Component {
         </div>
         <div style={STYLES.container}>
           <ServerFilter
-            onFilterChange={::this.onFilterChange}
-            onAddClick={::this.onAddClick}
-            onSettingsClick={::this.onSettingsClick} />
+            onFilterChange={this.onFilterChange.bind(this)}
+            onAddClick={this.onAddClick.bind(this)}
+            onSettingsClick={this.onSettingsClick.bind(this)} />
 
           {
             connections.error &&
@@ -145,24 +145,24 @@ class ServerManagerment extends Component {
           }
 
           <ServerList servers={filteredServers}
-            onEditClick={::this.onEditClick}
-            onConnectClick={::this.onConnectClick} />
+            onEditClick={this.onEditClick.bind(this)}
+            onConnectClick={this.onConnectClick.bind(this)} />
 
           {servers.isEditing && <ServerModalForm
             server={selected}
             error={servers.error}
             testConnection={testConnection}
-            onTestConnectionClick={::this.onTestConnectionClick}
-            onDuplicateClick={::this.onDuplicateClick}
-            onSaveClick={::this.onSaveClick}
-            onCancelClick={::this.onCancelClick}
-            onRemoveClick={::this.onRemoveClick} />}
+            onTestConnectionClick={this.onTestConnectionClick.bind(this)}
+            onDuplicateClick={this.onDuplicateClick.bind(this)}
+            onSaveClick={this.onSaveClick.bind(this)}
+            onCancelClick={this.onCancelClick.bind(this)}
+            onRemoveClick={this.onRemoveClick.bind(this)} />}
 
           {config.isEditing && <SettingsModalForm
             config={config}
             error={config.error}
-            onSaveClick={::this.onSettingsSaveClick}
-            onCancelClick={::this.onSettingsCancelClick} />}
+            onSaveClick={this.onSettingsSaveClick.bind(this)}
+            onCancelClick={this.onSettingsCancelClick.bind(this)} />}
         </div>
         <div style={STYLES.footer}>
           <Footer status={status} />

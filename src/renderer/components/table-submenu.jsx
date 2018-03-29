@@ -46,7 +46,7 @@ export default class TableSubmenu extends Component {
       <span
         title={title}
         className="header clickable"
-        onClick={::this.toggleCollapse}
+        onClick={this.toggleCollapse.bind(this)}
         style={cssStyle}>
         <i className={`${cssClass} triangle icon`}></i>
         {this.props.title}

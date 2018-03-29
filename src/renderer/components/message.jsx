@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import PropTypes from 'proptypes';
-if(!$) $=window.$;
+if(!$){ var $=window.$};
 export default class Message extends Component {
   static propTypes = {
     closeable: PropTypes.bool,
@@ -19,7 +19,7 @@ export default class Message extends Component {
     return (
       <div ref="message" className={`ui message ${type || ''}`}>
         {
-          closeable && <i className="close icon" onClick={::this.onClose}></i>
+          closeable && <i className="close icon" onClick={this.onClose.bind(this)}></i>
         }
         {
           title && <div className="header">{title}</div>

@@ -9,11 +9,11 @@ const LATEST_RELEASE_URL = `https://github.com/${repo}/releases/latest`;
 
 export default class UpdateChecker extends Component {
   componentDidMount() {
-    ipcRenderer.on(EVENT_KEY, ::this.onUpdateAvailable);
+    ipcRenderer.on(EVENT_KEY, this.onUpdateAvailable.bind(this));
   }
 
   componentWillUnmount() {
-    ipcRenderer.removeListener(EVENT_KEY, ::this.onUpdateAvailable);
+    ipcRenderer.removeListener(EVENT_KEY, this.onUpdateAvailable.bind(this));
   }
 
   onUpdateAvailable() {

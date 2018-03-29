@@ -1,7 +1,7 @@
 import joint from 'jointjs/dist/joint';
 import bindAll from 'lodash.bindall';
 import template from 'lodash.template';
-if(!$) $=window.$;
+if(!$){ var $=window.$};
 
 // Custom joint shape representing table/view object
 joint.shapes.sqlectron = {};

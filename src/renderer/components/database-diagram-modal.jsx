@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import DatabaseDiagram from './database-diagram.jsx';
 import Loader from './loader.jsx';
-if(!$)  $=window.$;
+if(!$){ var $=window.$};
 const STYLE = {
   list: {
     maxHeight: '250px',
@@ -129,11 +129,11 @@ export default class DatabaseDiagramModal extends Component {
               Select tables to include on diagram
             </h4>
             <div className="ui mini buttons">
-              <button className="ui button mini" onClick={::this.onSelectAllTables}>
+              <button className="ui button mini" onClick={this.onSelectAllTables.bind(this)}>
                 Select All
               </button>
               <div className="or"></div>
-              <button className="ui button mini" onClick={::this.onDeselectAllTables}>
+              <button className="ui button mini" onClick={this.onDeselectAllTables.bind(this)}>
                 Deselect All
               </button>
             </div>
@@ -141,7 +141,7 @@ export default class DatabaseDiagramModal extends Component {
               {tablesAndViews.map((item) =>
                 <div key={item.name} className="item">
                   <div className="ui checkbox">
-                    <input id={item.name} type="checkbox" onChange={::this.onCheckBoxesChange} />
+                    <input id={item.name} type="checkbox" onChange={this.onCheckBoxesChange.bind(this)} />
                     <label>{item.name}</label>
                   </div>
                 </div>
@@ -151,7 +151,7 @@ export default class DatabaseDiagramModal extends Component {
               ref="generateButton"
               className="ui right floated positive button disabled"
               style={{ marginBottom: '1em' }}
-              onClick={::this.onGenerateDiagramClick}>
+              onClick={this.onGenerateDiagramClick.bind(this)}>
               Generate diagram
             </button>
           </div>
@@ -196,7 +196,7 @@ export default class DatabaseDiagramModal extends Component {
         tableKeys={tableKeys}
         diagramJSON={diagramJSON}
         isSaving={isSaving}
-        addRelatedTables={::this.onAddRelatedTables} />
+        addRelatedTables={this.onAddRelatedTables.bind(this)} />
     );
   }
 

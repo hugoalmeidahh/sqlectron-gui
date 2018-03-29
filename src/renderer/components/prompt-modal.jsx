@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 
-if(!$) $=window.$;
+if(!$){ var $=window.$};
 export default class PromptModal extends Component {
   static propTypes = {
     onCancelClick: PropTypes.func.isRequired,
@@ -51,7 +51,7 @@ export default class PromptModal extends Component {
         <div className="content">
           {message}
           <div className="ui fluid icon input">
-            <input onChange={::this.handleChange} type={type} onKeyPress={::this.handleKeyPress} />
+            <input onChange={this.handleChange.bind(this)} type={type} onKeyPress={this.handleKeyPress.bind(this)} />
           </div>
         </div>
         <div className="actions">
