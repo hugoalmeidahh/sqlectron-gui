@@ -6,3 +6,5 @@ installers
 npm-debug.log
 .DS_Store
 .tmp
+*.log
+*.lock

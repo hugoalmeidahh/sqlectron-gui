@@ -39,7 +39,7 @@ class ServerManagerment extends Component {
     this.state = {};
   }
 
-  onConnectClick({ id }) {
+  onConnectClick=({ id }) =>{
     console.log(this.props);
     console.log(id);
     var path=`/server/${id}`;
@@ -49,6 +49,7 @@ class ServerManagerment extends Component {
 
   onTestConnectionClick(server) {
     const { dispatch } = this.props;
+    //server.client=server.client.value;
     dispatch(ConnActions.test(server));
   }
 
@@ -75,6 +76,9 @@ class ServerManagerment extends Component {
   onSaveClick(server) {
     const { dispatch, servers } = this.props;
     const id = servers.editingServer && servers.editingServer.id;
+    console.log("onSaveClick======");
+    console.log(server);
+
     dispatch(ServersActions.saveServer({ id, server }));
   }
 

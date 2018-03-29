@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from '../reducers';
-import { createLogger } from '../../browser/remote';
-
+//import { createLogger } from '../../browser/remote';
+var { createLogger }= require('electron').remote; 
 
 const middlewares = [thunkMiddleware];
 

@@ -2,7 +2,10 @@ import React  from 'react';
 import PropTypes from 'proptypes';
 import { requireLogos } from './require-context';
 import { sqlectron } from '../../browser/remote';
+//var e=require('electron');
+//console.log(e);
 
+//var { sqlectron }= require('electron').remote; 
 /**
  * Load icons for supported database clients
  */

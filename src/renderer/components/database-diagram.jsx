@@ -3,10 +3,9 @@ import PropTypes from 'proptypes';
 import joint from 'jointjs/dist/joint';
 import './jointjs-diagram-table';
 import './jointjs-diagram-table-cell';
-
+if(!$) $=window.$;
 require('jointjs/dist/joint.min.css');
 require('./database-diagram.css');
-
 
 export default class DatabaseDiagram extends Component {
   static propTypes = {

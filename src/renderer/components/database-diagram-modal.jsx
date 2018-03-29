@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import DatabaseDiagram from './database-diagram.jsx';
 import Loader from './loader.jsx';
-
+if(!$)  $=window.$;
 const STYLE = {
   list: {
     maxHeight: '250px',

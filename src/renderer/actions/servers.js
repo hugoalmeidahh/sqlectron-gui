@@ -1,7 +1,7 @@
-import { sqlectron } from '../../browser/remote';
+//import { sqlectron } from '../../browser/remote';
 import * as ConfigActions from './config.js';
 
-
+var { sqlectron }= require('electron').remote; 
 export const SAVE_SERVER_REQUEST = 'SAVE_SERVER_REQUEST';
 export const SAVE_SERVER_SUCCESS = 'SAVE_SERVER_SUCCESS';
 export const SAVE_SERVER_FAILURE = 'SAVE_SERVER_FAILURE';
@@ -46,6 +46,9 @@ export function saveServer ({ server, id }) {
   return async (dispatch, getState) => {
     dispatch({ type: SAVE_SERVER_REQUEST, server });
     try {
+      console.log("-------------saveServer");
+      const state = getState();
+      console.log(state);
       const { config } = getState();
       const cryptoSecret = config.data.crypto.secret;
 

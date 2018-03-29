@@ -30,8 +30,8 @@ import Loader from '../components/loader.jsx';
 import PromptModal from '../components/prompt-modal.jsx';
 import MenuHandler from '../menu-handler';
 import { requireLogos } from '../components/require-context';
-
-
+import $ from 'jquery';
+//var { sqlectron }= require('electron').remote; 
 require('./query-browser.css');
 require('../components/react-resizable.css');
 require('../components/react-tabs.scss');
@@ -528,7 +528,7 @@ class QueryBrowserContainer extends Component {
       this.tabListTotalWidthChildren - Math.abs(this.state.tabNavPosition) <= this.tabListTotalWidth
     );
     const selectedIndex = queries.queryIds.indexOf(queries.currentQueryId);
-    const isTabsFitOnScreen = this.tabListTotalWidthChildren >= this.tabListTotalWidth;
+    const isTabsFitOnScreen = (this.tabListTotalWidthChildren >= this.tabListTotalWidth);
     return (
       <Tabs onSelect={::this.handleSelectTab} selectedIndex={selectedIndex} forceRenderTabPanel>
         <div id="tabs-nav-wrapper" className="ui pointing secondary menu">

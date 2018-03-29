@@ -6,7 +6,7 @@ import PropTypes from 'proptypes';
 import { valueToString } from '../utils/convert';
 
 const { Menu, MenuItem } = remote;
-
+if(!$) $=window.$;
 export default class TableCell extends Component {
   static propTypes = {
     rowIndex: PropTypes.number.isRequired,

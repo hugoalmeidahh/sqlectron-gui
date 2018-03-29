@@ -1,0 +1,1 @@
+node -r babel-register c1.js

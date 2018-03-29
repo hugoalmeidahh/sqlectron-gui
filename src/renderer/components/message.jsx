@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import PropTypes from 'proptypes';
+if(!$) $=window.$;
 export default class Message extends Component {
   static propTypes = {
     closeable: PropTypes.bool,

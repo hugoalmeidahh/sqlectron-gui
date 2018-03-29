@@ -1,0 +1,63 @@
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+<link type="text/css" rel="stylesheet" href="%PUBLIC_URL%/vendor/renderer/semantic-ui/semantic.css" />
+<link type="text/css" rel="stylesheet" href="%PUBLIC_URL%/vendor/renderer/lato/latofonts.css" />
+<!-- <script type="text/javascript" src="%PUBLIC_URL%/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="%PUBLIC_URL%/semantic/semantic.js"></script> -->
+ --> <!-- Insert this line above script imports  -->
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+<!-- normal script imports etc  -->
+<script type="text/javascript" src="%PUBLIC_URL%/jquery-3.3.1.js"></script>  
+<script type="text/javascript" src="%PUBLIC_URL%/vendor/renderer/semantic-ui/semantic.js"></script>
+<!-- Insert this line after script imports -->
+<script>
+  if (window.module) module = window.module;
+  function onChecked(){
+     console.log("onChecked")
+  }
+  function onUnchecked(){
+    console.log("onUnchecked");
+  }
+  function buttonclick(){
+    console.log("buttonclick");
+    console.log($("#check1"));
+    $("#check1").checkbox({ onChecked, onUnchecked })
+  }
+</script>
+
+<style type="text/css">
+    #page{ 
+      padding: 5px 5px 5px 5px;
+    }
+    .table_input{background-color:green;}
+    .newClass { background-color:#8888ff;}
+    .custom-modal{width:1000px;}
+  </style>
+    <title>React装箱单</title>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <!-- <button onclick="buttonclick()">test</button>
+    <div id="check1" class="ui toggle checkbox"><input type="checkbox" name="log.file" value="on"><label>File</label></div> -->
+    
+    <div id="root"></div> 
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>

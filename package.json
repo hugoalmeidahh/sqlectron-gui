@@ -1,6 +1,7 @@
 {
   "name": "Sqlectron",
   "version": "1.29.0",
+  "homepage": "https://sqlectron.github.io",
   "description": "A simple and lightweight SQL client with cross database and platform support",
   "author": {
     "name": "The Sqlectron Team",
@@ -8,7 +9,6 @@
   },
   "main": "./out/browser/main.js",
   "license": "MIT",
-  "homepage": "https://sqlectron.github.io",
   "bugs": "https://github.com/sqlectron/sqlectron-gui/issues",
   "repository": {
     "type": "git",
@@ -81,10 +81,12 @@
     "babel-core": "^6.22.1",
     "babel-polyfill": "^6.22.0",
     "bunyan": "^1.8.5",
+    "electron-renderer-react-scripts-target": "^1.1.1",
     "lodash.defaultsdeep": "^4.6.0",
     "proptypes": "^1.1.0",
     "react-ace": "^5.9.0",
     "react-router-dom": "^4.2.2",
+    "react-scripts": "^1.1.1",
     "sqlectron-core": "^8.0.0"
   },
   "devDependencies": {

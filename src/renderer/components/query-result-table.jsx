@@ -154,7 +154,7 @@ export default class QueryResultTable extends Component {
     }
 
     return (
-      <div className="item">
+      <div style={params.style} key={params.key} className="item">
         <span>{field.name}</span>
         {resizeDrag}
       </div>
@@ -194,7 +194,7 @@ export default class QueryResultTable extends Component {
     }
   }
 
-  resize(nextProps) {
+  resize=(nextProps)=> {
     const props = nextProps || this.props;
     const tableWidth = window.innerWidth - (props.widthOffset + 27);
     const tableHeight = window.innerHeight - (props.heigthOffset + 225);
@@ -363,6 +363,8 @@ export default class QueryResultTable extends Component {
     const field = this.props.fields[params.columnIndex];
     return (
       <TableCell
+        style={params.style}
+        key={params.key} 
         rowIndex={params.rowIndex}
         data={this.props.rows}
         col={field.name}

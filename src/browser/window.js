@@ -40,8 +40,13 @@ export function buildNewWindow(app) {
   attachMenuToWindow(app, buildNewWindow, appConfig);
 
   // and load the index.html of the app.
+
   const entryBasePath = devMode ? 'http://localhost:8080' : ('file://' + resolve(__dirname, '..'));
+
   mainWindow.loadURL(entryBasePath + '/static/index.html');
+  // const entryBasePath = devMode ? 'http://localhost:3000' : ('file://' + resolve(__dirname, '..'));
+
+  // mainWindow.loadURL(entryBasePath);// + '/static/index.html');
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => delete WINDOWS[windowsNumber]);
