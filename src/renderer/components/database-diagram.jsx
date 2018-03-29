@@ -3,7 +3,7 @@ import PropTypes from 'proptypes';
 import joint from 'jointjs/dist/joint';
 import './jointjs-diagram-table';
 import './jointjs-diagram-table-cell';
-import $ from 'jquery';
+var $=window.$;
 require('jointjs/dist/joint.min.css');
 require('./database-diagram.css');
 

@@ -84,7 +84,7 @@ export default class QueryResultTable extends Component {
     window.removeEventListener('resize', this.resizeHandler, false);
   }
 
-  onColumnResizeEndCallback(newColumnWidth, columnKey) {
+  onColumnResizeEndCallback=(newColumnWidth, columnKey)=>{
     this.setState(({ columnWidths }) => ({
       columnWidths: {
         ...columnWidths,
@@ -93,15 +93,15 @@ export default class QueryResultTable extends Component {
     }));
   }
 
-  onOpenPreviewClick(value) {
+  onOpenPreviewClick=(value)=> {
     this.setState({ showPreview: true, valuePreview: value });
   }
 
-  onClosePreviewClick() {
+  onClosePreviewClick=()=> {
     this.setState({ showPreview: false, valuePreview: null });
   }
 
-  onResize() {
+  onResize=()=> {
     clearTimeout(this.resizeTimer);
     this.resizeTimer = setTimeout(this.resize, 16);
   }
@@ -194,7 +194,7 @@ export default class QueryResultTable extends Component {
     }
   }
 
-  resize(nextProps) {
+  resize=(nextProps)=> {
     const props = nextProps || this.props;
     const tableWidth = window.innerWidth - (props.widthOffset + 27);
     const tableHeight = window.innerHeight - (props.heigthOffset + 225);
@@ -205,7 +205,7 @@ export default class QueryResultTable extends Component {
     this.setState({ tableWidth, tableHeight });
   }
 
-  renderHeaderTopBar() {
+  renderHeaderTopBar=()=> {
     const { rows, rowCount, onCopyToClipboardClick, onSaveToFileClick } = this.props;
     const styleCopied = { display: this.state.showCopied ? 'inline-block' : 'none' };
     const styleSaved = { display: this.state.showSaved ? 'inline-block' : 'none' };
@@ -255,7 +255,7 @@ export default class QueryResultTable extends Component {
     );
   }
 
-  renderPreviewModal() {
+  renderPreviewModal=()=> {
     if (!this.state.showPreview) {
       return null;
     }
@@ -268,7 +268,7 @@ export default class QueryResultTable extends Component {
     );
   }
 
-  renderTableBody(onScroll) {
+  renderTableBody=(onScroll)=> {
     const { rowCount, fields } = this.props;
     const { tableWidth, tableHeight } = this.state;
 
@@ -318,7 +318,7 @@ export default class QueryResultTable extends Component {
     );
   }
 
-  getColumnWidth({ index }) {
+  getColumnWidth=({ index })=> {
     const { columnWidths, autoColumnWidths } = this.state;
     const field = this.props.fields[index];
 
@@ -359,7 +359,7 @@ export default class QueryResultTable extends Component {
     return averageRowsCellWidth > maxWidth ? maxWidth : averageRowsCellWidth;
   }
   //
-  renderCell(params) {
+  renderCell=(params)=> {
     //console.log("renderCell");
     //console.log(params);
     const field = this.props.fields[params.columnIndex];

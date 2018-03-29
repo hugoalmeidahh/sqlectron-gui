@@ -30,13 +30,13 @@ export default class PromptModal extends Component {
     $(this.refs.promptModal).modal('hide');
   }
 
-  handleKeyPress(event) {
+  handleKeyPress=(event)=> {
     if (event.key === 'Enter') {
       this.props.onOKClick(this.state.value);
     }
   }
 
-  handleChange(event) {
+  handleChange=(event)=> {
     this.setState({ value: event.target.value });
   }
 

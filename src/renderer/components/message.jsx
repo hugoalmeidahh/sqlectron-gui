@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import PropTypes from 'proptypes';
-import $ from 'jquery';
+var $=window.$;
 export default class Message extends Component {
   static propTypes = {
     closeable: PropTypes.bool,
@@ -10,7 +10,7 @@ export default class Message extends Component {
     preformatted: PropTypes.bool,
   }
 
-  onClose() {
+  onClose=()=> {
     $(this.refs.message).transition('fade');
   }
 

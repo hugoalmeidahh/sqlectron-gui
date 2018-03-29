@@ -15,7 +15,7 @@ import { ResizableBox } from 'react-resizable';
 require('./react-resizable.css');
 require('./override-ace.css');
 
-
+var $=window.$;
 const QUERY_EDITOR_HEIGTH = 200;
 const langTools = ace.acequire('ace/ext/language_tools');
 
@@ -146,39 +146,39 @@ export default class Query extends Component {
     );
   }
 
-  onSelectionChange() {
+  onSelectionChange=()=> {
     this.props.onSelectionChange(
       this.props.query.query,
       this.refs.queryBoxTextarea.editor.getCopyText(),
     );
   }
 
-  onExecQueryClick() {
+  onExecQueryClick=()=> {
     const query = this.refs.queryBoxTextarea.editor.getCopyText() || this.props.query.query;
     this.props.onExecQueryClick(query);
   }
 
-  onDiscQueryClick() {
+  onDiscQueryClick=()=> {
     this.props.onSQLChange('');
   }
 
-  onCancelQueryClick() {
+  onCancelQueryClick=()=> {
     this.props.onCancelQueryClick();
   }
 
-  onShowInfoClick() {
+  onShowInfoClick=()=> {
     this.setState({ infoModalVisible: true });
   }
 
-  onQueryBoxResize() {
+  onQueryBoxResize=()=> {
     this.refs.queryBoxTextarea.editor.resize();
   }
 
-  onWrapContentsChecked() {
+  onWrapContentsChecked=()=> {
     this.setState({ wrapEnabled: true });
   }
 
-  onWrapContentsUnchecked() {
+  onWrapContentsUnchecked=()=> {
     this.setState({ wrapEnabled: false });
   }
 

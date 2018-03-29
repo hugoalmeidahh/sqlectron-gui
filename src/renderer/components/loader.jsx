@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import $ from 'jquery';
+var $=window.$;
 export default class Loading extends Component {
   static propTypes = {
     message: PropTypes.string,

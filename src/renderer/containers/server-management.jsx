@@ -39,7 +39,7 @@ class ServerManagerment extends Component {
     this.state = {};
   }
 
-  onConnectClick({ id }) {
+  onConnectClick=({ id }) =>{
     console.log(this.props);
     console.log(id);
     var path=`/server/${id}`;
@@ -47,7 +47,7 @@ class ServerManagerment extends Component {
     this.props.history.push(path);
   }
 
-  onTestConnectionClick(server) {
+  onTestConnectionClick=(server)=> {
     console.log("onTestConnectionClick")
     console.log(server);
     const { dispatch } = this.props;
@@ -60,50 +60,51 @@ class ServerManagerment extends Component {
     dispatch(ServersActions.startEditing());
   }
 
-  onSettingsClick() {
+  onSettingsClick=()=> {
     const { dispatch } = this.props;
     dispatch(ConfigActions.startEditing());
   }
 
-  onEditClick(server) {
+  onEditClick=(server)=> {
     const { dispatch } = this.props;
     dispatch(ServersActions.startEditing(server.id));
   }
 
-  onDuplicateClick(server) {
+  onDuplicateClick=(server)=> {
     const { dispatch } = this.props;
     dispatch(ServersActions.duplicateServer({ server }));
   }
 
-  onSaveClick(server) {
+  onSaveClick=(server)=> {
+    console.log("onSaveClick=======");
     server.client=server.client.value;
     const { dispatch, servers } = this.props;
     const id = servers.editingServer && servers.editingServer.id;
     dispatch(ServersActions.saveServer({ id, server }));
   }
 
-  onCancelClick() {
+  onCancelClick=()=> {
     const { dispatch } = this.props;
     dispatch(ServersActions.finishEditing());
   }
 
-  onRemoveClick() {
+  onRemoveClick=()=> {
     const { dispatch, servers } = this.props;
     const id = servers.editingServer && servers.editingServer.id;
     dispatch(ServersActions.removeServer({ id }));
   }
 
-  onSettingsSaveClick(config) {
+  onSettingsSaveClick=(config)=> {
     const { dispatch } = this.props;
     dispatch(ConfigActions.saveConfig(config));
   }
 
-  onSettingsCancelClick() {
+  onSettingsCancelClick=()=> {
     const { dispatch } = this.props;
     dispatch(ConfigActions.finishEditing());
   }
 
-  onFilterChange(event) {
+  onFilterChange=(event)=> {
     this.setState({ filter: event.target.value });
   }
 

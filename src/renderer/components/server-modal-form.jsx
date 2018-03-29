@@ -7,7 +7,7 @@ import ConfirmModal from './confim-modal.jsx';
 import Message from './message.jsx';
 import Checkbox from './checkbox.jsx';
 import { requireLogos } from './require-context';
-import $ from 'jquery';
+var $=window.$;
 //var { sqlectron }= require('electron').remote; 
 require('react-select/dist/react-select.css');
 require('./override-select.css');
@@ -53,6 +53,7 @@ export default class ServerModalForm extends Component {
   }
 
   componentDidMount() {
+    console.log($(this.refs.serverModal));
     $(this.refs.serverModal).modal({
       closable: true,
       detachable: false,
@@ -78,38 +79,42 @@ export default class ServerModalForm extends Component {
     $(this.refs.serverModal).modal('hide');
   }
 
-  onSaveClick() {
-    this.props.onSaveClick(this.mapStateToServer(this.state));
+  onSaveClick=()=> {
+    console.log("onSaveClick");
+    console.log(this.state);
+    var tmp=this.mapStateToServer(this.state);
+    console.log(tmp);
+    this.props.onSaveClick(tmp);
   }
 
-  onRemoveCancelClick() {
+  onRemoveCancelClick=()=> {
     this.setState({ confirmingRemove: false });
   }
 
-  onRemoveConfirmClick() {
+  onRemoveConfirmClick=()=> {
     this.props.onRemoveClick();
   }
 
-  onRemoveOpenClick() {
+  onRemoveOpenClick=()=> {
     this.setState({ confirmingRemove: true });
   }
 
-  onTestConnectionClick() {
+  onTestConnectionClick=()=> {
     this.props.onTestConnectionClick(this.mapStateToServer(this.state));
   }
 
-  onDuplicateClick() {
+  onDuplicateClick=()=> {
     this.props.onDuplicateClick(this.mapStateToServer(this.state));
   }
 
-  onToggleShowPlainPasswordClick() {
+  onToggleShowPlainPasswordClick=()=> {
     this.setState({ showPlainPassword: !this.state.showPlainPassword });
   }
 
   isFeatureDisabled(feature) {
-    console.log("isFeatureDisabled");
-    console.log(feature);
-    console.log(this.state.client);
+    // console.log("isFeatureDisabled");
+    // console.log(feature);
+    // console.log(this.state.client);
     if (!this.state.client) {
       return false;
     }
@@ -117,8 +122,8 @@ export default class ServerModalForm extends Component {
     //console.log(this.state.client);
 
     const dbClient = CLIENTS.find((dbc) =>{
-      console.log(dbc.value);
-      console.log(this.state);
+      // console.log(dbc.value);
+      // console.log(this.state);
       return dbc.value === this.state.client.value;
     });
     //console.log(dbClient);
@@ -192,7 +197,7 @@ export default class ServerModalForm extends Component {
     return hasError ? 'error' : '';
   }
 
-  handleOnClientChange(client) {
+  handleOnClientChange=(client)=> {
     this.setState({ client });
 
     const clientConfig = CLIENTS.find(entry => entry.value === client);
@@ -201,7 +206,7 @@ export default class ServerModalForm extends Component {
     }
   }
 
-  handleChange(event) {
+  handleChange=(event)=> {
     const newState = {};
     const { target } = event;
     let value = target.files ? target.files[0].path : target.value;
@@ -653,7 +658,7 @@ export default class ServerModalForm extends Component {
     );
   }
 
-  renderConfirmRemoveModal() {
+  renderConfirmRemoveModal=()=> {
     console.log("renderConfirmRemoveModal");
     const { confirmingRemove } = this.state;
 

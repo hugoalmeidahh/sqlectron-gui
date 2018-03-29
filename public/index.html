@@ -5,16 +5,32 @@
     <meta name="theme-color" content="#000000">
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <link type="text/css" rel="stylesheet" href="%PUBLIC_URL%/vendor/renderer/lato/latofonts.css" />
-    <link type="text/css" rel="stylesheet" href="%PUBLIC_URL%/vendor/renderer/semantic-ui/semantic.css" />
-    <script type="text/javascript" src="%PUBLIC_URL%/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="%PUBLIC_URL%/vendor/renderer/semantic-ui/semantic.js"></script>
-    <script type="text/javascript">
-//       import '../../vendor/renderer/semantic-ui/semantic';
-// require('../../vendor/renderer/lato/latofonts.css');
-// require('../../vendor/renderer/semantic-ui/semantic.css');
+<link type="text/css" rel="stylesheet" href="%PUBLIC_URL%/vendor/renderer/semantic-ui/semantic.css" />
+<link type="text/css" rel="stylesheet" href="%PUBLIC_URL%/vendor/renderer/lato/latofonts.css" />
+<!-- <script type="text/javascript" src="%PUBLIC_URL%/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="%PUBLIC_URL%/semantic/semantic.js"></script> -->
+ --> <!-- Insert this line above script imports  -->
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
-    </script>
+<!-- normal script imports etc  -->
+<script type="text/javascript" src="%PUBLIC_URL%/jquery-3.3.1.js"></script>  
+<script type="text/javascript" src="%PUBLIC_URL%/vendor/renderer/semantic-ui/semantic.js"></script>
+<!-- Insert this line after script imports -->
+<script>
+  if (window.module) module = window.module;
+  function onChecked(){
+     console.log("onChecked")
+  }
+  function onUnchecked(){
+    console.log("onUnchecked");
+  }
+  function buttonclick(){
+    console.log("buttonclick");
+    console.log($("#check1"));
+    $("#check1").checkbox({ onChecked, onUnchecked })
+  }
+</script>
+
 <style type="text/css">
     #page{ 
       padding: 5px 5px 5px 5px;
@@ -29,7 +45,10 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"></div>
+    <!-- <button onclick="buttonclick()">test</button>
+    <div id="check1" class="ui toggle checkbox"><input type="checkbox" name="log.file" value="on"><label>File</label></div> -->
+    
+    <div id="root"></div> 
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

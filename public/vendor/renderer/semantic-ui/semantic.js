@@ -18,7 +18,8 @@
  * http://opensource.org/licenses/MIT
  *
  */
- var $=window.jQuery;
+
+
 ;(function ( $, window, document, undefined ) {
 
 $.site = $.fn.site = function(parameters) {

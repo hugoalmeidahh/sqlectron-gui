@@ -16,11 +16,11 @@ export default class UpdateChecker extends Component {
     ipcRenderer.removeListener(EVENT_KEY, this.onUpdateAvailable);
   }
 
-  onUpdateAvailable() {
+  onUpdateAvailable=()=> {
     this.setState({ isVisible: true });
   }
 
-  onUpdateClick(event) {
+  onUpdateClick=(event)=> {
     event.preventDefault();
     shell.openExternal(LATEST_RELEASE_URL);
   }

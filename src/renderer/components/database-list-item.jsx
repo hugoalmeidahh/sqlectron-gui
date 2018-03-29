@@ -4,7 +4,7 @@ import DatabaseListItemMetatada from './database-list-item-metadata.jsx';
 import DatabaseFilter from './database-filter.jsx';
 import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
 
-
+var $=window.$;
 const { Menu, MenuItem } = remote;
 
 

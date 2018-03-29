@@ -29,7 +29,7 @@ export default class TableSubmenu extends Component {
     }
   }
 
-  toggleCollapse() {
+  toggleCollapse=()=> {
     this.setState({ collapsed: !this.state.collapsed });
   }
 

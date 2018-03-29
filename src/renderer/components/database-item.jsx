@@ -10,7 +10,7 @@ const Menu = remote.Menu;
 const MenuItem = remote.MenuItem;
 const CLIENTS = sqlectron.db.CLIENTS;
 
-
+var $=window.$;
 export default class DatabaseItem extends Component {
   static propTypes = {
     client: PropTypes.string.isRequired,
@@ -35,7 +35,7 @@ export default class DatabaseItem extends Component {
   // Context menu is built dinamically on click (if it does not exist), because building
   // menu onComponentDidMount or onComponentWillMount slows table listing when database
   // has a loads of tables, because menu will be created (unnecessarily) for every table shown
-  onContextMenu(event) {
+  onContextMenu=(event)=> {
     event.preventDefault();
 
     if (!this.contextMenu) {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import DatabaseDiagram from './database-diagram.jsx';
 import Loader from './loader.jsx';
-
+var $=window.$;
 const STYLE = {
   list: {
     maxHeight: '250px',
@@ -13,7 +13,7 @@ const STYLE = {
   },
 };
 
-var $=window.jQuery;
+
 export default class DatabaseDiagramModal extends Component {
   static propTypes = {
     database: PropTypes.string,
@@ -54,29 +54,29 @@ export default class DatabaseDiagramModal extends Component {
     this.showDiagramIfNeeded(nextProps);
   }
 
-  onSelectAllTables() {
+  onSelectAllTables=()=>{
     $(':checkbox', 'div.ui.list').prop('checked', true);
     this.onCheckBoxesChange();
   }
 
-  onDeselectAllTables() {
+  onDeselectAllTables=()=> {
     $(':checkbox', 'div.ui.list').prop('checked', false);
     this.onCheckBoxesChange();
   }
 
-  onCheckBoxesChange() {
+  onCheckBoxesChange=()=> {
     // Disable generate diagram button if there are no tables selected
     return $(':checkbox:checked', 'div.ui.list').length
       ? $(this.refs.generateButton).removeClass('disabled')
       : $(this.refs.generateButton).addClass('disabled');
   }
 
-  onGenerateDiagramClick() {
+  onGenerateDiagramClick=()=> {
     this.setState({ showLoader: true });
     this.props.onGenerateDatabaseDiagram(this.props.database);
   }
 
-  onAddRelatedTables(relatedTables) {
+  onAddRelatedTables=(relatedTables)=> {
     const { selectedTables, addRelatedTables } = this.props;
 
     // If all related tables are already on diagram -> no need to reset positions

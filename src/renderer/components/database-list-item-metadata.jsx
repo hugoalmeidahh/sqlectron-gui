@@ -10,7 +10,7 @@ const STYLE = {
   item: { wordBreak: 'break-all', cursor: 'default' },
 };
 
-
+var $=window.$;
 export default class DbMetadataList extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,

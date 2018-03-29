@@ -6,10 +6,11 @@ import { connect } from 'react-redux';
 import * as ConfigActions from '../actions/config.js';
 import ServerManagement from './query-browser.jsx';
 import $ from 'jquery';
-// import '../../../vendor/renderer/semantic-ui/semantic';
-// require('../../../vendor/renderer/lato/latofonts.css');
-// require('../../../vendor/renderer/semantic-ui/semantic.css');
-// require('./app.css');
+// import '../../vendor/renderer/semantic-ui/semantic.js';
+// require('../../vendor/renderer/lato/latofonts.css');
+// require('../../vendor/renderer/semantic-ui/semantic.css');
+require('./app.css');
+
 
 const preventDefault = e => e.preventDefault();
 

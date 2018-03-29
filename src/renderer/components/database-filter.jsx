@@ -9,7 +9,7 @@ export default class DatabaseFilter extends Component {
     onFilterChange: PropTypes.func.isRequired,
   }
 
-  onFilterChange(event) {
+  onFilterChange=(event)=> {
     this.props.onFilterChange(event.target.value);
   }
 

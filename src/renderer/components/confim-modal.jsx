@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import $ from 'jquery';
+var $=window.$;
 export default class ServerModalForm extends Component {
   static propTypes = {
     onCancelClick: PropTypes.func.isRequired,

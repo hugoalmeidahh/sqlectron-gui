@@ -2,7 +2,8 @@ import AppSql from './renderer/AppSql.jsx';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {  BrowserRouter as Router,Link,Route} from 'react-router-dom'
-import $ from 'jquery';
+import Checkbox from './renderer/components/checkbox.jsx';
+
 class Items extends Component {
   render() {
     return (
@@ -14,12 +15,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <div id="todoapp" className="table-responsive">
-              <Link to="/">sqlui</Link>
-              <Link style={{paddingLeft:"20px"}} to ="/items">备件</Link>
-          </div>
-          <Route exact path="/" component={AppSql}/>
-          <Route path="/Items" component={Items}/>
+          <Route path="/" component={AppSql}/>
         </div>
            
       </Router>

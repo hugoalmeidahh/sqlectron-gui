@@ -14,7 +14,7 @@ export default class ServerFilter extends Component {
     this.delayedCallback = debounce(this.props.onFilterChange, 200);
   }
 
-  onFilterChange (event) {
+  onFilterChange= (event)=> {
     event.persist();
     this.delayedCallback(event);
   }
