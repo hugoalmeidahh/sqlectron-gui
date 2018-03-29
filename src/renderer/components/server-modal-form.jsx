@@ -7,12 +7,12 @@ import ConfirmModal from './confim-modal.jsx';
 import Message from './message.jsx';
 import Checkbox from './checkbox.jsx';
 import { requireLogos } from './require-context';
-var $=window.$;
+if(!$) $=window.$;
 //var { sqlectron }= require('electron').remote; 
 require('react-select/dist/react-select.css');
 require('./override-select.css');
 
-console.log(sqlectron.db.CLIENTS);
+//console.log(sqlectron.db.CLIENTS);
 const CLIENTS = sqlectron.db.CLIENTS.map(dbClient => ({
   value: dbClient.key,
   logo: requireLogos(`./server-db-client-${dbClient.key}.png`),
@@ -38,22 +38,24 @@ export default class ServerModalForm extends Component {
   constructor(props, context) {
     super(props, context);
     let server = props.server || {};
-    if(server.client instanceof Object){
-    }
-    else{
-      server.client=CLIENTS.find((dbc) =>{
-        return dbc.value === server.client;
-      });
-    }
+    // if(server.client instanceof Object){
+    // }
+    // else{
+    //   server.client=CLIENTS.find((dbc) =>{
+    //     return dbc.value === server.client;
+    //   });
+    // }
     this.state = {
       ...server,
       isNew: !server.id,
       showPlainPassword: false,
     };
+    console.log("constructor======");
+    console.log(this.state);
   }
 
   componentDidMount() {
-    console.log($(this.refs.serverModal));
+    //console.log($(this.refs.serverModal));
     $(this.refs.serverModal).modal({
       closable: true,
       detachable: false,
@@ -79,35 +81,35 @@ export default class ServerModalForm extends Component {
     $(this.refs.serverModal).modal('hide');
   }
 
-  onSaveClick=()=> {
-    console.log("onSaveClick");
+  onSaveClick() {
+    console.log("server-modal-form onSaveClick");
     console.log(this.state);
     var tmp=this.mapStateToServer(this.state);
     console.log(tmp);
     this.props.onSaveClick(tmp);
   }
 
-  onRemoveCancelClick=()=> {
+  onRemoveCancelClick() {
     this.setState({ confirmingRemove: false });
   }
 
-  onRemoveConfirmClick=()=> {
+  onRemoveConfirmClick() {
     this.props.onRemoveClick();
   }
 
-  onRemoveOpenClick=()=> {
+  onRemoveOpenClick() {
     this.setState({ confirmingRemove: true });
   }
 
-  onTestConnectionClick=()=> {
+  onTestConnectionClick() {
     this.props.onTestConnectionClick(this.mapStateToServer(this.state));
   }
 
-  onDuplicateClick=()=> {
+  onDuplicateClick() {
     this.props.onDuplicateClick(this.mapStateToServer(this.state));
   }
 
-  onToggleShowPlainPasswordClick=()=> {
+  onToggleShowPlainPasswordClick() {
     this.setState({ showPlainPassword: !this.state.showPlainPassword });
   }
 
@@ -115,7 +117,7 @@ export default class ServerModalForm extends Component {
     // console.log("isFeatureDisabled");
     // console.log(feature);
     // console.log(this.state.client);
-    if (!this.state.client) {
+    if (!this.state.value) {
       return false;
     }
     //console.log("("+CLIENTS);
@@ -124,7 +126,7 @@ export default class ServerModalForm extends Component {
     const dbClient = CLIENTS.find((dbc) =>{
       // console.log(dbc.value);
       // console.log(this.state);
-      return dbc.value === this.state.client.value;
+      return dbc.value === this.state.value;
     });
     //console.log(dbClient);
     //console.log(dbClient.disabledFeatures);
@@ -132,9 +134,11 @@ export default class ServerModalForm extends Component {
   }
 
   mapStateToServer(state) {
+    console.log("mapStateToServer");
+    console.log(state)
     const server = {
       name: state.name,
-      client: state.client,
+      client: state.value,
       ssl: !!state.ssl,
       host: state.host && state.host.length ? state.host : null,
       port: state.port || state.defaultPort,
@@ -145,7 +149,7 @@ export default class ServerModalForm extends Component {
       domain: state.domain,
       schema: state.schema || null,
     };
-
+    console.log(server);
     const { ssh } = state;
     if (ssh) {
       server.ssh = {
@@ -197,16 +201,22 @@ export default class ServerModalForm extends Component {
     return hasError ? 'error' : '';
   }
 
-  handleOnClientChange=(client)=> {
-    this.setState({ client });
+  handleOnClientChange(client) {
 
-    const clientConfig = CLIENTS.find(entry => entry.value === client);
+    this.setState(client,()=>{
+        console.log("after handleOnClientChange==========");
+        console.log(this.state);
+    });
+
+    const clientConfig = CLIENTS.find(entry => entry.value === client.value);
     if (clientConfig && clientConfig.defaultPort) {
       this.setState({ defaultPort: clientConfig.defaultPort });
     }
+    console.log("handleOnClientChange");
+    //console.log()
   }
 
-  handleChange=(event)=> {
+  handleChange(event) {
     const newState = {};
     const { target } = event;
     let value = target.files ? target.files[0].path : target.value;
@@ -262,6 +272,7 @@ export default class ServerModalForm extends Component {
 
   renderBasicPanel() {
     console.log("renderBasicPanel======");
+    console.log(this.state.value);
     var className_name=`nine wide field ${this.highlightError('name')}`;
     var className_client=`six wide field ${this.highlightError('client')}`;
     var className_host=`five wide field ${this.highlightError('host')}`;
@@ -274,7 +285,7 @@ export default class ServerModalForm extends Component {
     var className_schema=`four wide field ${this.highlightError('schema')}`;
     let className_sqlite1="";
     let input_sqlite;
-    if(this.state.client && this.state.client.value === 'sqlite')
+    if(this.state.value && this.state.value === 'sqlite')
     { 
       className_sqlite1='ui action input';
       input_sqlite=
@@ -284,13 +295,13 @@ export default class ServerModalForm extends Component {
                     type="file"
                     id="file.database"
                     name="file.database"
-                    onChange={this.handleChange}
+                    onChange={::this.handleChange}
                     style={{ display: 'none' }} />
                 </label>;
     }
     console.log(className_client);
     console.log("hiiiiiiiiiiiiiiiii");
-    console.log(this.state.client);
+    console.log(this.state.value);
     return (
       <div>
         <div className="fields">
@@ -300,7 +311,7 @@ export default class ServerModalForm extends Component {
               name="name"
               placeholder="Name"
               value={this.state.name || ''}
-              onChange={this.handleChange} />
+              onChange={::this.handleChange} />
           </div>
           <div className={className_client}>
             <label>Database Type</label>
@@ -309,10 +320,10 @@ export default class ServerModalForm extends Component {
               placeholder="Select"
               options={CLIENTS}
               clearable={false}
-              onChange={this.handleOnClientChange}
+              onChange={::this.handleOnClientChange}
               optionRenderer={this.renderClientItem}
               valueRenderer={this.renderClientItem}
-              value={this.state.client} />
+              value={this.state.value} />
           </div>
           <div className="one field" style={{ paddingTop: '2em' }}>
             <Checkbox
@@ -332,7 +343,7 @@ export default class ServerModalForm extends Component {
                 name="host"
                 placeholder="Host"
                 value={this.state.host || ''}
-                onChange={this.handleChange}
+                onChange={::this.handleChange}
                 disabled={this.isFeatureDisabled('server:host') || this.state.socketPath} />
             </div>
             <div className={className_port}>
@@ -341,7 +352,7 @@ export default class ServerModalForm extends Component {
                 maxLength="5"
                 placeholder="Port"
                 value={this.state.port || this.state.defaultPort || ''}
-                onChange={this.handleChange}
+                onChange={::this.handleChange}
                 disabled={this.isFeatureDisabled('server:port') || this.state.socketPath} />
             </div>
             <div className={className_domain}>
@@ -350,7 +361,7 @@ export default class ServerModalForm extends Component {
                 placeholder="Domain"
                 value={this.state.domain || ''}
                 disabled={this.isFeatureDisabled('server:domain')}
-                onChange={this.handleChange} />
+                onChange={::this.handleChange} />
             </div>
             <div className={className_socketPath}>
               <div className="ui action input">
@@ -358,7 +369,7 @@ export default class ServerModalForm extends Component {
                   name="socketPath"
                   placeholder="Unix socket path"
                   value={this.state.socketPath || ''}
-                  onChange={this.handleChange}
+                  onChange={::this.handleChange}
                   disabled={(
                     this.state.host ||
                     this.state.port ||
@@ -370,7 +381,7 @@ export default class ServerModalForm extends Component {
                     type="file"
                     id="file.socketPath"
                     name="file.socketPath"
-                    onChange={this.handleChange}
+                    onChange={::this.handleChange}
                     style={{ display: 'none' }}
                     disabled={(
                       this.state.host ||
@@ -390,7 +401,7 @@ export default class ServerModalForm extends Component {
               placeholder="User"
               value={this.state.user || ''}
               disabled={this.isFeatureDisabled('server:user')}
-              onChange={this.handleChange} />
+              onChange={::this.handleChange} />
           </div>
           <div className={className_passwd}>
             <div>
@@ -402,9 +413,9 @@ export default class ServerModalForm extends Component {
                 placeholder="Password"
                 value={this.state.password || ''}
                 disabled={this.isFeatureDisabled('server:password')}
-                onChange={this.handleChange} />
+                onChange={::this.handleChange} />
               <span className="ui icon button"
-                onClick={this.onToggleShowPlainPasswordClick}>
+                onClick={::this.onToggleShowPlainPasswordClick}>
                 <i className="unhide icon"></i>
               </span>
             </div>
@@ -416,7 +427,7 @@ export default class ServerModalForm extends Component {
                 name="database"
                 placeholder="Database"
                 value={this.state.database || ''}
-                onChange={this.handleChange} />
+                onChange={::this.handleChange} />
               {  input_sqlite     }
             </div>
           </div>
@@ -428,7 +439,7 @@ export default class ServerModalForm extends Component {
               placeholder="Schema"
               disabled={this.isFeatureDisabled('server:schema')}
               value={this.state.schema || ''}
-              onChange={this.handleChange} />
+              onChange={::this.handleChange} />
           </div>
         </div>
       </div>
@@ -465,7 +476,7 @@ export default class ServerModalForm extends Component {
                     placeholder="Host"
                     disabled={!isSSHChecked}
                     value={ssh.host || ''}
-                    onChange={this.handleChange} />
+                    onChange={::this.handleChange} />
                 </div>
                 <div className={`three wide field ${this.highlightError('ssh.port')}`}>
                   <input type="number"
@@ -474,7 +485,7 @@ export default class ServerModalForm extends Component {
                     placeholder="Port"
                     disabled={!isSSHChecked}
                     value={ssh.port || DEFAULT_SSH_PORT}
-                    onChange={this.handleChange} />
+                    onChange={::this.handleChange} />
                 </div>
               </div>
             </div>
@@ -486,7 +497,7 @@ export default class ServerModalForm extends Component {
                   placeholder="User"
                   disabled={!isSSHChecked}
                   value={ssh.user || ''}
-                  onChange={this.handleChange} />
+                  onChange={::this.handleChange} />
               </div>
               <div className={`four wide field ${this.highlightError('ssh.password')}`}>
                 <label>Password</label>
@@ -495,7 +506,7 @@ export default class ServerModalForm extends Component {
                   placeholder="Password"
                   disabled={(!isSSHChecked || ssh.privateKey)}
                   value={ssh.password || ''}
-                  onChange={this.handleChange} />
+                  onChange={::this.handleChange} />
               </div>
               <div className={`five wide field ${this.highlightError('ssh.privateKey')}`}>
                 <label>Private Key</label>
@@ -505,14 +516,14 @@ export default class ServerModalForm extends Component {
                     placeholder="~/.ssh/id_rsa"
                     disabled={(!isSSHChecked || ssh.password)}
                     value={ssh.privateKey || ''}
-                    onChange={this.handleChange} />
+                    onChange={::this.handleChange} />
                   <label htmlFor="file.ssh.privateKey" className="ui icon button btn-file">
                     <i className="file outline icon" />
                     <input
                       type="file"
                       id="file.ssh.privateKey"
                       name="file.ssh.privateKey"
-                      onChange={this.handleChange}
+                      onChange={::this.handleChange}
                       disabled={(!isSSHChecked || ssh.password)}
                       style={{ display: 'none' }} />
                   </label>
@@ -557,7 +568,7 @@ export default class ServerModalForm extends Component {
               rows="3"
               disabled={!isFilterChecked}
               value={filterType.only ? filterType.only.join('\n') : ''}
-              onChange={this.handleChange} />
+              onChange={::this.handleChange} />
           </div>
           <div className={`eight wide field ${this.highlightError(`filter.${type}.ignore`)}`}>
             <label>Ignore</label>
@@ -567,7 +578,7 @@ export default class ServerModalForm extends Component {
               rows="3"
               disabled={!isFilterChecked}
               value={filterType.ignore ? filterType.ignore.join('\n') : ''}
-              onChange={this.handleChange} />
+              onChange={::this.handleChange} />
           </div>
         </div>
       </div>
@@ -613,11 +624,11 @@ export default class ServerModalForm extends Component {
 
   renderActionsPanel() {
     const { testConnection } = this.props;
-    const { isNew, client } = this.state;
+    const { isNew, value } = this.state;
 
     const classStatusButtons = testConnection.connecting ? 'disabled' : '';
     const classStatusTestButton = [
-      client ? '' : 'disabled',
+      value ? '' : 'disabled',
       testConnection.connecting ? 'loading' : '',
     ].join(' ');
     //console.log("renderActionsPanel");
@@ -627,13 +638,13 @@ export default class ServerModalForm extends Component {
       <div className="actions">
         <div className={`small ui blue right labeled icon button ${classStatusTestButton}`}
           tabIndex="0"
-          onClick={this.onTestConnectionClick}>
+          onClick={::this.onTestConnectionClick}>
           Test
           <i className="plug icon"></i>
         </div>
         {!isNew && <div className={`small ui right labeled icon button ${classStatusButtons}`}
           tabIndex="0"
-          onClick={this.onDuplicateClick}>
+          onClick={::this.onDuplicateClick}>
           Duplicate
           <i className="copy icon"></i>
         </div>}
@@ -644,13 +655,13 @@ export default class ServerModalForm extends Component {
         </div>
         <div className={`small ui green right labeled icon button ${classStatusButtons}`}
           tabIndex="0"
-          onClick={this.onSaveClick}>
+          onClick={::this.onSaveClick}>
           Save
           <i className="checkmark icon"></i>
         </div>
         {!isNew && <div className={`small ui red right labeled icon button ${classStatusButtons}`}
           tabIndex="0"
-          onClick={this.onRemoveOpenClick}>
+          onClick={::this.onRemoveOpenClick}>
           Remove
           <i className="trash icon"></i>
         </div>}
@@ -658,8 +669,7 @@ export default class ServerModalForm extends Component {
     );
   }
 
-  renderConfirmRemoveModal=()=> {
-    console.log("renderConfirmRemoveModal");
+  renderConfirmRemoveModal() {
     const { confirmingRemove } = this.state;
 
     if (!confirmingRemove) {
@@ -671,8 +681,8 @@ export default class ServerModalForm extends Component {
         context="#server-modal"
         title={`Delete ${this.state.name}`}
         message="Are you sure you want to remove this server connection?"
-        onCancelClick={this.onRemoveCancelClick}
-        onRemoveClick={this.onRemoveConfirmClick} />
+        onCancelClick={::this.onRemoveCancelClick}
+        onRemoveClick={::this.onRemoveConfirmClick} />
     );
   }
 

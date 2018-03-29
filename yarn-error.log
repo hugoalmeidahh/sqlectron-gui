@@ -17,7 +17,7 @@ npm manifest:
   {
     "name": "Sqlectron",
     "version": "1.29.0",
-    "homepage": ".",
+    "homepage": "https://sqlectron.github.io",
     "description": "A simple and lightweight SQL client with cross database and platform support",
     "author": {
       "name": "The Sqlectron Team",
@@ -25,7 +25,6 @@ npm manifest:
     },
     "main": "./out/browser/main.js",
     "license": "MIT",
-    "homepage": "https://sqlectron.github.io",
     "bugs": "https://github.com/sqlectron/sqlectron-gui/issues",
     "repository": {
       "type": "git",
@@ -98,12 +97,12 @@ npm manifest:
       "babel-core": "^6.22.1",
       "babel-polyfill": "^6.22.0",
       "bunyan": "^1.8.5",
+      "electron-renderer-react-scripts-target": "^1.1.1",
       "lodash.defaultsdeep": "^4.6.0",
       "proptypes": "^1.1.0",
       "react-ace": "^5.9.0",
       "react-router-dom": "^4.2.2",
       "react-scripts": "^1.1.1",
-      "semantic-react": "^0.12.0",
       "sqlectron-core": "^8.0.0"
     },
     "devDependencies": {
@@ -211,10 +210,6 @@ Lockfile:
   "@types/node@^8.0.24":
     version "8.10.0"
     resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-8.10.0.tgz#f5d649cc49af8ed6507d15dc6e9b43fe8b927540"
-  
-  "@types/react@*":
-    version "16.1.0"
-    resolved "http://registry.npm.taobao.org/@types/react/download/@types/react-16.1.0.tgz#6c0e9955ce73f332b4a1948d45decaf18c764c6e"
   
   abab@^1.0.3:
     version "1.0.4"
@@ -1421,7 +1416,7 @@ Lockfile:
       mkdirp "^0.5.1"
       source-map-support "^0.4.15"
   
-  babel-runtime@6.26.0, babel-runtime@^6.18.0, babel-runtime@^6.20.0, babel-runtime@^6.22.0, babel-runtime@^6.26.0:
+  babel-runtime@6.26.0, babel-runtime@^6.18.0, babel-runtime@^6.22.0, babel-runtime@^6.26.0:
     version "6.26.0"
     resolved "http://registry.npm.taobao.org/babel-runtime/download/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
     dependencies:
@@ -3028,6 +3023,13 @@ Lockfile:
       debug "^2.6.0"
       isbinaryfile "^3.0.2"
       plist "^2.0.1"
+  
+  electron-renderer-react-scripts-target@^1.1.1:
+    version "1.1.1"
+    resolved "http://registry.npm.taobao.org/electron-renderer-react-scripts-target/download/electron-renderer-react-scripts-target-1.1.1.tgz#ede343f1855737a981b93ed4b30178c7c49c9e11"
+    dependencies:
+      debug "^3.1.0"
+      react-scripts-webpack-config-editor "^1.0.0"
   
   electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.30:
     version "1.3.40"
@@ -5766,10 +5768,6 @@ Lockfile:
     dependencies:
       lodash._reinterpolate "~3.0.0"
   
-  lodash.throttle@^4.1.1:
-    version "4.1.1"
-    resolved "http://registry.npm.taobao.org/lodash.throttle/download/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
-  
   lodash.toarray@^4.4.0:
     version "4.4.0"
     resolved "http://registry.npm.taobao.org/lodash.toarray/download/lodash.toarray-4.4.0.tgz#24c4bfcd6b2fba38bfd0594db1179d8e9b656561"
@@ -7496,32 +7494,11 @@ Lockfile:
     version "4.0.0"
     resolved "http://registry.npm.taobao.org/react-error-overlay/download/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
   
-  react-event-listener@^0.4.5:
-    version "0.4.5"
-    resolved "http://registry.npm.taobao.org/react-event-listener/download/react-event-listener-0.4.5.tgz#e3e895a0970cf14ee8f890113af68197abf3d0b1"
-    dependencies:
-      babel-runtime "^6.20.0"
-      fbjs "^0.8.4"
-      prop-types "^15.5.4"
-      warning "^3.0.0"
-  
   react-input-autosize@^2.1.2:
     version "2.2.1"
     resolved "http://registry.npm.taobao.org/react-input-autosize/download/react-input-autosize-2.2.1.tgz#ec428fa15b1592994fb5f9aa15bb1eb6baf420f8"
     dependencies:
       prop-types "^15.5.8"
-  
-  react-portal@^3.1.0:
-    version "3.2.0"
-    resolved "http://registry.npm.taobao.org/react-portal/download/react-portal-3.2.0.tgz#4224e19b2b05d5cbe730a7ba0e34ec7585de0043"
-    dependencies:
-      prop-types "^15.5.8"
-  
-  react-prop-types@^0.4.0:
-    version "0.4.0"
-    resolved "http://registry.npm.taobao.org/react-prop-types/download/react-prop-types-0.4.0.tgz#f99b0bfb4006929c9af2051e7c1414a5c75b93d0"
-    dependencies:
-      warning "^3.0.0"
   
   react-proxy@^1.1.7:
     version "1.1.8"
@@ -7570,6 +7547,10 @@ Lockfile:
       path-to-regexp "^1.7.0"
       prop-types "^15.5.4"
       warning "^3.0.0"
+  
+  react-scripts-webpack-config-editor@^1.0.0:
+    version "1.0.0"
+    resolved "http://registry.npm.taobao.org/react-scripts-webpack-config-editor/download/react-scripts-webpack-config-editor-1.0.0.tgz#79eecfeab8ad56ac6fa50c775dba0c0a3284b3e6"
   
   react-scripts@^1.1.1:
     version "1.1.1"
@@ -8214,18 +8195,6 @@ Lockfile:
     resolved "http://registry.npm.taobao.org/selfsigned/download/selfsigned-1.10.2.tgz#b4449580d99929b65b10a48389301a6592088758"
     dependencies:
       node-forge "0.7.1"
-  
-  semantic-react@^0.12.0:
-    version "0.12.0"
-    resolved "http://registry.npm.taobao.org/semantic-react/download/semantic-react-0.12.0.tgz#a00b1c1df7a269b52c2b733b3b72442b55d1cfb9"
-    dependencies:
-      "@types/react" "*"
-      classnames "^2.2.5"
-      lodash.throttle "^4.1.1"
-      prop-types "^15.5.10"
-      react-event-listener "^0.4.5"
-      react-portal "^3.1.0"
-      react-prop-types "^0.4.0"
   
   semver-diff@^2.0.0:
     version "2.1.0"

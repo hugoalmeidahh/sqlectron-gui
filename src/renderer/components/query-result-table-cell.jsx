@@ -6,7 +6,7 @@ import PropTypes from 'proptypes';
 import { valueToString } from '../utils/convert';
 
 const { Menu, MenuItem } = remote;
-var $=window.$;
+if(!$) $=window.$;
 export default class TableCell extends Component {
   static propTypes = {
     rowIndex: PropTypes.number.isRequired,
@@ -20,7 +20,7 @@ export default class TableCell extends Component {
     this.contextMenu = null;
   }
 
-  onContextMenu=(event)=> {
+  onContextMenu(event) {
     event.preventDefault();
 
     const value = this.getValue();
@@ -55,7 +55,7 @@ export default class TableCell extends Component {
     });
 
     return (
-      <div style={this.props.style} className="item" onContextMenu={this.onContextMenu}>
+      <div className="item" onContextMenu={::this.onContextMenu}>
         {
           value === null
             ? <span className={className}>NULL</span>

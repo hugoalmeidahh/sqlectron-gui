@@ -15,7 +15,7 @@ import { ResizableBox } from 'react-resizable';
 require('./react-resizable.css');
 require('./override-ace.css');
 
-var $=window.$;
+if(!$) $=window.$;
 const QUERY_EDITOR_HEIGTH = 200;
 const langTools = ace.acequire('ace/ext/language_tools');
 
@@ -74,7 +74,7 @@ export default class Query extends Component {
   componentDidMount() {
     this.refs.queryBoxTextarea.editor.on(
       EVENT_KEYS.onSelectionChange,
-      debounce(this.onSelectionChange, 100),
+      debounce(::this.onSelectionChange, 100),
     );
 
     // init with the auto complete disabled
@@ -142,43 +142,43 @@ export default class Query extends Component {
   componentWillUnmount() {
     this.refs.queryBoxTextarea.editor.removeListener(
       EVENT_KEYS.onSelectionChange,
-      this.onSelectionChange,
+      ::this.onSelectionChange,
     );
   }
 
-  onSelectionChange=()=> {
+  onSelectionChange() {
     this.props.onSelectionChange(
       this.props.query.query,
       this.refs.queryBoxTextarea.editor.getCopyText(),
     );
   }
 
-  onExecQueryClick=()=> {
+  onExecQueryClick() {
     const query = this.refs.queryBoxTextarea.editor.getCopyText() || this.props.query.query;
     this.props.onExecQueryClick(query);
   }
 
-  onDiscQueryClick=()=> {
+  onDiscQueryClick() {
     this.props.onSQLChange('');
   }
 
-  onCancelQueryClick=()=> {
+  onCancelQueryClick() {
     this.props.onCancelQueryClick();
   }
 
-  onShowInfoClick=()=> {
+  onShowInfoClick() {
     this.setState({ infoModalVisible: true });
   }
 
-  onQueryBoxResize=()=> {
+  onQueryBoxResize() {
     this.refs.queryBoxTextarea.editor.resize();
   }
 
-  onWrapContentsChecked=()=> {
+  onWrapContentsChecked() {
     this.setState({ wrapEnabled: true });
   }
 
-  onWrapContentsUnchecked=()=> {
+  onWrapContentsUnchecked() {
     this.setState({ wrapEnabled: false });
   }
 
@@ -282,7 +282,7 @@ export default class Query extends Component {
             className="react-resizable react-resizable-se-resize ui segment"
             height={QUERY_EDITOR_HEIGTH}
             width={500}
-            onResizeStop={this.onQueryBoxResize}>
+            onResizeStop={::this.onQueryBoxResize}>
             <AceEditor
               mode="sql"
               theme="github"
@@ -303,8 +303,8 @@ export default class Query extends Component {
                 <CheckBox
                   name="wrapQueryContents"
                   label="Wrap Contents"
-                  onChecked={this.onWrapContentsChecked}
-                  onUnchecked={this.onWrapContentsUnchecked} />
+                  onChecked={::this.onWrapContentsChecked}
+                  onUnchecked={::this.onWrapContentsUnchecked} />
               </div>
             </div>
           </ResizableBox>
@@ -314,7 +314,7 @@ export default class Query extends Component {
                 <span>
                   <button className="ui icon button small"
                     title="Query Information"
-                    onClick={this.onShowInfoClick}>
+                    onClick={::this.onShowInfoClick}>
                     <i className="icon info"></i>
                   </button>
                 </span>
@@ -325,19 +325,19 @@ export default class Query extends Component {
                 <div className="ui buttons">
                   <button
                     className={`ui positive button ${query.isExecuting ? 'loading' : ''}`}
-                    onClick={this.onExecQueryClick}>Execute</button>
+                    onClick={::this.onExecQueryClick}>Execute</button>
                   <div className="or"></div>
                   {
                     query.isExecuting && allowCancel
                     ? (
                       <button
                         className={`ui negative button ${query.isCanceling ? 'loading' : ''}`}
-                        onClick={this.onCancelQueryClick}>Cancel</button>
+                        onClick={::this.onCancelQueryClick}>Cancel</button>
                     )
                     : (
                       <button
                         className="ui button"
-                        onClick={this.onDiscQueryClick}>Discard</button>
+                        onClick={::this.onDiscQueryClick}>Discard</button>
                     )
                   }
                 </div>

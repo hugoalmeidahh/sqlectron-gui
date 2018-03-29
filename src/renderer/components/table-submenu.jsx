@@ -29,7 +29,7 @@ export default class TableSubmenu extends Component {
     }
   }
 
-  toggleCollapse=()=> {
+  toggleCollapse() {
     this.setState({ collapsed: !this.state.collapsed });
   }
 
@@ -46,7 +46,7 @@ export default class TableSubmenu extends Component {
       <span
         title={title}
         className="header clickable"
-        onClick={this.toggleCollapse}
+        onClick={::this.toggleCollapse}
         style={cssStyle}>
         <i className={`${cssClass} triangle icon`}></i>
         {this.props.title}

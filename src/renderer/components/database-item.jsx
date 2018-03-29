@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import CollapseIcon from './collapse-icon.jsx';
 import TableSubmenu from './table-submenu.jsx';
-//import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
+import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
 import { sqlectron } from '../../browser/remote';
-var {remote}= require('electron');
-//var { sqlectron }= require('electron').remote; 
+
 const Menu = remote.Menu;
 const MenuItem = remote.MenuItem;
 const CLIENTS = sqlectron.db.CLIENTS;
 
-var $=window.$;
+if(!$) $=window.$;
 export default class DatabaseItem extends Component {
   static propTypes = {
     client: PropTypes.string.isRequired,
@@ -35,7 +34,7 @@ export default class DatabaseItem extends Component {
   // Context menu is built dinamically on click (if it does not exist), because building
   // menu onComponentDidMount or onComponentWillMount slows table listing when database
   // has a loads of tables, because menu will be created (unnecessarily) for every table shown
-  onContextMenu=(event)=> {
+  onContextMenu(event) {
     event.preventDefault();
 
     if (!this.contextMenu) {
@@ -154,7 +153,7 @@ export default class DatabaseItem extends Component {
           style={style}
           className="item"
           onClick={onSingleClick}
-          onContextMenu={this.onContextMenu}>
+          onContextMenu={::this.onContextMenu}>
           {dbObjectType === 'Table'
             ? <CollapseIcon arrowDirection={collapseArrowDirection} />
             : null

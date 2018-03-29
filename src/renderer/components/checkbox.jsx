@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 //import $ from 'jquery';
-var $=window.$;
+if(!$) $=window.$;
 export default class Checkbox extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
@@ -11,15 +11,15 @@ export default class Checkbox extends Component {
     onChecked: PropTypes.func.isRequired,
     onUnchecked: PropTypes.func.isRequired,
   };
-  quehuoChange=(e)=>{
-    console.log(e);
-  }
+  // quehuoChange=(e)=>{
+  //   console.log(e);
+  // }
   componentDidMount() {
     const { onChecked, onUnchecked } = this.props;
-    console.log("checkbox componentDidMount===");
-    console.log($);
-    console.log(this.refs.checkbox);
-    console.log($(this.refs.checkbox));
+    // console.log("checkbox componentDidMount===");
+    // console.log($);
+    // console.log(this.refs.checkbox);
+    // console.log($(this.refs.checkbox));
     $(this.refs.checkbox).checkbox({ onChecked, onUnchecked });
   }
 

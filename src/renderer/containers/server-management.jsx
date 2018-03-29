@@ -47,64 +47,63 @@ class ServerManagerment extends Component {
     this.props.history.push(path);
   }
 
-  onTestConnectionClick=(server)=> {
-    console.log("onTestConnectionClick")
-    console.log(server);
+  onTestConnectionClick(server) {
     const { dispatch } = this.props;
-    server.client=server.client.value;
+    //server.client=server.client.value;
     dispatch(ConnActions.test(server));
   }
 
-  onAddClick=()=> {
+  onAddClick() {
     const { dispatch } = this.props;
     dispatch(ServersActions.startEditing());
   }
 
-  onSettingsClick=()=> {
+  onSettingsClick() {
     const { dispatch } = this.props;
     dispatch(ConfigActions.startEditing());
   }
 
-  onEditClick=(server)=> {
+  onEditClick(server) {
     const { dispatch } = this.props;
     dispatch(ServersActions.startEditing(server.id));
   }
 
-  onDuplicateClick=(server)=> {
+  onDuplicateClick(server) {
     const { dispatch } = this.props;
     dispatch(ServersActions.duplicateServer({ server }));
   }
 
-  onSaveClick=(server)=> {
-    console.log("onSaveClick=======");
-    server.client=server.client.value;
+  onSaveClick(server) {
     const { dispatch, servers } = this.props;
     const id = servers.editingServer && servers.editingServer.id;
+    console.log("onSaveClick======");
+    console.log(server);
+
     dispatch(ServersActions.saveServer({ id, server }));
   }
 
-  onCancelClick=()=> {
+  onCancelClick() {
     const { dispatch } = this.props;
     dispatch(ServersActions.finishEditing());
   }
 
-  onRemoveClick=()=> {
+  onRemoveClick() {
     const { dispatch, servers } = this.props;
     const id = servers.editingServer && servers.editingServer.id;
     dispatch(ServersActions.removeServer({ id }));
   }
 
-  onSettingsSaveClick=(config)=> {
+  onSettingsSaveClick(config) {
     const { dispatch } = this.props;
     dispatch(ConfigActions.saveConfig(config));
   }
 
-  onSettingsCancelClick=()=> {
+  onSettingsCancelClick() {
     const { dispatch } = this.props;
     dispatch(ConfigActions.finishEditing());
   }
 
-  onFilterChange=(event)=> {
+  onFilterChange(event) {
     this.setState({ filter: event.target.value });
   }
 
@@ -132,9 +131,9 @@ class ServerManagerment extends Component {
         </div>
         <div style={STYLES.container}>
           <ServerFilter
-            onFilterChange={this.onFilterChange}
-            onAddClick={this.onAddClick}
-            onSettingsClick={this.onSettingsClick} />
+            onFilterChange={::this.onFilterChange}
+            onAddClick={::this.onAddClick}
+            onSettingsClick={::this.onSettingsClick} />
 
           {
             connections.error &&
@@ -146,24 +145,24 @@ class ServerManagerment extends Component {
           }
 
           <ServerList servers={filteredServers}
-            onEditClick={this.onEditClick}
-            onConnectClick={this.onConnectClick} />
+            onEditClick={::this.onEditClick}
+            onConnectClick={::this.onConnectClick} />
 
           {servers.isEditing && <ServerModalForm
             server={selected}
             error={servers.error}
             testConnection={testConnection}
-            onTestConnectionClick={this.onTestConnectionClick}
-            onDuplicateClick={this.onDuplicateClick}
-            onSaveClick={this.onSaveClick}
-            onCancelClick={this.onCancelClick}
-            onRemoveClick={this.onRemoveClick} />}
+            onTestConnectionClick={::this.onTestConnectionClick}
+            onDuplicateClick={::this.onDuplicateClick}
+            onSaveClick={::this.onSaveClick}
+            onCancelClick={::this.onCancelClick}
+            onRemoveClick={::this.onRemoveClick} />}
 
           {config.isEditing && <SettingsModalForm
             config={config}
             error={config.error}
-            onSaveClick={this.onSettingsSaveClick}
-            onCancelClick={this.onSettingsCancelClick} />}
+            onSaveClick={::this.onSettingsSaveClick}
+            onCancelClick={::this.onSettingsCancelClick} />}
         </div>
         <div style={STYLES.footer}>
           <Footer status={status} />

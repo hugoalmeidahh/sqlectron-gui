@@ -4,7 +4,7 @@ import DatabaseListItemMetatada from './database-list-item-metadata.jsx';
 import DatabaseFilter from './database-filter.jsx';
 import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
 
-var $=window.$;
+if(!$)  $=window.$;
 const { Menu, MenuItem } = remote;
 
 
@@ -73,18 +73,18 @@ export default class DatabaseListItem extends Component {
     }));
   }
 
-  onContextMenu=(event)=> {
+  onContextMenu(event) {
     event.preventDefault();
     if (this.contextMenu) {
       this.contextMenu.popup(event.clientX, event.clientY);
     }
   }
 
-  onFilterChange=(value)=> {
+  onFilterChange(value) {
     this.setState({ filter: value });
   }
 
-  onHeaderDoubleClick=(database)=> {
+  onHeaderDoubleClick(database) {
     if (!this.isMetadataLoaded()) {
       this.props.onSelectDatabase(database);
       return;
@@ -166,7 +166,7 @@ export default class DatabaseListItem extends Component {
             ref="filter"
             value={filter}
             isFetching={!isMetadataLoaded}
-            onFilterChange={this.onFilterChange} />
+            onFilterChange={::this.onFilterChange} />
         </div>
         <DatabaseListItemMetatada
           title="Tables"
@@ -220,7 +220,7 @@ export default class DatabaseListItem extends Component {
       <span
         className="header"
         onDoubleClick={() => this.onHeaderDoubleClick(database)}
-        onContextMenu={this.onContextMenu}
+        onContextMenu={::this.onContextMenu}
         style={STYLE.database}>
         <i className={`${collapseCssClass} triangle icon`}
           style={{ cursor: 'pointer' }}

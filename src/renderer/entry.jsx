@@ -17,7 +17,7 @@ class App extends Component {
               <Link to="/">sqlui</Link>
               <Link style={{paddingLeft:"20px"}} to ="/items">备件</Link>
           </div>
-          <Route exact path="/" component={AppSql}/>
+          <Route path="/" component={AppSql}/>
           <Route path="/Items" component={Items}/>
         </div>
            

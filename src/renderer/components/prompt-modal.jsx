@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 
-import $ from 'jquery';
+if(!$) $=window.$;
 export default class PromptModal extends Component {
   static propTypes = {
     onCancelClick: PropTypes.func.isRequired,
@@ -30,13 +30,13 @@ export default class PromptModal extends Component {
     $(this.refs.promptModal).modal('hide');
   }
 
-  handleKeyPress=(event)=> {
+  handleKeyPress(event) {
     if (event.key === 'Enter') {
       this.props.onOKClick(this.state.value);
     }
   }
 
-  handleChange=(event)=> {
+  handleChange(event) {
     this.setState({ value: event.target.value });
   }
 
@@ -51,7 +51,7 @@ export default class PromptModal extends Component {
         <div className="content">
           {message}
           <div className="ui fluid icon input">
-            <input onChange={this.handleChange} type={type} onKeyPress={this.handleKeyPress} />
+            <input onChange={::this.handleChange} type={type} onKeyPress={::this.handleKeyPress} />
           </div>
         </div>
         <div className="actions">

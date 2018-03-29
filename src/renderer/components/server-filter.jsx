@@ -14,7 +14,7 @@ export default class ServerFilter extends Component {
     this.delayedCallback = debounce(this.props.onFilterChange, 200);
   }
 
-  onFilterChange= (event)=> {
+  onFilterChange (event) {
     event.persist();
     this.delayedCallback(event);
   }
@@ -24,9 +24,9 @@ export default class ServerFilter extends Component {
       <div className="ui small action left icon input fluid"
         style={{ marginBottom: '1em', fontSize: '0.8em' }}>
         <i className="search icon"></i>
-        <input type="text" placeholder="Search..." onChange={this.onFilterChange} />
-        <button className="ui button green" onClick={this.props.onAddClick}>Add</button>
-        <button className="ui button" onClick={this.props.onSettingsClick}>Settings</button>
+        <input type="text" placeholder="Search..." onChange={::this.onFilterChange} />
+        <button className="ui button green" onClick={::this.props.onAddClick}>Add</button>
+        <button className="ui button" onClick={::this.props.onSettingsClick}>Settings</button>
       </div>
     );
   }

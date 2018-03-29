@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import DatabaseDiagram from './database-diagram.jsx';
 import Loader from './loader.jsx';
-var $=window.$;
+if(!$)  $=window.$;
 const STYLE = {
   list: {
     maxHeight: '250px',
@@ -54,29 +54,29 @@ export default class DatabaseDiagramModal extends Component {
     this.showDiagramIfNeeded(nextProps);
   }
 
-  onSelectAllTables=()=>{
+  onSelectAllTables() {
     $(':checkbox', 'div.ui.list').prop('checked', true);
     this.onCheckBoxesChange();
   }
 
-  onDeselectAllTables=()=> {
+  onDeselectAllTables() {
     $(':checkbox', 'div.ui.list').prop('checked', false);
     this.onCheckBoxesChange();
   }
 
-  onCheckBoxesChange=()=> {
+  onCheckBoxesChange() {
     // Disable generate diagram button if there are no tables selected
     return $(':checkbox:checked', 'div.ui.list').length
       ? $(this.refs.generateButton).removeClass('disabled')
       : $(this.refs.generateButton).addClass('disabled');
   }
 
-  onGenerateDiagramClick=()=> {
+  onGenerateDiagramClick() {
     this.setState({ showLoader: true });
     this.props.onGenerateDatabaseDiagram(this.props.database);
   }
 
-  onAddRelatedTables=(relatedTables)=> {
+  onAddRelatedTables(relatedTables) {
     const { selectedTables, addRelatedTables } = this.props;
 
     // If all related tables are already on diagram -> no need to reset positions
@@ -129,11 +129,11 @@ export default class DatabaseDiagramModal extends Component {
               Select tables to include on diagram
             </h4>
             <div className="ui mini buttons">
-              <button className="ui button mini" onClick={this.onSelectAllTables}>
+              <button className="ui button mini" onClick={::this.onSelectAllTables}>
                 Select All
               </button>
               <div className="or"></div>
-              <button className="ui button mini" onClick={this.onDeselectAllTables}>
+              <button className="ui button mini" onClick={::this.onDeselectAllTables}>
                 Deselect All
               </button>
             </div>
@@ -141,7 +141,7 @@ export default class DatabaseDiagramModal extends Component {
               {tablesAndViews.map((item) =>
                 <div key={item.name} className="item">
                   <div className="ui checkbox">
-                    <input id={item.name} type="checkbox" onChange={this.onCheckBoxesChange} />
+                    <input id={item.name} type="checkbox" onChange={::this.onCheckBoxesChange} />
                     <label>{item.name}</label>
                   </div>
                 </div>
@@ -151,7 +151,7 @@ export default class DatabaseDiagramModal extends Component {
               ref="generateButton"
               className="ui right floated positive button disabled"
               style={{ marginBottom: '1em' }}
-              onClick={this.onGenerateDiagramClick}>
+              onClick={::this.onGenerateDiagramClick}>
               Generate diagram
             </button>
           </div>
@@ -196,7 +196,7 @@ export default class DatabaseDiagramModal extends Component {
         tableKeys={tableKeys}
         diagramJSON={diagramJSON}
         isSaving={isSaving}
-        addRelatedTables={this.onAddRelatedTables} />
+        addRelatedTables={::this.onAddRelatedTables} />
     );
   }
 

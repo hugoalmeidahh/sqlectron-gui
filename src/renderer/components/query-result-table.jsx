@@ -39,7 +39,7 @@ export default class QueryResultTable extends Component {
       columnWidths: {},
       autoColumnWidths: [],
     };
-    this.resizeHandler = debounce(this.onResize, 20);
+    this.resizeHandler = debounce(::this.onResize, 20);
   }
 
   componentDidMount() {
@@ -84,7 +84,7 @@ export default class QueryResultTable extends Component {
     window.removeEventListener('resize', this.resizeHandler, false);
   }
 
-  onColumnResizeEndCallback=(newColumnWidth, columnKey)=>{
+  onColumnResizeEndCallback(newColumnWidth, columnKey) {
     this.setState(({ columnWidths }) => ({
       columnWidths: {
         ...columnWidths,
@@ -93,17 +93,17 @@ export default class QueryResultTable extends Component {
     }));
   }
 
-  onOpenPreviewClick=(value)=> {
+  onOpenPreviewClick(value) {
     this.setState({ showPreview: true, valuePreview: value });
   }
 
-  onClosePreviewClick=()=> {
+  onClosePreviewClick() {
     this.setState({ showPreview: false, valuePreview: null });
   }
 
-  onResize=()=> {
+  onResize() {
     clearTimeout(this.resizeTimer);
-    this.resizeTimer = setTimeout(this.resize, 16);
+    this.resizeTimer = setTimeout(::this.resize, 16);
   }
 
   getTextWidth(text, font) {
@@ -205,7 +205,7 @@ export default class QueryResultTable extends Component {
     this.setState({ tableWidth, tableHeight });
   }
 
-  renderHeaderTopBar=()=> {
+  renderHeaderTopBar() {
     const { rows, rowCount, onCopyToClipboardClick, onSaveToFileClick } = this.props;
     const styleCopied = { display: this.state.showCopied ? 'inline-block' : 'none' };
     const styleSaved = { display: this.state.showSaved ? 'inline-block' : 'none' };
@@ -255,7 +255,7 @@ export default class QueryResultTable extends Component {
     );
   }
 
-  renderPreviewModal=()=> {
+  renderPreviewModal() {
     if (!this.state.showPreview) {
       return null;
     }
@@ -263,12 +263,12 @@ export default class QueryResultTable extends Component {
     return (
       <PreviewModal
         value={this.state.valuePreview}
-        onCloseClick={this.onClosePreviewClick}
+        onCloseClick={::this.onClosePreviewClick}
       />
     );
   }
 
-  renderTableBody=(onScroll)=> {
+  renderTableBody(onScroll) {
     const { rowCount, fields } = this.props;
     const { tableWidth, tableHeight } = this.state;
 
@@ -281,16 +281,16 @@ export default class QueryResultTable extends Component {
       <Grid
         className="grid-body"
         ref={(ref) => { this.rowsGrid = ref; }}
-        cellRenderer={this.renderCell}
+        cellRenderer={::this.renderCell}
         width={tableWidth}
         height={Math.min((tableHeight - headerHeight), fixedHeightRows)}
         rowHeight={rowHeight}
         onScroll={onScroll}
         rowCount={rowCount}
         columnCount={fields.length}
-        columnWidth={this.getColumnWidth}
+        columnWidth={::this.getColumnWidth}
         rowsCount={rowCount}
-        noContentRenderer={this.renderNoRows} />
+        noContentRenderer={::this.renderNoRows} />
 
     );
   }
@@ -306,10 +306,10 @@ export default class QueryResultTable extends Component {
     return (
       <Grid
         ref={(ref) => { this.headerGrid = ref; }}
-        columnWidth={this.getColumnWidth}
+        columnWidth={::this.getColumnWidth}
         columnCount={fields.length}
         height={30}
-        cellRenderer={this.renderHeaderCell}
+        cellRenderer={::this.renderHeaderCell}
         className="grid-header-row"
         rowHeight={30}
         rowCount={1}
@@ -318,7 +318,7 @@ export default class QueryResultTable extends Component {
     );
   }
 
-  getColumnWidth=({ index })=> {
+  getColumnWidth({ index }) {
     const { columnWidths, autoColumnWidths } = this.state;
     const field = this.props.fields[index];
 
@@ -358,10 +358,8 @@ export default class QueryResultTable extends Component {
 
     return averageRowsCellWidth > maxWidth ? maxWidth : averageRowsCellWidth;
   }
-  //
-  renderCell=(params)=> {
-    //console.log("renderCell");
-    //console.log(params);
+
+  renderCell(params) {
     const field = this.props.fields[params.columnIndex];
     return (
       <TableCell
@@ -370,7 +368,7 @@ export default class QueryResultTable extends Component {
         rowIndex={params.rowIndex}
         data={this.props.rows}
         col={field.name}
-        onOpenPreviewClick={this.onOpenPreviewClick} />
+        onOpenPreviewClick={::this.onOpenPreviewClick} />
     );
   }
 
