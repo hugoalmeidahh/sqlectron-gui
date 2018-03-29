@@ -46,6 +46,9 @@ export function saveServer ({ server, id }) {
   return async (dispatch, getState) => {
     dispatch({ type: SAVE_SERVER_REQUEST, server });
     try {
+      console.log("-------------saveServer");
+      const state = getState();
+      console.log(state);
       const { config } = getState();
       const cryptoSecret = config.data.crypto.secret;
 
