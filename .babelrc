@@ -8,15 +8,13 @@
     "production": {
       "presets": ["react-optimize"],
       "plugins": [
-        "transform-function-bind",
         "babel-plugin-dev-expression"
       ]
     },
     "development": {
       "plugins": [
-        "transform-function-bind"
       ],
-      "presets": ["react-hmre"]
+      "presets": []
     }
   }
 }

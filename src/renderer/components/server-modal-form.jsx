@@ -49,6 +49,7 @@ export default class ServerModalForm extends Component {
       isNew: !server.id,
       showPlainPassword: false,
     };
+    this.state.value=this.state.client;
     console.log("constructor======");
     console.log(this.state);
   }

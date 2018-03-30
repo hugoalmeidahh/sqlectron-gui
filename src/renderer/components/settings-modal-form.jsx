@@ -23,6 +23,9 @@ export default class SettingsModalForm extends Component {
     this.state = {
       ...props.config.data,
     };
+    if(!this.state.zoomFactor){
+      this.state.zoomFactor=1;
+    }
   }
 
   componentDidMount() {
@@ -150,7 +153,7 @@ export default class SettingsModalForm extends Component {
           </div>
         </div>
         <div className="field">
-          Check out the full settings documentation at <a href="#" onClick={this.onDocClick}>here</a>
+          Check out the full settings documentation at <button  onClick={this.onDocClick}>here</button>
         </div>
       </div>
     );
@@ -175,7 +178,7 @@ export default class SettingsModalForm extends Component {
               name="zoomFactor"
               value={zoomFactor}
               onChange={this.handleChange.bind(this)}
-              style={{ width: '100%', 'margin-top': '10px' }} />
+              style={{ width: '100%', 'marginTop': '10px' }} />
           </div>
           <div className={`field ${this.highlightError('limitQueryDefaultSelectTop')}`}>
             <label>Limit of Rows from Select Top Query</label>

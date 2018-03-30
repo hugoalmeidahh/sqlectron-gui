@@ -55,6 +55,6 @@ export function buildNewWindow(app) {
     mainWindow.openDevTools();
   }
 
-  checkUpdate(mainWindow, appConfig)
-    .catch(err => logger.error('Unable to check for updates', err));
+  // checkUpdate(mainWindow, appConfig)
+  //   .catch(err => logger.error('Unable to check for updates', err));
 }

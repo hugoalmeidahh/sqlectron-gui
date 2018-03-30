@@ -18,7 +18,7 @@ class AppContainer extends Component {
     config: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     //router: PropTypes.object.isRequired,
-    children: PropTypes.node,
+    //children: PropTypes.node,
   };
 
   constructor(props, context) {
@@ -62,7 +62,7 @@ class AppContainer extends Component {
 
   render() {
     //console.log("App render=======");
-    const { children, config } = this.props;
+    const { config } = this.props;
     console.log("render========");
     console.log(this.props);
     let cs;

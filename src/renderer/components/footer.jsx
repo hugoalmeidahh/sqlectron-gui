@@ -30,10 +30,10 @@ const Footer = ({ status }) => (
         <LogStatus />
         <UpdateChecker />
       </div>
-      <a href="#" className="item" onClick={onGithubClick}>Github</a>
-      <a href="#" className="item" title="Keyboard Shortcuts" onClick={onShortcutsClick}>
+      <button  className="item" onClick={onGithubClick}>Github</button>
+      <button  className="item" title="Keyboard Shortcuts" onClick={onShortcutsClick}>
         <i className="keyboard icon" />
-      </a>
+      </button>
     </div>
   </div>
 );

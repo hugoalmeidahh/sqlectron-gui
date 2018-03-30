@@ -38,9 +38,9 @@ const Header = ({ items, onCloseConnectionClick, onReConnectionClick }) => {
   const styleItem = { paddingLeft: 0, paddingTop: 0, paddingBottom: 0 };
   return (
     <div id="header" className="ui top fixed menu borderless">
-      <a href="#" className="item" onClick={onSiteClick}>
+      <button  className="item" onClick={onSiteClick}>
         <img alt="logo" src={LOGO_PATH} style={{ width: '5.5em' }} />
-      </a>
+      </button>
       <div style={{ margin: '0 auto' }}>
         <div className="item" style={{ marginLeft: '-109px', marginRight: '-94px' }}>
           {renderBreadcrumb(items)}
