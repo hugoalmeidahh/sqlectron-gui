@@ -1,0 +1,1 @@
+node node_modules\electron-renderer-react-scripts-target\bin.js

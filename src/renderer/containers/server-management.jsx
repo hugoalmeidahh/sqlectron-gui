@@ -42,7 +42,7 @@ class ServerManagerment extends Component {
   onConnectClick=({ id }) =>{
     console.log(this.props);
     console.log(id);
-    var path=`/server/${id}`;
+    var path=`/sql/server/${id}`;
     console.log(path);
     this.props.history.push(path);
   }

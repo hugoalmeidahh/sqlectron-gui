@@ -65,6 +65,7 @@ class AppContainer extends Component {
     const { config } = this.props;
     console.log("render========");
     console.log(this.props);
+    console.log(this.props.history.location);
     let cs;
     if(config.isLoaded)
     {cs=<ServerManagement />}
