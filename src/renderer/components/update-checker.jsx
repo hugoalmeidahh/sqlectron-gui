@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import { ipcRenderer,shell} from '../../browser/remote';
 
 const EVENT_KEY = 'sqlectron:update-available';
-const repo = global.SQLECTRON_CONFIG.repository.url.replace('https://github.com/', '');
+console.log(global);
+
+const repo = "";//global.SQLECTRON_CONFIG.repository.url.replace('https://github.com/', '');
 const LATEST_RELEASE_URL = `https://github.com/${repo}/releases/latest`;
 
 

@@ -1,1 +1,0 @@
-const sqlectron = require('../core/index.js');

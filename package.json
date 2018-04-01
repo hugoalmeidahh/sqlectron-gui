@@ -7,7 +7,7 @@
     "name": "The Sqlectron Team",
     "email": "maxcnunes@gmail.com"
   },
-  "main": "./out/browser/main.js",
+  "main": "main.js",
   "license": "MIT",
   "bugs": "https://github.com/sqlectron/sqlectron-gui/issues",
   "repository": {
@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "startc": "electron ./src/browser --dev",
+    "startc": "electron . --dev",
     "lint": "eslint . --ext .js,.jsx",
     "lint:fix": "npm run lint -- --fix",
     "test": "npm run lint",
