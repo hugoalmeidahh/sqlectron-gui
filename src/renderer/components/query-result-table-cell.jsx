@@ -1,10 +1,10 @@
 import isPlainObject from 'lodash.isplainobject';
-import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
+//import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
 import classNames from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { valueToString } from '../utils/convert';
-
+import { remote} from '../../browser/remote';
 const { Menu, MenuItem } = remote;
 if(!$){ var $=window.$};
 export default class TableCell extends Component {

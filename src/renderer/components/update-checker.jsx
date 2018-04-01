@@ -1,6 +1,6 @@
-import { ipcRenderer, shell } from 'electron'; // eslint-disable-line import/no-unresolved
+//import { ipcRenderer, shell } from 'electron'; // eslint-disable-line import/no-unresolved
 import React, { Component } from 'react';
-
+import { ipcRenderer,shell} from '../../browser/remote';
 
 const EVENT_KEY = 'sqlectron:update-available';
 const repo = global.SQLECTRON_CONFIG.repository.url.replace('https://github.com/', '');

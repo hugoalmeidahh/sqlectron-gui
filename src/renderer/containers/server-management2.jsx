@@ -1,4 +1,5 @@
-import { webFrame } from 'electron'; // eslint-disable-line import/no-unresolved
+//import { webFrame } from 'electron'; // eslint-disable-line import/no-unresolved
+import { webFrame } from '../../browser/remote';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { withRouter } from 'react-router';

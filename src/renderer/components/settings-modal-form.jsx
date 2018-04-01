@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import { shell } from 'electron'; // eslint-disable-line import/no-unresolved
+//import { shell } from 'electron'; // eslint-disable-line import/no-unresolved
 import set from 'lodash.set';
 import Select from 'react-select';
 import Checkbox from './checkbox.jsx';
-
+import {shell} from '../../browser/remote';
 
 require('react-select/dist/react-select.css');
 require('./override-select.css');

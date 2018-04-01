@@ -30,12 +30,11 @@ import Loader from '../components/loader.jsx';
 import PromptModal from '../components/prompt-modal.jsx';
 import MenuHandler from '../menu-handler';
 import { requireLogos } from '../components/require-context';
-import $ from 'jquery';
-//var { sqlectron }= require('electron').remote; 
+
 require('./query-browser.css');
 require('../components/react-resizable.css');
 require('../components/react-tabs.scss');
-
+if(!$){ var $=window.$};
 const SIDEBAR_WIDTH = 235;
 const STYLES = {
   wrapper: {},
