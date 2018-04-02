@@ -462,15 +462,6 @@ export default class ServerModalForm extends Component {
             name="sshTunnel"
             label="SSH Tunnel"
             defaultChecked={isSSHChecked}
-            value={isSSHChecked}
-            onChange={()=>{
-                if(isSSHChecked){
-                  this.setState({ ssh: null });
-                }
-                else{
-                  this.setState({ ssh: {} });
-                }
-            }}
             onChecked={() => this.setState({ ssh: {} })}
             onUnchecked={() => this.setState({ ssh: null })} />
         </div>
@@ -544,10 +535,6 @@ export default class ServerModalForm extends Component {
                   label="Passphrase"
                   disabled={!!(!isSSHChecked || ssh.password)}
                   defaultChecked={ssh && ssh.privateKeyWithPassphrase}
-                  value={ssh && ssh.privateKeyWithPassphrase}
-                  onChange={()=>{
-                    
-                  }}
                   onChecked={() => {
                     const stateSSH = this.state.ssh ? { ...this.state.ssh } : {};
                     stateSSH.privateKeyWithPassphrase = true;
