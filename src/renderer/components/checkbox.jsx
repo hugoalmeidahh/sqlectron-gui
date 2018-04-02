@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import {Input} from 'semantic-ui-react'
-export default class Checkbox extends Component {
+//import {Input} from 'semantic-ui-react';
+import { Checkbox } from 'semantic-ui-react'
+export default class CheckboxMe extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
@@ -21,11 +22,11 @@ export default class Checkbox extends Component {
   render () {
     const { name, label, disabled, defaultChecked } = this.props;
     return (
-      <div className="ui toggle" >
-        <Input type="checkbox" 
+      <div>
+        <Checkbox  toggle
           name={name}
           disabled={disabled}
-          checked={this.props.defaultChecked}  
+          defaultChecked={this.props.defaultChecked}  
           onChange={this.onChange}
         />
         <label>{label}</label>
