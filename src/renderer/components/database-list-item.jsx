@@ -53,7 +53,7 @@ export default class DatabaseListItem extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = {};
+    this.state = {filter:""};
     this.contextMenu = null;
   }
 
@@ -232,6 +232,8 @@ export default class DatabaseListItem extends Component {
   }
 
   render() {
+    console.log("DatabaseListItem render")
+    console.log(this.state);
     const { database, currentDB } = this.props;
 
     const isMetadataLoaded = this.isMetadataLoaded();

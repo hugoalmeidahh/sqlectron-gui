@@ -18,7 +18,11 @@ export default class DatabaseFilter extends Component {
   }
 
   render() {
-    const { value, placeholder, isFetching } = this.props;
+    //console.log("render DatabaseFilter");
+    //console.log(this.props);
+
+    var { value, placeholder, isFetching } = this.props;
+    if(!value) value="";
     return (
       <div className={`ui icon input ${isFetching ? 'loading' : ''}`}>
         <input type="text"

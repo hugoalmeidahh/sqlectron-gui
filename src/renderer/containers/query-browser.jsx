@@ -31,7 +31,7 @@ import PromptModal from '../components/prompt-modal.jsx';
 import MenuHandler from '../menu-handler';
 import { requireLogos } from '../components/require-context';
 
-require('./query-browser.css');
+//require('./query-browser.css');
 require('../components/react-resizable.css');
 require('../components/react-tabs.scss');
 if(!$){ var $=window.$};
@@ -44,7 +44,22 @@ const STYLES = {
     boxSizing: 'border-box',
     padding: '50px 10px 40px 10px',
   },
-  sidebar: { transition: 'all .2s' },
+  sidebar: { 
+    transition: 'all .2s' ,
+    overflowY: 'hidden',
+    overflowX: 'hidden',
+    WebkitScrollbar:{ display:'none' },
+    hover:{ 
+          overflowY:'auto', 
+          overflowY:'overlay',
+          WebkitScrollbar:{ display: 'block' }
+        },
+    WebkitScrollbar: { webkitAppearance:'none' },
+    WebkitScrollbarThumb: {
+      boxShadow: 'inset 0 -2px,inset 0 -8px,inset 0 2px,inset 0 8px',
+      minHeight: '36px'
+    }
+  },
   content: { flex: 1, overflow: 'auto', paddingLeft: '5px' },
   collapse: {
     position: 'fixed',
