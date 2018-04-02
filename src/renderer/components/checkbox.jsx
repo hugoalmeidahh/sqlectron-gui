@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-if(!$){ var $=window.$};
+import {Input} from 'semantic-ui-react'
 export default class Checkbox extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
@@ -10,26 +10,24 @@ export default class Checkbox extends Component {
     onChecked: PropTypes.func.isRequired,
     onUnchecked: PropTypes.func.isRequired,
   };
-  // quehuoChange=(e)=>{
-  //   console.log(e);
-  // }
-  componentDidMount() {
-    const { onChecked, onUnchecked } = this.props;
-    // console.log("checkbox componentDidMount===");
-    // console.log($);
-    // console.log(this.refs.checkbox);
-    // console.log($(this.refs.checkbox));
-    $(this.refs.checkbox).checkbox({ onChecked, onUnchecked });
+  onChange=()=>{
+      if(!this.props.defaultChecked){
+        this.props.onChecked();
+      }
+      else{
+        this.props.onUnchecked();
+      }
   }
-
   render () {
     const { name, label, disabled, defaultChecked } = this.props;
     return (
-      <div className="ui toggle checkbox" ref="checkbox">
-        <input type="checkbox" 
+      <div className="ui toggle" >
+        <Input type="checkbox" 
           name={name}
           disabled={disabled}
-          defaultChecked={defaultChecked} />
+          checked={this.props.defaultChecked}  
+          onChange={this.onChange}
+        />
         <label>{label}</label>
       </div>
     );
