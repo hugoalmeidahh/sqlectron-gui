@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import DatabaseListItemMetatada from './database-list-item-metadata.jsx';
 import DatabaseFilter from './database-filter.jsx';
-import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
-
+//import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
+import { remote} from '../../browser/remote';
 if(!$){ var $=window.$};
 const { Menu, MenuItem } = remote;
 

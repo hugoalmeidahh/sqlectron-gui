@@ -1,12 +1,11 @@
-import path from 'path';
 import trim from 'lodash.trim';
 import cloneDeep from 'lodash.clonedeep';
 import csvStringify from 'csv-stringify';
-import { clipboard } from 'electron'; // eslint-disable-line import/no-unresolved
 import { getCurrentDBConn, getDBConnByName } from './connections';
 import { rowsValuesToString } from '../utils/convert';
 import * as fileHandler from '../utils/file-handler';
 import wait from '../utils/wait';
+import { path,clipboard } from '../../browser/remote';
 
 export const NEW_QUERY = 'NEW_QUERY';
 export const RENAME_QUERY = 'RENAME_QUERY';

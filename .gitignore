@@ -8,4 +8,9 @@ npm-debug.log
 .tmp
 *.log
 *.lock
+<<<<<<< HEAD
 *.bak
+=======
+.storybook
+build
+>>>>>>> refs/remotes/origin/master

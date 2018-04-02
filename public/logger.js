@@ -33,4 +33,5 @@
 
 // export default (namespace) => logger.child({ namespace });
 //var a={default:()=>{}};
-export default (namespace) => console;
+//export default (namespace) => console;
+window.myremote.createLogger=console;

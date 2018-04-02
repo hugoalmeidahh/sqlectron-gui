@@ -1,12 +1,12 @@
 import isPlainObject from 'lodash.isplainobject';
-//import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
+import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
 import classNames from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { valueToString } from '../utils/convert';
-import { remote} from '../../browser/remote';
+
 const { Menu, MenuItem } = remote;
-if(!$){ var $=window.$};
+if(!$) $=window.$;
 export default class TableCell extends Component {
   static propTypes = {
     rowIndex: PropTypes.number.isRequired,
@@ -55,7 +55,7 @@ export default class TableCell extends Component {
     });
 
     return (
-      <div style={this.props.style} className="item" onContextMenu={this.onContextMenu.bind(this)}>
+      <div className="item" onContextMenu={::this.onContextMenu}>
         {
           value === null
             ? <span className={className}>NULL</span>

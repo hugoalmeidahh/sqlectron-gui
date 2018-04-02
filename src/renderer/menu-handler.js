@@ -1,5 +1,4 @@
-import { ipcRenderer } from 'electron'; // eslint-disable-line import/no-unresolved
-
+import { ipcRenderer } from '../browser/remote';
 
 export default class MenuHandler {
   setMenus(commands) {

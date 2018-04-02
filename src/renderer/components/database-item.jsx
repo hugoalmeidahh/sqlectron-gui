@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import CollapseIcon from './collapse-icon.jsx';
 import TableSubmenu from './table-submenu.jsx';
-import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
-import { sqlectron } from '../../browser/remote';
+//import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
+import { remote,sqlectron } from '../../browser/remote';
 
 const Menu = remote.Menu;
 const MenuItem = remote.MenuItem;

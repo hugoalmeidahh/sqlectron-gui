@@ -1,4 +1,5 @@
-import { webFrame } from 'electron'; // eslint-disable-line import/no-unresolved
+//import { webFrame } from 'electron'; // eslint-disable-line import/no-unresolved
+import { webFrame } from '../../browser/remote';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { withRouter } from 'react-router';
@@ -65,6 +66,7 @@ class AppContainer extends Component {
     const { config } = this.props;
     console.log("render========");
     console.log(this.props);
+    console.log(this.props.history.location);
     let cs;
     if(config.isLoaded)
     {cs=<ServerManagement />}

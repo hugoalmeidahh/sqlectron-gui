@@ -1,1 +1,1 @@
-node_modules\.bin\electron .\src\browser --dev
+node_modules\.bin\electron . --dev
