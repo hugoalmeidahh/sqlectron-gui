@@ -9,7 +9,7 @@ const Menu = remote.Menu;
 const MenuItem = remote.MenuItem;
 const CLIENTS = sqlectron.db.CLIENTS;
 
-//if($) $=window.$;
+
 export default class DatabaseItem extends Component {
   static propTypes = {
     client: PropTypes.string.isRequired,

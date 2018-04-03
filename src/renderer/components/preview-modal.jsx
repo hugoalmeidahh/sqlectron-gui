@@ -2,8 +2,8 @@ import isPlainObject from 'lodash.isplainobject';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import classNames from 'classnames';
+import { Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
 
-if(!$){ var $=window.$};
 export default class PreviewModal extends Component {
   static propTypes = {
     value: PropTypes.oneOfType([
@@ -15,23 +15,23 @@ export default class PreviewModal extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = {};
+    this.state = {modalOpen:false};
   }
 
   componentDidMount() {
-    $(this.refs.previewModal).modal({
-      context: 'body',
-      closable: false,
-      detachable: false,
-      onDeny: () => {
-        this.props.onCloseClick();
-        return true;
-      },
-    }).modal('show');
+    // $(this.refs.previewModal).modal({
+    //   context: 'body',
+    //   closable: false,
+    //   detachable: false,
+    //   onDeny: () => {
+    //     this.props.onCloseClick();
+    //     return true;
+    //   },
+    // }).modal('show');
   }
 
   componentWillUnmount() {
-    $(this.refs.previewModal).modal('hide');
+   // $(this.refs.previewModal).modal('hide');
   }
 
   onClick(type) {
@@ -85,24 +85,36 @@ export default class PreviewModal extends Component {
     const selected = this.state.selected || 'plain';
     const previewValue = this.getPreviewValue(selected);
     return (
-      <div className="ui modal" ref="previewModal">
-        <div className="header">
-          Content Preview
-        </div>
-        <div className="content">
-          {this.renderMenu()}
+
+      <Modal ref="previewModal"
+      closable={false}
+      detachable={false}
+      onDeny={ () => {
+        this.props.onCloseClick();
+        return true;
+      }}
+        open={this.state.modalOpen}
+        onClose={this.handleClose}
+        basic
+        size='small'
+      >
+        <Header icon='browser' content='Cookies policy'>
+         Content Preview
+        </Header>
+        <Modal.Content>
+            {this.renderMenu()}
           <div className="ui segment">
             <div style={{ maxHeight: '500px', overflowY: 'scroll' }}>
               {previewValue}
             </div>
           </div>
-        </div>
-        <div className="actions">
-          <div className="small ui black deny right button" tabIndex="0">
+        </Modal.Content>
+        <Modal.Actions>
+         <div className="small ui black deny right button" tabIndex="0">
             Close
           </div>
-        </div>
-      </div>
+        </Modal.Actions>
+      </Modal>
     );
   }
 }

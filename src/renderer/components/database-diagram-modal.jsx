@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import DatabaseDiagram from './database-diagram.jsx';
 import Loader from './loader.jsx';
+import { Transition,Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
 if(!$){ var $=window.$};
 const STYLE = {
   list: {
@@ -34,20 +35,20 @@ export default class DatabaseDiagramModal extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = {};
+    this.state = {modalOpen:false};
   }
 
   componentDidMount() {
-    $(this.refs.diagramModal).modal({
-      closable: true,
-      detachable: false,
-      // Updates modal position on loading diagram in modal DOM
-      observeChanges: true,
-      onHidden: () => {
-        this.props.onClose();
-      },
-      onApprove: () => false,
-    }).modal('show');
+    // $(this.refs.diagramModal).modal({
+    //   closable: true,
+    //   detachable: false,
+    //   // Updates modal position on loading diagram in modal DOM
+    //   observeChanges: true,
+    //   onHidden: () => {
+    //     this.props.onClose();
+    //   },
+    //   onApprove: () => false,
+    // }).modal('show');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -237,23 +238,37 @@ export default class DatabaseDiagramModal extends Component {
     // elements will be calculated.
     // For more check this issue: https://github.com/clientIO/joint/issues/262
     return (
-      <div className="ui modal" ref="diagramModal">
+      <Modal ref="diagramModal"
+      closable={true}
+      detachable={false}
+      observeChanges={true}
+      onHidden={ () => {
+        this.props.onClose();
+      }}
+      onApprove={ () => false}
+        open={this.state.modalOpen}
+        onClose={this.handleClose}
+        basic
+        size='small'
+      >
         {!!this.state.showDatabaseDiagram &&
-          <div className="header">
+          <Header>
             Database diagram
-          </div>
+          </Header>
         }
-        <div className="content">
-          {
+        <Modal.Content>
+           {
             !this.state.showDatabaseDiagram
             && !this.state.showLoader
             && this.renderSelectTablesMenu()
           }
           {!this.state.showDatabaseDiagram && !!this.state.showLoader && this.renderLoader()}
           {!!this.state.showDatabaseDiagram && this.renderDiagram()}
-        </div>
-        {!!this.state.showDatabaseDiagram && this.renderActionButtons()}
-      </div>
+        </Modal.Content>
+        <Modal.Actions>
+         {!!this.state.showDatabaseDiagram && this.renderActionButtons()}
+        </Modal.Actions>
+      </Modal>
     );
   }
 }

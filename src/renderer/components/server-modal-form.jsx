@@ -7,7 +7,8 @@ import ConfirmModal from './confim-modal.jsx';
 import Message from './message.jsx';
 import Checkbox from './checkbox.jsx';
 import { requireLogos } from './require-context';
-if(!$){ var $=window.$};
+import { Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
+
 require('react-select/dist/react-select.css');
 require('./override-select.css');
 
@@ -48,6 +49,7 @@ export default class ServerModalForm extends Component {
       ...server,
       isNew: !server.id,
       showPlainPassword: false,
+      modalOpen:false,
     };
     this.state.value=this.state.client;
     console.log("constructor======");
@@ -56,21 +58,21 @@ export default class ServerModalForm extends Component {
 
   componentDidMount() {
     //console.log($(this.refs.serverModal));
-    $(this.refs.serverModal).modal({
-      closable: true,
-      detachable: false,
-      allowMultiple: true,
-      observeChanges: true,
-      onHidden: () => {
-        this.props.onCancelClick();
-        return true;
-      },
-      onDeny: () => {
-        this.props.onCancelClick();
-        return true;
-      },
-      onApprove: () => false,
-    }).modal('show');
+    // $(this.refs.serverModal).modal({
+    //   closable: true,
+    //   detachable: false,
+    //   allowMultiple: true,
+    //   observeChanges: true,
+    //   onHidden: () => {
+    //     this.props.onCancelClick();
+    //     return true;
+    //   },
+    //   onDeny: () => {
+    //     this.props.onCancelClick();
+    //     return true;
+    //   },
+    //   onApprove: () => false,
+    // }).modal('show');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -78,7 +80,7 @@ export default class ServerModalForm extends Component {
   }
 
   componentWillUnmount() {
-    $(this.refs.serverModal).modal('hide');
+    //$(this.refs.serverModal).modal('hide');
   }
 
   onSaveClick() {
@@ -690,23 +692,62 @@ export default class ServerModalForm extends Component {
     console.log("render== ServerModalForm")
     console.log(this.state);
     return (
-      <div id="server-modal" className="ui modal" ref="serverModal">
-        <div className="header">
-          Server Information
-        </div>
-        <div className="content">
-          {this.renderMessage()}
-          <form className="ui form">
-            {this.renderBasicPanel()}
-            {
-              this.renderSSHPanel()
-            }
-            {this.renderFilterPanel()}
-          </form>
-        </div>
-        {this.renderActionsPanel()}
-        {this.renderConfirmRemoveModal()}
-      </div>
+    // {
+    //   <div id="server-modal" className="ui modal" ref="serverModal">
+    //     <div className="header">
+    //       Server Information
+    //     </div>
+    //     <div className="content">
+    //       {this.renderMessage()}
+    //       <form className="ui form">
+    //         {this.renderBasicPanel()}
+    //         {
+    //           this.renderSSHPanel()
+    //         }
+    //         {this.renderFilterPanel()}
+    //       </form>
+    //     </div>
+    //     {this.renderActionsPanel()}
+    //     {this.renderConfirmRemoveModal()}
+    //   </div>
+    // }
+      <Modal id="server-modal"
+      closable={true}
+      detachable={false}
+      allowMultiple={true}
+      observeChanges={true}
+      onHidden={ () => {
+        this.props.onCancelClick();
+        return true;
+      }}
+      onDeny={ () => {
+        this.props.onCancelClick();
+        return true;
+      }}
+      onApprove={ () => false}
+        open={this.state.modalOpen}
+        onClose={this.handleClose}
+        basic
+        size='small'
+      >
+        <Header icon='browser' content='Cookies policy'>
+          Settings
+        </Header>
+        <Modal.Content>
+                {this.renderMessage()}
+           <form className="ui form">
+             {this.renderBasicPanel()}
+             {
+               this.renderSSHPanel()
+             }
+             {this.renderFilterPanel()}
+           </form>
+        </Modal.Content>
+        <Modal.Actions>
+         {this.renderActionsPanel()}
+         {this.renderConfirmRemoveModal()}
+        </Modal.Actions>
+      </Modal>
     );
   }
 }

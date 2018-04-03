@@ -5,11 +5,11 @@ import set from 'lodash.set';
 import Select from 'react-select';
 import Checkbox from './checkbox.jsx';
 import {shell} from '../../browser/remote';
-
+import { Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
 require('react-select/dist/react-select.css');
 require('./override-select.css');
 
-if(!$){ var $=window.$};
+
 export default class SettingsModalForm extends Component {
   static propTypes = {
     onSaveClick: PropTypes.func.isRequired,
@@ -22,6 +22,7 @@ export default class SettingsModalForm extends Component {
     super(props, context);
     this.state = {
       ...props.config.data,
+      modalOpen:false
     };
     if(!this.state.zoomFactor){
       this.state.zoomFactor=1;
@@ -29,21 +30,21 @@ export default class SettingsModalForm extends Component {
   }
 
   componentDidMount() {
-    $(this.refs.settingsModal).modal({
-      closable: true,
-      detachable: false,
-      allowMultiple: true,
-      observeChanges: true,
-      onHidden: () => {
-        this.props.onCancelClick();
-        return true;
-      },
-      onDeny: () => {
-        this.props.onCancelClick();
-        return true;
-      },
-      onApprove: () => false,
-    }).modal('show');
+    // $(this.refs.settingsModal).modal({
+    //   closable: true,
+    //   detachable: false,
+    //   allowMultiple: true,
+    //   observeChanges: true,
+    //   onHidden: () => {
+    //     this.props.onCancelClick();
+    //     return true;
+    //   },
+    //   onDeny: () => {
+    //     this.props.onCancelClick();
+    //     return true;
+    //   },
+    //   onApprove: () => false,
+    // }).modal('show');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,7 +52,7 @@ export default class SettingsModalForm extends Component {
   }
 
   componentWillUnmount() {
-    $(this.refs.settingsModal).modal('hide');
+    //$(this.refs.settingsModal).modal('hide');
   }
 
   onSaveClick() {
@@ -307,19 +308,39 @@ export default class SettingsModalForm extends Component {
 
   render() {
     return (
-      <div id="settings-modal" className="ui modal" ref="settingsModal">
-        <div className="header">
+      <Modal id="settings-modal"
+      closable={true}
+      detachable={false}
+      allowMultiple={true}
+      observeChanges={true}
+      onHidden={ () => {
+        this.props.onCancelClick();
+        return true;
+      }}
+      onDeny={ () => {
+        this.props.onCancelClick();
+        return true;
+      }}
+      onApprove={ () => false}
+        open={this.state.modalOpen}
+        onClose={this.handleClose}
+        basic
+        size='small'
+      >
+        <Header>
           Settings
-        </div>
-        <div className="content">
+        </Header>
+        <Modal.Content>
           <form className="ui form">
             {this.renderBasicSettingsPanel()}
             {this.renderLoggingSettingsPanel()}
             {this.renderSettingsPath()}
           </form>
-        </div>
-        {this.renderActionsPanel()}
-      </div>
+        </Modal.Content>
+        <Modal.Actions>
+          {this.renderActionsPanel()}
+        </Modal.Actions>
+      </Modal>
     );
   }
 }

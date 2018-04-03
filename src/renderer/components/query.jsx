@@ -15,7 +15,7 @@ import { ResizableBox } from 'react-resizable';
 require('./react-resizable.css');
 require('./override-ace.css');
 
-//if(!$) $=window.$;
+
 const QUERY_EDITOR_HEIGTH = 200;
 const langTools = ace.acequire('ace/ext/language_tools');
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-var $=window.$;
+import { Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
 export default class ServerModalForm extends Component {
   static propTypes = {
     onCancelClick: PropTypes.func.isRequired,
@@ -11,20 +11,20 @@ export default class ServerModalForm extends Component {
   }
 
   componentDidMount() {
-    $(this.refs.confirmModal).modal({
-      closable: false,
-      detachable: false,
-      allowMultiple: true,
-      context: this.props.context,
-      onDeny: () => {
-        this.props.onCancelClick();
-        return true;
-      },
-      onApprove: () => {
-        this.props.onRemoveClick();
-        return false;
-      },
-    }).modal('show');
+    // $(this.refs.confirmModal).modal({
+    //   closable: false,
+    //   detachable: false,
+    //   allowMultiple: true,
+    //   context: this.props.context,
+    //   onDeny: () => {
+    //     this.props.onCancelClick();
+    //     return true;
+    //   },
+    //   onApprove: () => {
+    //     this.props.onRemoveClick();
+    //     return false;
+    //   },
+    // }).modal('show');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,21 +32,37 @@ export default class ServerModalForm extends Component {
   }
 
   componentWillUnmount() {
-    $(this.refs.confirmModal).modal('hide');
+    //$(this.refs.confirmModal).modal('hide');
   }
 
   render() {
     const { title, message } = this.props;
-
     return (
-      <div className="ui modal" ref="confirmModal" style={{ position: 'absolute' }}>
-        <div className="header">
+      <Modal ref="confirmModal"
+      closable={false}
+      detachable={false}
+      allowMultiple={true}
+      context={this.props.context}
+      onDeny={ () => {
+        this.props.onCancelClick();
+        return true;
+      }}
+      onApprove={() => {
+        this.props.onRemoveClick();
+        return false;
+      }}
+        open={this.state.modalOpen}
+        onClose={this.handleClose}
+        basic
+        size='small'
+      >
+        <Header icon='browser' content='Cookies policy'>
           {title}
-        </div>
-        <div className="content">
-          {message}
-        </div>
-        <div className="actions">
+        </Header>
+        <Modal.Content>
+           {message}
+        </Modal.Content>
+        <Modal.Actions>
           <div className="small ui black deny right labeled icon button" tabIndex="0">
             No
             <i className="ban icon"></i>
@@ -55,8 +71,8 @@ export default class ServerModalForm extends Component {
             Yes
             <i className="checkmark icon"></i>
           </div>
-        </div>
-      </div>
+        </Modal.Actions>
+      </Modal>
     );
   }
 }

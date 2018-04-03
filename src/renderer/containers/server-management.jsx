@@ -12,7 +12,7 @@ import ServerModalForm from '../components/server-modal-form.jsx';
 import SettingsModalForm from '../components/settings-modal-form.jsx';
 import ServerFilter from '../components/server-filter.jsx';
 import Message from '../components/message.jsx';
-
+import {Divider, Transition,Button,Input, Grid,  List, Segment, Icon, Modal } from 'semantic-ui-react';
 
 const STYLES = {
   wrapper: { paddingTop: '50px' },
@@ -158,11 +158,26 @@ class ServerManagerment extends Component {
             onCancelClick={this.onCancelClick.bind(this)}
             onRemoveClick={this.onRemoveClick.bind(this)} />}
 
-          {config.isEditing && <SettingsModalForm
+          <SettingsModalForm open={config.isEditing}
             config={config}
             error={config.error}
             onSaveClick={this.onSettingsSaveClick.bind(this)}
-            onCancelClick={this.onSettingsCancelClick.bind(this)} />}
+            onCancelClick={this.onSettingsCancelClick.bind(this)} />
+          <Modal
+        open={config.isEditing}
+        onClose={this.handleClose}
+        basic
+        size='small'
+      >
+        <Modal.Content>
+          <h3>This website uses cookies to ensure the best user experience.</h3>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color='green' onClick={this.handleClose} inverted>
+            <Icon name='checkmark' /> Got it
+          </Button>
+        </Modal.Actions>
+      </Modal>
         </div>
         <div style={STYLES.footer}>
           <Footer status={status} />

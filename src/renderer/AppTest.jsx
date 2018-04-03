@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {withRouter, Link} from 'react-router-dom';
-import { Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react'
+import {Divider, Transition,Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
 import Checkbox from './components/checkbox.jsx' 
+import Dialog from './Modal1.jsx';
 // import styled from "styled-components";
 // //import Application from './demo/index.js';
 // const StyledView = styled.h1`
@@ -13,7 +14,7 @@ import Checkbox from './components/checkbox.jsx'
 // `;
 
 class App extends React.Component{
-  state={value:true, modalOpen: false }
+  state={value:true, modalOpen: false, visible: true }
 
   handleOpen = () => this.setState({ modalOpen: true })
 
@@ -30,8 +31,10 @@ class App extends React.Component{
   clickno=()=>{
     console.log("clickno");
   }
+  toggleVisibility = () => this.setState({ visible: !this.state.visible })
   render() {
     console.log(this.state);
+    const { visible } = this.state
     return (
       <div>
        <Button onClick={this.buttonClick}>sqlui</Button>
@@ -58,23 +61,14 @@ class App extends React.Component{
        //  <StyledText>Hello World!</StyledText>
        // </StyledView>
      }
-     <Modal
-        trigger={<Button onClick={this.handleOpen}>Show Modal</Button>}
-        open={this.state.modalOpen}
-        onClose={this.handleClose}
-        basic
-        size='small'
-      >
-        <Header icon='browser' content='Cookies policy' />
-        <Modal.Content>
-          <h3>This website uses cookies to ensure the best user experience.</h3>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color='green' onClick={this.handleClose} inverted>
-            <Icon name='checkmark' /> Got it
-          </Button>
-        </Modal.Actions>
-      </Modal>
+     <Button onClick={this.handleOpen}>Show Modal</Button>
+     <Button content={visible ? 'Hide' : 'Show'} onClick={this.toggleVisibility} />
+    <Divider hidden />
+     <Transition visible={visible} animation='scale' duration={5000}>
+          <div> i am disapear............. </div>
+     </Transition>
+     
+      <Dialog handleClose={this.handleClose} modalOpen={this.state.modalOpen}/>
       </div>
     );
   }

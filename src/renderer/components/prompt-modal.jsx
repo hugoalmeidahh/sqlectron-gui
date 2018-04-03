@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 
-if(!$){ var $=window.$};
+import { Transition,Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
 export default class PromptModal extends Component {
   static propTypes = {
     onCancelClick: PropTypes.func.isRequired,
@@ -10,24 +10,30 @@ export default class PromptModal extends Component {
     message: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   }
+  constructor()
+  {
+    super();
+    this.state={modalOpen:false};
+  }
 
   componentDidMount() {
-    $(this.refs.promptModal).modal({
-      closable: false,
-      detachable: false,
-      onDeny: () => {
-        this.props.onCancelClick();
-        return true;
-      },
-      onApprove: () => {
-        this.props.onOKClick(this.state.value);
-        return true;
-      },
-    }).modal('show');
+    // $(this.refs.promptModal).modal({
+    //   closable: false,
+    //   detachable: false,
+    //   onDeny: () => {
+    //     this.props.onCancelClick();
+    //     return true;
+    //   },
+    //   onApprove: () => {
+    //     this.props.onOKClick(this.state.value);
+    //     return true;
+    //   },
+    // }).modal('show');
+    
   }
 
   componentWillUnmount() {
-    $(this.refs.promptModal).modal('hide');
+    //$(this.refs.promptModal).modal('hide');
   }
 
   handleKeyPress(event) {
@@ -44,17 +50,34 @@ export default class PromptModal extends Component {
     const { title, message, type } = this.props;
 
     return (
-      <div className="ui modal" ref="promptModal">
-        <div className="header">
-          {title}
-        </div>
-        <div className="content">
-          {message}
+      <Modal  ref="promptModal"
+      closable={false}
+      detachable={false}
+      onDeny={ () => {
+        this.props.onCancelClick();
+        return true;
+      }}
+      onApprove={ () => {
+        this.props.onOKClick(this.state.value);
+        return true;
+      }}
+        open={this.state.modalOpen}
+        onClose={this.handleClose}
+        basic
+        size='small'
+      >
+        {!!this.state.showDatabaseDiagram &&
+          <Header>
+             {title}
+          </Header>
+        }
+        <Modal.Content>
+            {message}
           <div className="ui fluid icon input">
             <input onChange={this.handleChange.bind(this)} type={type} onKeyPress={this.handleKeyPress.bind(this)} />
           </div>
-        </div>
-        <div className="actions">
+        </Modal.Content>
+        <Modal.Actions>
           <div className="small ui black deny right labeled icon button" tabIndex="0">
             Cancel
             <i className="ban icon"></i>
@@ -63,8 +86,8 @@ export default class PromptModal extends Component {
             OK
             <i className="checkmark icon"></i>
           </div>
-        </div>
-      </div>
+        </Modal.Actions>
+      </Modal>
     );
   }
 }
