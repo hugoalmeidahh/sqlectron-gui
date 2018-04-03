@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import {Divider, Transition,Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
 import Checkbox from './components/checkbox.jsx' 

@@ -9,6 +9,11 @@ const middlewares = [thunkMiddleware];
 const isLogConsoleEnabled = global.SQLECTRON_CONFIG.log.console;
 const isLogFileEnabled = global.SQLECTRON_CONFIG.log.file;
 
+console.log("global=======================================");
+console.log(global.SQLECTRON_CONFIG);
+console.log(isLogConsoleEnabled);
+console.log(isLogFileEnabled);
+
 if (isLogConsoleEnabled || isLogFileEnabled) {
   const loggerConfig = {
     level: global.SQLECTRON_CONFIG.log.level,
@@ -53,11 +58,11 @@ const createStoreWithMiddleware = applyMiddleware(
 export default function configureStore(initialState) {
   const store = createStoreWithMiddleware(rootReducer, initialState);
 
-  if (module.hot) {
-    module.hot.accept('../reducers', () =>
-      store.replaceReducer(require('../reducers').default)
-    );
-  }
+  // if (module.hot) {
+  //   module.hot.accept('../reducers', () =>
+  //     store.replaceReducer(require('../reducers').default)
+  //   );
+  // }
 
   return store;
 }

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-//import { shell } from 'electron'; // eslint-disable-line import/no-unresolved
+import {shell} from '../../browser/remote';
 import set from 'lodash.set';
 import Select from 'react-select';
 import Checkbox from './checkbox.jsx';
-import {shell} from '../../browser/remote';
-import { Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
+
 require('react-select/dist/react-select.css');
 require('./override-select.css');
 
+if(!$) var $=window.$;
 
 export default class SettingsModalForm extends Component {
   static propTypes = {
@@ -22,29 +22,25 @@ export default class SettingsModalForm extends Component {
     super(props, context);
     this.state = {
       ...props.config.data,
-      modalOpen:false
     };
-    if(!this.state.zoomFactor){
-      this.state.zoomFactor=1;
-    }
   }
 
   componentDidMount() {
-    // $(this.refs.settingsModal).modal({
-    //   closable: true,
-    //   detachable: false,
-    //   allowMultiple: true,
-    //   observeChanges: true,
-    //   onHidden: () => {
-    //     this.props.onCancelClick();
-    //     return true;
-    //   },
-    //   onDeny: () => {
-    //     this.props.onCancelClick();
-    //     return true;
-    //   },
-    //   onApprove: () => false,
-    // }).modal('show');
+    $(this.refs.settingsModal).modal({
+      closable: true,
+      detachable: false,
+      allowMultiple: true,
+      observeChanges: true,
+      onHidden: () => {
+        this.props.onCancelClick();
+        return true;
+      },
+      onDeny: () => {
+        this.props.onCancelClick();
+        return true;
+      },
+      onApprove: () => false,
+    }).modal('show');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -52,7 +48,7 @@ export default class SettingsModalForm extends Component {
   }
 
   componentWillUnmount() {
-    //$(this.refs.settingsModal).modal('hide');
+    $(this.refs.settingsModal).modal('hide');
   }
 
   onSaveClick() {
@@ -129,10 +125,6 @@ export default class SettingsModalForm extends Component {
       <div className="actions">
 
         <div className="small ui black deny right labeled icon button"
-          onClick={()=>{
-            this.props.onCancelClick();
-            return true;
-          }}
           tabIndex="0">
           Cancel
           <i className="ban icon"></i>
@@ -158,7 +150,7 @@ export default class SettingsModalForm extends Component {
           </div>
         </div>
         <div className="field">
-          Check out the full settings documentation at <button  onClick={this.onDocClick}>here</button>
+          Check out the full settings documentation at <a href="#" onClick={this.onDocClick}>here</a>
         </div>
       </div>
     );
@@ -168,9 +160,7 @@ export default class SettingsModalForm extends Component {
     /* eslint max-len:0 */
     const { zoomFactor } = this.state;
     const zoomFactorLabel = `${Math.round(zoomFactor * 100)}%`;
-    console.log("render basic");
-    var zoomFactorClass=this.highlightError('zoomFactor');
-    console.log(zoomFactorClass);
+
     return (
       <div>
         <div className="two fields">
@@ -230,6 +220,9 @@ export default class SettingsModalForm extends Component {
 
   renderLoggingSettingsPanel() {
     const log = this.state.log || {};
+    console.log("renderLoggingSettingsPanel");
+    console.log(this.state);
+
     return (
       <div className="ui segment">
         <div className="one field">
@@ -312,27 +305,19 @@ export default class SettingsModalForm extends Component {
 
   render() {
     return (
-      <Modal id="settings-modal"
-      open={this.props.modalOpen}
-      onClose={this.props.handleClose}
-      closable="true"
-      detachable="false"
-        basic
-      >
-        <Header>
+      <div id="settings-modal" className="ui modal" ref="settingsModal">
+        <div className="header">
           Settings
-        </Header>
-        <Modal.Content>
+        </div>
+        <div className="content">
           <form className="ui form">
             {this.renderBasicSettingsPanel()}
             {this.renderLoggingSettingsPanel()}
             {this.renderSettingsPath()}
           </form>
-        </Modal.Content>
-        <Modal.Actions>
-          {this.renderActionsPanel()}
-        </Modal.Actions>
-      </Modal>
+        </div>
+        {this.renderActionsPanel()}
+      </div>
     );
   }
 }

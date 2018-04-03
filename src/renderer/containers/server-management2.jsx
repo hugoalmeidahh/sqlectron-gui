@@ -38,8 +38,8 @@ class AppContainer extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log("server-management2 componentWillReceiveProps=========");
-    console.log(newProps);
+    // console.log("server-management2 componentWillReceiveProps=========");
+    // console.log(newProps);
     
     const { config } = newProps;
     if (!config.data) { return; }
@@ -64,9 +64,9 @@ class AppContainer extends Component {
   render() {
     //console.log("App render=======");
     const { config } = this.props;
-    console.log("render========");
-    console.log(this.props);
-    console.log(this.props.history.location);
+    // console.log("render========");
+    // console.log(this.props);
+    // console.log(this.props.history.location);
     let cs;
     if(config.isLoaded)
     {cs=<ServerManagement />}
@@ -83,8 +83,8 @@ class AppContainer extends Component {
 
 
 function mapStateToProps(state) {
-  console.log("mapStateToProps");
-  console.log(state);
+  // console.log("mapStateToProps");
+  // console.log(state);
   return {
     config: state.config,
   };

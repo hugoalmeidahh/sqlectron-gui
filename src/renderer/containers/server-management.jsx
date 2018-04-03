@@ -158,13 +158,14 @@ class ServerManagerment extends Component {
             onCancelClick={this.onCancelClick.bind(this)}
             onRemoveClick={this.onRemoveClick.bind(this)} />}
 
-          <SettingsModalForm open={config.isEditing}
+          {config.isEditing &&<SettingsModalForm open={config.isEditing} 
             modalOpen={config.isEditing}
             onClose={()=>{}}
             config={config}
             error={config.error}
             onSaveClick={this.onSettingsSaveClick.bind(this)}
             onCancelClick={this.onSettingsCancelClick.bind(this)} />
+          }
         </div>
         <div style={STYLES.footer}>
           <Footer status={status} />

@@ -15,7 +15,7 @@ const {ipcMain} = require('electron')
   
 ipcMain.on('getconfig', (event, arg) => {
     console.log(arg)  // prints "ping"
-    var configData = config.get();
+    var configData = config.get(arg);
     event.returnValue = configData;
 })
 // enables ES6+ support
