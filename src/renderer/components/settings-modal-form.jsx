@@ -129,6 +129,10 @@ export default class SettingsModalForm extends Component {
       <div className="actions">
 
         <div className="small ui black deny right labeled icon button"
+          onClick={()=>{
+            this.props.onCancelClick();
+            return true;
+          }}
           tabIndex="0">
           Cancel
           <i className="ban icon"></i>
@@ -309,23 +313,11 @@ export default class SettingsModalForm extends Component {
   render() {
     return (
       <Modal id="settings-modal"
-      closable={true}
-      detachable={false}
-      allowMultiple={true}
-      observeChanges={true}
-      onHidden={ () => {
-        this.props.onCancelClick();
-        return true;
-      }}
-      onDeny={ () => {
-        this.props.onCancelClick();
-        return true;
-      }}
-      onApprove={ () => false}
-        open={this.state.modalOpen}
-        onClose={this.handleClose}
+      open={this.props.modalOpen}
+      onClose={this.props.handleClose}
+      closable="true"
+      detachable="false"
         basic
-        size='small'
       >
         <Header>
           Settings

@@ -159,25 +159,12 @@ class ServerManagerment extends Component {
             onRemoveClick={this.onRemoveClick.bind(this)} />}
 
           <SettingsModalForm open={config.isEditing}
+            modalOpen={config.isEditing}
+            onClose={()=>{}}
             config={config}
             error={config.error}
             onSaveClick={this.onSettingsSaveClick.bind(this)}
             onCancelClick={this.onSettingsCancelClick.bind(this)} />
-          <Modal
-        open={config.isEditing}
-        onClose={this.handleClose}
-        basic
-        size='small'
-      >
-        <Modal.Content>
-          <h3>This website uses cookies to ensure the best user experience.</h3>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color='green' onClick={this.handleClose} inverted>
-            <Icon name='checkmark' /> Got it
-          </Button>
-        </Modal.Actions>
-      </Modal>
         </div>
         <div style={STYLES.footer}>
           <Footer status={status} />
