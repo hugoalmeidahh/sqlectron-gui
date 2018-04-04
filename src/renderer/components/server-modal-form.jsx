@@ -81,6 +81,7 @@ export default class ServerModalForm extends Component {
 
   componentWillUnmount() {
     //$(this.refs.serverModal).modal('hide');
+    this.props.onCancelClick();
   }
 
   onSaveClick() {
@@ -301,9 +302,9 @@ export default class ServerModalForm extends Component {
                     style={{ display: 'none' }} />
                 </label>;
     }
-    console.log(className_client);
-    console.log("hiiiiiiiiiiiiiiiii");
-    console.log(this.state.value);
+    // console.log(className_client);
+    // console.log("hiiiiiiiiiiiiiiiii");
+    // console.log(this.state.value);
     return (
       <div>
         <div className="fields">
@@ -651,6 +652,7 @@ export default class ServerModalForm extends Component {
           <i className="copy icon"></i>
         </div>}
         <div className={`small ui black deny right labeled icon button ${classStatusButtons}`}
+          onClick={this.props.onCancelClick}
           tabIndex="0">
           Cancel
           <i className="ban icon"></i>
@@ -679,7 +681,7 @@ export default class ServerModalForm extends Component {
     }
 
     return (
-      <ConfirmModal
+      <ConfirmModal modalOpen={confirmingRemove}
         context="#server-modal"
         title={`Delete ${this.state.name}`}
         message="Are you sure you want to remove this server connection?"
@@ -711,28 +713,24 @@ export default class ServerModalForm extends Component {
     //     {this.renderConfirmRemoveModal()}
     //   </div>
     // }
+     // onHidden={ () => {
+     //    this.props.onCancelClick();
+     //    return true;
+     //  }}
+     //  onDeny={ () => {
+     //    this.props.onCancelClick();
+     //    return true;
+     //  }}
+     //nApprove={ () => false}
       <Modal id="server-modal"
-      closable={true}
-      detachable={false}
-      allowMultiple={true}
-      observeChanges={true}
-      onHidden={ () => {
-        this.props.onCancelClick();
-        return true;
-      }}
-      onDeny={ () => {
-        this.props.onCancelClick();
-        return true;
-      }}
-      onApprove={ () => false}
-        open={this.state.modalOpen}
-        onClose={this.handleClose}
-        basic
-        size='small'
+      closable="true"
+      detachable="false"
+        open={this.props.modalOpen}
+        dimmer={false}
       >
-        <Header icon='browser' content='Cookies policy'>
+        <Modal.Header>
           Settings
-        </Header>
+        </Modal.Header>
         <Modal.Content>
                 {this.renderMessage()}
            <form className="ui form">

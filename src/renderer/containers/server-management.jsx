@@ -111,7 +111,7 @@ class ServerManagerment extends Component {
     const regex = RegExp(name, 'i');
     return servers.filter(srv => regex.test(srv.name));
   }
-
+  
   render() {
     const { filter } = this.state;
     const { connections, servers, config, status } = this.props;
@@ -149,6 +149,7 @@ class ServerManagerment extends Component {
             onConnectClick={this.onConnectClick.bind(this)} />
 
           {servers.isEditing && <ServerModalForm
+            modalOpen={servers.isEditing}
             server={selected}
             error={servers.error}
             testConnection={testConnection}
@@ -158,12 +159,14 @@ class ServerManagerment extends Component {
             onCancelClick={this.onCancelClick.bind(this)}
             onRemoveClick={this.onRemoveClick.bind(this)} />}
 
-          {config.isEditing &&<SettingsModalForm open={config.isEditing} 
+          {config.isEditing &&<SettingsModalForm 
             modalOpen={config.isEditing}
-            onClose={()=>{}}
             config={config}
             error={config.error}
-            onSaveClick={this.onSettingsSaveClick.bind(this)}
+            onSaveClick={()=>{
+              console.log("onSaveClick");
+              this.onSettingsSaveClick.bind(this)();
+            }}
             onCancelClick={this.onSettingsCancelClick.bind(this)} />
           }
         </div>

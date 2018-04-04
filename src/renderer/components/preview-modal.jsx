@@ -15,7 +15,7 @@ export default class PreviewModal extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = {modalOpen:false};
+    this.state={};
   }
 
   componentDidMount() {
@@ -85,22 +85,15 @@ export default class PreviewModal extends Component {
     const selected = this.state.selected || 'plain';
     const previewValue = this.getPreviewValue(selected);
     return (
-
       <Modal ref="previewModal"
-      closable={false}
-      detachable={false}
-      onDeny={ () => {
-        this.props.onCloseClick();
-        return true;
-      }}
-        open={this.state.modalOpen}
-        onClose={this.handleClose}
-        basic
-        size='small'
+      closable="false"
+      detachable="false"
+        open={this.props.modalOpen}
+       dimmer={false}
       >
-        <Header icon='browser' content='Cookies policy'>
+        <Modal.Header>
          Content Preview
-        </Header>
+        </Modal.Header>
         <Modal.Content>
             {this.renderMenu()}
           <div className="ui segment">
@@ -110,7 +103,9 @@ export default class PreviewModal extends Component {
           </div>
         </Modal.Content>
         <Modal.Actions>
-         <div className="small ui black deny right button" tabIndex="0">
+         <div className="small ui black deny right button" 
+         onClick={this.props.onCloseClick}
+         tabIndex="0">
             Close
           </div>
         </Modal.Actions>

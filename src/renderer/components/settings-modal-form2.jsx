@@ -53,10 +53,12 @@ export default class SettingsModalForm extends Component {
 
   componentWillUnmount() {
     //$(this.refs.settingsModal).modal('hide');
+    this.props.onCancelClick();
   }
 
   onSaveClick() {
     this.props.onSaveClick(this.mapStateToConfig(this.state));
+    //this.props.onCancelClick();
   }
 
   onDocClick(event) {
@@ -129,17 +131,16 @@ export default class SettingsModalForm extends Component {
       <div className="actions">
 
         <div className="small ui black deny right labeled icon button"
-          onClick={()=>{
-            this.props.onCancelClick();
-            return true;
-          }}
+          onClick={this.props.onCancelClick}
           tabIndex="0">
           Cancel
           <i className="ban icon"></i>
         </div>
         <div className="small ui green right labeled icon button"
           tabIndex="0"
-          onClick={this.onSaveClick.bind(this)}>
+          onClick={()=>{
+            this.onSaveClick.bind(this)();
+          }}>
           Save
           <i className="checkmark icon"></i>
         </div>
@@ -314,7 +315,6 @@ export default class SettingsModalForm extends Component {
     return (
       <Modal id="settings-modal"
       open={this.props.modalOpen}
-      onClose={this.props.handleClose}
       closable="true"
       detachable="false"
       dimmer={false}

@@ -94,10 +94,12 @@ export default class QueryResultTable extends Component {
   }
 
   onOpenPreviewClick(value) {
+    console.log("onOpenPreviewClick");
     this.setState({ showPreview: true, valuePreview: value });
   }
 
   onClosePreviewClick() {
+    console.log("onClosePreviewClick");
     this.setState({ showPreview: false, valuePreview: null });
   }
 
@@ -262,6 +264,7 @@ export default class QueryResultTable extends Component {
 
     return (
       <PreviewModal
+        modalOpen={this.state.showPreview}
         value={this.state.valuePreview}
         onCloseClick={this.onClosePreviewClick.bind(this)}
       />
@@ -374,10 +377,12 @@ export default class QueryResultTable extends Component {
 
   render() {
     // not completed loaded yet
+    console.log("query-result-table==");
+    console.log(this.state);
     if (!this.state.tableWidth) {
       return null;
     }
-
+    
     return (
       <div>
         {this.renderPreviewModal()}

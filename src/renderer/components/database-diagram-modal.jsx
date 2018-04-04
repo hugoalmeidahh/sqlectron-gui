@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import DatabaseDiagram from './database-diagram.jsx';
 import Loader from './loader.jsx';
-import { Transition,Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
+import { Transition,Button,Input, Grid,  List, Segment, Icon, Modal } from 'semantic-ui-react';
 if(!$){ var $=window.$};
 const STYLE = {
   list: {
@@ -50,6 +50,10 @@ export default class DatabaseDiagramModal extends Component {
     //   onApprove: () => false,
     // }).modal('show');
   }
+  componentWillUnmount() {
+    //this.props.onClose();
+  }
+
 
   componentWillReceiveProps(nextProps) {
     this.showDiagramIfNeeded(nextProps);
@@ -203,10 +207,17 @@ export default class DatabaseDiagramModal extends Component {
 
   renderActionButtons() {
     const { onSaveDatabaseDiagram } = this.props;
-
-    return (
-      <div className="actions">
-        <div className="ui buttons">
+    let actions;
+    let cancel;
+    cancel=<div className={`small ui black deny labeled icon button`}
+            onClick={this.props.onClose}
+            tabIndex="0">
+            Cancel
+            <i className="ban icon"></i>
+          </div>;
+    if(!!this.state.showDatabaseDiagram){
+      actions=(<div className="ui buttons">
+          {cancel}
           <div className="ui small positive button"
             tabIndex="0"
             onClick={() => onSaveDatabaseDiagram(this.refs.databaseDiagram.graph.toJSON())}>
@@ -226,10 +237,16 @@ export default class DatabaseDiagramModal extends Component {
                 JPEG
               </div>
             </div>
-          </div>
+          </div></div>
+        );
+    }
+    else{
+      actions=(<div className="ui buttons">
+          {cancel}
         </div>
-      </div>
-    );
+        );
+    }
+    return actions;
   }
 
   render() {
@@ -237,24 +254,21 @@ export default class DatabaseDiagramModal extends Component {
     // On first rendering, if context node is hidden, wrong widths and heights of JointJS
     // elements will be calculated.
     // For more check this issue: https://github.com/clientIO/joint/issues/262
+      //     onHidden={ () => {
+      //   this.props.onClose();
+      // }}
+      // onApprove={ () => false}
     return (
       <Modal ref="diagramModal"
-      closable={true}
-      detachable={false}
-      observeChanges={true}
-      onHidden={ () => {
-        this.props.onClose();
-      }}
-      onApprove={ () => false}
-        open={this.state.modalOpen}
-        onClose={this.handleClose}
-        basic
-        size='small'
+      closable="true"
+      detachable="false"
+      dimmer={false}
+        open={this.props.modalOpen}
       >
         {!!this.state.showDatabaseDiagram &&
-          <Header>
+          <Modal.Header>
             Database diagram
-          </Header>
+          </Modal.Header>
         }
         <Modal.Content>
            {
@@ -266,7 +280,10 @@ export default class DatabaseDiagramModal extends Component {
           {!!this.state.showDatabaseDiagram && this.renderDiagram()}
         </Modal.Content>
         <Modal.Actions>
-         {!!this.state.showDatabaseDiagram && this.renderActionButtons()}
+         {
+          //!!this.state.showDatabaseDiagram && this.renderActionButtons()
+          this.renderActionButtons()
+         }
         </Modal.Actions>
       </Modal>
     );

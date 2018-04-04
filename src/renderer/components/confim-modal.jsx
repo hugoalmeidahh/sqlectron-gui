@@ -33,41 +33,44 @@ export default class ServerModalForm extends Component {
 
   componentWillUnmount() {
     //$(this.refs.confirmModal).modal('hide');
+    this.props.onCancelClick();
   }
+      // allowMultiple={true}
+      // context={this.props.context}
+      // onDeny={ () => {
+      //   this.props.onCancelClick();
+      //   return true;
+      // }}
+      // onApprove={() => {
+      //   this.props.onRemoveClick();
+      //   return false;
+      // }}
 
   render() {
     const { title, message } = this.props;
     return (
       <Modal ref="confirmModal"
-      closable={false}
-      detachable={false}
-      allowMultiple={true}
-      context={this.props.context}
-      onDeny={ () => {
-        this.props.onCancelClick();
-        return true;
-      }}
-      onApprove={() => {
-        this.props.onRemoveClick();
-        return false;
-      }}
-        open={this.state.modalOpen}
-        onClose={this.handleClose}
-        basic
-        size='small'
+      closable="false"
+      detachable="false"
+        open={this.props.modalOpen}
+        dimmer={false}
       >
-        <Header icon='browser' content='Cookies policy'>
+        <Modal.Header>
           {title}
-        </Header>
+        </Modal.Header>
         <Modal.Content>
            {message}
         </Modal.Content>
         <Modal.Actions>
-          <div className="small ui black deny right labeled icon button" tabIndex="0">
+          <div className="small ui black deny right labeled icon button" 
+          onClick={this.props.onCancelClick}
+          tabIndex="0">
             No
             <i className="ban icon"></i>
           </div>
-          <div className="small ui positive right labeled icon button" tabIndex="0">
+          <div className="small ui positive right labeled icon button" 
+          onClick={this.props.onRemoveClick}
+          tabIndex="0">
             Yes
             <i className="checkmark icon"></i>
           </div>

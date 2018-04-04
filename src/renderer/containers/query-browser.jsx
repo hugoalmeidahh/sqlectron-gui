@@ -409,6 +409,7 @@ class QueryBrowserContainer extends Component {
 
     return (
       <DatabaseDiagramModal
+        modalOpen={this.props.databases.showingDiagram}
         database={selectedDB}
         tables={tables.itemsByDatabase[selectedDB]}
         selectedTables={tables.selectedTablesForDiagram}
@@ -601,6 +602,7 @@ class QueryBrowserContainer extends Component {
     if (connections.waitingPrivateKeyPassphrase) {
       return (
         <PromptModal
+          modalOpen={connections.waitingPrivateKeyPassphrase}
           type="password"
           title={'SSH Private Key Passphrase'}
           message="Enter the private key passphrase:"
