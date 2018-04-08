@@ -56,9 +56,8 @@ export default class SettingsModalForm extends Component {
     this.props.onCancelClick();
   }
 
-  onSaveClick() {
+  onSaveClick=()=>{
     this.props.onSaveClick(this.mapStateToConfig(this.state));
-    //this.props.onCancelClick();
   }
 
   onDocClick(event) {
@@ -138,9 +137,7 @@ export default class SettingsModalForm extends Component {
         </div>
         <div className="small ui green right labeled icon button"
           tabIndex="0"
-          onClick={()=>{
-            this.onSaveClick.bind(this)();
-          }}>
+          onClick={this.onSaveClick}>
           Save
           <i className="checkmark icon"></i>
         </div>

@@ -30,7 +30,7 @@ exports.get = function getConfiguration(cleanCache) {
     argsConfig.printVersion = true;
   }
 
-  const basePath = path.resolve(__dirname, '..', '..');
+  const basePath = path.resolve(__dirname);
   const packageConfig = readJSON(path.resolve(basePath, 'package.json'));
 
   sqlectron.config.prepareSync(cryptoSecret);
