@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { sqlectron } from '../../browser/remote';
-if(!$){ var $=window.$};
+import { Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
 
 const CLIENTS = sqlectron.db.CLIENTS.map(dbClient => ({
   key: dbClient.key,
@@ -17,37 +17,41 @@ export default class ServerDBClientInfoModal extends Component {
   }
 
   componentDidMount() {
-    $(this.refs.infoModal).modal({
-      closable: true,
-      detachable: false,
-      allowMultiple: true,
-      observeChanges: true,
-      onHidden: () => this.props.onCloseClick(),
-    }).modal('show');
+    // $(this.refs.infoModal).modal({
+    //   closable: true,
+    //   detachable: false,
+    //   allowMultiple: true,
+    //   observeChanges: true,
+    //   onHidden: () => this.props.onCloseClick(),
+    // }).modal('show');
   }
 
   componentWillUnmount() {
-    $(this.refs.infoModal).modal('hide');
+    //$(this.refs.infoModal).modal('hide');
   }
 
   render() {
     const { client, infos } = this.props;
     const dbClient = CLIENTS.find(item => item.key === client);
-
     return (
-      <div id="server-modal" className="ui modal" ref="infoModal">
-        <div className="header">
+      <Modal id="settings-modal"
+      open={this.props.modalOpen}
+      closable="true"
+      detachable="false"
+      dimmer={false}
+      >
+        <Modal.Header>
           {dbClient.name} Query Information
-        </div>
-        <div className="content">
+        </Modal.Header>
+        <Modal.Content>
           <p>Some particularities about queries on {dbClient.name} you should know:</p>
           <div className="ui bulleted list">
             {infos.map((info, idx) => (<div key={idx} className="item">{info}</div>))}
           </div>
           <ul>
           </ul>
-        </div>
-      </div>
+        </Modal.Content>
+      </Modal>
     );
   }
 }

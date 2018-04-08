@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as ConfigActions from '../actions/config.js';
 import ServerManagement from './query-browser.jsx';
-if(!$){ var $=window.$};
+
 // import '../../../vendor/renderer/semantic-ui/semantic.js';
 // require('../../../vendor/renderer/lato/latofonts.css');
 // require('../../../vendor/renderer/semantic-ui/semantic.css');
@@ -47,11 +47,11 @@ class AppContainer extends Component {
       // Required for HiDPI support
       webFrame.setZoomFactor(zoomFactor);
     }
-    if (enabledDarkTheme === true) {
-      $('body').addClass('dark-theme');
-    } else {
-      $('body').removeClass('dark-theme');
-    }
+    // if (enabledDarkTheme === true) {
+    //   $('body').addClass('dark-theme');
+    // } else {
+    //   $('body').removeClass('dark-theme');
+    // }
   }
 
   componentWillUnmount() {

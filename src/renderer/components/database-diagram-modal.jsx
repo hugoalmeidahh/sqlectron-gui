@@ -3,7 +3,7 @@ import PropTypes from 'proptypes';
 import DatabaseDiagram from './database-diagram.jsx';
 import Loader from './loader.jsx';
 import { Transition,Button,Input, Grid,  List, Segment, Icon, Modal } from 'semantic-ui-react';
-if(!$){ var $=window.$};
+
 const STYLE = {
   list: {
     maxHeight: '250px',
@@ -60,20 +60,20 @@ export default class DatabaseDiagramModal extends Component {
   }
 
   onSelectAllTables() {
-    $(':checkbox', 'div.ui.list').prop('checked', true);
-    this.onCheckBoxesChange();
+    //$(':checkbox', 'div.ui.list').prop('checked', true);
+    //this.onCheckBoxesChange();
   }
 
   onDeselectAllTables() {
-    $(':checkbox', 'div.ui.list').prop('checked', false);
+    //$(':checkbox', 'div.ui.list').prop('checked', false);
     this.onCheckBoxesChange();
   }
 
   onCheckBoxesChange() {
     // Disable generate diagram button if there are no tables selected
-    return $(':checkbox:checked', 'div.ui.list').length
-      ? $(this.refs.generateButton).removeClass('disabled')
-      : $(this.refs.generateButton).addClass('disabled');
+    // return $(':checkbox:checked', 'div.ui.list').length
+    //   ? $(this.refs.generateButton).removeClass('disabled')
+    //   : $(this.refs.generateButton).addClass('disabled');
   }
 
   onGenerateDiagramClick() {
@@ -98,8 +98,8 @@ export default class DatabaseDiagramModal extends Component {
     const diagram = this.refs.databaseDiagram.refs.diagram;
 
     // fix - reapply css roles which html2canvas ignores for some reason
-    $('.link-tools, .marker-arrowheads', diagram).css({ display: 'none' });
-    $('.link, .connection', diagram).css({ fill: 'none' });
+    // $('.link-tools, .marker-arrowheads', diagram).css({ display: 'none' });
+    // $('.link, .connection', diagram).css({ fill: 'none' });
 
     onExportDatabaseDiagram(diagram, imageType);
   }

@@ -3,7 +3,7 @@ import PropTypes from 'proptypes';
 import joint from 'jointjs/dist/joint';
 import './jointjs-diagram-table';
 import './jointjs-diagram-table-cell';
-if(!$){ var $=window.$};
+
 require('jointjs/dist/joint.min.css');
 require('./database-diagram.css');
 
@@ -55,21 +55,21 @@ export default class DatabaseDiagram extends Component {
   }
 
   addGraphPaper() {
-    this.paper = new joint.dia.Paper({
-      el: $(this.refs.diagram),
-      width: $(this.refs.diagram).parent().width(),
-      height: 600,
-      model: this.graph,
-      gridSize: 1,
-      restrictTranslate: true,
-    });
+    // this.paper = new joint.dia.Paper({
+    //   el: $(this.refs.diagram),
+    //   width: $(this.refs.diagram).parent().width(),
+    //   height: 600,
+    //   model: this.graph,
+    //   gridSize: 1,
+    //   restrictTranslate: true,
+    // });
 
-    if (!this.props.diagramJSON) { // Only supported for newely generated diagrams
-      this.paper.on('cell:contextmenu', (cellView) => {
-        const table = cellView.model.attributes.name;
-        this.onTableRightClick(table);
-      });
-    }
+    // if (!this.props.diagramJSON) { // Only supported for newely generated diagrams
+    //   this.paper.on('cell:contextmenu', (cellView) => {
+    //     const table = cellView.model.attributes.name;
+    //     this.onTableRightClick(table);
+    //   });
+    // }
   }
 
   generateTableElements(tableShapes, tableCells) {
@@ -159,25 +159,25 @@ export default class DatabaseDiagram extends Component {
 
   // Resize table elements based on attributes text length
   resizeTableElements(tableShapes, tableCells) {
-    const { tables, columnsByTable } = this.props;
+    // const { tables, columnsByTable } = this.props;
 
-    tables.forEach((table) => {
-      let biggestCellSize = $('span', `.sqlectron-table.${table} > p`).outerWidth();
-      $('span', `.sqlectron-table-cell.${table}`).each(function() {
-        if ($(this).outerWidth() > biggestCellSize) {
-          biggestCellSize = $(this).outerWidth();
-        }
-      });
+    // tables.forEach((table) => {
+    //   let biggestCellSize = $('span', `.sqlectron-table.${table} > p`).outerWidth();
+    //   $('span', `.sqlectron-table-cell.${table}`).each(function() {
+    //     if ($(this).outerWidth() > biggestCellSize) {
+    //       biggestCellSize = $(this).outerWidth();
+    //     }
+    //   });
 
-      if (biggestCellSize > 100) {
-        // resize tables
-        tableShapes.find((shape) => shape.attributes.name === table)
-          .resize(biggestCellSize + 20, (columnsByTable[table].length + 1.5) * 20);
-        // resize table cells
-        tableCells.filter((cell) => cell.attributes.tableName === table)
-          .map((cell) => cell.resize(biggestCellSize, 20));
-      }
-    });
+    //   if (biggestCellSize > 100) {
+    //     // resize tables
+    //     tableShapes.find((shape) => shape.attributes.name === table)
+    //       .resize(biggestCellSize + 20, (columnsByTable[table].length + 1.5) * 20);
+    //     // resize table cells
+    //     tableCells.filter((cell) => cell.attributes.tableName === table)
+    //       .map((cell) => cell.resize(biggestCellSize, 20));
+    //   }
+    // });
   }
 
   render() {

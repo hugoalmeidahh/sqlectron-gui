@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-if(!$){ var $=window.$};
+import {  Dimmer, Image, Loader,Segment } from 'semantic-ui-react'
 export default class Loading extends Component {
+  state={active:false}
   static propTypes = {
     message: PropTypes.string,
     type: PropTypes.string,
@@ -9,20 +10,24 @@ export default class Loading extends Component {
   }
 
   componentDidMount() {
-    $(this.refs.loader).dimmer('show');
+    //$(this.refs.loader).dimmer('show');
+    this.setState({active:true})
   }
 
   componentWillUnmount() {
-    $(this.refs.loader).dimmer('hide');
+    //$(this.refs.loader).dimmer('hide');
+    this.setState({active:false})
   }
 
   render() {
     const { message, type } = this.props;
     const inverted = this.props.inverted ? 'inverted' : '';
     return (
-      <div className={`ui ${type} ${inverted} dimmer`} ref="loader">
-        <div className={`ui ${message ? 'text' : ''} loader`}>{message}</div>
-      </div>
+      <Dimmer.Dimmable as={Segment} dimmed={this.state.active}>
+          <Dimmer active={this.state.active} >
+            <Loader>{message}</Loader>
+          </Dimmer>
+      </Dimmer.Dimmable>
     );
   }
 

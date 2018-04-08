@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import {Divider, Transition,Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
+import {  Dimmer, Image, Loader } from 'semantic-ui-react'
 import Checkbox from './components/checkbox.jsx' 
 import Dialog from './Modal1.jsx';
 // import styled from "styled-components";
@@ -14,7 +15,7 @@ import Dialog from './Modal1.jsx';
 // `;
 
 class App extends React.Component{
-  state={value:true, modalOpen: false, visible: true }
+  state={value:true, modalOpen: false, visible: true,active:false}
 
   handleOpen = () => this.setState({ modalOpen: true })
 
@@ -32,11 +33,32 @@ class App extends React.Component{
     console.log("clickno");
   }
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
+  handleShow = () => this.setState({ active: true })
+  handleHide = () => this.setState({ active: false })
   render() {
     console.log(this.state);
-    const { visible } = this.state
+    const { visible,active } = this.state
     return (
       <div>
+      <div>
+        <Dimmer.Dimmable as={Segment} dimmed={active}>
+          <Dimmer active={active} inverted>
+            <Loader>Loading</Loader>
+          </Dimmer>
+
+          <p>
+            <Image src='/edit.png' />
+          </p>
+          <p>
+            <Image src='/edit.png' />
+          </p>
+        </Dimmer.Dimmable>
+
+        <Button.Group>
+          <Button icon='plus' onClick={this.handleShow} />
+          <Button icon='minus' onClick={this.handleHide} />
+        </Button.Group>
+      </div>
        <Button onClick={this.buttonClick}>sqlui</Button>
        <Input type="checkbox" checked={this.state.value}  
                     onChange={this.onChange} >
