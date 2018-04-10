@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import set from 'lodash.set';
 import Select from 'react-select';
-import { sqlectron } from '../../browser/remote';
 import ConfirmModal from './confim-modal.jsx';
 import Message from './message.jsx';
 import Checkbox from './checkbox.jsx';
 import { requireLogos } from './require-context';
 import { Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
-
+var { sqlectron }=window.myremote;
 require('react-select/dist/react-select.css');
 require('./override-select.css');
 
@@ -694,34 +693,6 @@ export default class ServerModalForm extends Component {
     console.log("render== ServerModalForm")
     console.log(this.state);
     return (
-    // {
-    //   <div id="server-modal" className="ui modal" ref="serverModal">
-    //     <div className="header">
-    //       Server Information
-    //     </div>
-    //     <div className="content">
-    //       {this.renderMessage()}
-    //       <form className="ui form">
-    //         {this.renderBasicPanel()}
-    //         {
-    //           this.renderSSHPanel()
-    //         }
-    //         {this.renderFilterPanel()}
-    //       </form>
-    //     </div>
-    //     {this.renderActionsPanel()}
-    //     {this.renderConfirmRemoveModal()}
-    //   </div>
-    // }
-     // onHidden={ () => {
-     //    this.props.onCancelClick();
-     //    return true;
-     //  }}
-     //  onDeny={ () => {
-     //    this.props.onCancelClick();
-     //    return true;
-     //  }}
-     //nApprove={ () => false}
       <Modal id="server-modal"
       closable="true"
       detachable="false"

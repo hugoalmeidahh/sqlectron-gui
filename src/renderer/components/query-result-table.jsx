@@ -284,7 +284,7 @@ export default class QueryResultTable extends Component {
       <Grid
         className="grid-body"
         ref={(ref) => { this.rowsGrid = ref; }}
-        cellRenderer={this.renderCell.bind(this)}
+        cellRenderer={this.renderCell}
         width={tableWidth}
         height={Math.min((tableHeight - headerHeight), fixedHeightRows)}
         rowHeight={rowHeight}
@@ -362,8 +362,19 @@ export default class QueryResultTable extends Component {
     return averageRowsCellWidth > maxWidth ? maxWidth : averageRowsCellWidth;
   }
 
-  renderCell(params) {
+  renderCell=(params)=>{
     const field = this.props.fields[params.columnIndex];
+    // return (
+    //   <div
+    //     style={params.style}
+    //     key={params.key}> 
+    //   {this.props.rows[params.rowIndex][params.columnIndex]}
+    //   </div>
+    // );
+
+    //const { rowIndex, data, col } = this.props;
+    //return data[rowIndex][col];
+
     return (
       <TableCell
         style={params.style}

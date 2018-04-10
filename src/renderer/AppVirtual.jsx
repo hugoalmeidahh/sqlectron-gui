@@ -14,7 +14,7 @@ import { Grid,List,AutoSizer, Column, Table } from 'react-virtualized';
 
 export default class GridExample extends React.PureComponent {
   static contextTypes = {
-    //list: PropTypes.instanceOf(Immutable.List).isRequired,
+    list: PropTypes.instanceOf(Object).isRequired,
   };
 
   constructor(props, context) {
@@ -203,7 +203,7 @@ export default class GridExample extends React.PureComponent {
   _getDatum(index) {
     const {list} = this.context;
 
-    return list.get(index % list.size);
+    return list[index % list.length];
   }
 
   _getRowClassName(row) {
@@ -259,7 +259,8 @@ export default class GridExample extends React.PureComponent {
       ...style,
       backgroundColor: datum.color,
     };
-
+    console.log(datum);
+    
     return (
       <div className={classNames} key={key} style={style}>
         {datum.name.charAt(0)}

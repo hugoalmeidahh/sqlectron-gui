@@ -76,7 +76,7 @@ class ServerManagerment extends Component {
     dispatch(ServersActions.duplicateServer({ server }));
   }
 
-  onSaveClick(server) {
+  onSaveClick=(server)=>{
     const { dispatch, servers } = this.props;
     const id = servers.editingServer && servers.editingServer.id;
     console.log("onSaveClick======");
@@ -85,7 +85,7 @@ class ServerManagerment extends Component {
     dispatch(ServersActions.saveServer({ id, server }));
   }
 
-  onCancelClick() {
+  onCancelClick=()=> {
     const { dispatch } = this.props;
     dispatch(ServersActions.finishEditing());
   }
@@ -105,7 +105,7 @@ class ServerManagerment extends Component {
     dispatch(rt);
   }
 
-  onSettingsCancelClick() {
+  onSettingsCancelClick=()=> {
     const { dispatch } = this.props;
     dispatch(ConfigActions.finishEditing());
   }
@@ -155,23 +155,23 @@ class ServerManagerment extends Component {
             onEditClick={this.onEditClick.bind(this)}
             onConnectClick={this.onConnectClick.bind(this)} />
 
-         <ServerModalForm
+         {servers.isEditing && <ServerModalForm
             modalOpen={servers.isEditing}
             server={selected}
             error={servers.error}
             testConnection={testConnection}
             onTestConnectionClick={this.onTestConnectionClick.bind(this)}
             onDuplicateClick={this.onDuplicateClick.bind(this)}
-            onSaveClick={this.onSaveClick.bind(this)}
-            onCancelClick={this.onCancelClick.bind(this)}
-            onRemoveClick={this.onRemoveClick.bind(this)} />
+            onSaveClick={this.onSaveClick}
+            onCancelClick={this.onCancelClick}
+            onRemoveClick={this.onRemoveClick.bind(this)} />}
 
-          <SettingsModalForm 
+          {config.isEditing && <SettingsModalForm 
             modalOpen={config.isEditing}
             config={config}
             error={config.error}
             onSaveClick={this.onSettingsSaveClick}
-            onCancelClick={this.onSettingsCancelClick.bind(this)} />
+            onCancelClick={this.onSettingsCancelClick} />}
         </div>
         <div style={STYLES.footer}>
           <Footer status={status} />

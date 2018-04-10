@@ -1,6 +1,16 @@
 import * as React from 'react';
 import {Divider, Transition,Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
 export default class App extends React.Component{
+  constructor(props, context) {
+    super(props, context);
+    console.log("constructor modal1");
+  }
+  componentDidMount() {
+    console.log("modal1 mount");
+  }
+  componentWillUnmount() {
+    console.log("modal1  un mount");
+  }
   render=()=>{
     return <Modal
         open={this.props.modalOpen}

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-//import { shell } from 'electron'; // eslint-disable-line import/no-unresolved
 import set from 'lodash.set';
 import Select from 'react-select';
 import Checkbox from './checkbox.jsx';
-import {shell} from '../../browser/remote';
 import { Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
 require('react-select/dist/react-select.css');
 require('./override-select.css');
-
+var { shell }=window.myremote;
 
 export default class SettingsModalForm extends Component {
   static propTypes = {
@@ -32,7 +30,8 @@ export default class SettingsModalForm extends Component {
     console.log("settings-modal mount");
   }
   componentWillUnmount() {
-    console.log("settings-modal  un mount");
+    console.log("settings-modal un mount");
+    this.props.onCancelClick();
   }
   componentWillReceiveProps(nextProps) {
     console.log(nextProps);

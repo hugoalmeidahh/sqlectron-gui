@@ -26,7 +26,7 @@ export default class CheckboxMe extends Component {
         <Checkbox  toggle
           name={name}
           disabled={disabled}
-          defaultChecked={this.props.defaultChecked}  
+          checked={this.props.defaultChecked}
           onChange={this.onChange}
         />
         <label>{label}</label>
