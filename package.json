@@ -44,6 +44,7 @@
     "electron": "^1.8.2",
     "electron-renderer-react-scripts-target": "^1.1.1",
     "html2canvas": "^1.0.0-alpha.10",
+    "immutable": "^3.8.2",
     "jointjs": "^2.0.1",
     "lodash.bindall": "^4.4.0",
     "lodash.clonedeep": "^4.5.0",
@@ -75,6 +76,7 @@
     "redux": "^3.7.2",
     "redux-logger": "^2.2.1",
     "redux-thunk": "^2.2.0",
+    "semantic-ui-react": "^0.79.1",
     "sqlectron-core": "^8.0.0"
   },
   "devDependencies": {

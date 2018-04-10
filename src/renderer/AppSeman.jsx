@@ -5,7 +5,6 @@ import {  Dimmer, Image, Loader } from 'semantic-ui-react'
 import Checkbox from './components/checkbox.jsx' 
 import Dialog from './Modal1.jsx';
 import MessageList from './MessageList';
-import AppVirtual from './AppVirtual';
 import PropTypes from 'proptypes';
 import '../semantic-ui/semantic.css';
 
