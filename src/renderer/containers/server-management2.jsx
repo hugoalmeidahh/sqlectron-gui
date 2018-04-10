@@ -24,7 +24,7 @@ class AppContainer extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = {};
+    this.state = {dark:false};
   }
 
   componentWillMount() {
@@ -49,11 +49,13 @@ class AppContainer extends Component {
       // Required for HiDPI support
       webFrame.setZoomFactor(zoomFactor);
     }
-    // if (enabledDarkTheme === true) {
-    //   $('body').addClass('dark-theme');
-    // } else {
-    //   $('body').removeClass('dark-theme');
-    // }
+    if (enabledDarkTheme === true) {
+      //$('body').addClass('dark-theme');
+      this.setState({dark:'dark-theme'});
+    } else {
+      this.setState({dark:''});
+      //$('body').removeClass('dark-theme');
+    }
   }
 
   componentWillUnmount() {
@@ -68,11 +70,12 @@ class AppContainer extends Component {
     // console.log(this.props);
     // console.log(this.props.history.location);
     let cs;
-    if(config.isLoaded)
-    {cs=<ServerManagement />}
+    if(config.isLoaded){
+      cs=<ServerManagement />;
+    }
 
     return (
-      <div className="ui">
+      <div className={"ui "+this.state.dark} >
         {
           cs
         }

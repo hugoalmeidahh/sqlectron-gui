@@ -23,7 +23,7 @@ if (configData.devMode) {
   require('babel-register');
 }
 
-require('babel-polyfill');
+//require('babel-polyfill');
 
 // starts the electron app
 require('./app');

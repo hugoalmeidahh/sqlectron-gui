@@ -274,8 +274,8 @@ export default class ServerModalForm extends Component {
   }
 
   renderBasicPanel() {
-    console.log("renderBasicPanel======");
-    console.log(this.state.value);
+    // console.log("renderBasicPanel======");
+    // console.log(this.state.value);
     var className_name=`nine wide field ${this.highlightError('name')}`;
     var className_client=`six wide field ${this.highlightError('client')}`;
     var className_host=`five wide field ${this.highlightError('host')}`;
@@ -450,7 +450,7 @@ export default class ServerModalForm extends Component {
   }
 
   renderSSHPanel() {
-    console.log("renderSSHPanel");
+    //console.log("renderSSHPanel");
     const isSSHChecked = !!this.state.ssh;
     const ssh = this.state.ssh || {};
 
@@ -590,7 +590,7 @@ export default class ServerModalForm extends Component {
 
   renderFilterPanel() {
     /* eslint max-len:0 */
-    console.log("renderFilterPanel");
+    //console.log("renderFilterPanel");
     const isFilterChecked = !!this.state.filter;
     const filter = this.state.filter || {};
 

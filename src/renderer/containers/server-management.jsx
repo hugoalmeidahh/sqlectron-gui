@@ -38,7 +38,10 @@ class ServerManagerment extends Component {
     super(props, context);
     this.state = {};
   }
-
+  componentWillReceiveProps(nextProps) {
+    console.log("ServerManagerment componentWillReceiveProps");
+    console.log(nextProps);
+  }
   onConnectClick=({ id }) =>{
     console.log(this.props);
     console.log(id);
@@ -94,8 +97,14 @@ class ServerManagerment extends Component {
   }
 
   onSettingsSaveClick(config) {
+    console.log("onSettingsSaveClick");
+    console.log(this.props)
     const { dispatch } = this.props;
-    dispatch(ConfigActions.saveConfig(config));
+    console.log("onSettingsSaveClick");
+    var rt=ConfigActions.saveConfig(config);
+    console.log(dispatch);
+    console.log(rt);
+    dispatch(rt);
   }
 
   onSettingsCancelClick() {
@@ -148,7 +157,7 @@ class ServerManagerment extends Component {
             onEditClick={this.onEditClick.bind(this)}
             onConnectClick={this.onConnectClick.bind(this)} />
 
-          {servers.isEditing && <ServerModalForm
+         <ServerModalForm
             modalOpen={servers.isEditing}
             server={selected}
             error={servers.error}
@@ -157,18 +166,14 @@ class ServerManagerment extends Component {
             onDuplicateClick={this.onDuplicateClick.bind(this)}
             onSaveClick={this.onSaveClick.bind(this)}
             onCancelClick={this.onCancelClick.bind(this)}
-            onRemoveClick={this.onRemoveClick.bind(this)} />}
+            onRemoveClick={this.onRemoveClick.bind(this)} />
 
-          {config.isEditing &&<SettingsModalForm 
+          <SettingsModalForm 
             modalOpen={config.isEditing}
             config={config}
             error={config.error}
-            onSaveClick={()=>{
-              console.log("onSaveClick");
-              this.onSettingsSaveClick.bind(this)();
-            }}
+            onSaveClick={this.onSettingsSaveClick.bind(this)}
             onCancelClick={this.onSettingsCancelClick.bind(this)} />
-          }
         </div>
         <div style={STYLES.footer}>
           <Footer status={status} />

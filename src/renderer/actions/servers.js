@@ -37,6 +37,7 @@ export function startEditing(id) {
 
 
 export function finishEditing() {
+  console.log("servers finishEditing");
   return { type: FINISH_EDITING_SERVER };
 }
 

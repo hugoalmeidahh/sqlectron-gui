@@ -33,6 +33,7 @@ export function loadConfig() {
 
 
 export function saveConfig(configData) {
+  console.log("saveConfig");
   return async dispatch => {
     dispatch({ type: SAVE_CONFIG_REQUEST });
     try {

@@ -28,37 +28,32 @@ export default class SettingsModalForm extends Component {
       this.state.zoomFactor=1;
     }
   }
-
   componentDidMount() {
-    // $(this.refs.settingsModal).modal({
-    //   closable: true,
-    //   detachable: false,
-    //   allowMultiple: true,
-    //   observeChanges: true,
-    //   onHidden: () => {
-    //     this.props.onCancelClick();
-    //     return true;
-    //   },
-    //   onDeny: () => {
-    //     this.props.onCancelClick();
-    //     return true;
-    //   },
-    //   onApprove: () => false,
-    // }).modal('show');
+    console.log("settings-modal mount");
   }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({ error: nextProps.error });
-  }
-
   componentWillUnmount() {
-    //$(this.refs.settingsModal).modal('hide');
-    this.props.onCancelClick();
+    console.log("settings-modal  un mount");
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    this.setState({ error: nextProps.error });
+    if(!this.props.modalOpen && nextProps.modalOpen){
+      this.onShow();
+    }
+    else if(this.props.modalOpen && !nextProps.modalOpen){
+      this.onHide();
+    }
+  }
+  onShow=()=>{
+
+  }
+  onHide=()=>{
+    console.log("onHide");
+    //this.props.onCancelClick();
   }
 
   onSaveClick() {
     this.props.onSaveClick(this.mapStateToConfig(this.state));
-    //this.props.onCancelClick();
   }
 
   onDocClick(event) {
@@ -138,9 +133,7 @@ export default class SettingsModalForm extends Component {
         </div>
         <div className="small ui green right labeled icon button"
           tabIndex="0"
-          onClick={()=>{
-            this.onSaveClick.bind(this)();
-          }}>
+          onClick={this.onSaveClick.bind(this)}>
           Save
           <i className="checkmark icon"></i>
         </div>
