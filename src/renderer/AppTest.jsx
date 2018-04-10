@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import {withRouter, Link} from 'react-router-dom';
-import {Divider, Transition,Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
+import {Divider, Button,Transition,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
 import {  Dimmer, Image, Loader } from 'semantic-ui-react'
 import Checkbox from './components/checkbox.jsx' 
 import Dialog from './Modal1.jsx';
-// import styled from "styled-components";
-// //import Application from './demo/index.js';
-// const StyledView = styled.h1`
-//   background-color: papayawhip;
-// `;
+import MessageList from './MessageList';
 
-// const StyledText = styled.section`
-//   color: palevioletred;
-// `;
 
 class App extends React.Component{
   state={value:true, modalOpen: false, visible: true,active:false}
@@ -37,9 +30,11 @@ class App extends React.Component{
   handleHide = () => this.setState({ active: false })
   render() {
     console.log(this.state);
-    const { visible,active } = this.state
+    const { visible,active } = this.state;
+    const arr1=[{text:"a"},{text:"b"},{text:"c"}];
     return (
       <div>
+      <MessageList messages={arr1}/>
       <div>
         <Dimmer.Dimmable as={Segment} dimmed={active}>
           <Dimmer active={active} inverted>

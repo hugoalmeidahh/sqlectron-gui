@@ -20,7 +20,7 @@ export default class CheckboxMe extends Component {
       }
   }
   render () {
-    const { name, label, disabled, defaultChecked } = this.props;
+    const { name, label, disabled } = this.props;
     return (
       <div>
         <Checkbox  toggle

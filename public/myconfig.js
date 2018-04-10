@@ -22,6 +22,7 @@ logger.error("hi");
 const ipcRenderer = window.myremote.ipcRenderer;
 var Config={
   get:function(arg){
+    arg=true;
     return ipcRenderer.sendSync('getconfig', arg);
   },
 }

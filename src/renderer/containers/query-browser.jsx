@@ -30,11 +30,12 @@ import Loader from '../components/loader.jsx';
 import PromptModal from '../components/prompt-modal.jsx';
 import MenuHandler from '../menu-handler';
 import { requireLogos } from '../components/require-context';
+import 'react-tabs/style/react-tabs.css';
+import 'react-resizable/css/styles.css';
+require('./query-browser.css');
+//require('../components/react-resizable.css');
 
-//require('./query-browser.css');
-require('../components/react-resizable.css');
-require('../components/react-tabs.scss');
-if(!$){ var $=window.$};
+
 const SIDEBAR_WIDTH = 235;
 const STYLES = {
   wrapper: {},
@@ -46,19 +47,7 @@ const STYLES = {
   },
   sidebar: { 
     transition: 'all .2s' ,
-    overflowY: 'hidden',
-    overflowX: 'hidden',
-    WebkitScrollbar:{ display:'none' },
-    hover:{ 
-          overflowY:'auto', 
-          overflowY:'overlay',
-          WebkitScrollbar:{ display: 'block' }
-        },
-    WebkitScrollbar: { webkitAppearance:'none' },
-    WebkitScrollbarThumb: {
-      boxShadow: 'inset 0 -2px,inset 0 -8px,inset 0 2px,inset 0 8px',
-      minHeight: '36px'
-    }
+
   },
   content: { flex: 1, overflow: 'auto', paddingLeft: '5px' },
   collapse: {
@@ -250,9 +239,9 @@ class QueryBrowserContainer extends Component {
     const selectedTables = [];
 
     dispatch(DbAction.generateDatabaseDiagram());
-
-    $(':checkbox:checked', 'div.ui.list')
-      .map((index, checkbox) => selectedTables.push(checkbox.id));
+    //todo 
+    // $(':checkbox:checked', 'div.ui.list')
+    //   .map((index, checkbox) => selectedTables.push(checkbox.id));
 
     dispatch(selectTablesForDiagram(selectedTables));
     this.fetchTableDiagramData(database, selectedTables);

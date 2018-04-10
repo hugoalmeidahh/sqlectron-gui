@@ -37,6 +37,7 @@ export function saveConfig(configData) {
   return async dispatch => {
     dispatch({ type: SAVE_CONFIG_REQUEST });
     try {
+      console.log(configData);
       await sqlectron.config.saveSettings(configData);
       dispatch({ type: SAVE_CONFIG_SUCCESS, config: configData });
     } catch (error) {

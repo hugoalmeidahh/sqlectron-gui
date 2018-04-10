@@ -96,9 +96,7 @@ class ServerManagerment extends Component {
     dispatch(ServersActions.removeServer({ id }));
   }
 
-  onSettingsSaveClick(config) {
-    console.log("onSettingsSaveClick");
-    console.log(this.props)
+  onSettingsSaveClick=(config)=> {
     const { dispatch } = this.props;
     console.log("onSettingsSaveClick");
     var rt=ConfigActions.saveConfig(config);
@@ -172,7 +170,7 @@ class ServerManagerment extends Component {
             modalOpen={config.isEditing}
             config={config}
             error={config.error}
-            onSaveClick={this.onSettingsSaveClick.bind(this)}
+            onSaveClick={this.onSettingsSaveClick}
             onCancelClick={this.onSettingsCancelClick.bind(this)} />
         </div>
         <div style={STYLES.footer}>
