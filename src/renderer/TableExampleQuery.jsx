@@ -7,9 +7,6 @@ import 'react-virtualized/styles.css';
 import  './TableExample.css';
 
 export default class GridExample extends React.PureComponent {
-  static contextTypes = {
-    list: PropTypes.instanceOf(Immutable.List).isRequired,
-  };
 
   constructor(props, context) {
     super(props, context);
@@ -82,17 +79,15 @@ export default class GridExample extends React.PureComponent {
                 sortBy={sortBy}
                 sortDirection={sortDirection}
                 width={width}>
-                {!hideIndexRow && (
-                  <Column
-                    label="Index"
-                    cellDataGetter={({rowData}) => rowData.index}
-                    dataKey="index"
-                    disableSort={!this._isSortEnabled()}
-                    width={60}
-                  />
-                )}
                 <Column
-                  dataKey="name"
+                  label="Id"
+                  cellDataGetter={({rowData}) => rowData.id}
+                  dataKey="index"
+                  disableSort={!this._isSortEnabled()}
+                  width={60}
+                />
+                <Column
+                  dataKey="yiqibh"
                   disableSort={!this._isSortEnabled()}
                   headerRenderer={this._headerRenderer}
                   width={90}
@@ -100,10 +95,12 @@ export default class GridExample extends React.PureComponent {
                 <Column
                   width={210}
                   disableSort
-                  label="The description label is really long so that it will be truncated"
-                  dataKey="random"
+                  label="yonghu"
+                  dataKey="yonghu"
                   className={"exampleColumn"}
-                  cellRenderer={({cellData}) => cellData}
+                  cellRenderer={({cellData}) => {
+                    console.log(cellData)
+                    return cellData}}
                   flexGrow={1}
                 />
               </Table>
@@ -113,11 +110,14 @@ export default class GridExample extends React.PureComponent {
   }
 
   _getDatum(list, index) {
-    return list.get(index % list.size);
+    console.log(list);
+    console.log(index);
+    return list.rows[index % list.rowCount];
   }
 
   _getRowHeight({index}) {
-    const {list} = this.context;
+    const {list} = this.props;
+    console.log(list);
 
     return this._getDatum(list, index).size;
   }
@@ -125,14 +125,15 @@ export default class GridExample extends React.PureComponent {
   _headerRenderer({dataKey, sortBy, sortDirection}) {
     return (
       <div>
-        Full Name
+        yiqibh
         {sortBy === dataKey && <SortIndicator sortDirection={sortDirection} />}
       </div>
     );
   }
 
   _isSortEnabled() {
-    const {list} = this.context;
+    return false;
+    const {list} = this.props;
     const {rowCount} = this.state;
 
     return rowCount <= list.size;
@@ -177,8 +178,9 @@ export default class GridExample extends React.PureComponent {
   }
 
   _sortList({sortBy, sortDirection}) {
-    const {list} = this.context;
 
+    const {list} = this.props;
+    return list;
     return list
       .sortBy(item => item[sortBy])
       .update(

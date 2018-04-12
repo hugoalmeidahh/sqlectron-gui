@@ -100,7 +100,7 @@ export default class GridExample extends React.PureComponent {
                 <Column
                   width={210}
                   disableSort
-                  label="The description label is really long so that it will be truncated"
+                  label="The description"
                   dataKey="random"
                   className={"exampleColumn"}
                   cellRenderer={({cellData}) => cellData}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import AppQuery from './AppQuery';
-
+import AppV from './AppV';
 class App extends React.Component{
   buttonClick=()=>{
     console.log(this.props.history);
