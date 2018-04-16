@@ -1,4 +1,4 @@
-import { fs,remote } from '../../browser/remote';
+var { fs,remote }=window.myremote;// from '../../browser/remote';
 
 export function showSaveDialog(filters) {
   return new Promise((resolve, reject) => {

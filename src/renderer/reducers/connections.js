@@ -1,6 +1,6 @@
 import * as types from '../actions/connections';
 import * as serverTypes from '../actions/servers';
-import { sqlectron } from '../../browser/remote';
+var { sqlectron }=window.myremote;//from '../../browser/remote';
 //var { sqlectron }= require('electron').remote; 
 const CLIENTS = sqlectron.db.CLIENTS;
 

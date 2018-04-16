@@ -1,11 +1,11 @@
 //import { webFrame } from 'electron'; // eslint-disable-line import/no-unresolved
-import { webFrame } from '../../browser/remote';
+//import { webFrame } from '../../browser/remote';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as ConfigActions from '../actions/config.js';
-
+var { webFrame }= window.myremote;//
 
 import '../../../vendor/renderer/semantic-ui/semantic';
 require('../../../vendor/renderer/lato/latofonts.css');

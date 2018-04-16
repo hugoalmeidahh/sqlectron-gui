@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import { sqlectron } from '../../browser/remote';
 import { Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
-
+var { sqlectron } =window.myremote;
 const CLIENTS = sqlectron.db.CLIENTS.map(dbClient => ({
   key: dbClient.key,
   name: dbClient.name,

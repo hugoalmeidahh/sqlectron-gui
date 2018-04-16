@@ -1,4 +1,4 @@
-import { ipcRenderer } from '../browser/remote';
+var { ipcRenderer } =window.myremote;//
 
 export default class MenuHandler {
   setMenus(commands) {

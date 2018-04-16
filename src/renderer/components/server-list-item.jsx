@@ -1,7 +1,7 @@
 import React  from 'react';
 import PropTypes from 'proptypes';
 import { requireLogos } from './require-context';
-import { sqlectron } from '../../browser/remote';
+var  { sqlectron }  =window.myremote;
 //var e=require('electron');
 //console.log(e);
 

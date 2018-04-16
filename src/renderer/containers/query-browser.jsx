@@ -7,7 +7,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ResizableBox } from 'react-resizable';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { sqlectron } from '../../browser/remote';
 import * as ConnActions from '../actions/connections.js';
 import * as QueryActions from '../actions/queries';
 import * as DbAction from '../actions/databases';
@@ -32,6 +31,7 @@ import MenuHandler from '../menu-handler';
 import { requireLogos } from '../components/require-context';
 import 'react-tabs/style/react-tabs.css';
 import 'react-resizable/css/styles.css';
+var {sqlectron}=window.myremote;//
 require('./query-browser.css');
 //require('../components/react-resizable.css');
 

@@ -1,6 +1,5 @@
-import { sqlectron } from '../../browser/remote';
 import * as ConfigActions from './config.js';
-
+var { sqlectron } =window.myremote;
 export const SAVE_SERVER_REQUEST = 'SAVE_SERVER_REQUEST';
 export const SAVE_SERVER_SUCCESS = 'SAVE_SERVER_SUCCESS';
 export const SAVE_SERVER_FAILURE = 'SAVE_SERVER_FAILURE';

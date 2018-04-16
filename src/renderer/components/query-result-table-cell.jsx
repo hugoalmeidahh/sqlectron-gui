@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { valueToString } from '../utils/convert';
-import { remote} from '../../browser/remote';
+var { remote} =window.myremote;
 const { Menu, MenuItem } = remote;
 
 export default class TableCell extends Component {

@@ -3,7 +3,7 @@ import PropTypes from 'proptypes';
 import CollapseIcon from './collapse-icon.jsx';
 import TableSubmenu from './table-submenu.jsx';
 //import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
-import { remote,sqlectron } from '../../browser/remote';
+var { remote,sqlectron } =window.myremote;
 
 const Menu = remote.Menu;
 const MenuItem = remote.MenuItem;

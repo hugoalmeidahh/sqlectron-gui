@@ -5,7 +5,7 @@ import { getCurrentDBConn, getDBConnByName } from './connections';
 import { rowsValuesToString } from '../utils/convert';
 import * as fileHandler from '../utils/file-handler';
 import wait from '../utils/wait';
-import { path,clipboard } from '../../browser/remote';
+var { path,clipboard }=window.myremote;
 
 export const NEW_QUERY = 'NEW_QUERY';
 export const RENAME_QUERY = 'RENAME_QUERY';

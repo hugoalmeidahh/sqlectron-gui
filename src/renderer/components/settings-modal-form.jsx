@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import {shell} from '../../browser/remote';
 import set from 'lodash.set';
 import Select from 'react-select';
 import Checkbox from './checkbox.jsx';
-
+var {shell}= window.myremote;
 require('react-select/dist/react-select.css');
 require('./override-select.css');
 

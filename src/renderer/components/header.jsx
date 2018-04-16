@@ -1,7 +1,7 @@
 import React   from 'react';
 import PropTypes from 'proptypes';
 //import { shell } from 'electron'; // eslint-disable-line import/no-unresolved
-import { shell } from '../../browser/remote';
+var  { shell }=window.myremote;
 require('./header.css');
 
 const LOGO_PATH = require('./logo-128px.png');
