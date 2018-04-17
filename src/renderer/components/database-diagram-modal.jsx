@@ -3,7 +3,8 @@ import PropTypes from 'proptypes';
 import DatabaseDiagram from './database-diagram.jsx';
 import Loader from './loader.jsx';
 import { Transition,Button,Input, Grid,  List, Segment, Icon, Modal } from 'semantic-ui-react';
-
+import update from 'immutability-helper';
+import CheckBox from './checkbox.jsx';
 const STYLE = {
   list: {
     maxHeight: '250px',
@@ -35,9 +36,12 @@ export default class DatabaseDiagramModal extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = {modalOpen:false};
+    const { tables, views } = this.props;
+    const tablesAndViews = tables.concat(views);
+    this.state = {modalOpen:false,selectedTables:tablesAndViews,disabledG:"disabled"};
   }
-
+// $(':checkbox:checked', 'div.ui.list')
+    //   .map((index, checkbox) => selectedTables.push(checkbox.id));
   componentDidMount() {
     // $(this.refs.diagramModal).modal({
     //   closable: true,
@@ -61,7 +65,7 @@ export default class DatabaseDiagramModal extends Component {
 
   onSelectAllTables() {
     //$(':checkbox', 'div.ui.list').prop('checked', true);
-    //this.onCheckBoxesChange();
+    this.onCheckBoxesChange();
   }
 
   onDeselectAllTables() {
@@ -69,16 +73,25 @@ export default class DatabaseDiagramModal extends Component {
     this.onCheckBoxesChange();
   }
 
-  onCheckBoxesChange() {
+  onCheckBoxesChange=(name,checked)=> {
+
+
+        const filteredFoods = this.state.selectedTables.filter(
+          (item, idx) => item.checked == true,
+        );
+      if(filteredFoods.length>0)
+      {
+        this.setState({disabledG:""});
+      }
+      else{
+        this.setState({disabledG:"disabled"}); 
+      }
     // Disable generate diagram button if there are no tables selected
-    // return $(':checkbox:checked', 'div.ui.list').length
-    //   ? $(this.refs.generateButton).removeClass('disabled')
-    //   : $(this.refs.generateButton).addClass('disabled');
   }
 
   onGenerateDiagramClick() {
     this.setState({ showLoader: true });
-    this.props.onGenerateDatabaseDiagram(this.props.database);
+    this.props.onGenerateDatabaseDiagram(this.props.database,this.state.selectedTables);
   }
 
   onAddRelatedTables(relatedTables) {
@@ -123,7 +136,7 @@ export default class DatabaseDiagramModal extends Component {
 
   renderSelectTablesMenu() {
     const { tables, views, onOpenDatabaseDiagram } = this.props;
-    const tablesAndViews = tables.concat(views);
+    const tablesAndViews =this.state.selectedTables;// tables.concat(views);
 
     return (
       <div className="content">
@@ -143,18 +156,17 @@ export default class DatabaseDiagramModal extends Component {
               </button>
             </div>
             <div className="ui list" style={STYLE.list}>
-              {tablesAndViews.map((item) =>
-                <div key={item.name} className="item">
-                  <div className="ui checkbox">
-                    <input id={item.name} type="checkbox" onChange={this.onCheckBoxesChange.bind(this)} />
-                    <label>{item.name}</label>
-                  </div>
-                </div>
+              {tablesAndViews.map((item,idx) =>
+                    <CheckBox key={idx} label={item.name} 
+                    name={item.name}
+                    defaultChecked={item.checked}
+                    onChecked={()=>{item.checked=true;this.onCheckBoxesChange();}} 
+                    onUnchecked={()=>{item.checked=false;this.onCheckBoxesChange();}} />
               )}
             </div>
             <button
               ref="generateButton"
-              className="ui right floated positive button disabled"
+              className={"ui right floated positive button "+this.state.disabledG}
               style={{ marginBottom: '1em' }}
               onClick={this.onGenerateDiagramClick.bind(this)}>
               Generate diagram

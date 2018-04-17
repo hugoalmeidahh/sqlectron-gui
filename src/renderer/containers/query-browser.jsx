@@ -234,9 +234,9 @@ class QueryBrowserContainer extends Component {
     dispatch(DbAction.showDatabaseDiagram(database.name));
   }
 
-  onGenerateDatabaseDiagram(database) {
+  onGenerateDatabaseDiagram(database,selectedTables) {
     const { dispatch } = this.props;
-    const selectedTables = [];
+    //const selectedTables = [];
 
     dispatch(DbAction.generateDatabaseDiagram());
     //todo 

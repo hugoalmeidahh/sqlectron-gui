@@ -22,7 +22,7 @@ export default class GridExample extends React.PureComponent {
       hideIndexRow: false,
       overscanRowCount: 10,
       rowHeight: 40,
-      rowCount: 1000,
+      rowCount: this.props.list.rowCount,
       scrollToIndex: undefined,
       sortBy,
       sortDirection,
@@ -41,7 +41,7 @@ export default class GridExample extends React.PureComponent {
 
   render() {
     const {
-       disableHeader,
+      disableHeader,
       columnCount,
       height,
       overscanColumnCount,
@@ -59,6 +59,12 @@ export default class GridExample extends React.PureComponent {
       hideIndexRow,
     } = this.state;
     const rowGetter = ({index}) => this._getDatum(sortedList, index);
+    var columns=this.props.list.fields.map((field, idx)=>{
+       return (<Column key={idx} label={field.name}
+                  cellDataGetter={({rowData}) => rowData[field.name]}
+                  dataKey={field.name}
+                  width={60}></Column>);
+    })
     return (
         <AutoSizer disableHeight>
           {({width}) => (
@@ -79,30 +85,7 @@ export default class GridExample extends React.PureComponent {
                 sortBy={sortBy}
                 sortDirection={sortDirection}
                 width={width}>
-                <Column
-                  label="Id"
-                  cellDataGetter={({rowData}) => rowData.id}
-                  dataKey="index"
-                  disableSort={!this._isSortEnabled()}
-                  width={60}
-                />
-                <Column
-                  dataKey="yiqibh"
-                  disableSort={!this._isSortEnabled()}
-                  headerRenderer={this._headerRenderer}
-                  width={90}
-                />
-                <Column
-                  width={210}
-                  disableSort
-                  label="yonghu"
-                  dataKey="yonghu"
-                  className={"exampleColumn"}
-                  cellRenderer={({cellData}) => {
-                    console.log(cellData)
-                    return cellData}}
-                  flexGrow={1}
-                />
+                {columns}
               </Table>
           )}
         </AutoSizer>
@@ -112,7 +95,7 @@ export default class GridExample extends React.PureComponent {
   _getDatum(list, index) {
     console.log(list);
     console.log(index);
-    return list.rows[index % list.rowCount];
+    return list.rows[index];
   }
 
   _getRowHeight({index}) {
@@ -133,10 +116,10 @@ export default class GridExample extends React.PureComponent {
 
   _isSortEnabled() {
     return false;
-    const {list} = this.props;
-    const {rowCount} = this.state;
+    // const {list} = this.props;
+    // const {rowCount} = this.state;
 
-    return rowCount <= list.size;
+    // return rowCount <= list.size;
   }
 
   _noRowsRenderer() {
@@ -181,11 +164,11 @@ export default class GridExample extends React.PureComponent {
 
     const {list} = this.props;
     return list;
-    return list
-      .sortBy(item => item[sortBy])
-      .update(
-        list => (sortDirection === SortDirection.DESC ? list.reverse() : list),
-      );
+    // return list
+    //   .sortBy(item => item[sortBy])
+    //   .update(
+    //     list => (sortDirection === SortDirection.DESC ? list.reverse() : list),
+    //   );
   }
 
   _updateUseDynamicRowHeight(value) {

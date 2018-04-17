@@ -44,11 +44,11 @@ class App extends React.Component{
       : styles.Body;
     let table;
     if(this.state.loaded){
-      table=<TableExample list={this.list[0]} size={{width:600,height:600}} />;
+      table=<TableExample list={this.list[0]} size={{width:1000,height:600}} />;
     }
     return (
     <div>
-    <ResizableBox width={"100%"} height={200} >
+    <ResizableBox width={800} height={300} >
        <AceEditor
               mode="sql"
               theme="github"
