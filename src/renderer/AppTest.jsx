@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import AppQuery from './AppQuery';
-import AppV from './AppV';
+import AppD from './AppD';
+
+
 class App extends React.Component{
   buttonClick=()=>{
     console.log(this.props.history);
@@ -11,7 +13,7 @@ class App extends React.Component{
     return (
       <div>
       <button onClick={this.buttonClick}>sqlui</button>
-      <AppQuery />
+      <AppD />
       </div>
     );
   }

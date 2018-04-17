@@ -3,7 +3,7 @@ import PropTypes from 'proptypes';
 import DatabaseDiagram from './database-diagram.jsx';
 import Loader from './loader.jsx';
 import { Transition,Button,Input, Grid,  List, Segment, Icon, Modal } from 'semantic-ui-react';
-import update from 'immutability-helper';
+//import update from 'immutability-helper';
 import CheckBox from './checkbox.jsx';
 const STYLE = {
   list: {
@@ -64,12 +64,16 @@ export default class DatabaseDiagramModal extends Component {
   }
 
   onSelectAllTables() {
-    //$(':checkbox', 'div.ui.list').prop('checked', true);
+   for(var i=0;i<this.state.selectedTables.length;i++){
+      this.state.selectedTables[i].checked=true;
+    }
     this.onCheckBoxesChange();
   }
 
   onDeselectAllTables() {
-    //$(':checkbox', 'div.ui.list').prop('checked', false);
+   for(var i=0;i<this.state.selectedTables.length;i++){
+      this.state.selectedTables[i].checked=false;
+    }
     this.onCheckBoxesChange();
   }
 
@@ -91,7 +95,16 @@ export default class DatabaseDiagramModal extends Component {
 
   onGenerateDiagramClick() {
     this.setState({ showLoader: true });
-    this.props.onGenerateDatabaseDiagram(this.props.database,this.state.selectedTables);
+    const filteredFoods = this.state.selectedTables.filter(
+          (item, idx) => item.checked == true,
+    );
+    var out=[];
+    for(var i=0;i<filteredFoods.length;i++){
+      out.push(filteredFoods[i].name)
+    }
+    console.log(out);
+    
+    this.props.onGenerateDatabaseDiagram(this.props.database,out);
   }
 
   onAddRelatedTables(relatedTables) {

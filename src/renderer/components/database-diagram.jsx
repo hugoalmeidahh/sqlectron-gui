@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'proptypes';
-import joint from 'jointjs/dist/joint';
-import './jointjs-diagram-table';
-import './jointjs-diagram-table-cell';
-
-require('jointjs/dist/joint.min.css');
-require('./database-diagram.css');
-
+import * as SRD from "storm-react-diagrams"
+//import joint from 'jointjs/dist/joint';
+//import './jointjs-diagram-table';
+//import './jointjs-diagram-table-cell';
+import "storm-react-diagrams/dist/style.min.css";
+//require('jointjs/dist/joint.min.css');
+//require('./database-diagram.css');
+import '../demo.css';
 export default class DatabaseDiagram extends Component {
   static propTypes = {
     tables: PropTypes.array,
@@ -19,8 +21,34 @@ export default class DatabaseDiagram extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
-    this.graph = new joint.dia.Graph();
+    
+    //this.graph = new joint.dia.Graph();
+    // 1) setup the diagram engine
+    var engine = new SRD.DiagramEngine();
+    engine.installDefaultFactories();
+
+    // 2) setup the diagram model
+    var model = new SRD.DiagramModel();
+
+    // 3) create a default node
+    var node1 = new SRD.DefaultNodeModel("Node 1", "rgb(0,192,255)");
+    let port1 = node1.addOutPort("Out");
+    node1.setPosition(100, 100);
+
+    // 4) create another default node
+    var node2 = new SRD.DefaultNodeModel("Node 2", "rgb(192,255,0)");
+    let port2 = node2.addInPort("In");
+    node2.setPosition(400, 100);
+
+    // 5) link the ports
+    let link1 = port1.link(port2);
+
+    // 6) add the models to the root graph
+    model.addAll(node1, node2, link1);
+
+    // 7) load model into engine
+    engine.setDiagramModel(model);
+    this.state = {engine:engine};
   }
 
   componentDidMount() {
@@ -55,9 +83,11 @@ export default class DatabaseDiagram extends Component {
   }
 
   addGraphPaper() {
+    //var node=ReactDOM.findDOMNode(this.refs.diagram);
+    //console.log(node);
     // this.paper = new joint.dia.Paper({
-    //   el: $(this.refs.diagram),
-    //   width: $(this.refs.diagram).parent().width(),
+    //   el: ReactDOM.findDOMNode(this.refs.diagram),
+    //   width: ReactDOM.findDOMNode(this.refs.diagram).parentNode.clientWidth,
     //   height: 600,
     //   model: this.graph,
     //   gridSize: 1,
@@ -73,76 +103,76 @@ export default class DatabaseDiagram extends Component {
   }
 
   generateTableElements(tableShapes, tableCells) {
-    const { tables, columnsByTable, tableKeys } = this.props;
-    let currentTable;
-    let columnKey;
-    let newTabCell;
+    // const { tables, columnsByTable, tableKeys } = this.props;
+    // let currentTable;
+    // let columnKey;
+    // let newTabCell;
 
-    try {
-      tables.forEach((table, index) => {
-        tableShapes.push(new joint.shapes.sqlectron.Table({
-          position: {
-            x: 100 + (index % 6) * 100,
-            y: 20 + (index % 4) * 100,
-          },
-          size: {
-            width: 120,
-            height: (columnsByTable[table].length + 1.5) * 20,
-          },
-          name: table,
-        }));
-        currentTable = tableShapes[index];
+    // try {
+    //   tables.forEach((table, index) => {
+    //     tableShapes.push(new joint.shapes.sqlectron.Table({
+    //       position: {
+    //         x: 100 + (index % 6) * 100,
+    //         y: 20 + (index % 4) * 100,
+    //       },
+    //       size: {
+    //         width: 120,
+    //         height: (columnsByTable[table].length + 1.5) * 20,
+    //       },
+    //       name: table,
+    //     }));
+    //     currentTable = tableShapes[index];
 
-        columnsByTable[table].forEach((column, idx) => {
-          columnKey = tableKeys[table].find((k) => k.columnName === column.name);
+    //     columnsByTable[table].forEach((column, idx) => {
+    //       columnKey = tableKeys[table].find((k) => k.columnName === column.name);
 
-          newTabCell = new joint.shapes.sqlectron.TableCell({
-            position: {
-              x: (currentTable.position().x),
-              y: ((currentTable.position().y + 7) + (idx + 1) * 20),
-            },
-            size: {
-              width: 100,
-              height: 20,
-            },
-            name: column.name,
-            tableName: table,
-            keyType: columnKey ? columnKey.keyType : null,
-          });
-          currentTable.embed(newTabCell);
-          tableCells.push(newTabCell);
-        });
-      });
-    } catch (error) {
-      this.setState({ error: `Error while generating table elements: ${error.message}` });
-    }
+    //       newTabCell = new joint.shapes.sqlectron.TableCell({
+    //         position: {
+    //           x: (currentTable.position().x),
+    //           y: ((currentTable.position().y + 7) + (idx + 1) * 20),
+    //         },
+    //         size: {
+    //           width: 100,
+    //           height: 20,
+    //         },
+    //         name: column.name,
+    //         tableName: table,
+    //         keyType: columnKey ? columnKey.keyType : null,
+    //       });
+    //       currentTable.embed(newTabCell);
+    //       tableCells.push(newTabCell);
+    //     });
+    //   });
+    // } catch (error) {
+    //   this.setState({ error: `Error while generating table elements: ${error.message}` });
+    // }
   }
 
   generateLinks(tableShapes, tableLinks) {
-    const { tables, tableKeys } = this.props;
-    let currentTable;
-    let newLink;
-    let targetIndex;
+    // const { tables, tableKeys } = this.props;
+    // let currentTable;
+    // let newLink;
+    // let targetIndex;
 
-    try {
-      tables.forEach((table, index) => {
-        currentTable = tableShapes[index];
+    // try {
+    //   tables.forEach((table, index) => {
+    //     currentTable = tableShapes[index];
 
-        tableKeys[table].forEach((target) => {
-          targetIndex = tables.findIndex((t) => t === target.referencedTable);
-          if (targetIndex !== -1) {
-            newLink = new joint.dia.Link({
-              source: { id: currentTable.id },
-              target: { id: tableShapes[targetIndex].id },
-            });
-            newLink.attr({ '.marker-target': { fill: 'yellow', d: 'M 10 0 L 0 5 L 10 10 z' } });
-            tableLinks.push(newLink);
-          }
-        });
-      });
-    } catch (error) {
-      this.setState({ error: `Error while generating links: ${error.message}` });
-    }
+    //     tableKeys[table].forEach((target) => {
+    //       targetIndex = tables.findIndex((t) => t === target.referencedTable);
+    //       if (targetIndex !== -1) {
+    //         newLink = new joint.dia.Link({
+    //           source: { id: currentTable.id },
+    //           target: { id: tableShapes[targetIndex].id },
+    //         });
+    //         newLink.attr({ '.marker-target': { fill: 'yellow', d: 'M 10 0 L 0 5 L 10 10 z' } });
+    //         tableLinks.push(newLink);
+    //       }
+    //     });
+    //   });
+    // } catch (error) {
+    //   this.setState({ error: `Error while generating links: ${error.message}` });
+    // }
   }
 
   shouldDisableDiagram() {
@@ -153,13 +183,13 @@ export default class DatabaseDiagram extends Component {
   }
 
   putEverythingOnGraph(tableShapes, tableCells, tableLinks) {
-    this.graph.addCells(tableShapes.concat(tableCells, tableLinks));
-    this.resizeTableElements(tableShapes, tableCells);
+    // this.graph.addCells(tableShapes.concat(tableCells, tableLinks));
+    // this.resizeTableElements(tableShapes, tableCells);
   }
 
   // Resize table elements based on attributes text length
   resizeTableElements(tableShapes, tableCells) {
-    // const { tables, columnsByTable } = this.props;
+    const { tables, columnsByTable } = this.props;
 
     // tables.forEach((table) => {
     //   let biggestCellSize = $('span', `.sqlectron-table.${table} > p`).outerWidth();
@@ -190,6 +220,7 @@ export default class DatabaseDiagram extends Component {
       );
     }
 
-    return <div ref="diagram" style={this.shouldDisableDiagram()}></div>;
+    //return <div ref="diagram" style={this.shouldDisableDiagram()}></div>;
+    return <SRD.DiagramWidget  className="srd-demo-canvas"  diagramEngine={this.state.engine} />;
   }
 }
