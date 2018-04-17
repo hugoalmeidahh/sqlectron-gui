@@ -4,6 +4,15 @@ import PropTypes from 'proptypes';
 import styles from './demo/Application.css';
 import './GridExample.css';
 import TableExample from './TableExampleQuery.jsx';
+import { Resizable, ResizableBox } from 'react-resizable';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import AceEditor from 'react-ace';
+import ace from 'brace';
+import 'brace/mode/sql';
+import 'brace/theme/github';
+import 'brace/ext/language_tools';
+import 'brace/ext/searchbox';
+
 class App extends React.Component{
   state={isScrollingCustomElement:false,loaded:false}
   loadData=()=>{
@@ -35,11 +44,30 @@ class App extends React.Component{
       : styles.Body;
     let table;
     if(this.state.loaded){
-      table=<TableExample list={this.list[0]} />;
+      table=<TableExample list={this.list[0]} size={{width:600,height:600}} />;
     }
     return (
-      <div>
-        <div className={styles.demo}>
+    <div>
+    <ResizableBox width={"100%"} height={200} >
+       <AceEditor
+              mode="sql"
+              theme="github"
+              height="calc(100% - 15px)"
+              width="100%"
+              ref="queryBoxTextarea"
+              showPrintMargin={false}
+              editorProps={{ $blockScrolling: Infinity }}
+              enableBasicAutocompletion
+              enableLiveAutocompletion />
+    </ResizableBox>
+    <Tabs>
+    <TabList>
+      <Tab>Title 1</Tab>
+      <Tab>Title 2</Tab>
+    </TabList>
+
+    <TabPanel>
+       <div className={styles.demo}>
           <div className={styles.headerRow}>
 
             <div className={styles.ComponentList}>
@@ -48,9 +76,14 @@ class App extends React.Component{
 
           </div>
 
-        </div>
-      </div>
-
+    </div>
+    </TabPanel>
+    <TabPanel>
+      <h2>Any content 2</h2>
+    </TabPanel>
+  </Tabs>
+   
+    </div>
     );
   }
 }

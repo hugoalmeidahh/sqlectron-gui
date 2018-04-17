@@ -1,4 +1,3 @@
-import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
@@ -7,9 +6,6 @@ import 'react-virtualized/styles.css';
 import  './TableExample.css';
 
 export default class GridExample extends React.PureComponent {
-  static contextTypes = {
-    list: PropTypes.instanceOf(Immutable.List).isRequired,
-  };
 
   constructor(props, context) {
     super(props, context);
@@ -21,7 +17,6 @@ export default class GridExample extends React.PureComponent {
     this.state = {
       disableHeader: false,
       headerHeight: 30,
-      height: 270,
       hideIndexRow: false,
       overscanRowCount: 10,
       rowHeight: 40,
@@ -46,7 +41,6 @@ export default class GridExample extends React.PureComponent {
     const {
        disableHeader,
       columnCount,
-      height,
       overscanColumnCount,
       overscanRowCount,
       rowHeight,
@@ -61,6 +55,8 @@ export default class GridExample extends React.PureComponent {
       scrollToIndex,
       hideIndexRow,
     } = this.state;
+    const height=this.props.size.height;
+
     const rowGetter = ({index}) => this._getDatum(sortedList, index);
     return (
         <AutoSizer disableHeight>
