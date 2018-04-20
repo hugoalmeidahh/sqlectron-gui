@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'proptypes';
 import * as SRD from "storm-react-diagrams"
 //import joint from 'jointjs/dist/joint';
@@ -30,21 +29,61 @@ export default class DatabaseDiagram extends Component {
     // 2) setup the diagram model
     var model = new SRD.DiagramModel();
 
-    // 3) create a default node
-    var node1 = new SRD.DefaultNodeModel("Node 1", "rgb(0,192,255)");
-    let port1 = node1.addOutPort("Out");
-    node1.setPosition(100, 100);
+    // // 3) create a default node
+    // var node1 = new SRD.DefaultNodeModel("Node 1", "rgb(0,192,255)");
+    // let port1 = node1.addOutPort("Out");
+    // node1.setPosition(100, 100);
 
-    // 4) create another default node
-    var node2 = new SRD.DefaultNodeModel("Node 2", "rgb(192,255,0)");
-    let port2 = node2.addInPort("In");
-    node2.setPosition(400, 100);
+    // // 4) create another default node
+    // var node2 = new SRD.DefaultNodeModel("Node 2", "rgb(192,255,0)");
+    // let port2 = node2.addInPort("In");
+    // node2.setPosition(400, 100);
 
-    // 5) link the ports
-    let link1 = port1.link(port2);
+    // // 5) link the ports
+    // let link1 = port1.link(port2);
+    const { tables, columnsByTable, tableKeys } = this.props;
+    // console.log(model);
+    // console.log(node1);
+    
+    tables.forEach((table, index) => {
 
-    // 6) add the models to the root graph
-    model.addAll(node1, node2, link1);
+        var nodex=new SRD.DefaultNodeModel(table,"rgb(192,255,0)");
+        nodex.setPosition( 100 + (index % 6) * 100,20 + (index % 4) * 100);
+        model.addNode(nodex);
+        console.log(columnsByTable);
+
+        columnsByTable[table].forEach((column, idx) => {
+            var columnKey = tableKeys[table].find((k) => k.columnName === column.name);
+            if(columnKey) console.log(columnKey.keyType);
+            nodex.addOutPort(column.name);
+        });
+    });
+    // let currentTable;
+    // let newLink;
+    // let targetIndex;
+
+    // try {
+    //   tables.forEach((table, index) => {
+    //     currentTable = tableShapes[index];
+
+    //     tableKeys[table].forEach((target) => {
+    //       targetIndex = tables.findIndex((t) => t === target.referencedTable);
+    //       if (targetIndex !== -1) {
+    //         console.log(currentTable.id);
+    //         console.log(tableShapes[targetIndex].id);
+    //         // newLink = new joint.dia.Link({
+    //         //   source: { id: currentTable.id },
+    //         //   target: { id: tableShapes[targetIndex].id },
+    //         // });
+    //         // newLink.attr({ '.marker-target': { fill: 'yellow', d: 'M 10 0 L 0 5 L 10 10 z' } });
+    //         // tableLinks.push(newLink);
+    //       }
+    //     });
+    //   });
+    // } catch (error) {
+    //   this.setState({ error: `Error while generating links: ${error.message}` });
+    // }
+    //model.addAll(node1, node2, link1);
 
     // 7) load model into engine
     engine.setDiagramModel(model);
@@ -70,10 +109,11 @@ export default class DatabaseDiagram extends Component {
     }
 
     // Generate graph if needed
-    this.generateTableElements(tableShapes, tableCells);
-    this.generateLinks(tableShapes, tableLinks);
+    // this.generateTableElements(tableShapes, tableCells);
+    // this.generateLinks(tableShapes, tableLinks);
 
-    this.putEverythingOnGraph(tableShapes, tableCells, tableLinks);
+    // this.putEverythingOnGraph(tableShapes, tableCells, tableLinks);
+    
   }
 
   onTableRightClick(table) {
@@ -103,49 +143,49 @@ export default class DatabaseDiagram extends Component {
   }
 
   generateTableElements(tableShapes, tableCells) {
-    // const { tables, columnsByTable, tableKeys } = this.props;
-    // let currentTable;
-    // let columnKey;
-    // let newTabCell;
+    const { tables, columnsByTable, tableKeys } = this.props;
+    let currentTable;
+    let columnKey;
+    let newTabCell;
 
-    // try {
-    //   tables.forEach((table, index) => {
-    //     tableShapes.push(new joint.shapes.sqlectron.Table({
-    //       position: {
-    //         x: 100 + (index % 6) * 100,
-    //         y: 20 + (index % 4) * 100,
-    //       },
-    //       size: {
-    //         width: 120,
-    //         height: (columnsByTable[table].length + 1.5) * 20,
-    //       },
-    //       name: table,
-    //     }));
-    //     currentTable = tableShapes[index];
+    try {
+      tables.forEach((table, index) => {
+        tableShapes.push(new SRD.DefaultNodeModel({
+          position: {
+            x: 100 + (index % 6) * 100,
+            y: 20 + (index % 4) * 100,
+          },
+          size: {
+            width: 120,
+            height: (columnsByTable[table].length + 1.5) * 20,
+          },
+          name: table,
+        }));
+        currentTable = tableShapes[index];
 
-    //     columnsByTable[table].forEach((column, idx) => {
-    //       columnKey = tableKeys[table].find((k) => k.columnName === column.name);
+        // columnsByTable[table].forEach((column, idx) => {
+        //   columnKey = tableKeys[table].find((k) => k.columnName === column.name);
 
-    //       newTabCell = new joint.shapes.sqlectron.TableCell({
-    //         position: {
-    //           x: (currentTable.position().x),
-    //           y: ((currentTable.position().y + 7) + (idx + 1) * 20),
-    //         },
-    //         size: {
-    //           width: 100,
-    //           height: 20,
-    //         },
-    //         name: column.name,
-    //         tableName: table,
-    //         keyType: columnKey ? columnKey.keyType : null,
-    //       });
-    //       currentTable.embed(newTabCell);
-    //       tableCells.push(newTabCell);
-    //     });
-    //   });
-    // } catch (error) {
-    //   this.setState({ error: `Error while generating table elements: ${error.message}` });
-    // }
+        //   newTabCell = new joint.shapes.sqlectron.TableCell({
+        //     position: {
+        //       x: (currentTable.position().x),
+        //       y: ((currentTable.position().y + 7) + (idx + 1) * 20),
+        //     },
+        //     size: {
+        //       width: 100,
+        //       height: 20,
+        //     },
+        //     name: column.name,
+        //     tableName: table,
+        //     keyType: columnKey ? columnKey.keyType : null,
+        //   });
+        //   currentTable.embed(newTabCell);
+        //   tableCells.push(newTabCell);
+        // });
+      });
+    } catch (error) {
+      this.setState({ error: `Error while generating table elements: ${error.message}` });
+    }
   }
 
   generateLinks(tableShapes, tableLinks) {

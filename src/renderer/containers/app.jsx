@@ -43,11 +43,11 @@ class AppContainer extends Component {
       // Required for HiDPI support
       webFrame.setZoomFactor(zoomFactor);
     }
-    if (enabledDarkTheme === true) {
-      $('body').addClass('dark-theme');
-    } else {
-      $('body').removeClass('dark-theme');
-    }
+    // if (enabledDarkTheme === true) {
+    //   $('body').addClass('dark-theme');
+    // } else {
+    //   $('body').removeClass('dark-theme');
+    // }
   }
 
   componentWillUnmount() {

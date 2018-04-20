@@ -16,7 +16,7 @@ export default class Root extends Component<Props> {
                 <Route path="/test" component={AppTest} />
                 <Route path="/sql/manage" component={ServerManagementContainer} />
                 <Route path="/sql/server/:id" component={QueryBrowserContainer} />
-                <Redirect from="/" to="/test" />
+                <Redirect from="/" to="/sql/manage" />
               </Switch>
             </div>
         </BrowserRouter>

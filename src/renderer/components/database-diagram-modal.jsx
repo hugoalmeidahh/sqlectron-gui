@@ -170,11 +170,13 @@ export default class DatabaseDiagramModal extends Component {
             </div>
             <div className="ui list" style={STYLE.list}>
               {tablesAndViews.map((item,idx) =>
-                    <CheckBox key={idx} label={item.name} 
+                  <div style={{paddingTop:"10px"}} key={idx}>
+                    <CheckBox   label={item.name} 
                     name={item.name}
                     defaultChecked={item.checked}
                     onChecked={()=>{item.checked=true;this.onCheckBoxesChange();}} 
                     onUnchecked={()=>{item.checked=false;this.onCheckBoxesChange();}} />
+                  </div>
               )}
             </div>
             <button

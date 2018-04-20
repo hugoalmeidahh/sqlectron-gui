@@ -8,9 +8,8 @@ import TableCell from './query-result-table-cell.jsx';
 import PreviewModal from './preview-modal.jsx';
 import { valueToString } from '../utils/convert';
 import scrollbarSize from 'dom-helpers/util/scrollbarSize';
-
 import 'react-virtualized/styles.css';
-import './query-result-table.scss';
+//import './query-result-table.scss';
 
 /* eslint react/sort-comp:0 */
 export default class QueryResultTable extends Component {
@@ -271,7 +270,7 @@ export default class QueryResultTable extends Component {
     );
   }
 
-  renderTableBody(onScroll) {
+  renderTableBody() {
     const { rowCount, fields } = this.props;
     const { tableWidth, tableHeight } = this.state;
 
@@ -282,14 +281,12 @@ export default class QueryResultTable extends Component {
 
     return (
       <Grid
-        className="grid-body"
         ref={(ref) => { this.rowsGrid = ref; }}
         cellRenderer={this.renderCell}
         width={tableWidth}
-        height={Math.min((tableHeight - headerHeight), fixedHeightRows)}
+        height={Math.min((tableHeight ), fixedHeightRows)}
         rowHeight={rowHeight}
-        onScroll={onScroll}
-        rowCount={rowCount}
+        rowCount={rowCount+1}
         columnCount={fields.length}
         columnWidth={this.getColumnWidth.bind(this)}
         rowsCount={rowCount}
@@ -364,6 +361,14 @@ export default class QueryResultTable extends Component {
 
   renderCell=(params)=>{
     const field = this.props.fields[params.columnIndex];
+    if (params.rowIndex===0){
+      //const classnames = classNames("rowClass", "cell");
+    return (<div  className="rowClass headerCell cell" key={params.key}  style={params.style} >
+        {
+          field.name
+        }
+      </div>);  
+    }
     // return (
     //   <div
     //     style={params.style}
@@ -379,7 +384,7 @@ export default class QueryResultTable extends Component {
       <TableCell
         style={params.style}
         key={params.key} 
-        rowIndex={params.rowIndex}
+        rowIndex={params.rowIndex-1}
         data={this.props.rows}
         col={field.name}
         onOpenPreviewClick={this.onOpenPreviewClick.bind(this)} />
@@ -398,15 +403,12 @@ export default class QueryResultTable extends Component {
       <div>
         {this.renderPreviewModal()}
 
-        <ScrollSync>
-          {({ onScroll, scrollLeft }) => (
-            <div className="grid-query-wrapper">
+            <div >
               {this.renderHeaderTopBar()}
-              {this.renderTableHeader(scrollLeft)}
-              {this.renderTableBody(onScroll)}
+              {//this.renderTableHeader(scrollLeft)
+              }
+             {this.renderTableBody()}
             </div>
-          )}
-        </ScrollSync>
       </div>
     );
   }

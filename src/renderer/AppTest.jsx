@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {withRouter, Link} from 'react-router-dom';
-import AppQuery from './AppQuery';
-import AppD from './AppD';
-
+import AppQuery from './AppVGrid';
 
 class App extends React.Component{
   buttonClick=()=>{
@@ -13,7 +11,7 @@ class App extends React.Component{
     return (
       <div>
       <button onClick={this.buttonClick}>sqlui</button>
-      <AppD />
+      <AppQuery />
       </div>
     );
   }

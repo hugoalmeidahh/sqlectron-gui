@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { valueToString } from '../utils/convert';
+import { Label } from 'semantic-ui-react';
 var { remote} =window.myremote;
 const { Menu, MenuItem } = remote;
 
@@ -50,18 +51,21 @@ export default class TableCell extends Component {
 
   render() {
     const value = this.getValue();
-    const className = classNames({
-      'ui mini grey label table-cell-type-null': value === null,
-    });
-
+    // const className = classNames({
+    //   'ui mini grey label table-cell-type-null': value === null,
+    // });
+    //const classnames = classNames("rowClass", "cell","item");
+    //   , {
+    //   "centeredCell": columnIndex > 2,"headerCell": rowIndex ===0
+    // });
     return (
-      <div style={this.props.style} className="item" onContextMenu={this.onContextMenu.bind(this)}>
+      <Label style={this.props.style} basic={true} onContextMenu={this.onContextMenu.bind(this)}>
         {
           value === null
-            ? <span className={className}>NULL</span>
+            ? <span >NULL</span>
             : valueToString(value)
         }
-      </div>
+      </Label>
     );
   }
 }

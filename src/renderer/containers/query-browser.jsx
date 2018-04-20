@@ -31,8 +31,9 @@ import MenuHandler from '../menu-handler';
 import { requireLogos } from '../components/require-context';
 import 'react-tabs/style/react-tabs.css';
 import 'react-resizable/css/styles.css';
+import './query-browser.css';
 var {sqlectron}=window.myremote;//
-require('./query-browser.css');
+
 //require('../components/react-resizable.css');
 
 
@@ -464,10 +465,12 @@ class QueryBrowserContainer extends Component {
             </div>
           );
         }
-
+        //return queries.queriesById[queryId].name;
+        var names=queries.queriesById[queryId].name.split("/");
+        var name=names[names.length-1];
         return (
-          <div>
-            {queries.queriesById[queryId].name}
+          <div style={{display:"inline"}}>
+            {name}
             <button className="right floated ui icon button mini"
               onClick={debounce(() => {
                 this.removeQuery(queryId);
@@ -482,8 +485,7 @@ class QueryBrowserContainer extends Component {
 
       return (
         <Tab key={queryId}
-          onDoubleClick={() => this.onTabDoubleClick(queryId)}
-          className={`item ${isCurrentQuery ? 'active' : ''}`}>
+          onDoubleClick={() => this.onTabDoubleClick(queryId)}>
           {buildContent()}
         </Tab>
       );
@@ -535,38 +537,42 @@ class QueryBrowserContainer extends Component {
     const isTabsFitOnScreen = (this.tabListTotalWidthChildren >= this.tabListTotalWidth);
     return (
       <Tabs onSelect={this.handleSelectTab.bind(this)} selectedIndex={selectedIndex} forceRenderTabPanel>
-        <div id="tabs-nav-wrapper" className="ui pointing secondary menu">
-          {isTabsFitOnScreen &&
-            <button className="ui icon button"
-              disabled={this.state.tabNavPosition === 0}
-              onClick={() => {
-                const position = this.state.tabNavPosition + 100;
-                this.setState({ tabNavPosition: position > 0 ? 0 : position });
-              }}>
-              <i className="left chevron icon"></i>
-            </button>
-          }
-          <div className="tabs-container">
+      {
+        // <div id="tabs-nav-wrapper" className="ui pointing secondary menu">
+        //   {isTabsFitOnScreen &&
+        //     <button className="ui icon button"
+        //       disabled={this.state.tabNavPosition === 0}
+        //       onClick={() => {
+        //         const position = this.state.tabNavPosition + 100;
+        //         this.setState({ tabNavPosition: position > 0 ? 0 : position });
+        //       }}>
+        //       <i className="left chevron icon"></i>
+        //     </button>
+        //   }
+        //   <div style={{flex: "auto",overFlow: "hidden"}} >
+        }
             <TabList
               ref="tabList"
-              style={{ left: `${this.state.tabNavPosition}px`, transition: 'left 0.2s linear' }}>
+              >
               {menu}
             </TabList>
-          </div>
-          <button className="ui basic icon button" onClick={() => this.newTab()}>
-            <i className="plus icon"></i>
-          </button>
-          {isTabsFitOnScreen &&
-            <button className="ui icon button"
-              disabled={this.tabListTotalWidthChildren < this.tabListTotalWidth || isOnMaxPosition}
-              onClick={() => {
-                const position = this.state.tabNavPosition - 100;
-                this.setState({ tabNavPosition: position });
-              }}>
-              <i className="right chevron icon"></i>
-            </button>
-          }
-        </div>
+        {
+        //   </div>
+        //   <button className="ui basic icon button" onClick={() => this.newTab()}>
+        //     <i className="plus icon"></i>
+        //   </button>
+        //   {isTabsFitOnScreen &&
+        //     <button className="ui icon button"
+        //       disabled={this.tabListTotalWidthChildren < this.tabListTotalWidth || isOnMaxPosition}
+        //       onClick={() => {
+        //         const position = this.state.tabNavPosition - 100;
+        //         this.setState({ tabNavPosition: position });
+        //       }}>
+        //       <i className="right chevron icon"></i>
+        //     </button>
+        //   }
+        // </div>
+        }
         {panels}
       </Tabs>
     );

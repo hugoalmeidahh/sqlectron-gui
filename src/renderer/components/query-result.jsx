@@ -103,7 +103,6 @@ export default class QueryResult extends Component {
     if (isMultipleResults) {
       widthOffset += 30; // padding of the query result box
     }
-
     const tableResult = (
       <QueryResultTable
         key={queryIndex}
