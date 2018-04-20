@@ -1,5 +1,4 @@
-//const sqlectron = require('sqlectron-core');
-const sqlectron = require('./src/core/src/index.js');
+const sqlectron = require('./core/lib/index.js');
 console.log(sqlectron);
 // //sqlectron.servers.getAll();
 // console.log(sqlectron.db.CLIENTS.length);

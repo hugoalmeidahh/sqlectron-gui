@@ -8,7 +8,7 @@
 const fs = require('fs');
 const path = require('path');
 const defaultsDeep = require('lodash.defaultsdeep');
-const sqlectron = require('sqlectron-core');
+const sqlectron = require('./core/lib');
 
 let config;
 

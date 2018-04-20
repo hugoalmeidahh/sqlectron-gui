@@ -122,7 +122,7 @@
   window.myremote={
     fs:require('fs'),
     path:require("path"),
-    sqlectron:require("sqlectron-core"),
+    //sqlectron:require("sqlectron-core"),
     remote:electron.remote,
     ipcRenderer:electron.ipcRenderer,
     shell:electron.shell,
@@ -140,14 +140,18 @@
   }
 }
 //var l=new Logger();
+var cp=window.myremote.path.resolve(".")
+var corepath=cp+"\\core\\lib";
+window.myremote.sqlectron=require(corepath);
+//window.myremote.config=require(cp+"\\config.js");
+window.myremote.createLogger=require(cp+"\\core\\lib\\logger.js");
+// var createLogger=function(namespace){
+//     return new Logger(namespace);
 
-var createLogger=function(namespace){
-    return new Logger(namespace);
-
-};
-window.myremote.createLogger =createLogger;
-const logger = createLogger('window');
-logger.error("hi");
+// };
+// window.myremote.createLogger =createLogger;
+// const logger = createLogger('window');
+// logger.error("hi");
 
 const ipcRenderer = window.myremote.ipcRenderer;
 var Config={

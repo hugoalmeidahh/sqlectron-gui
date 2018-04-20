@@ -1,11 +1,11 @@
-import * as sqlectron from 'sqlectron-core';
+import * as sqlectron from './core/lib';
 import config from './config';
 
 // Hack solution to ignore console.error from dtrace imported by bunyan
 /* eslint no-console:0 */
 const realConsoleError = console.error;
 console.error = () => {};
-//const { createLogger } = require('bunyan');
+const { createLogger } = require('bunyan');
 console.error = realConsoleError;
 
 
@@ -14,7 +14,7 @@ const dataConfig = config.get();
 const loggerConfig = {
   app: 'sqlectron-gui',
   name: 'sqlectron-gui',
-  level: dataConfig.log.level,
+  level: dataConfig.log.level.value,
   streams: [],
 };
 
@@ -25,11 +25,13 @@ if (dataConfig.log.console) {
 if (dataConfig.log.file) {
   loggerConfig.streams.push({ path: dataConfig.log.path });
 }
+console.log(loggerConfig);
+console.log(loggerConfig.level);
 
-//const logger = createLogger(loggerConfig);
+const logger = createLogger(loggerConfig);
 
-// Set custom logger for sqlectron-core
-//sqlectron.setLogger((namespace) => logger.child({ namespace: `sqlectron-core:${namespace}` }));
+//Set custom logger for sqlectron-core
+sqlectron.setLogger((namespace) => logger.child({ namespace: `sqlectron-core:${namespace}` }));
 
-//export default (namespace) => logger.child({ namespace });
-export default (namespace) => console;
+export default (namespace) => logger.child({ namespace });
+//export default (namespace) => console;
