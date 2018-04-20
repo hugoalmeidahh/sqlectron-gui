@@ -1,6 +1,6 @@
-import { app, dialog } from 'electron'; // eslint-disable-line import/no-unresolved
-import createLogger from './logger';
-import { buildNewWindow } from './window';
+var { app, dialog } =require('electron'); // eslint-disable-line import/no-unresolved
+var createLogger =require('./logger');
+var { buildNewWindow } =require('./window');
 
 const logger = createLogger('app');
 

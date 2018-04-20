@@ -1,11 +1,11 @@
-import axios from 'axios';
+var axios =require('axios');
 //import createLogger from './logger';
 
 //const logger = createLogger('gh-update-checker');
 const WAIT_2_SECS = 2000;
 
 
-export async function check(mainWindow, appConfig) {
+async function check(mainWindow, appConfig) {
   const currentVersion = `v${appConfig.version}`;
   //logger.debug('current version %s', currentVersion);
 
@@ -25,3 +25,4 @@ export async function check(mainWindow, appConfig) {
     WAIT_2_SECS
   );
 }
+exports.check=check;

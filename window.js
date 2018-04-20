@@ -1,12 +1,14 @@
-import { resolve } from 'path';
-import { BrowserWindow } from 'electron'; // eslint-disable-line import/no-unresolved
-import { attachMenuToWindow } from './menu';
-import { check as checkUpdate } from './update-checker';
-import { get as getConfig } from './config';
-import createLogger from './logger';
+var {resolve } =require('path');
+var { BrowserWindow } =require('electron'); // eslint-disable-line import/no-unresolved
+var { attachMenuToWindow } =require('./menu');
+var {  checkUpdate } =require('./update-checker');
+var config =require('./config');
+var createLogger =require('./logger');
 const path=require("path");
+console.log("=============");
+console.log(createLogger);
 const logger = createLogger('window');
-
+console.log(logger);
 
 const devMode = (process.argv || []).indexOf('--dev') !== -1;
 
@@ -21,8 +23,8 @@ const WINDOWS = {};
 let windowsNumber = 0;
 
 
-export function buildNewWindow(app) {
-  const appConfig = getConfig();
+function buildNewWindow(app) {
+  const appConfig = config.get();//getConfig();
 
   windowsNumber += 1;
   const mainWindow = new BrowserWindow({
@@ -59,3 +61,4 @@ export function buildNewWindow(app) {
   // checkUpdate(mainWindow, appConfig)
   //   .catch(err => logger.error('Unable to check for updates', err));
 }
+exports.buildNewWindow=buildNewWindow;

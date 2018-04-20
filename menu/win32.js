@@ -1,4 +1,4 @@
-import { shell } from 'electron'; // eslint-disable-line import/no-unresolved
+var { shell } =require('electron'); // eslint-disable-line import/no-unresolved
 
 function sendMessage(win, message) {
   if (win) {
@@ -7,7 +7,7 @@ function sendMessage(win, message) {
 }
 
 
-export function buildTemplate(app, buildNewWindow, appConfig) {
+function buildTemplate(app, buildNewWindow, appConfig) {
   return [
     {
       label: 'File',
@@ -153,3 +153,4 @@ export function buildTemplate(app, buildNewWindow, appConfig) {
     },
   ];
 }
+exports.buildTemplate=buildTemplate;

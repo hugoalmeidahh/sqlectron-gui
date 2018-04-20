@@ -1,7 +1,7 @@
-import { Menu } from 'electron'; // eslint-disable-line import/no-unresolved
-import * as darwin from './darwin';
-import * as linux from './linux';
-import * as win32 from './win32';
+var { Menu } =require('electron'); // eslint-disable-line import/no-unresolved
+var darwin =require('./darwin');
+var linux =require('./linux');
+var win32 =require('./win32');
 
 
 const menus = {
@@ -11,7 +11,7 @@ const menus = {
 };
 
 
-export function attachMenuToWindow(app, buildNewWindow, appConfig) {
+function attachMenuToWindow(app, buildNewWindow, appConfig) {
   const template = menus[process.platform].buildTemplate(app, buildNewWindow, appConfig);
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
@@ -22,3 +22,4 @@ export function attachMenuToWindow(app, buildNewWindow, appConfig) {
     app.dock.setMenu(dockMenu);
   }
 }
+exports.attachMenuToWindow=attachMenuToWindow

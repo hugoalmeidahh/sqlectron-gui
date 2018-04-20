@@ -14,7 +14,7 @@ let config;
 
 const cryptoSecret = 'j[F6Y6NoWT}+YG|4c|-<89:ByJ83-9Aj?O8>$Zk/[WFk_~gFbg7<wm+*V|A{xQZ,';
 
-exports.get = function getConfiguration(cleanCache) {
+module.exports.get = function getConfiguration(cleanCache) {
   console.log("getConfiguration");
   console.log(cleanCache);
   if (config && !cleanCache) {

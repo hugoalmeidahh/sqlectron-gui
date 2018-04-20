@@ -1,4 +1,4 @@
-import { shell } from 'electron'; // eslint-disable-line import/no-unresolved
+var { shell } =require('electron'); // eslint-disable-line import/no-unresolved
 
 function sendMessage(win, message) {
   if (win) {
@@ -6,7 +6,7 @@ function sendMessage(win, message) {
   }
 }
 
-export function buildTemplate(app, buildNewWindow, appConfig) {
+function buildTemplate(app, buildNewWindow, appConfig) {
   return [
     {
       label: appConfig.name,
@@ -205,8 +205,10 @@ export function buildTemplate(app, buildNewWindow, appConfig) {
 }
 
 
-export function buildTemplateDockMenu(app, buildNewWindow) {
+function buildTemplateDockMenu(app, buildNewWindow) {
   return [
     { label: 'New Window', click: () => buildNewWindow(app) },
   ];
 }
+exports.buildTemplate=buildTemplate;
+exports.buildTemplateDockMenu=buildTemplateDockMenu
