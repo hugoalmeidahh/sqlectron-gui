@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import {  Dimmer, Image, Loader,Segment } from 'semantic-ui-react'
+import {  Dimmer, Loader,Segment } from 'semantic-ui-react'
 export default class Loading extends Component {
   state={active:false}
   static propTypes = {
@@ -20,8 +20,8 @@ export default class Loading extends Component {
   }
 
   render() {
-    const { message, type } = this.props;
-    const inverted = this.props.inverted ? 'inverted' : '';
+    const { message } = this.props;
+    //const inverted = this.props.inverted ? 'inverted' : '';
     return (
       <Dimmer.Dimmable as={Segment} dimmed={this.state.active}>
           <Dimmer active={this.state.active} >

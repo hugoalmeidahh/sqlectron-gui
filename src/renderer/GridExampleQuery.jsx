@@ -1,5 +1,5 @@
 //import Immutable from 'immutable';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import React from 'react';
 // import {
 //   ContentBox,
@@ -8,7 +8,7 @@ import React from 'react';
 // } from './demo/ContentBox';
 // import {LabeledInput, InputRow} from './demo/LabeledInput';
 import cn from 'classnames';
-import { Grid,List,AutoSizer, Column, Table } from 'react-virtualized';
+import { Grid,AutoSizer  } from 'react-virtualized';
 import 'react-virtualized/styles.css';
 import  './GridExample.css';
 
@@ -43,12 +43,10 @@ export default class GridExample extends React.PureComponent {
 
   render() {
     const {
-      columnCount,
       height,
       overscanColumnCount,
       overscanRowCount,
       rowHeight,
-      rowCount,
       scrollToColumn,
       scrollToRow,
       useDynamicRowHeight,
@@ -117,8 +115,8 @@ export default class GridExample extends React.PureComponent {
   }
 
   _renderBodyCell({columnIndex, key, rowIndex, style}) {
-    const rowClass = this._getRowClassName(rowIndex);
-    const datum = this._getDatum(rowIndex);
+    // const rowClass = this._getRowClassName(rowIndex);
+    // const datum = this._getDatum(rowIndex);
 
     let content;
 

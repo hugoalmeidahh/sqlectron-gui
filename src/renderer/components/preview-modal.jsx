@@ -2,7 +2,7 @@ import isPlainObject from 'lodash.isplainobject';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import classNames from 'classnames';
-import { Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
+import {  Modal } from 'semantic-ui-react';
 
 export default class PreviewModal extends Component {
   static propTypes = {

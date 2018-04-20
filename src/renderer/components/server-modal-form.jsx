@@ -6,7 +6,7 @@ import ConfirmModal from './confim-modal.jsx';
 import Message from './message.jsx';
 import Checkbox from './checkbox.jsx';
 import { requireLogos } from './require-context';
-import { Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
+import {  Modal } from 'semantic-ui-react';
 var { sqlectron }=window.myremote;
 require('react-select/dist/react-select.css');
 require('./override-select.css');

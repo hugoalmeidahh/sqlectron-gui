@@ -43,11 +43,11 @@ class AppContainer extends Component {
       // Required for HiDPI support
       webFrame.setZoomFactor(zoomFactor);
     }
-    // if (enabledDarkTheme === true) {
+    if (enabledDarkTheme === true) {
     //   $('body').addClass('dark-theme');
     // } else {
     //   $('body').removeClass('dark-theme');
-    // }
+    }
   }
 
   componentWillUnmount() {
@@ -58,8 +58,8 @@ class AppContainer extends Component {
   render() {
     //console.log("App render=======");
     const { children, config } = this.props;
-    console.log("render========");
-    console.log(this.props);
+    // console.log("render========");
+    // console.log(this.props);
     return (
       <div className="ui">
         {

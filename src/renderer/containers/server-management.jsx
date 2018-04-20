@@ -12,7 +12,7 @@ import ServerModalForm from '../components/server-modal-form.jsx';
 import SettingsModalForm from '../components/settings-modal-form2.jsx';
 import ServerFilter from '../components/server-filter.jsx';
 import Message from '../components/message.jsx';
-import {Divider, Transition,Button,Input, Grid,  List, Segment, Icon, Modal } from 'semantic-ui-react';
+//import {Modal } from 'semantic-ui-react';
 
 const STYLES = {
   wrapper: { paddingTop: '50px' },

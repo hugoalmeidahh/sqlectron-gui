@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from '../reducers';
 //import { createLogger } from '../../browser/remote';
-var {createLogger}=window.myremote;//
+//var {createLogger}=window.myremote;//
 const middlewares = [thunkMiddleware];
 
 // /* eslint global-require:0 */

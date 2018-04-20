@@ -13,12 +13,12 @@ export function loadConfig() {
   return async dispatch => {
     dispatch({ type: LOAD_CONFIG_REQUEST });
     try {
-      console.log("loadConfig");
+      //console.log("loadConfig");
       const forceCleanCache = true;
       const configPath = await sqlectron.config.path();
-      console.log(configPath);
+      //console.log(configPath);
       const remoteConfig = await config.get(forceCleanCache);
-      console.log(remoteConfig);
+      //console.log(remoteConfig);
 
       // Remove any "reference" to the remote IPC object
       const configData = cloneDeep(remoteConfig);

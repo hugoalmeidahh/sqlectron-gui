@@ -110,7 +110,7 @@ class QueryBrowserContainer extends Component {
   }
 
   componentWillMount () {
-    console.log(this.props);
+    // console.log(this.props);
     const { dispatch, match } = this.props;
     dispatch(ConnActions.connect(match.params.id));
   }
@@ -436,7 +436,7 @@ class QueryBrowserContainer extends Component {
 
 
     const menu = queries.queryIds.map(queryId => {
-      const isCurrentQuery = queryId === queries.currentQueryId;
+      //const isCurrentQuery = queryId === queries.currentQueryId;
       const buildContent = () => {
         const isRenaming = this.state.renamingTabQueryId === queryId;
         if (isRenaming) {
@@ -530,11 +530,11 @@ class QueryBrowserContainer extends Component {
       );
     });
 
-    const isOnMaxPosition = (
-      this.tabListTotalWidthChildren - Math.abs(this.state.tabNavPosition) <= this.tabListTotalWidth
-    );
+    // const isOnMaxPosition = (
+    //   this.tabListTotalWidthChildren - Math.abs(this.state.tabNavPosition) <= this.tabListTotalWidth
+    // );
     const selectedIndex = queries.queryIds.indexOf(queries.currentQueryId);
-    const isTabsFitOnScreen = (this.tabListTotalWidthChildren >= this.tabListTotalWidth);
+    //const isTabsFitOnScreen = (this.tabListTotalWidthChildren >= this.tabListTotalWidth);
     return (
       <Tabs onSelect={this.handleSelectTab.bind(this)} selectedIndex={selectedIndex} forceRenderTabPanel>
       {

@@ -232,8 +232,8 @@ export default class DatabaseListItem extends Component {
   }
 
   render() {
-    console.log("DatabaseListItem render")
-    console.log(this.state);
+    // console.log("DatabaseListItem render")
+    // console.log(this.state);
     const { database, currentDB } = this.props;
 
     const isMetadataLoaded = this.isMetadataLoaded();

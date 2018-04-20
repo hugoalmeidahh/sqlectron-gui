@@ -21,7 +21,7 @@ export default function (state = INITIAL_STATE, action) {
     case queriesTypes.SAVE_QUERY_SUCCESS:
       return 'Query saved successfully';
     case queriesTypes.SAVE_QUERY_FAILURE:
-      return `Error saving query. ${action.error.message}`;
+      return `Error saving query. ${action.error}`;
     default:
       return INITIAL_STATE;
   }

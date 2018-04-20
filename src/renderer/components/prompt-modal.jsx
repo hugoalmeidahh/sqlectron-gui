@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 
-import { Transition,Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
+import { Modal } from 'semantic-ui-react';
 export default class PromptModal extends Component {
   static propTypes = {
     onCancelClick: PropTypes.func.isRequired,
@@ -67,9 +67,9 @@ export default class PromptModal extends Component {
         size='small'
       >
         {!!this.state.showDatabaseDiagram &&
-          <Header>
+          <Modal.Header>
              {title}
-          </Header>
+          </Modal.Header>
         }
         <Modal.Content>
             {message}

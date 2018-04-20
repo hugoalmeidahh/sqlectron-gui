@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import PropTypes from 'proptypes';
-import {Divider, Transition,Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
+import { Transition } from 'semantic-ui-react';
 
 export default class Message extends Component {
   static propTypes = {

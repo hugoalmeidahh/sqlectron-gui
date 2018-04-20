@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import DatabaseDiagram from './database-diagram.jsx';
 import Loader from './loader.jsx';
-import { Transition,Button,Input, Grid,  List, Segment, Icon, Modal } from 'semantic-ui-react';
+import { Modal } from 'semantic-ui-react';
 //import update from 'immutability-helper';
 import CheckBox from './checkbox.jsx';
 const STYLE = {
@@ -81,7 +81,7 @@ export default class DatabaseDiagramModal extends Component {
 
 
         const filteredFoods = this.state.selectedTables.filter(
-          (item, idx) => item.checked == true,
+          (item, idx) => item.checked === true,
         );
       if(filteredFoods.length>0)
       {
@@ -96,7 +96,7 @@ export default class DatabaseDiagramModal extends Component {
   onGenerateDiagramClick() {
     this.setState({ showLoader: true });
     const filteredFoods = this.state.selectedTables.filter(
-          (item, idx) => item.checked == true,
+          (item, idx) => item.checked === true,
     );
     var out=[];
     for(var i=0;i<filteredFoods.length;i++){
@@ -148,7 +148,7 @@ export default class DatabaseDiagramModal extends Component {
   }
 
   renderSelectTablesMenu() {
-    const { tables, views, onOpenDatabaseDiagram } = this.props;
+    const { onOpenDatabaseDiagram } = this.props;
     const tablesAndViews =this.state.selectedTables;// tables.concat(views);
 
     return (

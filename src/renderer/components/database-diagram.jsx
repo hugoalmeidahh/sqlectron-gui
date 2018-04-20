@@ -92,9 +92,9 @@ export default class DatabaseDiagram extends Component {
 
   componentDidMount() {
     const { diagramJSON } = this.props;
-    const tableShapes = [];
-    const tableCells = [];
-    const tableLinks = [];
+    // const tableShapes = [];
+    // const tableCells = [];
+    // const tableLinks = [];
 
     this.addGraphPaper();
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import { Button,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
+import { Modal } from 'semantic-ui-react';
 export default class ServerModalForm extends Component {
   static propTypes = {
     onCancelClick: PropTypes.func.isRequired,

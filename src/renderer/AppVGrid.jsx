@@ -1,6 +1,6 @@
-import Immutable from 'immutable';
-import React, { Component } from 'react';
-import PropTypes from 'proptypes';
+//import Immutable from 'immutable';
+import React from 'react';
+//import PropTypes from 'proptypes';
 import './semantic-ui/semantic.css';
 import './GridExample.css';
 import TableExample from './GridExampleQuery.jsx';
@@ -20,7 +20,7 @@ class App extends React.Component{
     var con=db.createConnection("D:/parts/data.sqlite");
     con.connect().then(()=>{
       console.log("connected");
-      var q=con.executeQuery("select * from parts_contact;").then((data)=>{
+      con.executeQuery("select * from parts_contact;").then((data)=>{
         this.list=data;
         console.log(this.list);
         this.setState({loaded:true});

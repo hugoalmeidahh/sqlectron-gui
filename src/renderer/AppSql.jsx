@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import AppTest from './AppTest.jsx';
 import ServerManagementContainer from './containers/server-management2.jsx';
 import QueryBrowserContainer from './containers/query-browser2.jsx';
-import {Redirect,Link, BrowserRouter,Route,Switch} from 'react-router-dom'
+import {Redirect, BrowserRouter,Route,Switch} from 'react-router-dom'
 import configureStore from './store/configure';
 const store = configureStore();
 export default class Root extends Component<Props> {
