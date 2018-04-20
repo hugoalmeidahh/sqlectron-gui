@@ -4,7 +4,7 @@ import { attachMenuToWindow } from './menu';
 import { check as checkUpdate } from './update-checker';
 import { get as getConfig } from './config';
 import createLogger from './logger';
-
+const path=require("path");
 const logger = createLogger('window');
 
 
@@ -44,7 +44,8 @@ export function buildNewWindow(app) {
   // const entryBasePath = devMode ? 'http://localhost:8080' : ('file://' + resolve(__dirname, '..'));
 
   // mainWindow.loadURL(entryBasePath + '/static/index.html');
-  const entryBasePath = devMode ? 'http://localhost:3000' : ('file://' + resolve(__dirname, '..'));
+  var cp=path.resolve(".")
+  const entryBasePath = devMode ? 'http://localhost:3000' : 'file://' + cp+ '/build/index.html';
 
   mainWindow.loadURL(entryBasePath);// + '/static/index.html');
 

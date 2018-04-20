@@ -10,4 +10,5 @@ npm-debug.log
 *.lock
 *.bak
 .storybook
+build
 

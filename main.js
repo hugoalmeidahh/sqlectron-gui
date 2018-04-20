@@ -19,9 +19,9 @@ ipcMain.on('getconfig', (event, arg) => {
     event.returnValue = configData;
 })
 // enables ES6+ support
-if (configData.devMode) {
+//if (configData.devMode) {
   require('babel-register');
-}
+//}
 
 //require('babel-polyfill');
 

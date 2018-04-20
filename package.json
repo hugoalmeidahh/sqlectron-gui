@@ -1,7 +1,7 @@
 {
   "name": "Sqlectron",
   "version": "1.29.0",
-  "homepage": "https://sqlectron.github.io",
+  "homepage": ".",
   "description": "A simple and lightweight SQL client with cross database and platform support",
   "author": {
     "name": "The Sqlectron Team",
@@ -15,8 +15,12 @@
     "url": "https://github.com/sqlectron/sqlectron-gui"
   },
   "scripts": {
+    "dist": "electron-builder",
+    "pack": "electron-builder --dir",
     "start": "react-scripts start",
     "startc": "electron . --dev",
+    "startp": "electron . ",
+    "buildc": "react-scripts build",
     "lint": "eslint . --ext .js,.jsx",
     "lint:fix": "npm run lint -- --fix",
     "test": "npm run lint",
@@ -25,12 +29,10 @@
     "clean:win": "rimraf dist/win* dist/Sqlectron-win*",
     "clean:linux": "rimraf dist/Sqlectron-linux-* dist/*.deb",
     "compile": "rimraf out && npm run compile:browser && npm run compile:renderer",
-    "compile:browser": "cross-env NODE_ENV=production babel ./src/browser -d out/browser",
     "compile:renderer": "cross-env NODE_ENV=production webpack --progress --display-error-details --config ./webpack.prod.config",
     "build:osx": "npm run clean:osx && build --osx",
     "build:linux": "npm run clean:linux && build --linux",
     "build:win": "npm run clean:win && build --windows",
-    "dist": "npm run compile && build",
     "dist:all-arch": "npm run compile && build --ia32 --x64",
     "dist:winlinux": "npm run compile && npm run build:linux && npm run build:win",
     "storybook": "start-storybook -p 9009 -s public",
@@ -38,15 +40,14 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "babel-preset-stage-1": "^6.24.1",
     "brace": "^0.11.1",
     "bunyan": "^1.8.12",
-    "csv-stringify": "^2.0.4",
-    "electron": "^1.8.2",
-    "electron-react-devtools": "^0.5.3",
+    "cassandra-driver": "^3.5.0",
+    "csv-stringify": "^3.0.0",
+    "debug": "^3.1.0",
+    "env-paths": "^1.0.0",
     "html2canvas": "^1.0.0-alpha.12",
     "immutable": "^3.8.2",
-    "jointjs": "^2.0.1",
     "lodash.bindall": "^4.4.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
@@ -58,6 +59,24 @@
     "lodash.trim": "^4.5.1",
     "lodash.union": "^4.6.0",
     "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "mssql": "^4.1.0",
+    "mysql": "^2.15.0",
+    "pg": "^7.4.1",
+    "portfinder": "^1.0.13",
+    "sql-query-identifier": "^1.1.0",
+    "sqlite3": "^4.0.0",
+    "ssh2": "^0.6.0",
+    "uuid": "^3.2.1",
+    "valida": "^2.4.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-runtime": "^6.26.0",
+    "electron": "^1.8.2",
+    "electron-builder": "^20.9.2",
+    "electron-react-devtools": "^0.5.3",
     "proptypes": "^1.1.0",
     "react": "^16.2.0",
     "react-ace": "^5.10.0",
@@ -78,9 +97,5 @@
     "redux-thunk": "^2.2.0",
     "semantic-ui-react": "^0.79.1",
     "storm-react-diagrams": "^5.1.1"
-  },
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-runtime": "^6.26.0"
   }
 }
