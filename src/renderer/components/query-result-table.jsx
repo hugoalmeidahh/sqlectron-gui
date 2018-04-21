@@ -2,12 +2,12 @@ import debounce from 'lodash.debounce';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { Grid } from 'react-virtualized';
-import Draggable from 'react-draggable';
+//import Draggable from 'react-draggable';
 
 import TableCell from './query-result-table-cell.jsx';
 import PreviewModal from './preview-modal.jsx';
 import { valueToString } from '../utils/convert';
-import scrollbarSize from 'dom-helpers/util/scrollbarSize';
+//import scrollbarSize from 'dom-helpers/util/scrollbarSize';
 import 'react-virtualized/styles.css';
 //import './query-result-table.scss';
 

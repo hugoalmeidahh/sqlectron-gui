@@ -51,8 +51,8 @@ export default class ServerModalForm extends Component {
       modalOpen:false,
     };
     this.state.value=this.state.client;
-    console.log("constructor======");
-    console.log(this.state);
+    // console.log("constructor======");
+    // console.log(this.state);
   }
 
   componentDidMount() {
@@ -690,8 +690,8 @@ export default class ServerModalForm extends Component {
   }
 
   render() {
-    console.log("render== ServerModalForm")
-    console.log(this.state);
+    // console.log("render== ServerModalForm")
+    // console.log(this.state);
     return (
       <Modal id="server-modal"
       closable="true"

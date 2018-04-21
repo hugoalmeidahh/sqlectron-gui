@@ -7,6 +7,7 @@ import * as fileHandler from '../utils/file-handler';
 import wait from '../utils/wait';
 var { path,clipboard,csvStringify }=window.myremote;
 
+
 export const NEW_QUERY = 'NEW_QUERY';
 export const RENAME_QUERY = 'RENAME_QUERY';
 export const SELECT_QUERY = 'SELECT_QUERY';

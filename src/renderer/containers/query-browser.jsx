@@ -325,7 +325,9 @@ class QueryBrowserContainer extends Component {
     this.props.dispatch(QueryActions.openQuery());
   }
 
-  copyToClipboard (rows, type) {
+  copyToClipboard =(rows, type)=> {
+    //console.log(rows);
+    //console.log(type);
     this.props.dispatch(QueryActions.copyToClipboard(rows, type));
   }
 
@@ -522,7 +524,7 @@ class QueryBrowserContainer extends Component {
             widthOffset={this.state.sideBarWidth}
             onExecQueryClick={this.handleExecuteQuery.bind(this)}
             onCancelQueryClick={this.handleCancelQuery.bind(this)}
-            onCopyToClipboardClick={this.copyToClipboard.bind(this)}
+            onCopyToClipboardClick={this.copyToClipboard}
             onSaveToFileClick={this.saveToFile.bind(this)}
             onSQLChange={this.onSQLChange.bind(this)}
             onSelectionChange={this.onQuerySelectionChange.bind(this)} />

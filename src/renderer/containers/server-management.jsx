@@ -39,14 +39,14 @@ class ServerManagerment extends Component {
     this.state = {};
   }
   componentWillReceiveProps(nextProps) {
-    console.log("ServerManagerment componentWillReceiveProps");
-    console.log(nextProps);
+    // console.log("ServerManagerment componentWillReceiveProps");
+    // console.log(nextProps);
   }
   onConnectClick=({ id }) =>{
-    console.log(this.props);
-    console.log(id);
+    // console.log(this.props);
+    // console.log(id);
     var path=`/sql/server/${id}`;
-    console.log(path);
+    // console.log(path);
     this.props.history.push(path);
   }
 

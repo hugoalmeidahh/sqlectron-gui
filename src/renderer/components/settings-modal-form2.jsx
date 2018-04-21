@@ -27,7 +27,7 @@ export default class SettingsModalForm extends Component {
     }
   }
   componentDidMount() {
-    console.log("settings-modal mount");
+    // console.log("settings-modal mount");
   }
   componentWillUnmount() {
     console.log("settings-modal un mount");
@@ -161,9 +161,9 @@ export default class SettingsModalForm extends Component {
     /* eslint max-len:0 */
     const { zoomFactor } = this.state;
     const zoomFactorLabel = `${Math.round(zoomFactor * 100)}%`;
-    console.log("render basic");
-    var zoomFactorClass=this.highlightError('zoomFactor');
-    console.log(zoomFactorClass);
+    // console.log("render basic");
+    // var zoomFactorClass=this.highlightError('zoomFactor');
+    // console.log(zoomFactorClass);
     return (
       <div>
         <div className="two fields">

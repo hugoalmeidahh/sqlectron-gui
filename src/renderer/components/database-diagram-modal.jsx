@@ -4,6 +4,7 @@ import DatabaseDiagram from './database-diagram.jsx';
 import Loader from './loader.jsx';
 import { Modal } from 'semantic-ui-react';
 //import update from 'immutability-helper';
+//import  { List } from 'immutable';
 import CheckBox from './checkbox.jsx';
 const STYLE = {
   list: {
@@ -64,17 +65,23 @@ export default class DatabaseDiagramModal extends Component {
   }
 
   onSelectAllTables() {
-   for(var i=0;i<this.state.selectedTables.length;i++){
-      this.state.selectedTables[i].checked=true;
+    // console.log(this.state.selectedTables);
+    // const s2=this.state.selectedTables.update(k, notSetValue, updater);
+    // return;
+    //const nested3 = .updateIn([ 'a', 'b', 'd' ], value => value + 1)
+    var newlist=this.state.selectedTables;
+    for(var i=0;i<newlist.length;i++){
+      newlist[i].checked=true;
     }
-    this.onCheckBoxesChange();
+    this.setState({selectedTables:newlist,disabledG:""});
   }
 
   onDeselectAllTables() {
-   for(var i=0;i<this.state.selectedTables.length;i++){
-      this.state.selectedTables[i].checked=false;
+   var newlist=this.state.selectedTables;
+    for(var i=0;i<newlist.length;i++){
+      newlist[i].checked=false;
     }
-    this.onCheckBoxesChange();
+    this.setState({selectedTables:newlist,disabledG:"disabled"});
   }
 
   onCheckBoxesChange=(name,checked)=> {
