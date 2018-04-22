@@ -4,7 +4,7 @@ var config = require('./config');
 var configData = config.get();
 
 if (configData.printVersion) {
-  console.log(configData.name, configData.version); // eslint-disable-line no-console
+  //console.log(configData.name, configData.version); // eslint-disable-line no-console
   process.exit(0);
 }
 const {ipcMain} = require('electron')
@@ -14,7 +14,7 @@ const {ipcMain} = require('electron')
   // })
   
 ipcMain.on('getconfig', (event, arg) => {
-    console.log(arg)  // prints "ping"
+    //console.log(arg)  // prints "ping"
     var configData = config.get(arg);
     event.returnValue = configData;
 })

@@ -1,9 +1,9 @@
-  console.log(__dirname);
-  console.log(__filename);
-  console.log(process);
+  // console.log(__dirname);
+  // console.log(__filename);
+  // console.log(process);
 
   var electron=require('electron');
-  console.log(electron);
+  // console.log(electron);
   window.myremote={
     fs:require('fs'),
     path:require("path"),

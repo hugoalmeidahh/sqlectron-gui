@@ -24,7 +24,7 @@ export default class Message extends Component {
     var classtype=`ui message ${type || ''}`;
     return (
       <Transition visible={this.state.visible} animation='fade' duration={500}>
-        <div ref="message" className={classtype}>
+        <div  className={classtype}>
         {
           closeable && <i className="close icon" onClick={this.onClose.bind(this)}></i>
         }

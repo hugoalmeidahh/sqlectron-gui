@@ -30,11 +30,11 @@ export default class SettingsModalForm extends Component {
     // console.log("settings-modal mount");
   }
   componentWillUnmount() {
-    console.log("settings-modal un mount");
+    // console.log("settings-modal un mount");
     this.props.onCancelClick();
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    // console.log(nextProps);
     this.setState({ error: nextProps.error });
     if(!this.props.modalOpen && nextProps.modalOpen){
       this.onShow();

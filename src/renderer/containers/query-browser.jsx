@@ -19,7 +19,7 @@ import { fetchViewsIfNeeded } from '../actions/views';
 import { fetchRoutinesIfNeeded } from '../actions/routines';
 import { getSQLScriptIfNeeded } from '../actions/sqlscripts';
 import { fetchTableKeysIfNeeded } from '../actions/keys';
-import DatabaseFilter from '../components/database-filter.jsx';
+//import DatabaseFilter from '../components/database-filter.jsx';
 import DatabaseList from '../components/database-list.jsx';
 import DatabaseDiagramModal from '../components/database-diagram-modal.jsx';
 import Header from '../components/header.jsx';
@@ -355,6 +355,9 @@ class QueryBrowserContainer extends Component {
 
   filterDatabases(name, databases) {
     const regex = RegExp(name, 'i');
+    // console.log("filterDatabases");
+    // console.log(databases.length);
+
     return databases.filter(db => regex.test(db.name));
   }
 
@@ -653,13 +656,15 @@ class QueryBrowserContainer extends Component {
                     className="ui mini left spaced image right"
                     src={CLIENTS[connections.server.client].image} />
                 </div>
-                <div className="item">
-                  <DatabaseFilter
-                    ref="databaseFilter"
-                    value={filter}
-                    isFetching={databases.isFetching}
-                    onFilterChange={this.onFilterChange.bind(this)} />
-                </div>
+                {
+                // <div className="item">
+                //   <DatabaseFilter
+                //     ref="databaseFilter"
+                //     value={filter}
+                //     isFetching={databases.isFetching}
+                //     onFilterChange={this.onFilterChange.bind(this)} />
+                // </div>
+               }
                 <DatabaseList
                   ref="databaseList"
                   client={connections.server.client}
@@ -698,6 +703,8 @@ class QueryBrowserContainer extends Component {
 
 
 function mapStateToProps (state) {
+  // console.log("query-browser");
+  // console.log(state);
   const {
     connections,
     databases,

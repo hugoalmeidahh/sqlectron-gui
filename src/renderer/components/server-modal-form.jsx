@@ -84,10 +84,10 @@ export default class ServerModalForm extends Component {
   }
 
   onSaveClick() {
-    console.log("server-modal-form onSaveClick");
-    console.log(this.state);
+    // console.log("server-modal-form onSaveClick");
+    // console.log(this.state);
     var tmp=this.mapStateToServer(this.state);
-    console.log(tmp);
+    // console.log(tmp);
     this.props.onSaveClick(tmp);
   }
 
@@ -136,8 +136,8 @@ export default class ServerModalForm extends Component {
   }
 
   mapStateToServer(state) {
-    console.log("mapStateToServer");
-    console.log(state)
+    // console.log("mapStateToServer");
+    // console.log(state)
     const server = {
       name: state.name,
       client: state.value,
@@ -151,7 +151,7 @@ export default class ServerModalForm extends Component {
       domain: state.domain,
       schema: state.schema || null,
     };
-    console.log(server);
+    // console.log(server);
     const { ssh } = state;
     if (ssh) {
       server.ssh = {
@@ -187,8 +187,8 @@ export default class ServerModalForm extends Component {
         delete server.filter;
       }
     }
-    console.log("gen server");
-    console.log(server);
+    // console.log("gen server");
+    // console.log(server);
     return server;
   }
 

@@ -2,6 +2,7 @@
   "name": "Sqlectron",
   "version": "1.29.0",
   "homepage": ".",
+  "website":"https://sqlectron.github.io",
   "description": "A simple and lightweight SQL client with cross database and platform support",
   "author": {
     "name": "The Sqlectron Team",

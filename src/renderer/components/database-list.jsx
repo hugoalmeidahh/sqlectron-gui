@@ -59,6 +59,7 @@ export default class DatabaseList extends Component {
         <div className="ui grey item">Loading...</div>
       );
     }
+    //console.log(databases.length);
 
     if (!databases.length) {
       return (

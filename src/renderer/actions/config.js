@@ -32,11 +32,11 @@ export function loadConfig() {
 
 
 export function saveConfig(configData) {
-  console.log("saveConfig");
+  // console.log("saveConfig");
   return async dispatch => {
     dispatch({ type: SAVE_CONFIG_REQUEST });
     try {
-      console.log(configData);
+      // console.log(configData);
       await sqlectron.config.saveSettings(configData);
       dispatch({ type: SAVE_CONFIG_SUCCESS, config: configData });
     } catch (error) {

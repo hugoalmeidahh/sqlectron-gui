@@ -79,8 +79,8 @@ class ServerManagerment extends Component {
   onSaveClick=(server)=>{
     const { dispatch, servers } = this.props;
     const id = servers.editingServer && servers.editingServer.id;
-    console.log("onSaveClick======");
-    console.log(server);
+    // console.log("onSaveClick======");
+    // console.log(server);
 
     dispatch(ServersActions.saveServer({ id, server }));
   }
@@ -98,10 +98,10 @@ class ServerManagerment extends Component {
 
   onSettingsSaveClick=(config)=> {
     const { dispatch } = this.props;
-    console.log("onSettingsSaveClick");
+    // console.log("onSettingsSaveClick");
     var rt=ConfigActions.saveConfig(config);
-    console.log(dispatch);
-    console.log(rt);
+    // console.log(dispatch);
+    // console.log(rt);
     dispatch(rt);
   }
 
@@ -141,8 +141,7 @@ class ServerManagerment extends Component {
             onFilterChange={this.onFilterChange.bind(this)}
             onAddClick={this.onAddClick.bind(this)}
             onSettingsClick={this.onSettingsClick.bind(this)} />
-
-          {
+         {
             connections.error &&
               <Message
                 closeable

@@ -5,10 +5,10 @@ var {  checkUpdate } =require('./update-checker');
 var config =require('./config');
 var createLogger =require('./logger');
 const path=require("path");
-console.log("=============");
-console.log(createLogger);
+// console.log("=============");
+// console.log(createLogger);
 const logger = createLogger('window');
-console.log(logger);
+// console.log(logger);
 
 const devMode = (process.argv || []).indexOf('--dev') !== -1;
 
@@ -46,10 +46,10 @@ function buildNewWindow(app) {
   // const entryBasePath = devMode ? 'http://localhost:8080' : ('file://' + resolve(__dirname, '..'));
 
   // mainWindow.loadURL(entryBasePath + '/static/index.html');
-  console.log(__dirname);
+  //console.log(__dirname);
 
   var cp=path.resolve(".");
-  console.log(cp);
+  //console.log(cp);
   
   const entryBasePath = devMode ? 'http://localhost:3000' : 'file://' + cp+ '/resources/app/build/index.html';
 

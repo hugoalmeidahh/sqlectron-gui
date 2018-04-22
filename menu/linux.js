@@ -146,7 +146,7 @@ function buildTemplate(app, buildNewWindow, appConfig) {
         },
         {
           label: `About ${appConfig.name}`,
-          click: () => shell.openExternal(appConfig.homepage),
+          click: () => shell.openExternal(appConfig.website),
         },
       ],
     },
