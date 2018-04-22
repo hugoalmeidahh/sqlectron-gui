@@ -25,8 +25,8 @@ if (dataConfig.log.console) {
 if (dataConfig.log.file) {
   loggerConfig.streams.push({ path: dataConfig.log.path });
 }
-console.log(loggerConfig);
-console.log(loggerConfig.level);
+// console.log(loggerConfig);
+// console.log(loggerConfig.level);
 
 const logger = createLogger(loggerConfig);
 

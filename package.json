@@ -8,6 +8,46 @@
     "email": "maxcnunes@gmail.com"
   },
   "main": "main.js",
+  "build": {
+    "appId": "org.sqlectron.gui",
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 438,
+          "y": 275,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 192,
+          "y": 275,
+          "type": "file"
+        }
+      ]
+    },
+    "linux": {
+      "depends": [],
+      "target": [
+        "deb",
+        "rpm",
+        "sh",
+        "freebsd",
+        "pacman",
+        "tar.xz",
+        "tar.gz"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "7z",
+        "zip"
+      ]
+    }
+  },
   "license": "MIT",
   "bugs": "https://github.com/sqlectron/sqlectron-gui/issues",
   "repository": {
@@ -15,28 +55,25 @@
     "url": "https://github.com/sqlectron/sqlectron-gui"
   },
   "scripts": {
+    "package": "electron-packager . --overwrite --platform=win32 --arch=ia32 --out=out --icon=public/favicon.ico",
     "dist": "electron-builder",
     "pack": "electron-builder --dir",
     "start": "react-scripts start",
     "startc": "electron . --dev",
     "startp": "electron . ",
     "buildc": "react-scripts build",
-    "lint": "eslint . --ext .js,.jsx",
-    "lint:fix": "npm run lint -- --fix",
-    "test": "npm run lint",
     "clean": "rimraf dist",
     "clean:osx": "rimraf dist/Sqlectron-darwin-*",
     "clean:win": "rimraf dist/win* dist/Sqlectron-win*",
     "clean:linux": "rimraf dist/Sqlectron-linux-* dist/*.deb",
     "compile": "rimraf out && npm run compile:browser && npm run compile:renderer",
+    "compile:browser": "cross-env NODE_ENV=production babel ./src/browser -d out/browser",
     "compile:renderer": "cross-env NODE_ENV=production webpack --progress --display-error-details --config ./webpack.prod.config",
     "build:osx": "npm run clean:osx && build --osx",
     "build:linux": "npm run clean:linux && build --linux",
     "build:win": "npm run clean:win && build --windows",
     "dist:all-arch": "npm run compile && build --ia32 --x64",
-    "dist:winlinux": "npm run compile && npm run build:linux && npm run build:win",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "dist:winlinux": "npm run compile && npm run build:linux && npm run build:win"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -45,6 +82,7 @@
     "csv-stringify": "^3.0.0",
     "debug": "^3.1.0",
     "env-paths": "^1.0.0",
+    "lodash.defaultsdeep": "^4.6.0",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "mssql": "^4.1.0",
@@ -58,25 +96,25 @@
     "valida": "^2.4.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-runtime": "^6.26.0",
     "brace": "^0.11.1",
+    "electron": "^1.8.2",
+    "electron-builder": "^20.9.2",
+    "electron-packager": "^12.0.1",
+    "electron-react-devtools": "^0.5.3",
     "html2canvas": "^1.0.0-alpha.12",
     "immutable": "^3.8.2",
     "lodash.bindall": "^4.4.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
-    "lodash.defaultsdeep": "^4.6.0",
     "lodash.groupby": "^4.6.0",
     "lodash.isplainobject": "^4.0.6",
     "lodash.set": "^4.3.2",
     "lodash.template": "^4.4.0",
     "lodash.trim": "^4.5.1",
     "lodash.union": "^4.6.0",
-    "babel-core": "^6.26.0",
-    "babel-preset-stage-1": "^6.24.1",
-    "babel-runtime": "^6.26.0",
-    "electron": "^1.8.2",
-    "electron-builder": "^20.9.2",
-    "electron-react-devtools": "^0.5.3",
     "proptypes": "^1.1.0",
     "react": "^16.2.0",
     "react-ace": "^5.10.0",
@@ -93,6 +131,7 @@
     "redux": "^3.7.2",
     "redux-logger": "^2.2.1",
     "redux-thunk": "^2.2.0",
+    "rimraf": "^2.6.2",
     "semantic-ui-react": "^0.79.1",
     "storm-react-diagrams": "^5.1.1"
   }

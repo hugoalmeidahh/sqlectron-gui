@@ -26,4 +26,4 @@ ipcMain.on('getconfig', (event, arg) => {
 //require('babel-polyfill');
 
 // starts the electron app
-require('./app');
+require('./app_main');

@@ -29,7 +29,7 @@ function buildNewWindow(app) {
   windowsNumber += 1;
   const mainWindow = new BrowserWindow({
     title: appConfig.name,
-    icon: resolve(__dirname, '..', '..', 'build', 'app.png'),
+    //icon: resolve(__dirname, '..', '..', 'build', 'app.png'),
     width: 1024,
     height: 700,
     minWidth: 512,
@@ -46,8 +46,12 @@ function buildNewWindow(app) {
   // const entryBasePath = devMode ? 'http://localhost:8080' : ('file://' + resolve(__dirname, '..'));
 
   // mainWindow.loadURL(entryBasePath + '/static/index.html');
-  var cp=path.resolve(".")
-  const entryBasePath = devMode ? 'http://localhost:3000' : 'file://' + cp+ '/build/index.html';
+  console.log(__dirname);
+
+  var cp=path.resolve(".");
+  console.log(cp);
+  
+  const entryBasePath = devMode ? 'http://localhost:3000' : 'file://' + cp+ '/resources/app/build/index.html';
 
   mainWindow.loadURL(entryBasePath);// + '/static/index.html');
 
