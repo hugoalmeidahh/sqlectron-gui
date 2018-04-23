@@ -1,8 +1,8 @@
 import Immutable from 'immutable';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import styles from './demo/Application.css';
-import './GridExample.css';
+// import styles from './demo/Application.css';
+// import './GridExample.css';
 //import GridExample from './GridExample.jsx';
 import TableExample from './TableExample.jsx';
 import {generateRandomList} from './demo/utils';

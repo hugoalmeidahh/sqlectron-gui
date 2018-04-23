@@ -8,7 +8,7 @@ import TableCell from './query-result-table-cell.jsx';
 import PreviewModal from './preview-modal.jsx';
 import { valueToString } from '../utils/convert';
 //import scrollbarSize from 'dom-helpers/util/scrollbarSize';
-import 'react-virtualized/styles.css';
+//import 'react-virtualized/styles.css';
 //import './query-result-table.scss';
 
 /* eslint react/sort-comp:0 */

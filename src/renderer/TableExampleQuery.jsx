@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
 import { Grid,List,AutoSizer, Column, Table,SortDirection,SortIndicator } from 'react-virtualized';
-import 'react-virtualized/styles.css';
-import  './TableExample.css';
+// import 'react-virtualized/styles.css';
+// import  './TableExample.css';
 
 export default class GridExample extends React.PureComponent {
 

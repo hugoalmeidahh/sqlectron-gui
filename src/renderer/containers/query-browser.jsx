@@ -29,9 +29,9 @@ import Loader from '../components/loader.jsx';
 import PromptModal from '../components/prompt-modal.jsx';
 import MenuHandler from '../menu-handler';
 import { requireLogos } from '../components/require-context';
-import 'react-tabs/style/react-tabs.css';
-import 'react-resizable/css/styles.css';
-import './query-browser.css';
+// import 'react-tabs/style/react-tabs.css';
+// import 'react-resizable/css/styles.css';
+// import './query-browser.css';
 var {sqlectron}=window.myremote;//
 
 //require('../components/react-resizable.css');

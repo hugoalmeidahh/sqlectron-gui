@@ -6,8 +6,8 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as ConfigActions from '../actions/config.js';
 var { webFrame }= window.myremote;//
-require('../semantic-ui/semantic.css');
-require('./app.css');
+// require('../semantic-ui/semantic.css');
+// require('./app.css');
 
 const preventDefault = e => e.preventDefault();
 

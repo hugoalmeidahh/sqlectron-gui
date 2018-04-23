@@ -9,9 +9,9 @@ import React from 'react';
 // import {LabeledInput, InputRow} from './demo/LabeledInput';
 import cn from 'classnames';
 import { Grid,List,AutoSizer, Column, Table } from 'react-virtualized';
-import 'react-virtualized/styles.css';
+// import 'react-virtualized/styles.css';
 
-import  './GridExample.css';
+// import  './GridExample.css';
 // console.log("styles===========================")
 // console.log(styles);
 // console.log(styles.centeredCell);

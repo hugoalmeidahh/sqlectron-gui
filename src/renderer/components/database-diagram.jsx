@@ -4,10 +4,10 @@ import * as SRD from "storm-react-diagrams"
 //import joint from 'jointjs/dist/joint';
 //import './jointjs-diagram-table';
 //import './jointjs-diagram-table-cell';
-import "storm-react-diagrams/dist/style.min.css";
+//import "storm-react-diagrams/dist/style.min.css";
 //require('jointjs/dist/joint.min.css');
 //require('./database-diagram.css');
-import '../demo.css';
+//import '../demo.css';
 export default class DatabaseDiagram extends Component {
   static propTypes = {
     tables: PropTypes.array,

@@ -13,7 +13,7 @@ import Column from './Column';
 import Table from './Table';
 import SortDirection from './SortDirection';
 import SortIndicator from './SortIndicator';
-import styles from './Table.example.css';
+// import styles from './Table.example.css';
 
 export default class TableExample extends React.PureComponent {
   static contextTypes = {

@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import styles from './demo/Application.css';
+//import styles from './demo/Application.css';
 import './GridExample.css';
 import TableExample from './TableExampleQuery.jsx';
 import { Resizable, ResizableBox } from 'react-resizable';
@@ -12,8 +12,9 @@ import 'brace/mode/sql';
 import 'brace/theme/github';
 import 'brace/ext/language_tools';
 import 'brace/ext/searchbox';
-import 'react-resizable/css/styles.css';
-import 'react-tabs/style/react-tabs.css';
+var styles={};
+// import 'react-resizable/css/styles.css';
+// import 'react-tabs/style/react-tabs.css';
 class App extends React.Component{
   state={isScrollingCustomElement:false,loaded:false}
   loadData=()=>{

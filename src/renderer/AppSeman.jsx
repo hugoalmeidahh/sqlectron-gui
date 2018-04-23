@@ -6,7 +6,7 @@ import Checkbox from './components/checkbox.jsx'
 import Dialog from './Modal1.jsx';
 import MessageList from './MessageList';
 import PropTypes from 'proptypes';
-import '../semantic-ui/semantic.css';
+// import '../semantic-ui/semantic.css';
 
 class App extends React.Component{
   state={value:true, modalOpen: false, visible: true,active:false}

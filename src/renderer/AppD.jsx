@@ -1,7 +1,7 @@
 import React from 'react';
 import * as SRD from "storm-react-diagrams"
-import "storm-react-diagrams/dist/style.min.css";
-import './demo.css';
+// import "storm-react-diagrams/dist/style.min.css";
+// import './demo.css';
 
 // 1) setup the diagram engine
 var engine = new SRD.DiagramEngine();

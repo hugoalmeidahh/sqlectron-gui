@@ -9,8 +9,8 @@ import React from 'react';
 // import {LabeledInput, InputRow} from './demo/LabeledInput';
 import cn from 'classnames';
 import { Grid,AutoSizer  } from 'react-virtualized';
-import 'react-virtualized/styles.css';
-import  './GridExample.css';
+// import 'react-virtualized/styles.css';
+// import  './GridExample.css';
 
 export default class GridExample extends React.PureComponent {
 

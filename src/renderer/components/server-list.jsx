@@ -4,7 +4,7 @@ import ServerListItem from './server-list-item.jsx';
 import Message from './message.jsx';
 
 
-require('./server-list.scss');
+//require('./server-list.scss');
 
 
 export default class ServerList extends Component {

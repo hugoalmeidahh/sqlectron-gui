@@ -1,1 +1,4 @@
-export const requireLogos = require.context('./', false, /server-db-client-.*\.png$/);
+export const requireLogos =(name)=>{
+    console.log(name);
+    return "./renderer/components/"+name;
+};// require.context('./', false, /server-db-client-.*\.png$/);

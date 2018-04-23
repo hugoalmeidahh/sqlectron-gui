@@ -51,7 +51,8 @@ function buildNewWindow(app) {
   var cp=path.resolve(".");
   //console.log(cp);
   
-  const entryBasePath = devMode ? 'http://localhost:3000' : 'file://' + cp+ '/resources/app/build/index.html';
+  //const entryBasePath = devMode ? 'http://localhost:3000' : 'file://' + cp+ '/resources/app/build/index.html';
+  const entryBasePath =  'file://' + cp+ '/src/index.html';  
 
   mainWindow.loadURL(entryBasePath);// + '/static/index.html');
 

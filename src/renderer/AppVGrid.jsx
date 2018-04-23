@@ -1,8 +1,8 @@
 //import Immutable from 'immutable';
 import React from 'react';
 //import PropTypes from 'proptypes';
-import './semantic-ui/semantic.css';
-import './GridExample.css';
+// import './semantic-ui/semantic.css';
+// import './GridExample.css';
 import TableExample from './GridExampleQuery.jsx';
 //import TableExample from './TableExample.jsx';
 // import {generateRandomList} from './demo/utils';

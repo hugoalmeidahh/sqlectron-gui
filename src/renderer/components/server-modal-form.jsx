@@ -5,16 +5,16 @@ import Select from 'react-select';
 import ConfirmModal from './confim-modal.jsx';
 import Message from './message.jsx';
 import Checkbox from './checkbox.jsx';
-import { requireLogos } from './require-context';
+//import { requireLogos } from './require-context';
 import {  Modal } from 'semantic-ui-react';
 var { sqlectron }=window.myremote;
-require('react-select/dist/react-select.css');
-require('./override-select.css');
+// require('react-select/dist/react-select.css');
+// require('./override-select.css');
 
 //console.log(sqlectron.db.CLIENTS);
 const CLIENTS = sqlectron.db.CLIENTS.map(dbClient => ({
   value: dbClient.key,
-  logo: requireLogos(`./server-db-client-${dbClient.key}.png`),
+  logo:`./renderer/components/server-db-client-${dbClient.key}.png`,
   label: dbClient.name,
   defaultPort: dbClient.defaultPort,
   disabledFeatures: dbClient.disabledFeatures,
