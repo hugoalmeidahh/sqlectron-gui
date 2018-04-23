@@ -1,5 +1,6 @@
 import React   from 'react';
 import PropTypes from 'proptypes';
+import { Label } from 'semantic-ui-react';
 //import { shell } from 'electron'; // eslint-disable-line import/no-unresolved
 var  { shell }=window.myremote;
 //require('./header.css');
@@ -42,7 +43,7 @@ const Header = ({ items, onCloseConnectionClick, onReConnectionClick }) => {
         <img alt="logo" src={LOGO_PATH} style={{ width: '5.5em' }} />
       </button>
       <div style={{ margin: '0 auto' }}>
-        <div className="item" style={{ marginLeft: '-109px', marginRight: '-94px' }}>
+        <div className="item" >
           {renderBreadcrumb(items)}
         </div>
       </div>

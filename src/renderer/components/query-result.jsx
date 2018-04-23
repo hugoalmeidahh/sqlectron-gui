@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import Loader from './loader.jsx';
 import Message from './message.jsx';
-import QueryResultTable from './query-result-table.jsx';
+import QueryResultTable from './query-result-table2.jsx';
 
 export default class QueryResult extends Component {
   static propTypes = {

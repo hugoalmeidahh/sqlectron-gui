@@ -2,7 +2,7 @@ import Immutable from 'immutable';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 //import styles from './demo/Application.css';
-import './GridExample.css';
+//import './GridExample.css';
 import TableExample from './TableExampleQuery.jsx';
 import { Resizable, ResizableBox } from 'react-resizable';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';

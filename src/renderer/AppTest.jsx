@@ -1,6 +1,6 @@
 import React  from 'react';
 import {withRouter} from 'react-router-dom';
-import AppQuery from './AppVGrid';
+import AppQuery from './AppQuery';
 
 class App extends React.Component{
   buttonClick=()=>{

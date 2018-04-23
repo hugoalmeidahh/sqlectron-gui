@@ -13,14 +13,12 @@ const store = configureStore();
 class Routers extends Component{
   render=()=>{
     console.log(this.props);
-    return(<div>
-              <Switch>
+    return(<Switch>
                 <Route path="/test" component={AppTest} />
                 <Route path="/sql/manage" component={ServerManagementContainer} />
                 <Route path="/sql/server/:id" component={QueryBrowserContainer} />
-                <Redirect exact path="/"  to="/sql/manage" />
-              </Switch>
-            </div>);
+                <Redirect exact path="/"  to="/test" />
+              </Switch>);
   }
 }
 export default class Root extends Component<Props> {

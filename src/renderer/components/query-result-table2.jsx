@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import { Grid } from 'react-virtualized';
+import { AutoSizer,Grid ,Column, Table} from 'react-virtualized';
 //import Draggable from 'react-draggable';
 import TableCell from './query-result-table-cell.jsx';
 import PreviewModal from './preview-modal.jsx';
@@ -268,7 +268,16 @@ export default class QueryResultTable extends Component {
       />
     );
   }
-
+  _rowClassName({index}) {
+    if (index < 0) {
+      return "headerRow";
+    } else {
+      return index % 2 === 0 ? "evenRow" : "oddRow";
+    }
+  }
+   _noRowsRenderer() {
+    return <span className={"noRows"}>No rows</span>;
+  }
   renderTableBody() {
     const { rowCount, fields } = this.props;
     const { tableWidth, tableHeight } = this.state;
@@ -278,20 +287,84 @@ export default class QueryResultTable extends Component {
     const rowHeight = 28;
     const fixedHeightRows = ((rowCount+1 || 1) * rowHeight) + scrollBarHeight;
 
-    return (
-      <Grid
-        ref={(ref) => { this.rowsGrid = ref; }}
-        cellRenderer={this.renderCell}
-        width={tableWidth}
-        height={Math.min((tableHeight ), fixedHeightRows)}
-        rowHeight={rowHeight}
-        rowCount={rowCount+1}
-        columnCount={fields.length}
-        columnWidth={this.getColumnWidth.bind(this)}
-        rowsCount={rowCount}
-        noContentRenderer={this.renderNoRows.bind(this)} />
+    const rowGetter = ({index}) => this.props.rows[index];
+    // console.log(this.props);
+    // console.log(this.state);
 
-    );
+    var columns=this.props.fields.map((field, idx)=>{
+       //console.log(idx);
+       return (<Column key={idx} label={field.name}
+                  cellDataGetter={({rowData}) => rowData[field.name]}
+                  dataKey={field.name}
+                  width={this.state.autoColumnWidths[idx]}></Column>);
+    });
+    var tableH=Math.min((tableHeight ), fixedHeightRows);
+    if(tableH<50) tableH=50;
+
+    var disableHeader=false;
+    return(<Table
+                disableHeader={disableHeader}
+                headerClassName={"headerColumn"}
+                headerHeight={rowHeight}
+                height={tableH}
+                noRowsRenderer={this._noRowsRenderer}
+                overscanRowCount={10}
+                rowClassName={this._rowClassName}
+                rowHeight={rowHeight}
+                rowGetter={rowGetter}
+                rowCount={rowCount}
+                width={tableWidth}>
+                {columns}
+              </Table>);
+
+    // return(<AutoSizer disableHeight>
+    //       {({width}) => (
+    //                       <Table
+    //              ref="Table"
+    //             disableHeader={disableHeader}
+    //             headerClassName={"headerColumn"}
+    //             headerHeight={rowHeight}
+    //             height={Math.min((tableHeight ), fixedHeightRows)}
+    //             noRowsRenderer={this._noRowsRenderer}
+    //             overscanRowCount={10}
+    //             rowClassName={this._rowClassName}
+    //             rowHeight={rowHeight}
+    //             rowGetter={rowGetter}
+    //             rowCount={rowCount}
+    //             width={width}>
+    //             {columns}
+    //           </Table>
+    //       )}
+    //     </AutoSizer>);
+    // return(<Table
+    //             ref="Table"
+    //             disableHeader={true}
+    //             headerClassName={"headerColumn"}
+    //             headerHeight={rowHeight}
+    //             height={Math.min((tableHeight ), fixedHeightRows)}
+    //             noRowsRenderer={this._noRowsRenderer}
+    //             overscanRowCount={10}
+    //             rowClassName={this._rowClassName}
+    //             rowHeight={rowHeight}
+    //             rowGetter={rowGetter}
+    //             rowCount={rowCount}
+    //             width={tableWidth}>
+    //             {columns}
+    //           </Table>);
+    // return (
+    //   <Grid
+    //     ref={(ref) => { this.rowsGrid = ref; }}
+    //     cellRenderer={this.renderCell}
+    //     width={tableWidth}
+    //     height={Math.min((tableHeight ), fixedHeightRows)}
+    //     rowHeight={rowHeight}
+    //     rowCount={rowCount+1}
+    //     columnCount={fields.length}
+    //     columnWidth={this.getColumnWidth.bind(this)}
+    //     rowsCount={rowCount}
+    //     noContentRenderer={this.renderNoRows.bind(this)} />
+
+    // );
   }
 
   // renderTableHeader(scrollLeft) {

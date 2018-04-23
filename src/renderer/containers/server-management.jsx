@@ -16,7 +16,7 @@ import Message from '../components/message.jsx';
 
 const STYLES = {
   wrapper: { paddingTop: '50px' },
-  container: { padding: '10px 10px 50px 10px' },
+  container: { padding: '0px 10px 50px 10px' },
 };
 
 
