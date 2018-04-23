@@ -23,10 +23,10 @@ class App extends React.Component{
     var db=sqlectron.db.createServer(serverConfig);
     var con=db.createConnection("D:/parts/data.sqlite");
     con.connect().then(()=>{
-      console.log("connected");
+      // console.log("connected");
       var q=con.executeQuery("select * from parts_contact;").then((data)=>{
         this.list=data;
-        console.log(this.list);
+        // console.log(this.list);
         this.setState({loaded:true});
       });
     });

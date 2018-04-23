@@ -1,4 +1,5 @@
 var { fs,remote }=window.myremote;// from '../../browser/remote';
+var {remote}=window.myremote.electron;
 
 export function showSaveDialog(filters) {
   return new Promise((resolve, reject) => {

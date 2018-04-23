@@ -1,9 +1,7 @@
 import React   from 'react';
 import PropTypes from 'proptypes';
 import { Label } from 'semantic-ui-react';
-//import { shell } from 'electron'; // eslint-disable-line import/no-unresolved
-var  { shell }=window.myremote;
-//require('./header.css');
+var  { shell }=window.myremote.electron;
 
 const LOGO_PATH ='./renderer/components/logo-128px.png';
 

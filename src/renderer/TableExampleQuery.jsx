@@ -93,8 +93,8 @@ export default class GridExample extends React.PureComponent {
   }
 
   _getDatum(list, index) {
-    console.log(list);
-    console.log(index);
+    // console.log(list);
+    // console.log(index);
     return list.rows[index];
   }
 

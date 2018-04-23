@@ -1,4 +1,4 @@
-var { ipcRenderer } =window.myremote;//
+var { ipcRenderer } =window.myremote.electron;//
 
 export default class MenuHandler {
   setMenus(commands) {

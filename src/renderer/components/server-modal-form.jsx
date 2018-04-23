@@ -206,8 +206,8 @@ export default class ServerModalForm extends Component {
   handleOnClientChange(client) {
 
     this.setState(client,()=>{
-        console.log("after handleOnClientChange==========");
-        console.log(this.state);
+        // console.log("after handleOnClientChange==========");
+        // console.log(this.state);
     });
 
     const clientConfig = CLIENTS.find(entry => entry.value === client.value);

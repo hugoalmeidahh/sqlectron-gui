@@ -132,56 +132,6 @@
           }
         }
       </style> -->
-
-<script type="text/javascript">
-  var electron=require('electron');
-  //console.log(electron);
-  window.myremote={
-    fs:require('fs'),
-    path:require("path"),
-    //sqlectron:require("sqlectron-core"),
-    remote:electron.remote,
-    ipcRenderer:electron.ipcRenderer,
-    shell:electron.shell,
-    webFrame:electron.webFrame,
-  };
-// class Logger{
-//   constructor(namespace){
-//         this.namespace=namespace;
-//   }
-//   error(p){
-//     console.log(p);
-//   }
-//   info(p){
-//     console.log(p);
-//   }
-// }
-//var l=new Logger();
-var cp=window.myremote.path.resolve(".")
-var corepath=cp+"\\core\\lib";
-window.myremote.sqlectron=require(corepath);
-//window.myremote.config=require(cp+"\\config.js");
-window.myremote.createLogger=require(cp+"\\core\\lib\\logger.js");
-// var createLogger=function(namespace){
-//     return new Logger(namespace);
-
-// };
-// window.myremote.createLogger =createLogger;
-// const logger = createLogger('window');
-// logger.error("hi");
-
-const ipcRenderer = window.myremote.ipcRenderer;
-var Config={
-  get:function(arg){
-    arg=true;
-    return ipcRenderer.sendSync('getconfig', arg);
-  },
-}
-window.myremote.config = Config;
-window.myremote.csvStringify=require('csv-stringify');
-//console.log(window.myremote);
-  //todo remove config,logger user ipc
-</script>
     <title>sqlectron</title>
   </head>
   <body>

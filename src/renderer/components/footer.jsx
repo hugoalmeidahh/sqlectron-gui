@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'proptypes';
-//import { shell } from 'electron'; // eslint-disable-line import/no-unresolved
 import UpdateChecker from './update-checker.jsx';
 import LogStatus from './log-status.jsx';
-//import { shell } from '../../browser/remote';
-var {shell}=window.myremote;
+var {shell}=window.myremote.electron;
 
 const STYLE = {
   footer: { minHeight: 'auto' },

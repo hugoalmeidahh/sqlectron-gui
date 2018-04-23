@@ -5,8 +5,8 @@ import { getCurrentDBConn, getDBConnByName } from './connections';
 import { rowsValuesToString } from '../utils/convert';
 import * as fileHandler from '../utils/file-handler';
 import wait from '../utils/wait';
-var { path,clipboard,csvStringify }=window.myremote;
-
+var { path,csvStringify }=window.myremote;
+var {clipboard}=window.myremote.electron;
 
 export const NEW_QUERY = 'NEW_QUERY';
 export const RENAME_QUERY = 'RENAME_QUERY';

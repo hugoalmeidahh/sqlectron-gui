@@ -6,7 +6,7 @@ import Checkbox from './checkbox.jsx';
 import { Modal } from 'semantic-ui-react';
 // require('react-select/dist/react-select.css');
 // require('./override-select.css');
-var { shell }=window.myremote;
+var { shell }=window.myremote.electron;
 
 export default class SettingsModalForm extends Component {
   static propTypes = {

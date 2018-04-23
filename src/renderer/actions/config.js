@@ -25,6 +25,7 @@ export function loadConfig() {
 
       dispatch({ type: LOAD_CONFIG_SUCCESS, config: configData, path: configPath });
     } catch (error) {
+      // console.log(error);
       dispatch({ type: LOAD_CONFIG_FAILURE, error });
     }
   };

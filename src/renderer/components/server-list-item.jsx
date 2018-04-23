@@ -12,7 +12,7 @@ var  { sqlectron }  =window.myremote;
 const ICONS = sqlectron.db.CLIENTS.reduce((clients, dbClient) => {
   /* eslint no-param-reassign:0 */
   clients[dbClient.key] = `./renderer/components/server-db-client-${dbClient.key}.png`;
-  console.log(clients[dbClient.key]);
+  // console.log(clients[dbClient.key]);
   return clients;
 }, {});
 

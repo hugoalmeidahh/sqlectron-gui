@@ -3,7 +3,7 @@ import PropTypes from 'proptypes';
 import set from 'lodash.set';
 import Select from 'react-select';
 import Checkbox from './checkbox.jsx';
-var {shell}= window.myremote;
+var {shell}= window.myremote.electron;
 require('react-select/dist/react-select.css');
 require('./override-select.css');
 

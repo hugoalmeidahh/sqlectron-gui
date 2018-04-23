@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { valueToString } from '../utils/convert';
 import { Label } from 'semantic-ui-react';
-var { remote} =window.myremote;
+var { remote} =window.myremote.electron;
 const { Menu, MenuItem } = remote;
 
 export default class TableCell extends Component {

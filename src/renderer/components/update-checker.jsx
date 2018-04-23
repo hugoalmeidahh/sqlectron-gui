@@ -1,6 +1,6 @@
 //import { ipcRenderer, shell } from 'electron'; // eslint-disable-line import/no-unresolved
 import React, { Component } from 'react';
-var  { ipcRenderer,shell} = window.myremote;//from '../../browser/remote';
+var  { ipcRenderer,shell} = window.myremote.electron;//from '../../browser/remote';
 
 const EVENT_KEY = 'sqlectron:update-available';
 //console.log(global);

@@ -5,7 +5,7 @@ import PropTypes from 'proptypes';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as ConfigActions from '../actions/config.js';
-var { webFrame }= window.myremote;//
+var { webFrame }= window.myremote.electron;//
 // require('../semantic-ui/semantic.css');
 // require('./app.css');
 
