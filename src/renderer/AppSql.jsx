@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import AppTest from './AppTest.jsx';
+import AppSeman from './AppSeman.jsx';
 import ServerManagementContainer from './containers/server-management2.jsx';
 import QueryBrowserContainer from './containers/query-browser2.jsx';
 import {Router,Redirect, BrowserRouter,Route,Switch} from 'react-router-dom'
 import configureStore from './store/configure';
-import createHashHistory from "history/createHashHistory"
+import createHashHistory from "history/createHashHistory";
 const history = createHashHistory({
   hashType: "slash" // the default
 })

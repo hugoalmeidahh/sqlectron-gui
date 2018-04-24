@@ -293,12 +293,12 @@ export default class QueryResultTable extends Component {
 
     var columns=this.props.fields.map((field, idx)=>{
        //console.log(idx);
-       return (<Column key={idx} label={field.name}
+       return (<Column key={idx} label={field.name} flexShrink={0} flexGrow={0}
                   cellDataGetter={({rowData}) => rowData[field.name]}
                   dataKey={field.name}
                   width={this.state.autoColumnWidths[idx]}></Column>);
     });
-    var tableH=Math.min((tableHeight ), fixedHeightRows);
+    var tableH=Math.min((tableHeight-scrollBarHeight ), fixedHeightRows);
     if(tableH<50) tableH=50;
 
     var disableHeader=false;

@@ -60,10 +60,10 @@ export default class GridExample extends React.PureComponent {
     } = this.state;
     const rowGetter = ({index}) => this._getDatum(sortedList, index);
     var columns=this.props.list.fields.map((field, idx)=>{
-       return (<Column key={idx} label={field.name}
+       return (<Column key={idx} label={field.name} flexShrink={0} flexGrow={0}
                   cellDataGetter={({rowData}) => rowData[field.name]}
                   dataKey={field.name}
-                  width={60}></Column>);
+                  width={100}></Column>);
     })
     return (
         <AutoSizer disableHeight>

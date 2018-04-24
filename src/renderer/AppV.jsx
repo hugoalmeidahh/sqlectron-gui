@@ -1,37 +1,32 @@
 import Immutable from 'immutable';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-// import styles from './demo/Application.css';
-// import './GridExample.css';
-//import GridExample from './GridExample.jsx';
 import TableExample from './TableExample.jsx';
+import GridExample from './GridExample.jsx';
+
 import {generateRandomList} from './demo/utils';
 
+console.log("Immutable");
+console.log(Immutable);
+
 const list = Immutable.List(generateRandomList());
+console.log(list);
 class App extends React.Component{
-  state={isScrollingCustomElement:false}
+
   getChildContext() {
+    console.log("getChildContext");
+    console.log(list);
+
     return {list:list};//[["a"],["b"],["c"]]};
   }
   render() {
-    const {isScrollingCustomElement} = this.state;
-    const bodyStyle = isScrollingCustomElement
-      ? styles.ScrollingBody
-      : styles.Body;
     return (
       <div>
-        <div className={styles.demo}>
-          <div className={styles.headerRow}>
-
-            <div className={styles.ComponentList}>
-              <TableExample />
-            </div>
-
-          </div>
-
-        </div>
+      {
+         <TableExample size={{width:300,height:300}}/>
+      }
+         <GridExample />
       </div>
-
     );
   }
 }

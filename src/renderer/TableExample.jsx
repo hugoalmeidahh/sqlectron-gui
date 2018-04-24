@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
 import { Grid,List,AutoSizer, Column, Table,SortDirection,SortIndicator } from 'react-virtualized';
-// import 'react-virtualized/styles.css';
-// import  './TableExample.css';
+// Sortable Table Example
 
 export default class GridExample extends React.PureComponent {
 
@@ -174,6 +173,9 @@ export default class GridExample extends React.PureComponent {
 
   _sortList({sortBy, sortDirection}) {
     const {list} = this.context;
+    console.log("_sortList");
+    console.log(this.context);
+    console.log(list);
 
     return list
       .sortBy(item => item[sortBy])
@@ -188,3 +190,6 @@ export default class GridExample extends React.PureComponent {
     });
   }
 }
+GridExample.contextTypes = {
+  list: PropTypes.instanceOf(Object)
+};

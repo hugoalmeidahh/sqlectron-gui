@@ -1,92 +1,8 @@
-//import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
-// import {
-//   ContentBox,
-//   ContentBoxHeader,
-//   ContentBoxParagraph,
-// } from './demo/ContentBox';
-// import {LabeledInput, InputRow} from './demo/LabeledInput';
 import cn from 'classnames';
 import { Grid,List,AutoSizer, Column, Table } from 'react-virtualized';
-// import 'react-virtualized/styles.css';
-
-// import  './GridExample.css';
-// console.log("styles===========================")
-// console.log(styles);
-// console.log(styles.centeredCell);
-// var styles={GridRow: {
-//   margin-top: 15px,
-//   display: flex,
-//   flex-direction: row,
-// },
-// GridColumn: {
-//   display: flex,
-//   flex-direction: column,
-//   flex: 1 1 auto,
-// },
-// LeftSideGridContainer: {
-//   flex: 0 0 50px,
-// },
-
-// BodyGrid: {
-//   width: 100%,
-//   border: 1px solid #e0e0e0,
-// },
-
-// evenRow:
-// {
-//   border-bottom: 1px solid #e0e0e0,
-// },
-// oddRow: {
-//   border-bottom: 1px solid #e0e0e0,
-//   background-color: #fafafa,
-// },
-
-// headerCell: {
-//   width: 100%,
-//   height: 100%,
-//   display: flex,
-//   flex-direction: column,
-//   justify-content: center,
-//   padding: 0 .5em,
-//   font-weight: bold,
-//   border-right: 1px solid #e0e0e0,
-// },
-// cell :{
-//     width: 100%,
-//   height: 100%,
-//   display: flex,
-//   flex-direction: column,
-//   justify-content: center,
-//   padding: 0 .5em,
-
-//   border-right: 1px solid #e0e0e0,
-//   border-bottom: 1px solid #e0e0e0,
-// },
-// centeredCell:{
-//   align-items: center,
-//   text-align: center,
-// },
-
-// letterCell: {
-//   font-size: 1.5em,
-//   color: #fff,
-//   text-align: center,
-// },
-
-// noCells: {
-//   position: absolute,
-//   top: 0,
-//   bottom: 0,
-//   left: 0,
-//   right: 0,
-//   display: flex,
-//   align-items: center,
-//   justify-content: center,
-//   font-size: 1em,
-//   color: #bdbdbd,
-// }}
+import { Label } from 'semantic-ui-react';
 export default class GridExample extends React.PureComponent {
   static contextTypes = {
     list: PropTypes.instanceOf(Object).isRequired,
@@ -138,13 +54,13 @@ export default class GridExample extends React.PureComponent {
               cellRenderer={this._cellRenderer}
               className={"BodyGrid"}
               columnWidth={this._getColumnWidth}
-              columnCount={this.context.list[0].length}
+              columnCount={3}
               height={height}
               noContentRenderer={this._noContentRenderer}
               overscanColumnCount={overscanColumnCount}
               overscanRowCount={overscanRowCount}
               rowHeight={useDynamicRowHeight ? this._getRowHeight : rowHeight}
-              rowCount={this.context.list.length}
+              rowCount={this.context.list.size}
               scrollToColumn={scrollToColumn}
               scrollToRow={scrollToRow}
               width={width}
@@ -178,7 +94,7 @@ export default class GridExample extends React.PureComponent {
   _getDatum(index) {
     const {list} = this.context;
 
-    return list[index % list.length];
+    return list.get(index % list.length);
   }
 
   _getRowClassName(row) {
@@ -195,21 +111,24 @@ export default class GridExample extends React.PureComponent {
 
   _renderBodyCell({columnIndex, key, rowIndex, style}) {
     const rowClass = this._getRowClassName(rowIndex);
-    const datum = this._getDatum(rowIndex);
+    //const datum = this._getDatum(rowIndex);
 
     let content;
+    const datum=this.context.list.get(rowIndex);
+    console.log(datum)
+    console.log(columnIndex);
 
     switch (columnIndex) {
-      // case 1:
-      //   content = datum.name;
-      //   break;
-      // case 2:
-      //   content = datum.random;
-      //   break;
+      case 0:
+        content = datum.index;
+        break;
+      case 1:
+        content = datum.name;
+        break;
+      case 2:
+        content = datum.random;
+        break;
       default:
-        if(this.context.list[rowIndex])
-          content = this.context.list[rowIndex][columnIndex];//`r:${rowIndex}, c:${columnIndex}`;
-        else
           content="";
         break;
     }
@@ -223,9 +142,9 @@ export default class GridExample extends React.PureComponent {
     // console.log(classNames)    ;
 
     return (
-      <div className={classNames} key={key} style={style}>
+      <Label basic className={classNames} key={key} style={style}>
         {content}
-      </div>
+      </Label>
     );
   }
 
@@ -293,3 +212,6 @@ export default class GridExample extends React.PureComponent {
     this.setState({scrollToRow});
   }
 }
+GridExample.contextTypes = {
+  list: PropTypes.instanceOf(Object)
+};

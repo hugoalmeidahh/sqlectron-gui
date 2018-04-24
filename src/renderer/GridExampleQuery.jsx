@@ -9,8 +9,7 @@ import React from 'react';
 // import {LabeledInput, InputRow} from './demo/LabeledInput';
 import cn from 'classnames';
 import { Grid,AutoSizer  } from 'react-virtualized';
-// import 'react-virtualized/styles.css';
-// import  './GridExample.css';
+import { Label } from 'semantic-ui-react';
 
 export default class GridExample extends React.PureComponent {
 
@@ -144,9 +143,9 @@ export default class GridExample extends React.PureComponent {
     // console.log(classNames)    ;
 
     return (
-      <div className={classNames} key={key} style={style}>
+      <Label basic key={key} style={style}>
         {content}
-      </div>
+      </Label>
     );
   }
 

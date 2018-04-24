@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import {withRouter, Link} from 'react-router-dom';
 import {Divider, Button,Transition,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
-import {  Dimmer, Image, Loader } from 'semantic-ui-react'
+import {Dimmer, Image, Loader } from 'semantic-ui-react'
 import Checkbox from './components/checkbox.jsx' 
 import Dialog from './Modal1.jsx';
-import MessageList from './MessageList';
 import PropTypes from 'proptypes';
-// import '../semantic-ui/semantic.css';
 
 class App extends React.Component{
   state={value:true, modalOpen: false, visible: true,active:false}
@@ -14,10 +11,6 @@ class App extends React.Component{
   handleOpen = () => this.setState({ modalOpen: true })
 
   handleClose = () => this.setState({ modalOpen: false })
-  buttonClick=()=>{
-    console.log(this.props.history);
-    this.props.history.push("/sql/manage");
-  }
   onChange=()=>{
     console.log("onChange");
       var v=!this.state.value;
@@ -29,16 +22,12 @@ class App extends React.Component{
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
   handleShow = () => this.setState({ active: true })
   handleHide = () => this.setState({ active: false })
-  getChildContext() {
-    return {list: [{name:"a"},{name:"b"},{name:"c"}]};
-  }
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     const { visible,active } = this.state;
     const arr1=[{text:"a"},{text:"b"},{text:"c"}];
     return (
       <div>
-      <MessageList messages={arr1}/>
       <div>
         <Dimmer.Dimmable as={Segment} dimmed={active}>
           <Dimmer active={active} inverted>
@@ -46,19 +35,18 @@ class App extends React.Component{
           </Dimmer>
 
           <p>
-            <Image src='/edit.png' />
+            <Image src='./edit.png' />
           </p>
           <p>
-            <Image src='/edit.png' />
+            <Image src='./edit.png' />
           </p>
         </Dimmer.Dimmable>
 
         <Button.Group>
-          <Button icon='plus' onClick={this.handleShow} />
-          <Button icon='minus' onClick={this.handleHide} />
+          <Button onClick={this.handleShow}>loading</Button>
+          <Button onClick={this.handleHide}>loading finish</Button>
         </Button.Group>
       </div>
-       <Button onClick={this.buttonClick}>sqlui</Button>
        <Input type="checkbox" checked={this.state.value}  
                     onChange={this.onChange} >
        </Input>
@@ -84,21 +72,16 @@ class App extends React.Component{
        // </StyledView>
      }
      <Button onClick={this.handleOpen}>Show Modal</Button>
-     <Button content={visible ? 'Hide' : 'Show'} onClick={this.toggleVisibility} />
+     <Button content={visible ? 'Hide Transition' : 'Show Transition'}  onClick={this.toggleVisibility} />
     <Divider hidden />
-     <Transition visible={visible} animation='scale' duration={5000}>
+     <Transition visible={visible} animation='scale' duration={2000}>
           <div> i am disapear............. </div>
      </Transition>
      
-      <Dialog handleClose={this.handleClose} modalOpen={this.state.modalOpen}/>
-      <div className={styles.demo}>
-      <AppVirtual />
-      </div>
+      {  <Dialog handleClose={this.handleClose} modalOpen={this.state.modalOpen}/>
+      }
       </div>
     );
   }
 }
-App.childContextTypes = {
-  list: PropTypes.instanceOf(Object)
-};
-export default withRouter(App);
+export default App;
