@@ -155,7 +155,7 @@ export default class QueryResultTable extends Component {
 
     return (
       <div style={params.style} key={params.key} className="item">
-        <span>{field.name}</span>
+        <span><strong>{field.name}</strong></span>
         {resizeDrag}
       </div>
     );
@@ -310,7 +310,7 @@ export default class QueryResultTable extends Component {
         columnCount={fields.length}
         height={30}
         cellRenderer={this.renderHeaderCell.bind(this)}
-        className="grid-header-row"
+        className={"HeaderGrid"}
         rowHeight={30}
         rowCount={1}
         getScrollbarSize={()=>{return 0;}}
@@ -384,7 +384,15 @@ export default class QueryResultTable extends Component {
         {this.renderPreviewModal()}
 
         <ScrollSync>
-          {({ onScroll, scrollLeft }) => (
+          {({ 
+            clientHeight,
+            clientWidth,
+            onScroll,
+            scrollHeight,
+            scrollLeft,
+            scrollTop,
+            scrollWidth,
+           }) => (
             <div className="grid-query-wrapper">
               {this.renderHeaderTopBar()}
               {this.renderTableHeader(scrollLeft)}

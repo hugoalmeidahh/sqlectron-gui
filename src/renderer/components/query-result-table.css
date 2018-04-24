@@ -10,7 +10,7 @@
   outline: none;
 }
 
-.Grid.grid-header-row .Grid__cell .draggable-handle {
+.draggable-handle {
   width: 5px;
   cursor: col-resize;
   height: 30px;

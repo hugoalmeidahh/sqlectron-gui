@@ -1,10 +1,10 @@
 import isPlainObject from 'lodash.isplainobject';
 //import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
-//import classNames from 'classnames';
+import classNames from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { valueToString } from '../utils/convert';
-import { Label } from 'semantic-ui-react';
+import { Label,Item } from 'semantic-ui-react';
 var { remote} =window.myremote.electron;
 const { Menu, MenuItem } = remote;
 
@@ -59,7 +59,7 @@ export default class TableCell extends Component {
     //   "centeredCell": columnIndex > 2,"headerCell": rowIndex ===0
     // });
     return (
-      <Label style={this.props.style} basic={true} onContextMenu={this.onContextMenu.bind(this)}>
+      <Label style={this.props.style} basic={true}  onContextMenu={this.onContextMenu.bind(this)}>
         {
           value === null
             ? <span >NULL</span>
