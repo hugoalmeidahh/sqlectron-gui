@@ -5,15 +5,18 @@ import { Resizable, ResizableBox } from 'react-resizable';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import AppQuery from "./AppQuery";
 import AppD from "./AppD";
-import AppSeman from './AppSeman.jsx';
-import AppContext from "./AppContext.jsx";
-import TableEx from "./AppV.jsx";
-import SS from "./SS"
+import AppSeman from './AppSeman';
+import AppContext from "./AppContext";
+import TableEx from "./AppV";
+import SS from "./SS";
+import Layout1 from "./Layout1";
+
 class App extends React.Component{
   render() {
     return (
       <Tabs>
         <TabList>
+          <Tab>Layout1</Tab> 
           <Tab>Semantic-ui</Tab>
           <Tab>AceEditor & GridExample</Tab>
           <Tab>storm diagrams</Tab>
@@ -21,6 +24,9 @@ class App extends React.Component{
           <Tab>Virtual Table Demo</Tab>
           <Tab>SS</Tab>
         </TabList>
+        <TabPanel>
+          <Layout1 />
+        </TabPanel>
         <TabPanel>
           <AppSeman />
         </TabPanel>

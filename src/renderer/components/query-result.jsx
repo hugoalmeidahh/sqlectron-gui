@@ -32,6 +32,7 @@ export default class QueryResult extends Component {
       (!nextProps.isExecuting && this.props.isExecuting) ||
       (nextProps.query !== this.props.query) ||
       (nextProps.copied && !this.props.copied) ||
+      (nextProps.heigthOffset !== this.props.heigthOffset) ||
       (nextProps.widthOffset !== this.props.widthOffset)
     );
   }

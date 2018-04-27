@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import DatabaseDiagram from './database-diagram.jsx';
 import Loader from './loader.jsx';
-import { Modal } from 'semantic-ui-react';
+import { Modal,Dropdown } from 'semantic-ui-react';
+// import Immutable from 'immutable';
+
 //import update from 'immutability-helper';
 //import  { List } from 'immutable';
 import CheckBox from './checkbox.jsx';
+// console.log(Immutable);
 const STYLE = {
   list: {
     maxHeight: '250px',
@@ -39,7 +42,7 @@ export default class DatabaseDiagramModal extends Component {
     super(props, context);
     const { tables, views } = this.props;
     const tablesAndViews = tables.concat(views);
-    this.state = {modalOpen:false,selectedTables:tablesAndViews,disabledG:"disabled"};
+    this.state = {modalOpen:false,selectedTables:tablesAndViews};
   }
 // $(':checkbox:checked', 'div.ui.list')
     //   .map((index, checkbox) => selectedTables.push(checkbox.id));
@@ -73,7 +76,7 @@ export default class DatabaseDiagramModal extends Component {
     for(var i=0;i<newlist.length;i++){
       newlist[i].checked=true;
     }
-    this.setState({selectedTables:newlist,disabledG:""});
+    this.setState({selectedTables:newlist});
   }
 
   onDeselectAllTables() {
@@ -81,22 +84,14 @@ export default class DatabaseDiagramModal extends Component {
     for(var i=0;i<newlist.length;i++){
       newlist[i].checked=false;
     }
-    this.setState({selectedTables:newlist,disabledG:"disabled"});
+    this.setState({selectedTables:newlist});
   }
 
-  onCheckBoxesChange=(name,checked)=> {
+  onCheckBoxesChange=(idx,checked)=> {
 
-
-        const filteredFoods = this.state.selectedTables.filter(
-          (item, idx) => item.checked === true,
-        );
-      if(filteredFoods.length>0)
-      {
-        this.setState({disabledG:""});
-      }
-      else{
-        this.setState({disabledG:"disabled"}); 
-      }
+    var newlist=this.state.selectedTables;
+    newlist[idx].checked=checked;
+    this.setState({selectedTables:newlist});      
     // Disable generate diagram button if there are no tables selected
   }
 
@@ -157,7 +152,18 @@ export default class DatabaseDiagramModal extends Component {
   renderSelectTablesMenu() {
     const { onOpenDatabaseDiagram } = this.props;
     const tablesAndViews =this.state.selectedTables;// tables.concat(views);
-
+    var disabledG="";
+      const filteredFoods = this.state.selectedTables.filter(
+          (item, idx) => item.checked === true,
+      );
+      if(filteredFoods.length>0)
+      {
+        
+      }
+      else{
+        disabledG="disabled"; 
+      }
+      console.log("disabledG:"+disabledG);
     return (
       <div className="content">
         <div className="ui middle aligned padded very relaxed stackable grid" >
@@ -176,19 +182,24 @@ export default class DatabaseDiagramModal extends Component {
               </button>
             </div>
             <div className="ui list" style={STYLE.list}>
-              {tablesAndViews.map((item,idx) =>
+              {this.state.selectedTables.map((item,idx) =>
                   <div style={{paddingTop:"10px"}} key={idx}>
                     <CheckBox   label={item.name} 
                     name={item.name}
                     defaultChecked={item.checked}
-                    onChecked={()=>{item.checked=true;this.onCheckBoxesChange();}} 
-                    onUnchecked={()=>{item.checked=false;this.onCheckBoxesChange();}} />
+                    onChecked={()=>{
+                      this.onCheckBoxesChange(idx,true);
+                    }
+                  } 
+                    onUnchecked={()=>{
+                      this.onCheckBoxesChange(idx,false);
+                    }} />
                   </div>
               )}
             </div>
             <button
               ref="generateButton"
-              className={"ui right floated positive button "+this.state.disabledG}
+              className={"ui right floated positive button "+disabledG}
               style={{ marginBottom: '1em' }}
               onClick={this.onGenerateDiagramClick.bind(this)}>
               Generate diagram
@@ -240,6 +251,8 @@ export default class DatabaseDiagramModal extends Component {
   }
 
   renderActionButtons() {
+//            Export to
+//            <i className="caret up icon"></i>
     const { onSaveDatabaseDiagram } = this.props;
     let actions;
     let cancel;
@@ -250,28 +263,31 @@ export default class DatabaseDiagramModal extends Component {
             <i className="ban icon"></i>
           </div>;
     if(!!this.state.showDatabaseDiagram){
-      actions=(<div className="ui buttons">
+      actions=(
+        <div className="ui buttons">
           {cancel}
           <div className="ui small positive button"
             tabIndex="0"
             onClick={() => onSaveDatabaseDiagram(this.refs.databaseDiagram.graph.toJSON())}>
             Save
           </div>
-          <div className="or"></div>
-          <div className="ui small right labeled icon button simple upward dropdown">
-            Export to
-            <i className="caret up icon"></i>
-            <div className="menu">
-              <div className="item"
+          <div className="or">
+          </div>
+          <div>
+          <Dropdown text="Export to"  floating labeled button className='icon'>
+            <Dropdown.Menu>
+              <Dropdown.Item
                 onClick={() => this.onExportDatabaseDiagram('png')}>
                 PNG
-              </div>
-              <div className="item"
+              </Dropdown.Item>
+              <Dropdown.Item
                 onClick={() => this.onExportDatabaseDiagram('jpeg')}>
                 JPEG
-              </div>
-            </div>
-          </div></div>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          </div>
+        </div>
         );
     }
     else{
@@ -284,6 +300,8 @@ export default class DatabaseDiagramModal extends Component {
   }
 
   render() {
+    console.log("==render===");
+
     // Modal has to be in DOM before rendering diagram because of JointJS getBBox() method.
     // On first rendering, if context node is hidden, wrong widths and heights of JointJS
     // elements will be calculated.

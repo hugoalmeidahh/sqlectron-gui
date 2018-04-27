@@ -147,7 +147,7 @@ function buildTemplate(app, buildNewWindow, appConfig) {
         },
         {
           label: `About ${appConfig.name}`,
-          click: () => shell.openExternal(appConfig.website),
+          click:(item, win) => sendMessage(win, 'sqlectron:about'),
         },
       ],
     },

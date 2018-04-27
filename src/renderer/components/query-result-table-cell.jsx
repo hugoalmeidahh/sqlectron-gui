@@ -1,6 +1,6 @@
 import isPlainObject from 'lodash.isplainobject';
 //import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
-import classNames from 'classnames';
+import cloneDeep from 'lodash.clonedeep';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { valueToString } from '../utils/convert';
@@ -21,7 +21,7 @@ export default class TableCell extends Component {
     this.contextMenu = null;
   }
 
-  onContextMenu(event) {
+  onContextMenu=(event)=> {
     event.preventDefault();
 
     const value = this.getValue();
@@ -35,7 +35,11 @@ export default class TableCell extends Component {
       this.contextMenu = new Menu();
       this.contextMenu.append(new MenuItem({
         label: 'Open Preview',
-        click: () => this.props.onOpenPreviewClick(value),
+        click: () => {
+          console.log("click pv");
+          console.log(this.props.onOpenPreviewClick);
+          this.props.onOpenPreviewClick(value);
+      },
       }));
     }
 
@@ -58,14 +62,39 @@ export default class TableCell extends Component {
     //   , {
     //   "centeredCell": columnIndex > 2,"headerCell": rowIndex ===0
     // });
+    // console.log(rowClass);
+    // console.log(styles.cell);
+    // console.log(styles.centeredCell);
+    // console.log(classNames)    ;
+    var style=cloneDeep(this.props.style);
+    style.backgroundClip="border-box";
+    style.display="block";
+    style.lineHeight="20px"
+    style.overflow="hidden";
+
+    // font-weight: bold;
+    // border: 0px solid transparent;
+    // border-radius: 0.28571429rem;
+    // -webkit-transition: background 0.1s ease;
+    // transition: background 0.1s ease;
+
     return (
-      <Label style={this.props.style} basic={true}  onContextMenu={this.onContextMenu.bind(this)}>
-        {
+      <span className="rowClass cell" style={style}  onContextMenu={this.onContextMenu}>
+      {
           value === null
-            ? <span >NULL</span>
+            ? "NULL"
             : valueToString(value)
-        }
-      </Label>
+      }
+      </span>
     );
+    // return (
+    //   <Label style={this.props.style} basic={true}  onContextMenu={this.onContextMenu.bind(this)}>
+    //     {
+    //       value === null
+    //         ? <span >NULL</span>
+    //         : valueToString(value)
+    //     }
+    //   </Label>
+    // );
   }
 }

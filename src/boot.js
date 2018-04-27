@@ -8,8 +8,8 @@ window.myremote={
     // shell:electron.shell,
     // webFrame:electron.webFrame,
 };
-window.myremote.sqlectron=require(window.myremote.path.resolve(".")+"/core/lib");
-window.myremote.createLogger=require(window.myremote.path.resolve(".")+"/logger.js");
+window.myremote.sqlectron=require(window.myremote.path.resolve(".")+"/sqlectron/core/lib");
+window.myremote.createLogger=require(window.myremote.path.resolve(".")+"/sqlectron/logger.js");
 window.myremote.config = {
   get:function(arg){
     arg=true;
@@ -18,4 +18,4 @@ window.myremote.config = {
 };
 
 require("babel-register");
-require("./index.js");
+require("./index_local.js");

@@ -67,6 +67,7 @@ export default class Query extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      query_height:QUERY_EDITOR_HEIGTH,
       wrapEnabled: false,
     };
   }
@@ -170,7 +171,11 @@ export default class Query extends Component {
     this.setState({ infoModalVisible: true });
   }
 
-  onQueryBoxResize() {
+  onQueryBoxResize=(e,data)=>{
+    // console.log("onQueryBoxResize");
+    // console.log(e);
+    // console.log(data);
+    this.setState({query_height:data.size.height});
     this.refs.queryBoxTextarea.editor.resize();
   }
 
@@ -274,7 +279,8 @@ export default class Query extends Component {
     } = this.props;
 
     const infos = INFOS[client];
-
+    // console.log(this.state.query_height);
+    
     return (
       <div>
         <div>
@@ -282,7 +288,7 @@ export default class Query extends Component {
             className="react-resizable react-resizable-se-resize ui segment"
             height={QUERY_EDITOR_HEIGTH}
             width={500}
-            onResizeStop={this.onQueryBoxResize.bind(this)}>
+            onResizeStop={this.onQueryBoxResize}>
             <AceEditor
               mode="sql"
               theme="github"
@@ -347,7 +353,7 @@ export default class Query extends Component {
         </div>
         <QueryResult
           widthOffset={widthOffset}
-          heigthOffset={QUERY_EDITOR_HEIGTH}
+          heigthOffset={this.state.query_height}
           onSaveToFileClick={onSaveToFileClick}
           onCopyToClipboardClick={onCopyToClipboardClick}
           resultItemsPerPage={query.resultItemsPerPage}

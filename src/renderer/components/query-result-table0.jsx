@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { Grid, ScrollSync } from 'react-virtualized';
 import Draggable from 'react-draggable';
-
+import cloneDeep from 'lodash.clonedeep';
 import TableCell from './query-result-table-cell.jsx';
 import PreviewModal from './preview-modal.jsx';
 import { valueToString } from '../utils/convert';
@@ -48,6 +48,9 @@ export default class QueryResultTable extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // console.log("componentWillReceiveProps");
+    // console.log(nextProps);
+
     this.resize(nextProps);
 
     if (nextProps.widthOffset !== this.props.widthOffset) {
@@ -93,7 +96,8 @@ export default class QueryResultTable extends Component {
     }));
   }
 
-  onOpenPreviewClick(value) {
+  onOpenPreviewClick=(value)=> {
+    console.log("onOpenPreviewClick");
     this.setState({ showPreview: true, valuePreview: value });
   }
 
@@ -152,12 +156,16 @@ export default class QueryResultTable extends Component {
         </Draggable>
       );
     }
-
+    var style=cloneDeep(params.style);
+    style.backgroundClip="border-box";
+    style.display="block";
+    style.lineHeight="20px"
+    style.overflow="hidden";
     return (
-      <div style={params.style} key={params.key} className="item">
-        <span><strong>{field.name}</strong></span>
+      <span style={style} key={params.key} className="rowClass cell">
+        <strong>{field.name}</strong>
         {resizeDrag}
-      </div>
+      </span>
     );
   }
 
@@ -195,8 +203,16 @@ export default class QueryResultTable extends Component {
   }
 
   resize(nextProps) {
+    // console.log("============table resize");
+
     const props = nextProps || this.props;
-    const tableWidth = window.innerWidth - (props.widthOffset + 27);
+    let tableWidth;
+    //if(this.props.collapseV){
+    // console.log(props.widthOffset);
+
+    tableWidth = window.innerWidth - (props.widthOffset + 27);
+    // console.log(props.heigthOffset);
+
     const tableHeight = window.innerHeight - (props.heigthOffset + 225);
 
     // trigger columns resize
@@ -262,6 +278,7 @@ export default class QueryResultTable extends Component {
 
     return (
       <PreviewModal
+        modalOpen={this.state.showPreview}
         value={this.state.valuePreview}
         onCloseClick={this.onClosePreviewClick.bind(this)}
       />
@@ -369,7 +386,7 @@ export default class QueryResultTable extends Component {
         rowIndex={params.rowIndex}
         data={this.props.rows}
         col={field.name}
-        onOpenPreviewClick={this.onOpenPreviewClick.bind(this)} />
+        onOpenPreviewClick={this.onOpenPreviewClick} />
     );
   }
 

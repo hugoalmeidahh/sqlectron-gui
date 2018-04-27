@@ -175,7 +175,7 @@ class QueryBrowserContainer extends Component {
     );
   }
 
-  onCollapseClick() {
+  onCollapseClick=()=> {
     this.setState({ sidebarCollapsed: !this.state.sidebarCollapsed });
   }
 
@@ -500,7 +500,13 @@ class QueryBrowserContainer extends Component {
       .find(dbClient => dbClient.key === connections.server.client);
 
     const allowCancel = !disabledFeatures || !~disabledFeatures.indexOf('cancelQuery');
-
+    var offset;
+    if(this.state.sidebarCollapsed){
+        offset=0;
+    }
+    else{
+        offset=this.state.sideBarWidth;
+    }
     const panels = queries.queryIds.map(queryId => {
       const query = queries.queriesById[queryId];
 
@@ -524,7 +530,7 @@ class QueryBrowserContainer extends Component {
             views={views.viewsByDatabase[query.database]}
             functions={routines.functionsByDatabase[query.database]}
             procedures={routines.proceduresByDatabase[query.database]}
-            widthOffset={this.state.sideBarWidth}
+            widthOffset={offset}
             onExecQueryClick={this.handleExecuteQuery.bind(this)}
             onCancelQueryClick={this.handleCancelQuery.bind(this)}
             onCopyToClipboardClick={this.copyToClipboard}
@@ -630,7 +636,7 @@ class QueryBrowserContainer extends Component {
             onCloseConnectionClick={this.onCloseConnectionClick.bind(this)}
             onReConnectionClick={this.onReConnectionClick.bind(this)} />
         </div>
-        <div onClick={this.onCollapseClick.bind(this)} style={STYLES.collapse}>
+        <div onClick={this.onCollapseClick} style={STYLES.collapse}>
           <i
             className={`${this.state.sidebarCollapsed ? 'right' : 'left'} triangle icon`}
             style={{ top: 'calc(100vh/2 - 7px)', position: 'absolute', marginLeft: -3 }}

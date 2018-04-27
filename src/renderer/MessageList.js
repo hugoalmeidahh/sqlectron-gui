@@ -27,7 +27,7 @@ class Message extends React.Component {
 
 class MessageList extends React.Component {
   getChildContext() {
-    console.log("getChildContext");
+    // console.log("getChildContext");
     return {color: "purple"};
   }
 

@@ -31,7 +31,9 @@ module.exports.get = function getConfiguration(cleanCache) {
   }
 
   const basePath = path.resolve(__dirname);
-  const packageConfig = readJSON(path.resolve(basePath, 'package.json'));
+  console.log(basePath);
+
+  const packageConfig = readJSON(path.resolve(basePath, './package.json'));
 
   sqlectron.config.prepareSync(cryptoSecret);
   const appConfig = sqlectron.config.getSync();

@@ -5,6 +5,9 @@ import PropTypes from 'proptypes';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as ConfigActions from '../actions/config.js';
+import { Responsive } from 'semantic-ui-react';
+import MenuHandler from '../menu-handler';
+import ModalAbout from './ModalAbout';
 var { webFrame }= window.myremote.electron;//
 // require('../semantic-ui/semantic.css');
 // require('./app.css');
@@ -21,17 +24,30 @@ class AppContainer extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = {};
+    this.state = {modalOpen:false};
+    this.menuHandler = new MenuHandler();
   }
+  componentWillReceiveProps (nextProps) {
+     this.setMenus();
 
+
+  }
   componentWillMount() {
     this.props.dispatch(ConfigActions.loadConfig());
   }
-
+  setMenus=()=>{
+    this.menuHandler.setMenus({
+      'sqlectron:about': () => {
+        this.setState({modalOpen:true});
+        //console.log("about");
+      },
+    });
+  }
   componentDidMount() {
     // Prevent drag and drop causing redirect
     document.addEventListener('dragover', preventDefault, false);
     document.addEventListener('drop', preventDefault, false);
+    this.setMenus();
   }
 
   componentWillReceiveProps(newProps) {
@@ -49,10 +65,13 @@ class AppContainer extends Component {
     //   $('body').removeClass('dark-theme');
     }
   }
-
+  handleClose=()=>{
+    this.setState({modalOpen:false});
+  }
   componentWillUnmount() {
     document.removeEventListener('dragover', preventDefault, false);
     document.removeEventListener('drop', preventDefault, false);
+    this.menuHandler.removeAllMenus();
   }
 
   render() {
@@ -62,6 +81,7 @@ class AppContainer extends Component {
     // console.log(this.props);
     return (
       <div className="ui">
+      <ModalAbout handleClose={this.handleClose} modalOpen={this.state.modalOpen}/>
         {
           config.isLoaded ? children : null
         }

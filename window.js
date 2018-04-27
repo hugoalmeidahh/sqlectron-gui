@@ -11,6 +11,7 @@ const logger = createLogger('window');
 // console.log(logger);
 
 const devMode = (process.argv || []).indexOf('--dev') !== -1;
+const localMode = (process.argv || []).indexOf('--local') !== -1;
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -50,10 +51,13 @@ function buildNewWindow(app) {
 
   var cp=path.resolve(".");
   //console.log(cp);
-  
-  //const entryBasePath = devMode ? 'http://localhost:3000' : 'file://' + cp+ '/resources/app/build/index.html';
-  const entryBasePath =  'file://' + cp+ '/src/index.html';  
-
+  let entryBasePath;
+  if(localMode){//local mode
+    entryBasePath =  'file://' + cp+ '/sqlectron/src/index.html';  
+  }
+  else{         //devMode  productionMode
+    entryBasePath = devMode ? 'http://localhost:3000' : 'file://' + cp+ '/resources/app/build/index.html';
+  }
   mainWindow.loadURL(entryBasePath);// + '/static/index.html');
 
   // Emitted when the window is closed.

@@ -1,6 +1,6 @@
 {
   "name": "Sqlectron",
-  "version": "1.29.0",
+  "version": "1.29.1",
   "homepage": ".",
   "website":"https://sqlectron.github.io",
   "description": "A simple and lightweight SQL client with cross database and platform support",
@@ -62,6 +62,7 @@
     "start": "react-scripts start",
     "startc": "electron . --dev",
     "startp": "electron . ",
+    "startl": "electron . --local ",
     "buildc": "react-scripts build",
     "clean": "rimraf dist",
     "clean:osx": "rimraf dist/Sqlectron-darwin-*",

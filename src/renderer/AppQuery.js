@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import TableExample from './GridExampleQuery.jsx';
+import TableExample from './GridExampleQuery';
 import { Resizable, ResizableBox } from 'react-resizable';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import AceEditor from 'react-ace';
