@@ -28,14 +28,9 @@ import Query from '../components/query.jsx';
 import Loader from '../components/loader.jsx';
 import PromptModal from '../components/prompt-modal.jsx';
 import MenuHandler from '../menu-handler';
-import { requireLogos } from '../components/require-context';
-// import 'react-tabs/style/react-tabs.css';
-// import 'react-resizable/css/styles.css';
-// import './query-browser.css';
-var {sqlectron}=window.myremote;//
-
+import {requireLogos} from '../components/require-context'
 //require('../components/react-resizable.css');
-
+var {sqlectron}=window.myremote;//
 
 const SIDEBAR_WIDTH = 235;
 const STYLES = {
@@ -72,7 +67,7 @@ const CLIENTS = sqlectron.db.CLIENTS.reduce((clients, dbClient) => {
   /* eslint no-param-reassign:0 */
   clients[dbClient.key] = {
     title: dbClient.name,
-    image: requireLogos(`./server-db-client-${dbClient.key}.png`),
+    image: requireLogos(dbClient.key),
   };
   return clients;
 }, {});

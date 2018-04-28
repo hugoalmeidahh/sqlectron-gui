@@ -16,6 +16,6 @@ window.myremote.config = {
     return window.myremote.electron.ipcRenderer.sendSync('getconfig', arg);
   },
 };
-
 require("babel-register");
+require("babel-polyfill");
 require("./index_local.js");
