@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
-import { Grid,List,AutoSizer, Column, Table } from 'react-virtualized';
-import { Label } from 'semantic-ui-react';
+import { Grid,AutoSizer, } from 'react-virtualized';
 export default class GridExample extends React.PureComponent {
   static contextTypes = {
     list: PropTypes.instanceOf(Object).isRequired,
@@ -36,12 +35,10 @@ export default class GridExample extends React.PureComponent {
 
   render() {
     const {
-      columnCount,
       height,
       overscanColumnCount,
       overscanRowCount,
       rowHeight,
-      rowCount,
       scrollToColumn,
       scrollToRow,
       useDynamicRowHeight,
@@ -110,7 +107,7 @@ export default class GridExample extends React.PureComponent {
   }
 
   _renderBodyCell({columnIndex, key, rowIndex, style}) {
-    const rowClass = this._getRowClassName(rowIndex);
+    //const rowClass = this._getRowClassName(rowIndex);
     //const datum = this._getDatum(rowIndex);
 
     let content;

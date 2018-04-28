@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import React, { Component } from 'react';
+import React  from 'react';
 import PropTypes from 'proptypes';
 import TableExample from './TableExample';
 import GridExample from './GridExample';

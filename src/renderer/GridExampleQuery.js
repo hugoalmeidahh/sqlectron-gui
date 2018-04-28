@@ -134,9 +134,9 @@ export default class GridExample extends React.PureComponent {
         break;
     }
 
-    const classNames = cn("rowClass", "cell", {
-      "centeredCell": columnIndex > 2,"headerCell": rowIndex ===0
-    });
+    // const classNames = cn("rowClass", "cell", {
+    //   "centeredCell": columnIndex > 2,"headerCell": rowIndex ===0
+    // });
     // console.log(rowClass);
     // console.log(styles.cell);
     // console.log(styles.centeredCell);

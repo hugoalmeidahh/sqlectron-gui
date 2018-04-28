@@ -4,7 +4,7 @@ import cloneDeep from 'lodash.clonedeep';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { valueToString } from '../utils/convert';
-import { Label,Item } from 'semantic-ui-react';
+//import { Label,Item } from 'semantic-ui-react';
 var { remote} =window.myremote.electron;
 const { Menu, MenuItem } = remote;
 

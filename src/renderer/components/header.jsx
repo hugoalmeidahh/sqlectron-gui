@@ -1,6 +1,6 @@
 import React   from 'react';
 import PropTypes from 'proptypes';
-import { Label } from 'semantic-ui-react';
+//import { Label } from 'semantic-ui-react';
 import  LOGO_PATH from './logo-128px.png';
 console.log(LOGO_PATH);
 

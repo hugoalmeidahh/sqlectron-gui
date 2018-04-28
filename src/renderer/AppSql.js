@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import AppTest from './AppTest';
-import AppSeman from './AppSeman';
 import ServerManagementContainer from './containers/server-management2.jsx';
 import QueryBrowserContainer from './containers/query-browser2.jsx';
-import {Router,Redirect, BrowserRouter,Route,Switch} from 'react-router-dom'
+import {Router,Redirect, Route,Switch} from 'react-router-dom'
 import configureStore from './store/configure';
 import createHashHistory from "history/createHashHistory";
 const history = createHashHistory({

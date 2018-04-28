@@ -61,7 +61,7 @@
     "pack": "electron-builder --dir",
     "start": "react-scripts start",
     "startc": "electron . --dev",
-    "startp": "electron . ",
+    "startb": "electron . --build --local",
     "startl": "electron . --local ",
     "buildc": "react-scripts build",
     "clean": "rimraf dist",

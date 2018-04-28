@@ -1,11 +1,7 @@
-import Immutable from 'immutable';
-import React, { Component } from 'react';
-import PropTypes from 'proptypes';
+import React from 'react';
 import TableExample from './GridExampleQuery';
-import { Resizable, ResizableBox } from 'react-resizable';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import {  ResizableBox } from 'react-resizable';
 import AceEditor from 'react-ace';
-import ace from 'brace';
 import 'brace/mode/sql';
 import 'brace/theme/github';
 import 'brace/ext/language_tools';

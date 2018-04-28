@@ -151,7 +151,7 @@ export default class DatabaseDiagramModal extends Component {
 
   renderSelectTablesMenu() {
     const { onOpenDatabaseDiagram } = this.props;
-    const tablesAndViews =this.state.selectedTables;// tables.concat(views);
+    //const tablesAndViews =this.state.selectedTables;// tables.concat(views);
     var disabledG="";
       const filteredFoods = this.state.selectedTables.filter(
           (item, idx) => item.checked === true,

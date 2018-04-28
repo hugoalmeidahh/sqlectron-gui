@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'proptypes';
+import React from 'react';
 import MessageList from './MessageList';
 
 class App extends React.Component{

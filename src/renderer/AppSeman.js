@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import {Divider, Button,Transition,Input, Grid, Header, List, Segment, Icon, Modal } from 'semantic-ui-react';
+import React from 'react';
+import {Divider, Button,Transition,Input,  Segment } from 'semantic-ui-react';
 import {Dimmer,Dropdown, Image, Loader } from 'semantic-ui-react'
 import Checkbox from './components/checkbox.jsx' 
 import Dialog from './Modal1';
-import PropTypes from 'proptypes';
 
 class App extends React.Component{
   state={value:true, modalOpen: false, visible: true,active:false}
@@ -25,7 +24,6 @@ class App extends React.Component{
   render() {
     // console.log(this.state);
     const { visible,active } = this.state;
-    const arr1=[{text:"a"},{text:"b"},{text:"c"}];
     return (
       <div>
       <Dropdown text="Menu" floating labeled button className='icon'>

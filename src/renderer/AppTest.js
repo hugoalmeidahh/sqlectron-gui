@@ -1,5 +1,4 @@
 import React  from 'react';
-import AppQuery from './AppQuery';
 import {withRouter, Link} from 'react-router-dom';
 import AppTabs from './AppTabs';
 class App extends React.Component{

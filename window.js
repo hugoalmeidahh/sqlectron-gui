@@ -12,7 +12,7 @@ const logger = createLogger('window');
 
 const devMode = (process.argv || []).indexOf('--dev') !== -1;
 const localMode = (process.argv || []).indexOf('--local') !== -1;
-
+const localBuildMode = (process.argv || []).indexOf('--build') !== -1;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
@@ -53,7 +53,12 @@ function buildNewWindow(app) {
   //console.log(cp);
   let entryBasePath;
   if(localMode){//local mode
-    entryBasePath =  'file://' + cp+ '/sqlectron/src/index.html';  
+    if(localBuildMode){
+        entryBasePath =  'file://' + cp+ '/build/index.html';  
+    }
+    else{
+        entryBasePath =  'file://' + cp+ '/sqlectron/src/index.html';  
+    }
   }
   else{         //devMode  productionMode
     entryBasePath = devMode ? 'http://localhost:3000' : 'file://' + cp+ '/resources/app/build/index.html';

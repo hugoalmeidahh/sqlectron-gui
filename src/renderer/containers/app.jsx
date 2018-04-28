@@ -5,7 +5,6 @@ import PropTypes from 'proptypes';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as ConfigActions from '../actions/config.js';
-import { Responsive } from 'semantic-ui-react';
 import MenuHandler from '../menu-handler';
 import ModalAbout from './ModalAbout';
 var { webFrame }= window.myremote.electron;//
@@ -26,11 +25,6 @@ class AppContainer extends Component {
     super(props, context);
     this.state = {modalOpen:false};
     this.menuHandler = new MenuHandler();
-  }
-  componentWillReceiveProps (nextProps) {
-     this.setMenus();
-
-
   }
   componentWillMount() {
     this.props.dispatch(ConfigActions.loadConfig());

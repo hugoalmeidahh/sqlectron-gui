@@ -1,4 +1,4 @@
-var { fs,remote }=window.myremote;// from '../../browser/remote';
+var { fs }=window.myremote;// from '../../browser/remote';
 var {remote}=window.myremote.electron;
 
 export function showSaveDialog(filters) {

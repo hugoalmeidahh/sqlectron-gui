@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import cn from 'classnames';
-import { Grid,List,AutoSizer, Column, Table,SortDirection,SortIndicator } from 'react-virtualized';
+//import cn from 'classnames';
+import { AutoSizer, Column, Table,SortDirection,SortIndicator } from 'react-virtualized';
 // Sortable Table Example
 
 export default class GridExample extends React.PureComponent {
@@ -39,13 +39,9 @@ export default class GridExample extends React.PureComponent {
   render() {
     const {
        disableHeader,
-      columnCount,
-      overscanColumnCount,
       overscanRowCount,
       rowHeight,
       rowCount,
-      scrollToColumn,
-      scrollToRow,
       useDynamicRowHeight,
       sortBy,
       sortDirection,

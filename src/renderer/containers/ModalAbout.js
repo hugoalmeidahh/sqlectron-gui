@@ -1,13 +1,13 @@
 import * as React from 'react';
-import {Button,Icon, Modal } from 'semantic-ui-react';
+import {Button, Modal } from 'semantic-ui-react';
 var {electron}=window.myremote;//
 var config=window.myremote.config.get();
 // console.log(config);
 export default class App extends React.Component{
-  constructor(props, context) {
-    super(props, context);
-    // console.log("constructor modal1");
-  }
+  // constructor(props, context) {
+  //   super(props, context);
+  //   // console.log("constructor modal1");
+  // }
   onClick=()=>{
     console.log(electron.shell);
     electron.shell.openExternal(config.website);

@@ -20,7 +20,7 @@ node1.setPosition(100, 100);
 var node2 = new SRD.DefaultNodeModel("Node 2", "rgb(192,255,0)");
 let port21 = node2.addInPort("In===========");
 let port22 = node2.addInPort("In 1===========");
-let port23 = node2.addInPort("In 2===========");
+node2.addInPort("In 2===========");
 
 
 
