@@ -57,7 +57,7 @@ function buildNewWindow(app) {
         entryBasePath =  'file://' + cp+ '/build/index.html';  
     }
     else{
-        entryBasePath =  'file://' + cp+ '/sqlectron/src/index.html';  
+        entryBasePath =  'file://' + cp+ '/src/index.html';  
     }
   }
   else{         //devMode  productionMode

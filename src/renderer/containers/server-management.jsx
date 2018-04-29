@@ -9,7 +9,7 @@ import Header from '../components/header.jsx';
 import Footer from '../components/footer.jsx';
 import ServerList from '../components/server-list.jsx';
 import ServerModalForm from '../components/server-modal-form.jsx';
-import SettingsModalForm from '../components/settings-modal-form2.jsx';
+import SettingsModalForm from '../components/settings-modal-form.jsx';
 import ServerFilter from '../components/server-filter.jsx';
 import Message from '../components/message.jsx';
 //import {Modal } from 'semantic-ui-react';

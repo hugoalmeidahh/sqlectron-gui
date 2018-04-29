@@ -1,14 +1,16 @@
 import debounce from 'lodash.debounce';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import { Grid } from 'react-virtualized';
-//import Draggable from 'react-draggable';
+import { Grid, ScrollSync } from 'react-virtualized';
+import Draggable from 'react-draggable';
+import cloneDeep from 'lodash.clonedeep';
 import TableCell from './query-result-table-cell.jsx';
 import PreviewModal from './preview-modal.jsx';
 import { valueToString } from '../utils/convert';
-//import scrollbarSize from 'dom-helpers/util/scrollbarSize';
-//import 'react-virtualized/styles.css';
-//import './query-result-table.scss';
+import scrollbarSize from 'dom-helpers/util/scrollbarSize';
+
+// import 'react-virtualized/styles.css';
+// import './query-result-table.scss';
 
 /* eslint react/sort-comp:0 */
 export default class QueryResultTable extends Component {
@@ -46,6 +48,9 @@ export default class QueryResultTable extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // console.log("componentWillReceiveProps");
+    // console.log(nextProps);
+
     this.resize(nextProps);
 
     if (nextProps.widthOffset !== this.props.widthOffset) {
@@ -91,13 +96,12 @@ export default class QueryResultTable extends Component {
     }));
   }
 
-  onOpenPreviewClick(value) {
+  onOpenPreviewClick=(value)=> {
     console.log("onOpenPreviewClick");
     this.setState({ showPreview: true, valuePreview: value });
   }
 
   onClosePreviewClick() {
-    console.log("onClosePreviewClick");
     this.setState({ showPreview: false, valuePreview: null });
   }
 
@@ -135,31 +139,35 @@ export default class QueryResultTable extends Component {
     this.setState({ autoColumnWidths });
   }
 
-  // renderHeaderCell(params) {
-  //   const field = this.props.fields[params.columnIndex];
-  //   const handleStop = this.handleStop.bind(this, { name: field.name, index: params.columnIndex });
+  renderHeaderCell(params) {
+    const field = this.props.fields[params.columnIndex];
+    const handleStop = this.handleStop.bind(this, { name: field.name, index: params.columnIndex });
 
-  //   // We don't want the resizable handle on the last column for layout reasons
-  //   let resizeDrag = null;
-  //   if ((this.props.fields.length - 1) !== params.columnIndex) {
-  //     resizeDrag = (
-  //       <Draggable
-  //         axis="x"
-  //         onStop={handleStop}
-  //         position={{ x: 0, y: 0 }}
-  //         zIndex={999}>
-  //         <div className="draggable-handle"></div>
-  //       </Draggable>
-  //     );
-  //   }
-
-  //   return (
-  //     <div style={params.style} key={params.key} className="item">
-  //       <span>{field.name}</span>
-  //       {resizeDrag}
-  //     </div>
-  //   );
-  // }
+    // We don't want the resizable handle on the last column for layout reasons
+    let resizeDrag = null;
+    if ((this.props.fields.length - 1) !== params.columnIndex) {
+      resizeDrag = (
+        <Draggable
+          axis="x"
+          onStop={handleStop}
+          position={{ x: 0, y: 0 }}
+          zIndex={999}>
+          <div className="draggable-handle"></div>
+        </Draggable>
+      );
+    }
+    var style=cloneDeep(params.style);
+    style.backgroundClip="border-box";
+    style.display="block";
+    style.lineHeight="20px"
+    style.overflow="hidden";
+    return (
+      <span style={style} key={params.key} className="rowClass cell">
+        <strong>{field.name}</strong>
+        {resizeDrag}
+      </span>
+    );
+  }
 
   renderNoRows() {
     return (
@@ -195,9 +203,17 @@ export default class QueryResultTable extends Component {
   }
 
   resize(nextProps) {
+    // console.log("============table resize");
+
     const props = nextProps || this.props;
-    const tableWidth = window.innerWidth - (props.widthOffset + 27);
-    const tableHeight = window.innerHeight - (props.heigthOffset + 253);//225
+    let tableWidth;
+    //if(this.props.collapseV){
+    // console.log(props.widthOffset);
+
+    tableWidth = window.innerWidth - (props.widthOffset + 27);
+    // console.log(props.heigthOffset);
+
+    const tableHeight = window.innerHeight - (props.heigthOffset + 225);
 
     // trigger columns resize
     this.autoResizeColumnsWidth(props.fields, props.rows, tableWidth);
@@ -269,23 +285,25 @@ export default class QueryResultTable extends Component {
     );
   }
 
-  renderTableBody() {
+  renderTableBody(onScroll) {
     const { rowCount, fields } = this.props;
     const { tableWidth, tableHeight } = this.state;
 
-    //const headerHeight = 62; // value of 2 headers together
+    const headerHeight = 62; // value of 2 headers together
     const scrollBarHeight = 15;
     const rowHeight = 28;
-    const fixedHeightRows = ((rowCount+1 || 1) * rowHeight) + scrollBarHeight;
+    const fixedHeightRows = ((rowCount || 1) * rowHeight) + scrollBarHeight;
 
     return (
       <Grid
+        className="grid-body"
         ref={(ref) => { this.rowsGrid = ref; }}
-        cellRenderer={this.renderCell}
+        cellRenderer={this.renderCell.bind(this)}
         width={tableWidth}
-        height={Math.min(tableHeight , fixedHeightRows)}
+        height={Math.min((tableHeight - headerHeight), fixedHeightRows)}
         rowHeight={rowHeight}
-        rowCount={rowCount+1}
+        onScroll={onScroll}
+        rowCount={rowCount}
         columnCount={fields.length}
         columnWidth={this.getColumnWidth.bind(this)}
         rowsCount={rowCount}
@@ -294,28 +312,29 @@ export default class QueryResultTable extends Component {
     );
   }
 
-  // renderTableHeader(scrollLeft) {
-  //   const { fields } = this.props;
-  //   const { tableWidth } = this.state;
+  renderTableHeader(scrollLeft) {
+    const { fields } = this.props;
+    const { tableWidth } = this.state;
 
-  //   if (!fields.length) {
-  //     return null;
-  //   }
+    if (!fields.length) {
+      return null;
+    }
 
-  //   return (
-  //     <Grid
-  //       ref={(ref) => { this.headerGrid = ref; }}
-  //       columnWidth={this.getColumnWidth.bind(this)}
-  //       columnCount={fields.length}
-  //       height={30}
-  //       cellRenderer={this.renderHeaderCell.bind(this)}
-  //       className="grid-header-row"
-  //       rowHeight={30}
-  //       rowCount={1}
-  //       width={tableWidth - scrollbarSize()}
-  //       scrollLeft={scrollLeft} />
-  //   );
-  // }
+    return (
+      <Grid
+        ref={(ref) => { this.headerGrid = ref; }}
+        columnWidth={this.getColumnWidth.bind(this)}
+        columnCount={fields.length}
+        height={30}
+        cellRenderer={this.renderHeaderCell.bind(this)}
+        className={"HeaderGrid"}
+        rowHeight={30}
+        rowCount={1}
+        getScrollbarSize={()=>{return 0;}}
+        width={tableWidth - scrollbarSize()}
+        scrollLeft={scrollLeft} />
+    );
+  }
 
   getColumnWidth({ index }) {
     const { columnWidths, autoColumnWidths } = this.state;
@@ -358,56 +377,46 @@ export default class QueryResultTable extends Component {
     return averageRowsCellWidth > maxWidth ? maxWidth : averageRowsCellWidth;
   }
 
-  renderCell=(params)=>{
+  renderCell(params) {
     const field = this.props.fields[params.columnIndex];
-    if (params.rowIndex===0){
-      //const classnames = classNames("rowClass", "cell");
-    return (<div  className="rowClass headerCell cell" key={params.key}  style={params.style} >
-        {
-          field.name
-        }
-      </div>);  
-    }
-    // return (
-    //   <div
-    //     style={params.style}
-    //     key={params.key}> 
-    //   {this.props.rows[params.rowIndex][params.columnIndex]}
-    //   </div>
-    // );
-
-    //const { rowIndex, data, col } = this.props;
-    //return data[rowIndex][col];
-
     return (
       <TableCell
         style={params.style}
         key={params.key} 
-        rowIndex={params.rowIndex-1}
+        rowIndex={params.rowIndex}
         data={this.props.rows}
         col={field.name}
-        onOpenPreviewClick={this.onOpenPreviewClick.bind(this)} />
+        onOpenPreviewClick={this.onOpenPreviewClick} />
     );
   }
 
   render() {
     // not completed loaded yet
-    // console.log("query-result-table==");
-    // console.log(this.state);
     if (!this.state.tableWidth) {
       return null;
     }
-    
+
     return (
       <div>
         {this.renderPreviewModal()}
 
-            <div >
+        <ScrollSync>
+          {({ 
+            clientHeight,
+            clientWidth,
+            onScroll,
+            scrollHeight,
+            scrollLeft,
+            scrollTop,
+            scrollWidth,
+           }) => (
+            <div className="grid-query-wrapper">
               {this.renderHeaderTopBar()}
-              {//this.renderTableHeader(scrollLeft)
-              }
-             {this.renderTableBody()}
+              {this.renderTableHeader(scrollLeft)}
+              {this.renderTableBody(onScroll)}
             </div>
+          )}
+        </ScrollSync>
       </div>
     );
   }
