@@ -67,7 +67,7 @@ const CLIENTS = sqlectron.db.CLIENTS.reduce((clients, dbClient) => {
   /* eslint no-param-reassign:0 */
   clients[dbClient.key] = {
     title: dbClient.name,
-    image: requireLogos(dbClient.key),
+     image: requireLogos(dbClient.key),
   };
   return clients;
 }, {});

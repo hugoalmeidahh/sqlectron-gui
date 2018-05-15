@@ -1,6 +1,6 @@
 import React  from 'react';
 import PropTypes from 'proptypes';
-//import { requireLogos } from './require-context';
+import { requireLogos } from './require-context';
 var  { sqlectron }  =window.myremote;
 //var e=require('electron');
 //console.log(e);
@@ -11,7 +11,7 @@ var  { sqlectron }  =window.myremote;
  */
 const ICONS = sqlectron.db.CLIENTS.reduce((clients, dbClient) => {
   /* eslint no-param-reassign:0 */
-  clients[dbClient.key] = `./renderer/components/server-db-client-${dbClient.key}.png`;
+  clients[dbClient.key] = requireLogos(dbClient.key);
   // console.log(clients[dbClient.key]);
   return clients;
 }, {});

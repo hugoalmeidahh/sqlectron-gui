@@ -1,3 +1,4 @@
+// export const requireLogos = require('./server-db-client-.*\.png$/);
 import cassandraPNG from './server-db-client-cassandra.png';
 import mysqlPNG from './server-db-client-mysql.png';
 import pgPNG from './server-db-client-postgresql.png';

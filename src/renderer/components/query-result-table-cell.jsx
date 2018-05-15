@@ -1,6 +1,6 @@
 import isPlainObject from 'lodash.isplainobject';
 //import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
-import cloneDeep from 'lodash.clonedeep';
+// import cloneDeep from 'lodash.clonedeep';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { valueToString } from '../utils/convert';
@@ -15,7 +15,7 @@ export default class TableCell extends Component {
     col: PropTypes.string.isRequired,
     onOpenPreviewClick: PropTypes.func.isRequired,
   }
-
+  // static defaultProps={style:{overflow:"hidden"}}
   constructor(props, context) {
     super(props, context);
     this.contextMenu = null;
@@ -66,11 +66,12 @@ export default class TableCell extends Component {
     // console.log(styles.cell);
     // console.log(styles.centeredCell);
     // console.log(classNames)    ;
-    var style=cloneDeep(this.props.style);
-    style.backgroundClip="border-box";
-    style.display="block";
-    style.lineHeight="20px"
-    style.overflow="hidden";
+    var style=this.props.style;
+    //var style=cloneDeep(this.props.style);
+    // style.backgroundClip="border-box";
+    // style.display="block";
+    // style.lineHeight="20px"
+    // style.overflow="hidden";
 
     // font-weight: bold;
     // border: 0px solid transparent;
