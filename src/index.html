@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
     <title>sqlectron</title>
-    <script type="text/javascript"> 
+    <!-- <script type="text/javascript"> 
         function meloading(){
             console.log("meloading")
                 setTimeout(function () {
@@ -15,36 +15,76 @@
                   rootDiv.style.display="block";
                 }, 8000);
         }
+    </script> -->
+        <script type="text/javascript">
+      (function(){
+        const fs= require('fs');
+        const path=require('path');
+        // console.log(path);
+        function fileExist(p){
+            if(fs.existsSync(p)){
+              return true;
+            }
+            return false;
+        }
+        function link(where,module_name) {
+          // body...
+          var thelink=document.createElement('link');
+          thelink.setAttribute("rel","stylesheet");
+          var file1=path.join(where,module_name)
+          thelink.setAttribute("href",file1);
+          document.head.appendChild(thelink);
+        }
+        function setlinks(){
+          let path=window.require('electron').ipcRenderer.sendSync('getpath');
+          let where;
+          if(path==="."){
+             where=".."; 
+          }
+          else{
+            where="../.."
+          }
+          link(where,"node_modules/react-tabs/style/react-tabs.css");
+          link(where,"node_modules/storm-react-diagrams/dist/style.min.css");
+          link(where,"node_modules/react-virtualized/styles.css");
+          // link(where,"node_modules/react-resizable/css/styles.css");
+          link(where,"node_modules/react-select/dist/react-select.css");
+          // let where="..";
+          // let p1;
+          // p1=path.join(path.resolve(__dirname),"../../node_modules");
+          // // console.log(p1);
+          // if(fs.existsSync(p1)){
+          //   where="../..";
+          //   link(where);
+          //   return;
+          // }
+          // p1=path.join(path.resolve(__dirname),"../node_modules");
+          // // console.log(p1);
+          // if(fs.existsSync(p1)){
+          //   where="..";
+          //   link(where);
+          //   return;
+          // }
+          //var d=document.getElement("head");
+        }
+        setlinks();
+      }());
     </script>
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="loading">
+   <!--  <div id="loading">
         <img src="./loading2.gif" onload="meloading()"></img>
-    </div>
-    <div id="root" style="display: none;"></div> 
+    </div> -->
+    <div id="root"></div> 
     <link rel="manifest" href="./manifest.json">
     <link rel="shortcut icon" href="./favicon.ico">
     <link type="text/css" rel="stylesheet" href="./renderer/semantic-ui/semantic.css" />
-    <link type="text/css" rel="stylesheet" href="./renderer/containers/app.css" />
-    <link type="text/css" rel="stylesheet" href="./renderer/containers/query-browser.css" />
-    <link type="text/css" rel="stylesheet" href="../node_modules/react-tabs/style/react-tabs.css" />
+    
     <link type="text/css" rel="stylesheet" href="./renderer/components/react-resizable.css" />
-    <link type="text/css" rel="stylesheet" href="./renderer/components/header.css" />
-    <link type="text/css" rel="stylesheet" href="./renderer/components/query-result-table.css" />
-    <link type="text/css" rel="stylesheet" href="./renderer/components/server-list.css" />
-
-    <link type="text/css" rel="stylesheet" href="./react-select.css" />
-    <link type="text/css" rel="stylesheet" href="./renderer/components/override-select.css" />
-
-    <link type="text/css" rel="stylesheet" href="../node_modules/react-virtualized/styles.css" />
-    <link type="text/css" rel="stylesheet" href="./renderer/GridExample.css" />
-
-    <link type="text/css" rel="stylesheet" href="../node_modules/storm-react-diagrams/dist/style.min.css" />
-    <link type="text/css" rel="stylesheet" href="./renderer/demo.css" />    
-    <link type="text/css" rel="stylesheet" href="./renderer/grid.css" /> 
+    
     <script type="text/javascript" src="./boot.js"></script>
   </body>
 </html>

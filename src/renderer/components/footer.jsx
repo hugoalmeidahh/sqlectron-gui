@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'proptypes';
 import UpdateChecker from './update-checker.jsx';
-import LogStatus from './log-status.jsx';
+// import LogStatus from './log-status.jsx';
 var {shell}=window.myremote.electron;
 
 const STYLE = {
@@ -26,7 +26,9 @@ const Footer = ({ status }) => (
     <div style={STYLE.status}>{status}</div>
     <div className="right menu">
       <div className="item">
-        <LogStatus />
+        {
+          //<LogStatus />
+        }
         <UpdateChecker />
       </div>
       <button  className="item" onClick={onGithubClick}>Github</button>

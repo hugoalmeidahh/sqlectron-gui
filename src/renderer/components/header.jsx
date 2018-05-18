@@ -40,15 +40,18 @@ const Header = ({ items, onCloseConnectionClick, onReConnectionClick }) => {
   const styleItem = { paddingLeft: 0, paddingTop: 0, paddingBottom: 0 };
   return (
     <div id="header" className="ui top fixed menu borderless">
-      <button  className="item" onClick={onSiteClick}>
+      {//<button  className="item" onClick={onSiteClick}>
+      }
         <img alt="logo" src={LOGO_PATH} style={{ width: '5.5em' }} />
-      </button>
+      {
+        //</button>
+      }
       <div style={{ margin: '0 auto' }}>
         <div className="item" >
           {renderBreadcrumb(items)}
         </div>
       </div>
-      <div className="right menu" style={{ visibility: visibilityButtons }}>
+      <div className="right menu" style={{ visibility: visibilityButtons,marginLeft: 0 }}>
         <div className="item borderless" style={styleItem}>
           <div className="ui mini basic icon buttons">
             <button className="ui button"

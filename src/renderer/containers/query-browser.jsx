@@ -24,17 +24,17 @@ import DatabaseList from '../components/database-list.jsx';
 import DatabaseDiagramModal from '../components/database-diagram-modal.jsx';
 import Header from '../components/header.jsx';
 import Footer from '../components/footer.jsx';
-import Query from '../components/query.jsx';
+import Query from '../components/query2.jsx';
 import Loader from '../components/loader.jsx';
 import PromptModal from '../components/prompt-modal.jsx';
 import MenuHandler from '../menu-handler';
 import {requireLogos} from '../components/require-context'
 //require('../components/react-resizable.css');
 var {sqlectron}=window.myremote;//
-
+const tab_title_h="50px";
 const SIDEBAR_WIDTH = 235;
 const STYLES = {
-  wrapper: {},
+  wrapper:{},
   container: {
     display: 'flex',
     height: '100vh',
@@ -469,16 +469,14 @@ class QueryBrowserContainer extends Component {
         var names=queries.queriesById[queryId].name.split("/");
         var name=names[names.length-1];
         return (
-          <div style={{display:"inline"}}>
-            {name}
-            <button className="right floated ui icon button mini"
-              onClick={debounce(() => {
+          <div style={{display:"flex",height:tab_title_h}}>
+               {name}
+                <i onClick={debounce(() => {
                 this.removeQuery(queryId);
                 const position = this.state.tabNavPosition + 200;
                 this.setState({ tabNavPosition: position > 0 ? 0 : position });
-              }, 200)}>
-              <i className="icon remove"></i>
-            </button>
+              }, 200)} className="icon remove"></i>
+            
           </div>
         );
       };
@@ -559,7 +557,12 @@ class QueryBrowserContainer extends Component {
         }
             <TabList
               ref="tabList"
-              >
+              style={{
+          display:"flex",
+          height:tab_title_h,
+          overflowX:"auto",
+          overflowY:"hidden"
+        }}>
               {menu}
             </TabList>
         {
@@ -694,9 +697,24 @@ class QueryBrowserContainer extends Component {
           </div>
           {this.props.databases.showingDiagram && this.renderDatabaseDiagramModal()}
         </div>
-        <div style={STYLES.footer}>
-          <Footer status={status} />
-        </div>
+        {
+          // <div style={STYLES.footer}>
+          //   <Footer status={status} />
+          // </div>
+        }
+        <style jsx="true">{`
+#sidebar { overflow-y: hidden; overflow-x: hidden; }
+#sidebar ::-webkit-scrollbar{ display:none }
+
+#sidebar:hover { overflow-y:auto; overflow-y:overlay }
+#sidebar:hover ::-webkit-scrollbar { display:block }
+
+#sidebar ::-webkit-scrollbar { -webkit-appearance:none }
+#sidebar ::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 -2px,inset 0 -8px,inset 0 2px,inset 0 8px;
+  min-height: 36px
+}
+          `}</style>
       </div>
     );
   }

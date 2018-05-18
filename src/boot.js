@@ -8,8 +8,10 @@ window.myremote={
     // shell:electron.shell,
     // webFrame:electron.webFrame,
 };
-window.myremote.sqlectron=require(window.myremote.path.resolve(".")+"/core/lib");
-window.myremote.createLogger=require(window.myremote.path.resolve(".")+"/logger.js");
+let path=window.myremote.electron.ipcRenderer.sendSync('getpath');
+window.myremote.sqlectron=require(window.myremote.path.resolve(path)+"/core/lib");
+window.myremote.createLogger=require(window.myremote.path.resolve(path)+"/logger.js");
+
 window.myremote.config = {
   get:function(arg){
     arg=true;

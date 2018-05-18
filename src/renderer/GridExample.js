@@ -11,7 +11,6 @@ export default class GridExample extends React.PureComponent {
     super(props, context);
 
     this.state = {
-      height: 300,
       overscanColumnCount: 0,
       overscanRowCount: 10,
       rowHeight: 40,
@@ -35,7 +34,6 @@ export default class GridExample extends React.PureComponent {
 
   render() {
     const {
-      height,
       overscanColumnCount,
       overscanRowCount,
       rowHeight,
@@ -45,8 +43,8 @@ export default class GridExample extends React.PureComponent {
     } = this.state;
 
     return (
-        <AutoSizer disableHeight>
-          {({width}) => (
+        <AutoSizer>
+          {({width,height}) => (
             <Grid
               cellRenderer={this._cellRenderer}
               className={"BodyGrid"}
@@ -61,7 +59,16 @@ export default class GridExample extends React.PureComponent {
               scrollToColumn={scrollToColumn}
               scrollToRow={scrollToRow}
               width={width}
-            />
+              height={height}
+            >
+            <style jsx="true">{`
+.cell{
+  overflow:hidden;
+  border-right:solid;
+  border-bottom:solid;
+}            
+          `}</style>
+            </Grid>
           )}
         </AutoSizer>
     );
@@ -138,10 +145,10 @@ export default class GridExample extends React.PureComponent {
     // console.log(styles.centeredCell);
     // console.log(classNames)    ;
     // style.backgroundAttachment="scroll";
-    style.backgroundClip="border-box";
-    style.display="block";
-    style.lineHeight="20px"
-    style.overflow="hidden";
+    // style.backgroundClip="border-box";
+    // style.display="block";
+    // style.lineHeight="20px"
+    // style.overflow="hidden";
     //style.overflowY="hidden";
     // font-weight: bold;
     // border: 0px solid transparent;

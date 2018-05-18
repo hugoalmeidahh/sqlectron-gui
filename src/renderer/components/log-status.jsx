@@ -13,8 +13,6 @@ export default class LogStatus extends Component {
     return (
       <a className="ui red label">
         <i className="terminal icon" />
-        Log
-        <div className="detail">{""+log.level}</div>
       </a>
     );
   }

@@ -80,7 +80,7 @@ export default class TableCell extends Component {
     // transition: background 0.1s ease;
 
     return (
-      <span className="rowClass cell" style={style}  onContextMenu={this.onContextMenu}>
+      <span className="cell" style={style}  onContextMenu={this.onContextMenu}>
       {
           value === null
             ? "NULL"

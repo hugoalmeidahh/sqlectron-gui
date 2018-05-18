@@ -12,24 +12,32 @@ class App extends React.Component{
   render() {
     return (
       <Tabs>
-        <TabList>
+        <TabList style={{
+          display:"flex",
+          height:"40px",
+          overflowX:"auto",
+          overflowY:"hidden"
+        }}>
+          <Tab>AceEditor & GridExample</Tab>
           <Tab>Layout1</Tab> 
           <Tab>Semantic-ui</Tab>
-          <Tab>AceEditor & GridExample</Tab>
+          
           <Tab>storm diagrams</Tab>
           <Tab>react context</Tab>
           <Tab>Virtual Table Demo</Tab>
           <Tab>SS</Tab>
         </TabList>
         <TabPanel>
+        <AppQuery />
+          
+        </TabPanel>
+         <TabPanel>
           <Layout1 />
         </TabPanel>
         <TabPanel>
           <AppSeman />
         </TabPanel>
-        <TabPanel>
-          <AppQuery />
-        </TabPanel>
+       
         <TabPanel>
           <AppD />
         </TabPanel>

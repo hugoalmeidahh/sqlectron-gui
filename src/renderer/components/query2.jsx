@@ -287,6 +287,32 @@ export default class Query extends Component {
     // console.log(this.state.query_height);
     
     return (
+<div style={{height:"90vh",overflow:"auto",
+  backgroundColor:"#777", 
+  flexDirection:"column",
+  display: 'flex' }}>
+  <AceEditor style={{  flex: 2  
+                       ,border:"solid gray 5px"
+                       ,width:"100%"
+                    }}
+              mode="sql"
+              theme="github"
+              name={this.props.editorName}
+              height="100%"
+              width="100%"
+              ref="queryBoxTextarea"
+              value={query.query}
+              wrapEnabled={this.state.wrapEnabled}
+              showPrintMargin={false}
+              commands={this.getCommands()}
+              editorProps={{ $blockScrolling: Infinity }}
+              onChange={debounce(onSQLChange, 50)}
+              enableBasicAutocompletion
+              enableLiveAutocompletion />
+  <div style={{ flex: 3 }}>
+    <GridExample />
+  </div>
+</div>
       <div>
         <div>
           <ResizableBox 
