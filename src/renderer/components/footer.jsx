@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'proptypes';
 import UpdateChecker from './update-checker.jsx';
 // import LogStatus from './log-status.jsx';
-var {shell}=window.myremote.electron;
+var { shell } = window.myremote.electron;
 
 const STYLE = {
   footer: { minHeight: 'auto' },
   status: { paddingLeft: '0.5em' },
 };
-
 
 function onGithubClick(event) {
   event.preventDefault();
@@ -17,9 +16,10 @@ function onGithubClick(event) {
 
 function onShortcutsClick(event) {
   event.preventDefault();
-  shell.openExternal('https://github.com/sqlectron/sqlectron-gui/wiki/Keyboard-Shortcuts');
+  shell.openExternal(
+    'https://github.com/sqlectron/sqlectron-gui/wiki/Keyboard-Shortcuts'
+  );
 }
-
 
 const Footer = ({ status }) => (
   <div className="ui bottom fixed menu borderless" style={STYLE.footer}>
@@ -31,18 +31,22 @@ const Footer = ({ status }) => (
         }
         <UpdateChecker />
       </div>
-      <button  className="item" onClick={onGithubClick}>Github</button>
-      <button  className="item" title="Keyboard Shortcuts" onClick={onShortcutsClick}>
+      <button className="item" onClick={onGithubClick}>
+        Github
+      </button>
+      <button
+        className="item"
+        title="Keyboard Shortcuts"
+        onClick={onShortcutsClick}
+      >
         <i className="keyboard icon" />
       </button>
     </div>
   </div>
 );
 
-
 Footer.propTypes = {
   status: PropTypes.string.isRequired,
 };
-
 
 export default Footer;

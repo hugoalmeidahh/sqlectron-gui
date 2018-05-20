@@ -7,7 +7,7 @@ export default class DatabaseFilter extends Component {
     placeholder: PropTypes.string,
     isFetching: PropTypes.bool.isRequired,
     onFilterChange: PropTypes.func.isRequired,
-  }
+  };
 
   onFilterChange(event) {
     this.props.onFilterChange(event.target.value);
@@ -22,16 +22,18 @@ export default class DatabaseFilter extends Component {
     //console.log(this.props);
 
     var { value, placeholder, isFetching } = this.props;
-    if(!value) value="";
+    if (!value) value = '';
     return (
       <div className={`ui icon input ${isFetching ? 'loading' : ''}`}>
-        <input type="text"
+        <input
+          type="text"
           placeholder={placeholder || 'Search...'}
           value={value}
           ref="searchInput"
           disabled={isFetching}
-          onChange={this.onFilterChange.bind(this)} />
-        <i className="search icon"></i>
+          onChange={this.onFilterChange.bind(this)}
+        />
+        <i className="search icon" />
       </div>
     );
   }

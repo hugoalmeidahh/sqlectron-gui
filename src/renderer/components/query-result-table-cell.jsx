@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { valueToString } from '../utils/convert';
 //import { Label,Item } from 'semantic-ui-react';
-var { remote} =window.myremote.electron;
+var { remote } = window.myremote.electron;
 const { Menu, MenuItem } = remote;
 
 export default class TableCell extends Component {
@@ -14,39 +14,38 @@ export default class TableCell extends Component {
     data: PropTypes.any.isRequired,
     col: PropTypes.string.isRequired,
     onOpenPreviewClick: PropTypes.func.isRequired,
-  }
+  };
   // static defaultProps={style:{overflow:"hidden"}}
   constructor(props, context) {
     super(props, context);
     this.contextMenu = null;
   }
 
-  onContextMenu=(event)=> {
+  onContextMenu = event => {
     event.preventDefault();
 
     const value = this.getValue();
 
-    const hasPreview = (
-      typeof value === 'string'
-      || isPlainObject(value)
-    );
+    const hasPreview = typeof value === 'string' || isPlainObject(value);
 
     if (!this.contextMenu && hasPreview) {
       this.contextMenu = new Menu();
-      this.contextMenu.append(new MenuItem({
-        label: 'Open Preview',
-        click: () => {
-          console.log("click pv");
-          console.log(this.props.onOpenPreviewClick);
-          this.props.onOpenPreviewClick(value);
-      },
-      }));
+      this.contextMenu.append(
+        new MenuItem({
+          label: 'Open Preview',
+          click: () => {
+            console.log('click pv');
+            console.log(this.props.onOpenPreviewClick);
+            this.props.onOpenPreviewClick(value);
+          },
+        })
+      );
     }
 
     if (this.contextMenu) {
       this.contextMenu.popup(event.clientX, event.clientY);
     }
-  }
+  };
 
   getValue() {
     const { rowIndex, data, col } = this.props;
@@ -66,7 +65,7 @@ export default class TableCell extends Component {
     // console.log(styles.cell);
     // console.log(styles.centeredCell);
     // console.log(classNames)    ;
-    var style=this.props.style;
+    var style = this.props.style;
     //var style=cloneDeep(this.props.style);
     // style.backgroundClip="border-box";
     // style.display="block";
@@ -80,12 +79,8 @@ export default class TableCell extends Component {
     // transition: background 0.1s ease;
 
     return (
-      <span className="cell" style={style}  onContextMenu={this.onContextMenu}>
-      {
-          value === null
-            ? "NULL"
-            : valueToString(value)
-      }
+      <span className="cell" style={style} onContextMenu={this.onContextMenu}>
+        {value === null ? 'NULL' : valueToString(value)}
       </span>
     );
     // return (

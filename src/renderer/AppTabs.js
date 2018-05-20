@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import AppQuery from "./AppQuery";
+import AppQuery from "./AppQuerySS";
 import AppD from "./AppD";
 import AppSeman from './AppSeman';
 import AppContext from "./AppContext";

@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import {  Dimmer, Loader,Segment } from 'semantic-ui-react'
+import { Dimmer, Loader, Segment } from 'semantic-ui-react';
 export default class Loading extends Component {
-  state={active:false}
+  state = { active: false };
   static propTypes = {
     message: PropTypes.string,
     type: PropTypes.string,
     inverted: PropTypes.bool,
-  }
+  };
 
   componentDidMount() {
     //$(this.refs.loader).dimmer('show');
-    this.setState({active:true})
+    this.setState({ active: true });
   }
 
   componentWillUnmount() {
     //$(this.refs.loader).dimmer('hide');
-    this.setState({active:false})
+    this.setState({ active: false });
   }
 
   render() {
@@ -24,11 +24,10 @@ export default class Loading extends Component {
     //const inverted = this.props.inverted ? 'inverted' : '';
     return (
       <Dimmer.Dimmable as={Segment} dimmed={this.state.active}>
-          <Dimmer active={this.state.active} >
-            <Loader>{message}</Loader>
-          </Dimmer>
+        <Dimmer active={this.state.active}>
+          <Loader>{message}</Loader>
+        </Dimmer>
       </Dimmer.Dimmable>
     );
   }
-
 }

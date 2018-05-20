@@ -2,20 +2,17 @@ import isPlainObject from 'lodash.isplainobject';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import classNames from 'classnames';
-import {  Modal } from 'semantic-ui-react';
+import { Modal } from 'semantic-ui-react';
 
 export default class PreviewModal extends Component {
   static propTypes = {
-    value: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object,
-    ]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     onCloseClick: PropTypes.func.isRequired,
-  }
+  };
 
   constructor(props, context) {
     super(props, context);
-    this.state={};
+    this.state = {};
   }
 
   componentDidMount() {
@@ -31,7 +28,7 @@ export default class PreviewModal extends Component {
   }
 
   componentWillUnmount() {
-   // $(this.refs.previewModal).modal('hide');
+    // $(this.refs.previewModal).modal('hide');
   }
 
   onClick(type) {
@@ -42,9 +39,12 @@ export default class PreviewModal extends Component {
     const { value } = this.props;
     try {
       switch (type) {
-        case 'plain': return isPlainObject(value) ? JSON.stringify(value) : value;
-        case 'json': return <pre>{JSON.stringify(value, null, 2)}</pre>;
-        default: return value;
+        case 'plain':
+          return isPlainObject(value) ? JSON.stringify(value) : value;
+        case 'json':
+          return <pre>{JSON.stringify(value, null, 2)}</pre>;
+        default:
+          return value;
       }
     } catch (err) {
       return 'Not valid format';
@@ -54,29 +54,29 @@ export default class PreviewModal extends Component {
   renderMenu() {
     const { selected } = this.state;
     const items = [
-     { type: 'plain', name: 'Plain Text', default: true },
-     { type: 'json', name: 'JSON' },
+      { type: 'plain', name: 'Plain Text', default: true },
+      { type: 'json', name: 'JSON' },
     ];
 
     return (
       <div className="ui fluid two item menu">
-        {
-          items.map(item => {
-            const className = classNames({
-              item: true,
-              active: (!selected && item.default) || selected === item.type,
-            });
+        {items.map(item => {
+          const className = classNames({
+            item: true,
+            active: (!selected && item.default) || selected === item.type,
+          });
 
-            /* eslint react/jsx-no-bind:0 */
-            return (
-              <a key={item.type}
-                onClick={this.onClick.bind(this, item.type)}
-                className={className}>
-                {item.name}
-              </a>
-            );
-          })
-        }
+          /* eslint react/jsx-no-bind:0 */
+          return (
+            <a
+              key={item.type}
+              onClick={this.onClick.bind(this, item.type)}
+              className={className}
+            >
+              {item.name}
+            </a>
+          );
+        })}
       </div>
     );
   }
@@ -85,17 +85,16 @@ export default class PreviewModal extends Component {
     const selected = this.state.selected || 'plain';
     const previewValue = this.getPreviewValue(selected);
     return (
-      <Modal ref="previewModal"
-      closable="false"
-      detachable="false"
+      <Modal
+        ref="previewModal"
+        closable="false"
+        detachable="false"
         open={this.props.modalOpen}
-       dimmer={false}
+        dimmer={false}
       >
-        <Modal.Header>
-         Content Preview
-        </Modal.Header>
+        <Modal.Header>Content Preview</Modal.Header>
         <Modal.Content>
-            {this.renderMenu()}
+          {this.renderMenu()}
           <div className="ui segment">
             <div style={{ maxHeight: '500px', overflowY: 'scroll' }}>
               {previewValue}
@@ -103,9 +102,11 @@ export default class PreviewModal extends Component {
           </div>
         </Modal.Content>
         <Modal.Actions>
-         <div className="small ui black deny right button" 
-         onClick={this.props.onCloseClick}
-         tabIndex="0">
+          <div
+            className="small ui black deny right button"
+            onClick={this.props.onCloseClick}
+            tabIndex="0"
+          >
             Close
           </div>
         </Modal.Actions>

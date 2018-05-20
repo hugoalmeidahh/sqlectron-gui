@@ -3,14 +3,12 @@ import PropTypes from 'proptypes';
 import CollapseIcon from './collapse-icon.jsx';
 import TableSubmenu from './table-submenu.jsx';
 //import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
-var {sqlectron } =window.myremote;
-var {remote}=window.myremote.electron;
-
+var { sqlectron } = window.myremote;
+var { remote } = window.myremote.electron;
 
 const Menu = remote.Menu;
 const MenuItem = remote.MenuItem;
 const CLIENTS = sqlectron.db.CLIENTS;
-
 
 export default class DatabaseItem extends Component {
   static propTypes = {
@@ -25,7 +23,7 @@ export default class DatabaseItem extends Component {
     onSelectItem: PropTypes.func,
     onExecuteDefaultQuery: PropTypes.func,
     onGetSQLScript: PropTypes.func,
-  }
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -58,20 +56,32 @@ export default class DatabaseItem extends Component {
 
     this.contextMenu = new Menu();
     if (dbObjectType === 'Table' || dbObjectType === 'View') {
-      this.contextMenu.append(new MenuItem({
-        label: 'Select Rows (with limit)',
-        click: onExecuteDefaultQuery.bind(this, database, item),
-      }));
+      this.contextMenu.append(
+        new MenuItem({
+          label: 'Select Rows (with limit)',
+          click: onExecuteDefaultQuery.bind(this, database, item),
+        })
+      );
     }
 
     this.contextMenu.append(new MenuItem({ type: 'separator' }));
 
-    const { disabledFeatures } = CLIENTS.find(dbClient => dbClient.key === client);
+    const { disabledFeatures } = CLIENTS.find(
+      dbClient => dbClient.key === client
+    );
     if (!disabledFeatures || !~disabledFeatures.indexOf('scriptCreateTable')) {
-      this.contextMenu.append(new MenuItem({
-        label: 'Create Statement',
-        click: onGetSQLScript.bind(this, database, item, 'CREATE', dbObjectType),
-      }));
+      this.contextMenu.append(
+        new MenuItem({
+          label: 'Create Statement',
+          click: onGetSQLScript.bind(
+            this,
+            database,
+            item,
+            'CREATE',
+            dbObjectType
+          ),
+        })
+      );
     }
 
     if (dbObjectType === 'Table') {
@@ -84,10 +94,18 @@ export default class DatabaseItem extends Component {
       };
 
       actionTypes.forEach(actionType => {
-        this.contextMenu.append(new MenuItem({
-          label: labelsByTypes[actionType],
-          click: onGetSQLScript.bind(this, database, item, actionType, dbObjectType),
-        }));
+        this.contextMenu.append(
+          new MenuItem({
+            label: labelsByTypes[actionType],
+            click: onGetSQLScript.bind(
+              this,
+              database,
+              item,
+              actionType,
+              dbObjectType
+            ),
+          })
+        );
       });
     }
   }
@@ -97,7 +115,12 @@ export default class DatabaseItem extends Component {
   }
 
   renderSubItems({ schema, name }) {
-    const { columnsByTable, triggersByTable, indexesByTable, database } = this.props;
+    const {
+      columnsByTable,
+      triggersByTable,
+      indexesByTable,
+      database,
+    } = this.props;
 
     if (!columnsByTable || !columnsByTable[name]) {
       return null;
@@ -115,21 +138,24 @@ export default class DatabaseItem extends Component {
           schema={schema}
           table={name}
           itemsByTable={columnsByTable}
-          database={database} />
+          database={database}
+        />
         <TableSubmenu
           collapsed
           title="Triggers"
           schema={schema}
           table={name}
           itemsByTable={triggersByTable}
-          database={database} />
+          database={database}
+        />
         <TableSubmenu
           collapsed
           title="Indexes"
           schema={schema}
           table={name}
           itemsByTable={indexesByTable}
-          database={database} />
+          database={database}
+        />
       </div>
     );
   }
@@ -138,12 +164,18 @@ export default class DatabaseItem extends Component {
     const { database, item, style, onSelectItem, dbObjectType } = this.props;
     const hasChildElements = !!onSelectItem;
     const onSingleClick = hasChildElements
-      ? () => { onSelectItem(database, item); this.toggleTableCollapse(); }
+      ? () => {
+          onSelectItem(database, item);
+          this.toggleTableCollapse();
+        }
       : () => {};
 
     const collapseArrowDirection = this.state.tableCollapsed ? 'down' : 'right';
     const tableIcon = (
-      <i className="table icon" style={{ float: 'left', margin: '0 0.3em 0 0' }}></i>
+      <i
+        className="table icon"
+        style={{ float: 'left', margin: '0 0.3em 0 0' }}
+      />
     );
 
     const { schema, name } = item;
@@ -155,11 +187,11 @@ export default class DatabaseItem extends Component {
           style={style}
           className="item"
           onClick={onSingleClick}
-          onContextMenu={this.onContextMenu.bind(this)}>
-          {dbObjectType === 'Table'
-            ? <CollapseIcon arrowDirection={collapseArrowDirection} />
-            : null
-          }
+          onContextMenu={this.onContextMenu.bind(this)}
+        >
+          {dbObjectType === 'Table' ? (
+            <CollapseIcon arrowDirection={collapseArrowDirection} />
+          ) : null}
           {dbObjectType === 'Table' ? tableIcon : null}
           {fullName}
         </span>

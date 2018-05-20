@@ -10,7 +10,6 @@ const STYLE = {
   item: { wordBreak: 'break-all', cursor: 'default' },
 };
 
-
 export default class DbMetadataList extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
@@ -24,7 +23,7 @@ export default class DbMetadataList extends Component {
     onExecuteDefaultQuery: PropTypes.func,
     onSelectItem: PropTypes.func,
     onGetSQLScript: PropTypes.func,
-  }
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -45,14 +44,13 @@ export default class DbMetadataList extends Component {
     this.setState({
       tableCollapsed: {
         ...this.state.tableCollapsed,
-        [key]: !this.state.tableCollapsed[key] },
+        [key]: !this.state.tableCollapsed[key],
+      },
     });
   }
 
   renderHeader() {
-    const {
-      items,
-    } = this.props;
+    const { items } = this.props;
     const title = this.state.collapsed ? 'Expand' : 'Collapse';
     const cssClass = this.state.collapsed ? 'right' : 'down';
     const cssStyle = { ...STYLE.header };
@@ -64,8 +62,9 @@ export default class DbMetadataList extends Component {
         title={title}
         className="header clickable"
         onClick={this.toggleCollapse.bind(this)}
-        style={cssStyle}>
-        <i className={`${cssClass} triangle icon`}></i>
+        style={cssStyle}
+      >
+        <i className={`${cssClass} triangle icon`} />
         {this.props.title}
       </span>
     );
@@ -88,64 +87,78 @@ export default class DbMetadataList extends Component {
 
     if (!items.length) {
       return (
-        <span className="ui grey item"><i> No results found</i></span>
+        <span className="ui grey item">
+          <i> No results found</i>
+        </span>
       );
     }
 
     const grouped = groupBy(items, 'schema');
 
     return Object.keys(grouped).map(key => {
-      const hasGroup = !(key === 'undefined' || key === undefined || key === '');
+      const hasGroup = !(
+        key === 'undefined' ||
+        key === undefined ||
+        key === ''
+      );
       const hasChildren = grouped[key].length;
       const isCollapsed = !this.state.tableCollapsed[key];
       const renderChildren = !hasGroup || (hasChildren && !isCollapsed);
       const collapseArrowDirection = isCollapsed ? 'right' : 'down';
-      const header = hasGroup
-        ? <span
+      const header = hasGroup ? (
+        <span
           style={{ ...STYLE.item, cursor: hasChildren ? 'pointer' : 'default' }}
           className="item"
-          onClick={() => this.handleTableCollapse(key)}>
-          {hasChildren ? <CollapseIcon arrowDirection={collapseArrowDirection} /> : null}
+          onClick={() => this.handleTableCollapse(key)}
+        >
+          {hasChildren ? (
+            <CollapseIcon arrowDirection={collapseArrowDirection} />
+          ) : null}
           {key}
         </span>
-        : null;
+      ) : null;
 
       const body = renderChildren
         ? grouped[key].map(item => {
-          const hasChildElements = !!onSelectItem;
+            const hasChildElements = !!onSelectItem;
 
-          const cssStyle = { ...STYLE.item, marginLeft: hasGroup ? '0.5em' : '0px' };
-          if (this.state.collapsed) {
-            cssStyle.display = 'none';
-          }
-          cssStyle.cursor = hasChildElements ? 'pointer' : 'default';
+            const cssStyle = {
+              ...STYLE.item,
+              marginLeft: hasGroup ? '0.5em' : '0px',
+            };
+            if (this.state.collapsed) {
+              cssStyle.display = 'none';
+            }
+            cssStyle.cursor = hasChildElements ? 'pointer' : 'default';
 
-          const { schema, name } = item;
-          const fullName = schema ? `${schema}.${name}` : name;
+            const { schema, name } = item;
+            const fullName = schema ? `${schema}.${name}` : name;
 
-          return (
-            <DatabaseItem
-              key={`${key}.${title}.${database.name}.${fullName}`}
-              client={client}
-              database={database}
-              item={item}
-              dbObjectType={this.props.title.slice(0, -1)}
-              style={cssStyle}
-              columnsByTable={this.props.columnsByTable}
-              triggersByTable={this.props.triggersByTable}
-              indexesByTable={this.props.indexesByTable}
-              onSelectItem={onSelectItem}
-              onExecuteDefaultQuery={onExecuteDefaultQuery}
-              onGetSQLScript={onGetSQLScript} />
-          );
-        })
-      : null;
+            return (
+              <DatabaseItem
+                key={`${key}.${title}.${database.name}.${fullName}`}
+                client={client}
+                database={database}
+                item={item}
+                dbObjectType={this.props.title.slice(0, -1)}
+                style={cssStyle}
+                columnsByTable={this.props.columnsByTable}
+                triggersByTable={this.props.triggersByTable}
+                indexesByTable={this.props.indexesByTable}
+                onSelectItem={onSelectItem}
+                onExecuteDefaultQuery={onExecuteDefaultQuery}
+                onGetSQLScript={onGetSQLScript}
+              />
+            );
+          })
+        : null;
 
       return (
         <div key={`list-item.${key}.${title}.${database.name}`}>
           {header}
           {body}
-        </div>);
+        </div>
+      );
     });
   }
 

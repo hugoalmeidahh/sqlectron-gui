@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import {  Modal } from 'semantic-ui-react';
-var { sqlectron } =window.myremote;
+import { Modal } from 'semantic-ui-react';
+var { sqlectron } = window.myremote;
 const CLIENTS = sqlectron.db.CLIENTS.map(dbClient => ({
   key: dbClient.key,
   name: dbClient.name,
 }));
 
-//var { sqlectron }= require('electron').remote; 
+//var { sqlectron }= require('electron').remote;
 export default class ServerDBClientInfoModal extends Component {
   static propTypes = {
     client: PropTypes.string.isRequired,
     infos: PropTypes.array.isRequired,
     onCloseClick: PropTypes.func.isRequired,
-  }
+  };
 
   componentDidMount() {
     // $(this.refs.infoModal).modal({
@@ -33,22 +33,27 @@ export default class ServerDBClientInfoModal extends Component {
     const { client, infos } = this.props;
     const dbClient = CLIENTS.find(item => item.key === client);
     return (
-      <Modal id="settings-modal"
-      open={this.props.modalOpen}
-      closable="true"
-      detachable="false"
-      dimmer={false}
+      <Modal
+        id="settings-modal"
+        open={this.props.modalOpen}
+        closable="true"
+        detachable="false"
+        dimmer={false}
       >
-        <Modal.Header>
-          {dbClient.name} Query Information
-        </Modal.Header>
+        <Modal.Header>{dbClient.name} Query Information</Modal.Header>
         <Modal.Content>
-          <p>Some particularities about queries on {dbClient.name} you should know:</p>
+          <p>
+            Some particularities about queries on {dbClient.name} you should
+            know:
+          </p>
           <div className="ui bulleted list">
-            {infos.map((info, idx) => (<div key={idx} className="item">{info}</div>))}
+            {infos.map((info, idx) => (
+              <div key={idx} className="item">
+                {info}
+              </div>
+            ))}
           </div>
-          <ul>
-          </ul>
+          <ul />
         </Modal.Content>
       </Modal>
     );

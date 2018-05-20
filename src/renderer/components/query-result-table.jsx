@@ -27,11 +27,8 @@ export default class QueryResultTable extends Component {
     rows: PropTypes.array,
     cellClass: PropTypes.string,
     nullCellClass: PropTypes.string,
-    rowCount: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.number,
-    ]),
-  }
+    rowCount: PropTypes.oneOfType([PropTypes.array, PropTypes.number]),
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -96,10 +93,10 @@ export default class QueryResultTable extends Component {
     }));
   }
 
-  onOpenPreviewClick=(value)=> {
-    console.log("onOpenPreviewClick");
+  onOpenPreviewClick = value => {
+    console.log('onOpenPreviewClick');
     this.setState({ showPreview: true, valuePreview: value });
-  }
+  };
 
   onClosePreviewClick() {
     this.setState({ showPreview: false, valuePreview: null });
@@ -124,10 +121,15 @@ export default class QueryResultTable extends Component {
     let totalColumnWidths = 0;
 
     const autoColumnWidths = fields.map((name, index) => {
-      const cellWidth = this.resolveCellWidth(name, fields, rows, averageTableCellWidth);
+      const cellWidth = this.resolveCellWidth(
+        name,
+        fields,
+        rows,
+        averageTableCellWidth
+      );
       totalColumnWidths = totalColumnWidths + cellWidth;
 
-      const isLastColumn = (index + 1) === fields.length;
+      const isLastColumn = index + 1 === fields.length;
       if (isLastColumn && totalColumnWidths < tableWidth) {
         totalColumnWidths = totalColumnWidths - cellWidth;
         return tableWidth - totalColumnWidths;
@@ -141,18 +143,22 @@ export default class QueryResultTable extends Component {
 
   renderHeaderCell(params) {
     const field = this.props.fields[params.columnIndex];
-    const handleStop = this.handleStop.bind(this, { name: field.name, index: params.columnIndex });
+    const handleStop = this.handleStop.bind(this, {
+      name: field.name,
+      index: params.columnIndex,
+    });
 
     // We don't want the resizable handle on the last column for layout reasons
     let resizeDrag = null;
-    if ((this.props.fields.length - 1) !== params.columnIndex) {
+    if (this.props.fields.length - 1 !== params.columnIndex) {
       resizeDrag = (
         <Draggable
           axis="x"
           onStop={handleStop}
           position={{ x: 0, y: 0 }}
-          zIndex={999}>
-          <div className="draggable-handle"></div>
+          zIndex={999}
+        >
+          <div className="draggable-handle" />
         </Draggable>
       );
     }
@@ -185,7 +191,7 @@ export default class QueryResultTable extends Component {
     this.setState({
       columnWidths: {
         ...columnWidths,
-        [data.name]: Math.max((originalWidth + move.x), 10),
+        [data.name]: Math.max(originalWidth + move.x, 10),
       },
     });
 
@@ -222,38 +228,79 @@ export default class QueryResultTable extends Component {
   }
 
   renderHeaderTopBar() {
-    const { rows, rowCount, onCopyToClipboardClick, onSaveToFileClick } = this.props;
-    const styleCopied = { display: this.state.showCopied ? 'inline-block' : 'none' };
-    const styleSaved = { display: this.state.showSaved ? 'inline-block' : 'none' };
-    const styleCopyButtons = { display: this.state.showCopied ? 'none' : 'inline-block' };
-    const styleSaveButtons = { display: this.state.showSaved ? 'none' : 'inline-block' };
+    const {
+      rows,
+      rowCount,
+      onCopyToClipboardClick,
+      onSaveToFileClick,
+    } = this.props;
+    const styleCopied = {
+      display: this.state.showCopied ? 'inline-block' : 'none',
+    };
+    const styleSaved = {
+      display: this.state.showSaved ? 'inline-block' : 'none',
+    };
+    const styleCopyButtons = {
+      display: this.state.showCopied ? 'none' : 'inline-block',
+    };
+    const styleSaveButtons = {
+      display: this.state.showSaved ? 'none' : 'inline-block',
+    };
 
     let copyPanel = null;
     let savePanel = null;
     if (rowCount) {
       copyPanel = (
-        <div className="ui small label" title="Copy as" style={{ float: 'right', margin: '3px' }}>
-          <i className="copy icon"></i>
-          <a className="detail" style={styleCopied}>Copied</a>
-          <a className="detail"
+        <div
+          className="ui small label"
+          title="Copy as"
+          style={{ float: 'right', margin: '3px' }}
+        >
+          <i className="copy icon" />
+          <a className="detail" style={styleCopied}>
+            Copied
+          </a>
+          <a
+            className="detail"
             style={styleCopyButtons}
-            onClick={() => onCopyToClipboardClick(rows, 'CSV')}>CSV</a>
-          <a className="detail"
+            onClick={() => onCopyToClipboardClick(rows, 'CSV')}
+          >
+            CSV
+          </a>
+          <a
+            className="detail"
             style={styleCopyButtons}
-            onClick={() => onCopyToClipboardClick(rows, 'JSON')}>JSON</a>
+            onClick={() => onCopyToClipboardClick(rows, 'JSON')}
+          >
+            JSON
+          </a>
         </div>
       );
 
       savePanel = (
-        <div className="ui small label" title="Save as" style={{ float: 'right', margin: '3px' }}>
-          <i className="save icon"></i>
-          <a className="detail" style={styleSaved}>Saved</a>
-          <a className="detail"
+        <div
+          className="ui small label"
+          title="Save as"
+          style={{ float: 'right', margin: '3px' }}
+        >
+          <i className="save icon" />
+          <a className="detail" style={styleSaved}>
+            Saved
+          </a>
+          <a
+            className="detail"
             style={styleSaveButtons}
-            onClick={() => onSaveToFileClick(rows, 'CSV')}>CSV</a>
-          <a className="detail"
+            onClick={() => onSaveToFileClick(rows, 'CSV')}
+          >
+            CSV
+          </a>
+          <a
+            className="detail"
             style={styleSaveButtons}
-            onClick={() => onSaveToFileClick(rows, 'JSON')}>JSON</a>
+            onClick={() => onSaveToFileClick(rows, 'JSON')}
+          >
+            JSON
+          </a>
         </div>
       );
     }
@@ -261,7 +308,7 @@ export default class QueryResultTable extends Component {
     return (
       <div style={{ background: 'rgba(0, 0, 0, 0.05)', overflow: 'hidden' }}>
         <div className="ui label" style={{ margin: '3px', float: 'left' }}>
-          <i className="table icon"></i>
+          <i className="table icon" />
           Rows
           <div className="detail">{rowCount}</div>
         </div>
@@ -292,23 +339,25 @@ export default class QueryResultTable extends Component {
     const headerHeight = 62; // value of 2 headers together
     const scrollBarHeight = 15;
     const rowHeight = 28;
-    const fixedHeightRows = ((rowCount || 1) * rowHeight) + scrollBarHeight;
+    const fixedHeightRows = (rowCount || 1) * rowHeight + scrollBarHeight;
 
     return (
       <Grid
         className="grid-body"
-        ref={(ref) => { this.rowsGrid = ref; }}
+        ref={ref => {
+          this.rowsGrid = ref;
+        }}
         cellRenderer={this.renderCell.bind(this)}
         width={tableWidth}
-        height={Math.min((tableHeight - headerHeight), fixedHeightRows)}
+        height={Math.min(tableHeight - headerHeight, fixedHeightRows)}
         rowHeight={rowHeight}
         onScroll={onScroll}
         rowCount={rowCount}
         columnCount={fields.length}
         columnWidth={this.getColumnWidth.bind(this)}
         rowsCount={rowCount}
-        noContentRenderer={this.renderNoRows.bind(this)} />
-
+        noContentRenderer={this.renderNoRows.bind(this)}
+      />
     );
   }
 
@@ -322,17 +371,22 @@ export default class QueryResultTable extends Component {
 
     return (
       <Grid
-        ref={(ref) => { this.headerGrid = ref; }}
+        ref={ref => {
+          this.headerGrid = ref;
+        }}
         columnWidth={this.getColumnWidth.bind(this)}
         columnCount={fields.length}
         height={30}
         cellRenderer={this.renderHeaderCell.bind(this)}
-        className={"HeaderGrid"}
+        className={'HeaderGrid'}
         rowHeight={30}
         rowCount={1}
-        getScrollbarSize={()=>{return 0;}}
+        getScrollbarSize={() => {
+          return 0;
+        }}
         width={tableWidth - scrollbarSize()}
-        scrollLeft={scrollLeft} />
+        scrollLeft={scrollLeft}
+      />
     );
   }
 
@@ -353,7 +407,7 @@ export default class QueryResultTable extends Component {
    * It gives a better UX since the column adapts better to the table width.
    */
   resolveCellWidth(fieldName, fields, rows) {
-    const font = '14px \'Lato\', \'Helvetica Neue\', Arial, Helvetica, sans-serif';
+    const font = "14px 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif";
     const numRowsToFindAverage = rows.length > 30 ? 30 : rows.length;
     const maxWidth = 220;
 
@@ -361,13 +415,14 @@ export default class QueryResultTable extends Component {
 
     let averageRowsCellWidth = 0;
     if (rows.length) {
-      averageRowsCellWidth = rows
-        .slice(0, numRowsToFindAverage)
-        .map(row => {
-          const value = valueToString(row[fieldName]);
-          return this.getTextWidth(value, font);
-        })
-        .reduce((prev, curr) => prev + curr, 0) / numRowsToFindAverage;
+      averageRowsCellWidth =
+        rows
+          .slice(0, numRowsToFindAverage)
+          .map(row => {
+            const value = valueToString(row[fieldName]);
+            return this.getTextWidth(value, font);
+          })
+          .reduce((prev, curr) => prev + curr, 0) / numRowsToFindAverage;
     }
 
     if (headerWidth > averageRowsCellWidth) {
@@ -382,11 +437,12 @@ export default class QueryResultTable extends Component {
     return (
       <TableCell
         style={params.style}
-        key={params.key} 
+        key={params.key}
         rowIndex={params.rowIndex}
         data={this.props.rows}
         col={field.name}
-        onOpenPreviewClick={this.onOpenPreviewClick} />
+        onOpenPreviewClick={this.onOpenPreviewClick}
+      />
     );
   }
 
@@ -401,7 +457,7 @@ export default class QueryResultTable extends Component {
         {this.renderPreviewModal()}
 
         <ScrollSync>
-          {({ 
+          {({
             clientHeight,
             clientWidth,
             onScroll,
@@ -409,7 +465,7 @@ export default class QueryResultTable extends Component {
             scrollLeft,
             scrollTop,
             scrollWidth,
-           }) => (
+          }) => (
             <div className="grid-query-wrapper">
               {this.renderHeaderTopBar()}
               {this.renderTableHeader(scrollLeft)}
@@ -418,113 +474,112 @@ export default class QueryResultTable extends Component {
           )}
         </ScrollSync>
         <style jsx="true">{`
+          .grid-query-wrapper {
+            border-color: #d3d3d3;
+            border-style: solid;
+            border-width: 1px;
+            box-sizing: border-box;
+            border-radius: 0.25rem;
+          }
 
-.grid-query-wrapper {
-  border-color: #d3d3d3;
-  border-style: solid;
-  border-width: 1px;
-  box-sizing: border-box;
-  border-radius: 0.25rem;
-}
+          .Grid {
+            outline: none;
+          }
 
-.Grid {
-  outline: none;
-}
+          .draggable-handle {
+            width: 5px;
+            cursor: col-resize;
+            height: 30px;
+            position: absolute;
+            right: 0;
+            border-right: 1px solid #bfbfbf;
+            top: 0;
+            z-index: 10000;
+          }
 
-.draggable-handle {
-  width: 5px;
-  cursor: col-resize;
-  height: 30px;
-  position: absolute;
-  right: 0;
-  border-right: 1px solid #bfbfbf;
-  top: 0;
-  z-index: 10000;
-}
+          .Grid.grid-header-row .Grid__cell .draggable-handle:hover,
+          .Grid.grid-header-row .Grid__cell .react-draggable-dragging {
+            border-right: 3px solid #0284ff;
+          }
 
-.Grid.grid-header-row .Grid__cell .draggable-handle:hover,
-.Grid.grid-header-row .Grid__cell .react-draggable-dragging {
-  border-right: 3px solid #0284ff;
-}
+          .Grid.grid-body {
+            background: whitesmoke;
+            overflow: hidden !important;
+          }
 
-.Grid.grid-body {
-  background: whitesmoke;
-  overflow: hidden !important;
-}
+          .Grid.grid-body ::-webkit-scrollbar {
+            display: none;
+          }
 
-.Grid.grid-body ::-webkit-scrollbar {
-  display: none;
-}
+          .Grid.grid-body:hover {
+            overflow: auto !important;
+          }
 
-.Grid.grid-body:hover {
-  overflow: auto !important;
-}
+          .Grid.grid-body:hover ::-webkit-scrollbar {
+            display: block;
+          }
 
-.Grid.grid-body:hover ::-webkit-scrollbar {
-  display: block;
-}
+          .Grid.grid-body > .Grid__innerScrollContainer {
+            background: #fff;
+          }
 
-.Grid.grid-body > .Grid__innerScrollContainer {
-  background: #fff;
-}
+          .Grid__cell {
+            overflow: hidden;
+          }
 
-.Grid__cell {
-  overflow: hidden;
-}
+          .Grid__cell > .item {
+            border: 1px solid #eee;
+            padding-left: 3px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          }
 
-.Grid__cell > .item {
-  border: 1px solid #eee;
-  padding-left: 3px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
+          .Grid.grid-header-row .Grid__cell {
+            overflow: visible;
+            font-weight: bold;
+            padding-left: 10px;
+            padding-right: 10px;
+          }
 
-.Grid.grid-header-row .Grid__cell {
-  overflow: visible;
-  font-weight: bold;
-  padding-left: 10px;
-  padding-right: 10px;
-}
+          .Grid.grid-header-row .Grid__cell span {
+            overflow: hidden;
+            width: 100%;
+            text-overflow: ellipsis;
+            display: block;
+          }
 
-.Grid.grid-header-row .Grid__cell span {
-  overflow: hidden;
-  width: 100%;
-  text-overflow: ellipsis;
-  display: block;
-}
+          .Grid.grid-header-row .Grid__cell > .item {
+            border: none;
+          }
 
-.Grid.grid-header-row .Grid__cell > .item {
-  border: none;
-}
+          .Grid.grid-header-row {
+            overflow: hidden !important;
+            background: #f9fafb;
+            border: 1px solid rgba(34, 36, 38, 0.1);
+            border-right: none;
+          }
 
-.Grid.grid-header-row {
-  overflow: hidden !important;
-  background: #f9fafb;
-  border: 1px solid rgba(34, 36, 38, 0.1);
-  border-right: none;
-}
+          .grid-header-row .Grid__cell > .item {
+            border: 1px solid #dadada;
+          }
 
-.grid-header-row .Grid__cell > .item {
-  border: 1px solid #dadada;
-}
-
-.Grid .table-cell-type-null {
-  vertical-align: text-bottom;
-}
-.cell {
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  border-right: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
-}        
-.HeaderGrid {
-  width: 100%;
-  overflow: hidden !important;
-}
-`}</style>
+          .Grid .table-cell-type-null {
+            vertical-align: text-bottom;
+          }
+          .cell {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            border-right: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+          }
+          .HeaderGrid {
+            width: 100%;
+            overflow: hidden !important;
+          }
+        `}</style>
       </div>
     );
   }

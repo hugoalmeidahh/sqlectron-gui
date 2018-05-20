@@ -1,5 +1,5 @@
 //use with react-scripts
-import AppSql from './renderer/AppSql';
+import App from './renderer/AppSql';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import "./renderer/semantic-ui/semantic.css";
@@ -22,5 +22,5 @@ import "./renderer/demo.css";
 // import "./renderer/grid.css";   
 
 ReactDOM.render(
-  <AppSql />,  document.getElementById('root')
+  <App />,  document.getElementById('root')
 );
