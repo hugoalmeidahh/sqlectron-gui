@@ -1,9 +1,9 @@
-import debounce from 'lodash.debounce';
+// import debounce from 'lodash.debounce';
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { Grid, ScrollSync,AutoSizer } from 'react-virtualized';
 import Draggable from 'react-draggable';
-import cloneDeep from 'lodash.clonedeep';
+// import cloneDeep from 'lodash.clonedeep';
 import TableCell from './query-result-table-cell.jsx';
 import PreviewModal from './preview-modal.jsx';
 import { valueToString } from '../utils/convert';
@@ -466,13 +466,13 @@ export default class QueryResultTable extends Component {
     {
       ({width,height}) => {
          console.log(width+","+height);
+         // if(height<150) height=150;
          this.setMyState({tableWidth:width,tableHeight:height});
 
          return(
     <div id="inside AutoSizer">
           <ScrollSync>
-          {
-            (params2) =>{ 
+          {(params2) =>{ 
               console.log(params2);
               let {
                 onScroll,

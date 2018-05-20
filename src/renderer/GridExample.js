@@ -50,7 +50,6 @@ export default class GridExample extends React.PureComponent {
               className={"BodyGrid"}
               columnWidth={this._getColumnWidth}
               columnCount={3}
-              height={height}
               noContentRenderer={this._noContentRenderer}
               overscanColumnCount={overscanColumnCount}
               overscanRowCount={overscanRowCount}

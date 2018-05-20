@@ -7,11 +7,11 @@ import 'brace/mode/sql';
 import 'brace/theme/github';
 import 'brace/ext/language_tools';
 import 'brace/ext/searchbox';
-import CheckBox from './checkbox.jsx';
+// import CheckBox from './checkbox.jsx';
 import QueryResult from './query-result2.jsx';
 import ServerDBClientInfoModal from './server-db-client-info-modal.jsx';
-import { ResizableBox } from 'react-resizable';
-import SSAuto from '../SSAuto';
+// import { ResizableBox } from 'react-resizable';
+// import SSAuto from '../SSAuto';
 const QUERY_EDITOR_HEIGTH = 200;
 const langTools = ace.acequire('ace/ext/language_tools');
 let tab_inner_h;
@@ -328,7 +328,6 @@ export default class Query extends Component {
           )}      
 <div style={{
   height:tab_inner_h,
-  overflow:"auto",
   flexDirection:"column",
   alignItems:"stretch",
   overflow:"auto",

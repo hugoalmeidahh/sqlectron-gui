@@ -23,7 +23,7 @@ import { fetchTableKeysIfNeeded } from '../actions/keys';
 import DatabaseList from '../components/database-list.jsx';
 import DatabaseDiagramModal from '../components/database-diagram-modal.jsx';
 import Header from '../components/header.jsx';
-import Footer from '../components/footer.jsx';
+// import Footer from '../components/footer.jsx';
 import Query from '../components/query2.jsx';
 import Loader from '../components/loader.jsx';
 import PromptModal from '../components/prompt-modal.jsx';

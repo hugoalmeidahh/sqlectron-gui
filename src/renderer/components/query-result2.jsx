@@ -4,7 +4,7 @@ import PropTypes from 'proptypes';
 import Loader from './loader.jsx';
 import Message from './message.jsx';
 import QueryResultTable from './query-result-table2.jsx';
-import SSAuto from '../SSAuto';
+// import SSAuto from '../SSAuto';
 export default class QueryResult extends Component {
   static propTypes = {
     widthOffset: PropTypes.number.isRequired,
@@ -138,13 +138,12 @@ export default class QueryResult extends Component {
       <div id={"query"+queryIndex} 
       style={{
         flex:1,
-        height:"100%",
         display:"flex",
         flexDirection:"column",
         overflow:"auto",
       }} 
-      key={queryIndex} className="ui segment">
-        <div className="ui top left attached label">Query {queryIndex + 1}</div>
+      key={queryIndex} >
+        <div style={{height:"30px"}}className="ui top left attached label">Query {queryIndex + 1}</div>
         {msgDuplicatedColumns}
         {tableResult}
       </div>
@@ -189,7 +188,10 @@ export default class QueryResult extends Component {
     const totalQueries = results.length;
     return (
       <div id="query-result2" style={{
-       flex:1,display:"flex",flexDirection:"column"
+       flex:1,
+       display:"flex",
+       flexDirection:"column",
+       overflow:"auto"
       }}>
         {results.map((result, idx) =>
           this.renderQueryResult({

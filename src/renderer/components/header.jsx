@@ -4,12 +4,12 @@ import PropTypes from 'proptypes';
 import LOGO_PATH from './logo-128px.png';
 console.log(LOGO_PATH);
 
-var { shell } = window.myremote.electron;
+// var { shell } = window.myremote.electron;
 
-function onSiteClick(event) {
-  event.preventDefault();
-  shell.openExternal('https://sqlectron.github.io');
-}
+// function onSiteClick(event) {
+//   event.preventDefault();
+//   shell.openExternal('https://sqlectron.github.io');
+// }
 
 function renderBreadcrumb(items) {
   return (
