@@ -175,7 +175,7 @@ export default class QueryResult extends Component {
     }
 
     if (!results) {
-      return (<div style={{height:"2000px"}} id="query-result2">no results
+      return (<div id="query-result2">no results
       </div>);
     }
 

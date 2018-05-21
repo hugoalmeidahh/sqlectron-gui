@@ -23,8 +23,8 @@ import { fetchTableKeysIfNeeded } from '../actions/keys';
 import DatabaseList from '../components/database-list.jsx';
 import DatabaseDiagramModal from '../components/database-diagram-modal.jsx';
 import Header from '../components/header.jsx';
-// import Footer from '../components/footer.jsx';
-import Query from '../components/query2.jsx';
+import Footer from '../components/footer.jsx';
+import Query from '../components/query.jsx';
 import Loader from '../components/loader.jsx';
 import PromptModal from '../components/prompt-modal.jsx';
 import MenuHandler from '../menu-handler';
@@ -37,7 +37,6 @@ const STYLES = {
   wrapper:{},
   container: {
     display: 'flex',
-    height: '100vh',
     boxSizing: 'border-box',
     padding: '50px 10px 40px 10px',
   },
@@ -698,9 +697,9 @@ class QueryBrowserContainer extends Component {
           {this.props.databases.showingDiagram && this.renderDatabaseDiagramModal()}
         </div>
         {
-          // <div style={STYLES.footer}>
-          //   <Footer status={status} />
-          // </div>
+          <div style={STYLES.footer}>
+            <Footer status={status} />
+          </div>
         }
         <style jsx="true">{`
 #sidebar { overflow-y: hidden; overflow-x: hidden; }

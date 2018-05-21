@@ -31,16 +31,16 @@ const Footer = ({ status }) => (
         }
         <UpdateChecker />
       </div>
-      <button className="item" onClick={onGithubClick}>
+      <a className="item" onClick={onGithubClick}>
         Github
-      </button>
-      <button
+      </a>
+      <a
         className="item"
         title="Keyboard Shortcuts"
         onClick={onShortcutsClick}
       >
         <i className="keyboard icon" />
-      </button>
+      </a>
     </div>
   </div>
 );

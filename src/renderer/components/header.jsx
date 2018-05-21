@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'proptypes';
 //import { Label } from 'semantic-ui-react';
 import LOGO_PATH from './logo-128px.png';
-console.log(LOGO_PATH);
 
-// var { shell } = window.myremote.electron;
+var { shell } = window.myremote.electron;
 
-// function onSiteClick(event) {
-//   event.preventDefault();
-//   shell.openExternal('https://sqlectron.github.io');
-// }
+function onSiteClick(event) {
+  event.preventDefault();
+  shell.openExternal('https://sqlectron.github.io');
+}
 
 function renderBreadcrumb(items) {
   return (
@@ -33,13 +32,9 @@ const Header = ({ items, onCloseConnectionClick, onReConnectionClick }) => {
   const styleItem = { paddingLeft: 0, paddingTop: 0, paddingBottom: 0 };
   return (
     <div id="header" className="ui top fixed menu borderless">
-      {
-        //<button  className="item" onClick={onSiteClick}>
-      }
-      <img alt="logo" src={LOGO_PATH} style={{ width: '5.5em' }} />
-      {
-        //</button>
-      }
+      <a  className="item" onClick={onSiteClick}>
+        <img alt="logo" src={LOGO_PATH} style={{ width: '5.5em' }} />
+      </a>
       <div style={{ margin: '0 auto' }}>
         <div className="item">{renderBreadcrumb(items)}</div>
       </div>

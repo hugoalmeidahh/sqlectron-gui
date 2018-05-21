@@ -8,9 +8,19 @@ import * as ConfigActions from '../actions/config.js';
 import MenuHandler from '../menu-handler';
 import ModalAbout from './ModalAbout';
 var { webFrame }= window.myremote.electron;//
-// require('../semantic-ui/semantic.css');
-// require('./app.css');
-
+function hasClass( elements,cName ){ 
+  return !!elements.className.match( new RegExp( "(\\s|^)" + cName + "(\\s|$)") ); 
+}; 
+function addClass( elements,cName ){ 
+  if( !hasClass( elements,cName ) ){ 
+    elements.className += " " + cName; 
+  }; 
+}; 
+function removeClass( elements,cName ){ 
+  if( hasClass( elements,cName ) ){ 
+    elements.className = elements.className.replace( new RegExp( "(\\s|^)" + cName + "(\\s|$)" ), " " );
+  }; 
+};
 const preventDefault = e => e.preventDefault();
 
 class AppContainer extends Component {
@@ -53,10 +63,11 @@ class AppContainer extends Component {
       // Required for HiDPI support
       webFrame.setZoomFactor(zoomFactor);
     }
+    let body=document.getElementsByTagName('body')[0];
     if (enabledDarkTheme === true) {
-    //   $('body').addClass('dark-theme');
-    // } else {
-    //   $('body').removeClass('dark-theme');
+      addClass(body,'dark-theme');
+    } else {
+      removeClass(body,'dark-theme');
     }
   }
   handleClose=()=>{

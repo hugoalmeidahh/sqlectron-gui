@@ -157,7 +157,7 @@ export default class SettingsModalForm extends Component {
         </div>
         <div className="field">
           Check out the full settings documentation at{' '}
-          <button onClick={this.onDocClick}>here</button>
+          <a onClick={this.onDocClick}>here</a>
         </div>
       </div>
     );

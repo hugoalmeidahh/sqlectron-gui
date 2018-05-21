@@ -7,7 +7,7 @@ import 'brace/mode/sql';
 import 'brace/theme/github';
 import 'brace/ext/language_tools';
 import 'brace/ext/searchbox';
-import CheckBox from './checkbox.jsx';
+// import CheckBox from './checkbox.jsx';
 import QueryResult from './query-result.jsx';
 import ServerDBClientInfoModal from './server-db-client-info-modal.jsx';
 import { ResizableBox } from 'react-resizable';
@@ -170,19 +170,10 @@ export default class Query extends Component {
   }
 
   onQueryBoxResize = (e, data) => {
-    console.log('onQueryBoxResize');
-    // console.log(e);
-    console.log(data);
-    if (data.size.height <= 300) {
-      //not too high
       this.setState({ query_height: data.size.height }, () => {
         this.refs.queryBoxTextarea.editor.resize();
       });
-    } else {
-      this.setState({ query_height: 300 }, () => {
-        this.refs.queryBoxTextarea.editor.resize();
-      });
-    }
+   
   };
 
   onWrapContentsChecked() {
@@ -291,7 +282,7 @@ export default class Query extends Component {
 
     return (
       <div>
-        <div>
+        <div id="acebox1">
           <ResizableBox
             className="react-resizable react-resizable-se-resize ui segment"
             height={QUERY_EDITOR_HEIGTH}
@@ -394,10 +385,13 @@ export default class Query extends Component {
             />
           )}
         <style jsx="true">{`
-          .ace_editor.ace_autocomplete .ace_completion-highlight {
-            /* Avoid Blurry render of Highlighting in Retina display */
-            text-shadow: 1px 0px 0px !important;
-          }
+.ace_editor.ace_autocomplete .ace_completion-highlight {
+  /* Avoid Blurry render of Highlighting in Retina display */
+  text-shadow: 1px 0px 0px !important;
+}
+#acebox1 .react-resizable-handle {
+  cursor: row-resize !important;
+}
         `}</style>
       </div>
     );

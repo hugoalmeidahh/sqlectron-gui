@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { Grid, ScrollSync } from 'react-virtualized';
 import Draggable from 'react-draggable';
-import cloneDeep from 'lodash.clonedeep';
+// import cloneDeep from 'lodash.clonedeep';
 import TableCell from './query-result-table-cell.jsx';
 import PreviewModal from './preview-modal.jsx';
 import { valueToString } from '../utils/convert';
@@ -117,6 +117,7 @@ export default class QueryResultTable extends Component {
   }
 
   autoResizeColumnsWidth(fields, rows, tableWidth) {
+    console.log("autoResizeColumnsWidth");
     const averageTableCellWidth = tableWidth / fields.length;
     let totalColumnWidths = 0;
 
@@ -209,18 +210,18 @@ export default class QueryResultTable extends Component {
   }
 
   resize(nextProps) {
-    // console.log("============table resize");
+    console.log("============table resize");
 
     const props = nextProps || this.props;
     let tableWidth;
     //if(this.props.collapseV){
     // console.log(props.widthOffset);
 
-    tableWidth = window.innerWidth - (props.widthOffset + 27);
+    tableWidth = window.innerWidth - (props.widthOffset + 27+2+3+2);
     // console.log(props.heigthOffset);
 
-    const tableHeight = window.innerHeight - (props.heigthOffset + 225);
-
+    let tableHeight = window.innerHeight - (props.heigthOffset + 225);
+    if(tableHeight<300) tableHeight=300;
     // trigger columns resize
     this.autoResizeColumnsWidth(props.fields, props.rows, tableWidth);
 
@@ -457,15 +458,7 @@ export default class QueryResultTable extends Component {
         {this.renderPreviewModal()}
 
         <ScrollSync>
-          {({
-            clientHeight,
-            clientWidth,
-            onScroll,
-            scrollHeight,
-            scrollLeft,
-            scrollTop,
-            scrollWidth,
-          }) => (
+          {({ onScroll, scrollLeft }) => (
             <div className="grid-query-wrapper">
               {this.renderHeaderTopBar()}
               {this.renderTableHeader(scrollLeft)}
