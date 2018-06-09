@@ -18,6 +18,10 @@ ipcMain.on('getconfig', (event, arg) => {
     var configData = config.get(arg);
     event.returnValue = configData;
 })
+ipcMain.on('getpath', (event, arg) => {
+    //console.log(arg)  // prints "ping"
+    event.returnValue = __dirname;
+})
 // enables ES6+ support
 //if (configData.devMode) {
 //  require('babel-register');

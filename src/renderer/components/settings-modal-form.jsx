@@ -173,7 +173,7 @@ export default class SettingsModalForm extends Component {
     return (
       <div>
         <div className="two fields">
-          <div className={`field ${this.highlightError('zoomFactor')}`}>
+   {/*       <div className={`field ${this.highlightError('zoomFactor')}`}>
             <label>Zoom Factor: {zoomFactorLabel}</label>
             <input
               type="range"
@@ -185,7 +185,7 @@ export default class SettingsModalForm extends Component {
               onChange={this.handleChange.bind(this)}
               style={{ width: '100%', marginTop: '10px' }}
             />
-          </div>
+          </div>*/}
           <div
             className={`field ${this.highlightError(
               'limitQueryDefaultSelectTop'

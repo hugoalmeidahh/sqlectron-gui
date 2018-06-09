@@ -36,14 +36,7 @@
           document.head.appendChild(thelink);
         }
         function setlinks(){
-          let path=window.require('electron').ipcRenderer.sendSync('getpath');
-          let where;
-          if(path==="."){
-             where=".."; 
-          }
-          else{
-            where="../.."
-          }
+          let where=window.require('electron').ipcRenderer.sendSync('getpath');
           link(where,"node_modules/react-tabs/style/react-tabs.css");
           link(where,"node_modules/storm-react-diagrams/dist/style.min.css");
           link(where,"node_modules/react-virtualized/styles.css");

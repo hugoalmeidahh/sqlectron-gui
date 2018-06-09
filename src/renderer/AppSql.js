@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import AppTest from './AppTest';
+// import AppTest from './AppTest';
 import ServerManagementContainer from './containers/server-management2.jsx';
 import QueryBrowserContainer from './containers/query-browser2.jsx';
 import {Router,Redirect, Route,Switch} from 'react-router-dom'
@@ -14,10 +14,9 @@ class Routers extends Component{
   render=()=>{
     // console.log(this.props);
     return(<Switch>
-                <Route path="/test" component={AppTest} />
                 <Route path="/sql/manage" component={ServerManagementContainer} />
                 <Route path="/sql/server/:id" component={QueryBrowserContainer} />
-                <Redirect exact path="/"  to="/test" />
+                <Redirect exact path="/"  to="/sql/manage" />
               </Switch>);
   }
 }

@@ -117,7 +117,7 @@ export default class QueryResultTable extends Component {
   }
 
   autoResizeColumnsWidth(fields, rows, tableWidth) {
-    console.log("autoResizeColumnsWidth");
+    // console.log("autoResizeColumnsWidth");
     const averageTableCellWidth = tableWidth / fields.length;
     let totalColumnWidths = 0;
 
@@ -210,7 +210,7 @@ export default class QueryResultTable extends Component {
   }
 
   resize(nextProps) {
-    console.log("============table resize");
+    // console.log("============table resize");
 
     const props = nextProps || this.props;
     let tableWidth;
