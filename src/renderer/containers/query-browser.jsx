@@ -31,7 +31,7 @@ import MenuHandler from '../menu-handler';
 import {requireLogos} from '../components/require-context'
 //require('../components/react-resizable.css');
 var {sqlectron}=window.myremote;//
-const tab_title_h="50px";
+const tab_title_h="45px";
 const SIDEBAR_WIDTH = 235;
 const STYLES = {
   wrapper:{},

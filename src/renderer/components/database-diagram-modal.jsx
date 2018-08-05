@@ -158,7 +158,7 @@ export default class DatabaseDiagramModal extends Component {
     } else {
       disabledG = 'disabled';
     }
-    console.log('disabledG:' + disabledG);
+    // console.log('disabledG:' + disabledG);
     return (
       <div className="content">
         <div className="ui middle aligned padded very relaxed stackable grid">
@@ -308,7 +308,7 @@ export default class DatabaseDiagramModal extends Component {
   }
 
   render() {
-    console.log('==render===');
+    // console.log('==render===');
 
     // Modal has to be in DOM before rendering diagram because of JointJS getBBox() method.
     // On first rendering, if context node is hidden, wrong widths and heights of JointJS

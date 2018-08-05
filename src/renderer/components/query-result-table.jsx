@@ -94,7 +94,7 @@ export default class QueryResultTable extends Component {
   }
 
   onOpenPreviewClick = value => {
-    console.log('onOpenPreviewClick');
+    // console.log('onOpenPreviewClick');
     this.setState({ showPreview: true, valuePreview: value });
   };
 

@@ -49,7 +49,7 @@ export default class DatabaseDiagram extends Component {
       var nodex = new SRD.DefaultNodeModel(table, 'rgb(192,255,0)');
       nodex.setPosition(100 + (index % 6) * 100, 20 + (index % 4) * 100);
       model.addNode(nodex);
-      console.log(columnsByTable);
+      // console.log(columnsByTable);
 
       columnsByTable[table].forEach((column, idx) => {
         var columnKey = tableKeys[table].find(
