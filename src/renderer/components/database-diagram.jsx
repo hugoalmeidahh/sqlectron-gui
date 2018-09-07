@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import * as SRD from "storm-react-diagrams"
+import * as SRD from 'storm-react-diagrams';
 //import joint from 'jointjs/dist/joint';
 //import './jointjs-diagram-table';
 //import './jointjs-diagram-table-cell';
@@ -16,11 +16,11 @@ export default class DatabaseDiagram extends Component {
     diagramJSON: PropTypes.string,
     isSaving: PropTypes.bool,
     addRelatedTables: PropTypes.func.isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);
-    
+
     //this.graph = new joint.dia.Graph();
     // 1) setup the diagram engine
     var engine = new SRD.DiagramEngine();
@@ -44,19 +44,20 @@ export default class DatabaseDiagram extends Component {
     const { tables, columnsByTable, tableKeys } = this.props;
     // console.log(model);
     // console.log(node1);
-    
+
     tables.forEach((table, index) => {
+      var nodex = new SRD.DefaultNodeModel(table, 'rgb(192,255,0)');
+      nodex.setPosition(100 + (index % 6) * 100, 20 + (index % 4) * 100);
+      model.addNode(nodex);
+      // console.log(columnsByTable);
 
-        var nodex=new SRD.DefaultNodeModel(table,"rgb(192,255,0)");
-        nodex.setPosition( 100 + (index % 6) * 100,20 + (index % 4) * 100);
-        model.addNode(nodex);
-        console.log(columnsByTable);
-
-        columnsByTable[table].forEach((column, idx) => {
-            var columnKey = tableKeys[table].find((k) => k.columnName === column.name);
-            if(columnKey) console.log(columnKey.keyType);
-            nodex.addOutPort(column.name);
-        });
+      columnsByTable[table].forEach((column, idx) => {
+        var columnKey = tableKeys[table].find(
+          k => k.columnName === column.name
+        );
+        if (columnKey) console.log(columnKey.keyType);
+        nodex.addOutPort(column.name);
+      });
     });
     // let currentTable;
     // let newLink;
@@ -87,7 +88,7 @@ export default class DatabaseDiagram extends Component {
 
     // 7) load model into engine
     engine.setDiagramModel(model);
-    this.state = {engine:engine};
+    this.state = { engine: engine };
   }
 
   componentDidMount() {
@@ -103,7 +104,9 @@ export default class DatabaseDiagram extends Component {
         this.graph.fromJSON(JSON.parse(diagramJSON));
       } catch (error) {
         /* eslint react/no-did-mount-set-state: 0 */
-        this.setState({ error: `Error while reading graph from file: ${error.message}` });
+        this.setState({
+          error: `Error while reading graph from file: ${error.message}`,
+        });
       }
       return;
     }
@@ -113,12 +116,13 @@ export default class DatabaseDiagram extends Component {
     // this.generateLinks(tableShapes, tableLinks);
 
     // this.putEverythingOnGraph(tableShapes, tableCells, tableLinks);
-    
   }
 
   onTableRightClick(table) {
     const { tableKeys, addRelatedTables } = this.props;
-    const relatedTables = tableKeys[table].map(k => k.referencedTable).filter(rt => rt !== null);
+    const relatedTables = tableKeys[table]
+      .map(k => k.referencedTable)
+      .filter(rt => rt !== null);
     addRelatedTables(relatedTables);
   }
 
@@ -133,7 +137,6 @@ export default class DatabaseDiagram extends Component {
     //   gridSize: 1,
     //   restrictTranslate: true,
     // });
-
     // if (!this.props.diagramJSON) { // Only supported for newely generated diagrams
     //   this.paper.on('cell:contextmenu', (cellView) => {
     //     const table = cellView.model.attributes.name;
@@ -218,9 +221,7 @@ export default class DatabaseDiagram extends Component {
 
   shouldDisableDiagram() {
     const { isSaving } = this.props;
-    return isSaving
-      ? { pointerEvents: 'none' }
-      : { pointerEvents: 'auto' };
+    return isSaving ? { pointerEvents: 'none' } : { pointerEvents: 'auto' };
   }
 
   // putEverythingOnGraph(tableShapes, tableCells, tableLinks) {
@@ -254,8 +255,7 @@ export default class DatabaseDiagram extends Component {
   render() {
     if (!!this.state.error) {
       return (
-        <div className="ui negative message"
-          style={{ textAlign: 'center' }}>
+        <div className="ui negative message" style={{ textAlign: 'center' }}>
           {this.state.error}
         </div>
       );
@@ -480,5 +480,6 @@ export default class DatabaseDiagram extends Component {
         
       `}</style>
     </div>);
+
   }
 }

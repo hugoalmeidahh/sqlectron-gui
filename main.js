@@ -19,7 +19,7 @@ ipcMain.on('getconfig', (event, arg) => {
     event.returnValue = configData;
 })
 ipcMain.on('getpath', (event, arg) => {
-    event.returnValue = process.argv[1];
+    event.returnValue = __dirname;
 })
 // enables ES6+ support
 //if (configData.devMode) {

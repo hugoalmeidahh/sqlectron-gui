@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { valueToString } from '../utils/convert';
 //import { Label,Item } from 'semantic-ui-react';
-var { remote} =window.myremote.electron;
+var { remote } = window.myremote.electron;
 const { Menu, MenuItem } = remote;
 
 export default class TableCell extends Component {
@@ -22,15 +22,12 @@ export default class TableCell extends Component {
     this.contextMenu = null;
   }
 
-  onContextMenu=(event)=> {
+  onContextMenu = event => {
     event.preventDefault();
 
     const value = this.getValue();
 
-    const hasPreview = (
-      typeof value === 'string'
-      || isPlainObject(value)
-    );
+    const hasPreview = typeof value === 'string' || isPlainObject(value);
 
     if (!this.contextMenu && hasPreview ) {
       this.contextMenu = new Menu();
@@ -58,7 +55,7 @@ export default class TableCell extends Component {
     if (this.contextMenu) {
       this.contextMenu.popup(event.clientX, event.clientY);
     }
-  }
+  };
 
   getValue() {
     const { rowIndex, data, col } = this.props;
@@ -78,7 +75,7 @@ export default class TableCell extends Component {
     // console.log(styles.cell);
     // console.log(styles.centeredCell);
     // console.log(classNames)    ;
-    var style=this.props.style;
+    var style = this.props.style;
     //var style=cloneDeep(this.props.style);
     // style.backgroundClip="border-box";
     // style.display="block";

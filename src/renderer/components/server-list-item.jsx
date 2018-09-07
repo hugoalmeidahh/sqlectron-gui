@@ -1,11 +1,11 @@
-import React  from 'react';
+import React from 'react';
 import PropTypes from 'proptypes';
 import { requireLogos } from './require-context';
-var  { sqlectron }  =window.myremote;
+var { sqlectron } = window.myremote;
 //var e=require('electron');
 //console.log(e);
 
-//var { sqlectron }= require('electron').remote; 
+//var { sqlectron }= require('electron').remote;
 /**
  * Load icons for supported database clients
  */
@@ -16,33 +16,41 @@ const ICONS = sqlectron.db.CLIENTS.reduce((clients, dbClient) => {
   return clients;
 }, {});
 
-
 const ServerListItem = ({ server, onConnectClick, onEditClick }) => (
   <div className="card">
     <div className="content">
-      <div className="left floated"
-        style={{ height: '35px', width: '35px', margin: '5px 10px 0 0' }}>
-        <img alt="client"
+      <div
+        className="left floated"
+        style={{ height: '35px', width: '35px', margin: '5px 10px 0 0' }}
+      >
+        <img
+          alt="client"
           className="ui image"
           style={{ width: '100%' }}
-          src={ICONS[server.client]} />
+          src={ICONS[server.client]}
+        />
       </div>
-      <button className="right floated circular ui icon button mini"
-        onClick={() => onEditClick(server)}>
-        <i className="icon pencil"></i>
+      <button
+        className="right floated circular ui icon button mini"
+        onClick={() => onEditClick(server)}
+      >
+        <i className="icon pencil" />
       </button>
-      <div className="header">
-        {server.name}
-      </div>
-      <div className="meta" style={{ lineHeight: '1.5em', marginTop: '5px', marginLeft: '45px' }}>
+      <div className="header">{server.name}</div>
+      <div
+        className="meta"
+        style={{ lineHeight: '1.5em', marginTop: '5px', marginLeft: '45px' }}
+      >
         {server.host ? `${server.host}:${server.port}` : server.socketPath}
-        {server.ssh && (<div>via {server.ssh.host}</div>)}
+        {server.ssh && <div>via {server.ssh.host}</div>}
       </div>
     </div>
-    <div className="ui bottom attached button"
+    <div
+      className="ui bottom attached button"
       tabIndex="0"
-      onClick={() => onConnectClick(server)}>
-      <i className="plug icon"></i>
+      onClick={() => onConnectClick(server)}
+    >
+      <i className="plug icon" />
       Connect
     </div>
   </div>

@@ -9,7 +9,6 @@ const STYLE = {
   status: { paddingLeft: '0.5em' },
 };
 
-
 function onGithubClick(event) {
   event.preventDefault();
   shell.openExternal('https://github.com/sqlectron/sqlectron-gui');
@@ -17,9 +16,10 @@ function onGithubClick(event) {
 
 function onShortcutsClick(event) {
   event.preventDefault();
-  shell.openExternal('https://github.com/sqlectron/sqlectron-gui/wiki/Keyboard-Shortcuts');
+  shell.openExternal(
+    'https://github.com/sqlectron/sqlectron-gui/wiki/Keyboard-Shortcuts'
+  );
 }
-
 
 const Footer = ({ status }) => (
   <div className="ui bottom fixed menu borderless" style={STYLE.footer}>
@@ -31,18 +31,22 @@ const Footer = ({ status }) => (
         }
         <UpdateChecker />
       </div>
-      <a  className="item" onClick={onGithubClick}>Github</a>
-      <a  className="item" title="Keyboard Shortcuts" onClick={onShortcutsClick}>
+      <a className="item" onClick={onGithubClick}>
+        Github
+      </a>
+      <a
+        className="item"
+        title="Keyboard Shortcuts"
+        onClick={onShortcutsClick}
+      >
         <i className="keyboard icon" />
       </a>
     </div>
   </div>
 );
 
-
 Footer.propTypes = {
   status: PropTypes.string.isRequired,
 };
-
 
 export default Footer;

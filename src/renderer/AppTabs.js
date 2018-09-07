@@ -42,7 +42,7 @@ class App extends React.Component{
         <TabPanel>
           <AppSeman />
         </TabPanel>
-       
+      
         <TabPanel>
           <AppD />
         </TabPanel>

@@ -7,25 +7,14 @@ import 'brace/mode/sql';
 import 'brace/theme/github';
 import 'brace/ext/language_tools';
 import 'brace/ext/searchbox';
-import CheckBox from './checkbox.jsx';
+// import CheckBox from './checkbox.jsx';
 import QueryResult from './query-result.jsx';
 import ServerDBClientInfoModal from './server-db-client-info-modal.jsx';
 import { ResizableBox } from 'react-resizable';
-import {Div} from './Elem';
-import Ace from './Ace';
+
 const QUERY_EDITOR_HEIGTH = 200;
 const langTools = ace.acequire('ace/ext/language_tools');
-const css=`
-position:relative;
-.ace_editor.ace_autocomplete .ace_completion-highlight {
-    /* Avoid Blurry render of Highlighting in Retina display */
-    text-shadow: 1px 0px 0px !important;
-}
-.react-resizable-handle {
-   cursor: se-resize !important;
-}
-`;
-var Tag=Div;
+
 const INFOS = {
   mysql: [
     'MySQL treats commented query as a non select query.' +
@@ -39,11 +28,9 @@ const INFOS = {
   ],
 };
 
-
 const EVENT_KEYS = {
   onSelectionChange: 'changeSelection',
 };
-
 
 export default class Query extends Component {
   static propTypes = {
@@ -68,13 +55,12 @@ export default class Query extends Component {
     onSQLChange: PropTypes.func.isRequired,
     onSelectionChange: PropTypes.func.isRequired,
     editorName: PropTypes.string.isRequired,
-  }
+  };
 
   constructor(props, context) {
     super(props, context);
     this.state = {
-      css:css,
-      query_height:QUERY_EDITOR_HEIGTH,
+      query_height: QUERY_EDITOR_HEIGTH,
       wrapEnabled: false,
     };
   }
@@ -82,12 +68,15 @@ export default class Query extends Component {
   componentDidMount() {
     this.refs.queryBoxTextarea.editor.on(
       EVENT_KEYS.onSelectionChange,
-      debounce(this.onSelectionChange.bind(this), 100),
+      debounce(this.onSelectionChange.bind(this), 100)
     );
 
     // init with the auto complete disabled
     this.refs.queryBoxTextarea.editor.completers = [];
-    this.refs.queryBoxTextarea.editor.setOption('enableBasicAutocompletion', false);
+    this.refs.queryBoxTextarea.editor.setOption(
+      'enableBasicAutocompletion',
+      false
+    );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -95,18 +84,19 @@ export default class Query extends Component {
       return;
     }
 
-    const isMetadataChanged = (
-      ((nextProps.tables || []).length !== (this.props.tables || []).length)
-      || ((nextProps.views || []).length !== (this.props.views || []).length)
-      || ((nextProps.functions || []).length !== (this.props.functions || []).length)
-      || ((nextProps.procedures || []).length !== (this.props.procedures || []).length)
-      || (Object.keys(nextProps.columnsByTable || {}).length
-          !== Object.keys(this.props.columnsByTable || []).length)
-      || (Object.keys(nextProps.triggersByTable || {}).length
-          !== Object.keys(this.props.triggersByTable || []).length)
-      || (Object.keys(nextProps.indexesByTable || {}).length
-          !== Object.keys(this.props.indexesByTable || []).length)
-    );
+    const isMetadataChanged =
+      (nextProps.tables || []).length !== (this.props.tables || []).length ||
+      (nextProps.views || []).length !== (this.props.views || []).length ||
+      (nextProps.functions || []).length !==
+        (this.props.functions || []).length ||
+      (nextProps.procedures || []).length !==
+        (this.props.procedures || []).length ||
+      Object.keys(nextProps.columnsByTable || {}).length !==
+        Object.keys(this.props.columnsByTable || []).length ||
+      Object.keys(nextProps.triggersByTable || {}).length !==
+        Object.keys(this.props.triggersByTable || []).length ||
+      Object.keys(nextProps.indexesByTable || {}).length !==
+        Object.keys(this.props.indexesByTable || []).length;
 
     if (!isMetadataChanged) {
       return;
@@ -150,19 +140,20 @@ export default class Query extends Component {
   componentWillUnmount() {
     this.refs.queryBoxTextarea.editor.removeListener(
       EVENT_KEYS.onSelectionChange,
-      this.onSelectionChange.bind(this),
+      this.onSelectionChange.bind(this)
     );
   }
 
   onSelectionChange() {
     this.props.onSelectionChange(
       this.props.query.query,
-      this.refs.queryBoxTextarea.editor.getCopyText(),
+      this.refs.queryBoxTextarea.editor.getCopyText()
     );
   }
 
   onExecQueryClick() {
-    const query = this.refs.queryBoxTextarea.editor.getCopyText() || this.props.query.query;
+    const query =
+      this.refs.queryBoxTextarea.editor.getCopyText() || this.props.query.query;
     this.props.onExecQueryClick(query);
   }
 
@@ -178,21 +169,12 @@ export default class Query extends Component {
     this.setState({ infoModalVisible: true });
   }
 
-  onQueryBoxResize=(e,data)=>{
-     // console.log("onQueryBoxResize");
-    // console.log(e);
-     // console.log(data);
-     // if (data.size.height<=300){//not too high 
-      this.setState({query_height:data.size.height},()=>{
-          this.refs.queryBoxTextarea.editor.resize();
+  onQueryBoxResize = (e, data) => {
+      this.setState({ query_height: data.size.height }, () => {
+        this.refs.queryBoxTextarea.editor.resize();
       });
-    // }
-    // else{
-    //   this.setState({query_height:300},()=>{
-    //       this.refs.queryBoxTextarea.editor.resize();
-    //   });
-    // }
-  }
+   
+  };
 
   onWrapContentsChecked() {
     this.setState({ wrapEnabled: true });
@@ -218,8 +200,10 @@ export default class Query extends Component {
     const mapCompletionTypes = (items, type) => {
       let result = items;
       if (!Array.isArray(items)) {
-        result = Object.keys(items || {})
-          .reduce((all, name) => all.concat(items[name]), []);
+        result = Object.keys(items || {}).reduce(
+          (all, name) => all.concat(items[name]),
+          []
+        );
       }
 
       return (result || []).map(({ name }) => ({ name, type }));
@@ -238,7 +222,7 @@ export default class Query extends Component {
     ].map(({ name, type }) => ({ name, value: name, score: 1, meta: type }));
   }
 
-  getCommands () {
+  getCommands() {
     return [
       {
         name: 'increaseFontSize',
@@ -295,16 +279,16 @@ export default class Query extends Component {
 
     const infos = INFOS[client];
     // console.log(this.state.query_height);
-    
+
     return (
-    
-       <Tag css={this.state.css}>
-         <div>
-          <ResizableBox 
+      <div>
+        <div id="acebox1">
+          <ResizableBox
             className="react-resizable react-resizable-se-resize ui segment"
             height={QUERY_EDITOR_HEIGTH}
             width={500}
-            onResizeStop={this.onQueryBoxResize}>
+            onResizeStop={this.onQueryBoxResize}
+          >
             <AceEditor
               mode="sql"
               theme="github"
@@ -319,52 +303,64 @@ export default class Query extends Component {
               editorProps={{ $blockScrolling: Infinity }}
               onChange={debounce(onSQLChange, 50)}
               enableBasicAutocompletion
-              enableLiveAutocompletion />
-              {
-                // <div className="ui secondary menu" style={{ marginTop: 0 }}>
-                //   <div className="right menu">
-                //     <CheckBox
-                //       name="wrapQueryContents"
-                //       label="Wrap Contents"
-                //       onChecked={this.onWrapContentsChecked.bind(this)}
-                //       onUnchecked={this.onWrapContentsUnchecked.bind(this)} />
-                //   </div>
-                // </div>
-              }
+              enableLiveAutocompletion
+            />
+            {
+              // <div className="ui secondary menu" style={{ marginTop: 0 }}>
+              //   <div className="right menu">
+              //     <CheckBox
+              //       name="wrapQueryContents"
+              //       label="Wrap Contents"
+              //       onChecked={this.onWrapContentsChecked.bind(this)}
+              //       onUnchecked={this.onWrapContentsUnchecked.bind(this)} />
+              //   </div>
+              // </div>
+            }
           </ResizableBox>
           <div className="ui secondary menu" style={{ marginTop: 0 }}>
-            {infos &&
+            {infos && (
               <div className="item">
                 <span>
-                  <button className="ui icon button small"
+                  <button
+                    className="ui icon button small"
                     title="Query Information"
-                    onClick={this.onShowInfoClick.bind(this)}>
-                    <i className="icon info"></i>
+                    onClick={this.onShowInfoClick.bind(this)}
+                  >
+                    <i className="icon info" />
                   </button>
                 </span>
               </div>
-            }
+            )}
             <div className="right item">
-                <div className="ui buttons">
+              <div className="ui buttons">
+                <button
+                  className={`ui positive button ${
+                    query.isExecuting ? 'loading' : ''
+                  }`}
+                  onClick={this.onExecQueryClick.bind(this)}
+                >
+                  Execute
+                </button>
+                <div className="or" />
+                {query.isExecuting && allowCancel ? (
                   <button
-                    className={`ui positive button ${query.isExecuting ? 'loading' : ''}`}
-                    onClick={this.onExecQueryClick.bind(this)}>Execute</button>
-                  <div className="or"></div>
-                  {
-                    query.isExecuting && allowCancel
-                    ? (
-                      <button
-                        className={`ui negative button ${query.isCanceling ? 'loading' : ''}`}
-                        onClick={this.onCancelQueryClick.bind(this)}>Cancel</button>
-                    )
-                    : (
-                      <button
-                        className="ui button"
-                        onClick={this.onDiscQueryClick.bind(this)}>Discard</button>
-                    )
-                  }
-                </div>
+                    className={`ui negative button ${
+                      query.isCanceling ? 'loading' : ''
+                    }`}
+                    onClick={this.onCancelQueryClick.bind(this)}
+                  >
+                    Cancel
+                  </button>
+                ) : (
+                  <button
+                    className="ui button"
+                    onClick={this.onDiscQueryClick.bind(this)}
+                  >
+                    Discard
+                  </button>
+                )}
               </div>
+            </div>
           </div>
         </div>
         <QueryResult
@@ -378,17 +374,26 @@ export default class Query extends Component {
           query={query.queryHistory[query.queryHistory.length - 1]}
           results={query.results}
           isExecuting={query.isExecuting}
-          error={query.error} />
-        {this.state && this.state.infoModalVisible &&
-          <ServerDBClientInfoModal
-            infos={infos}
-            client={client}
-            onCloseClick={() => this.setState({ infoModalVisible: false })} />
-        }
-      {
-        //<Ace css={this.state.css} cssChange={(v)=>{this.setState({css:v})}} />
-      }
-      </Tag>
+          error={query.error}
+        />
+        {this.state &&
+          this.state.infoModalVisible && (
+            <ServerDBClientInfoModal
+              infos={infos}
+              client={client}
+              onCloseClick={() => this.setState({ infoModalVisible: false })}
+            />
+          )}
+        <style jsx="true">{`
+.ace_editor.ace_autocomplete .ace_completion-highlight {
+  /* Avoid Blurry render of Highlighting in Retina display */
+  text-shadow: 1px 0px 0px !important;
+}
+#acebox1 .react-resizable-handle {
+  cursor: row-resize !important;
+}
+        `}</style>
+      </div>
     );
   }
 }

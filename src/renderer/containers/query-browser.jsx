@@ -34,13 +34,12 @@ import ModalEdit from './ModalEdit';
 
 //require('../components/react-resizable.css');
 var {sqlectron}=window.myremote;//
-
+const tab_title_h="45px";
 const SIDEBAR_WIDTH = 235;
 const STYLES = {
   wrapper:{},
   container: {
     display: 'flex',
-
     boxSizing: 'border-box',
     padding: '50px 10px 40px 10px',
   },
@@ -476,16 +475,14 @@ class QueryBrowserContainer extends Component {
         var names=queries.queriesById[queryId].name.split("/");
         var name=names[names.length-1];
         return (
-          <div style={{display:"inline"}}>
-            {name}
-            <button className="right floated ui icon button mini"
-              onClick={debounce(() => {
+          <div style={{display:"flex",height:tab_title_h}}>
+               {name}
+                <i onClick={debounce(() => {
                 this.removeQuery(queryId);
                 const position = this.state.tabNavPosition + 200;
                 this.setState({ tabNavPosition: position > 0 ? 0 : position });
-              }, 200)}>
-              <i className="icon remove"></i>
-            </button>
+              }, 200)} className="icon remove"></i>
+            
           </div>
         );
       };
@@ -564,8 +561,15 @@ class QueryBrowserContainer extends Component {
         //   }
         //   <div style={{flex: "auto",overFlow: "hidden"}} >
         }
-            <TabList ref="tabList">
-               {menu}
+            <TabList
+              ref="tabList"
+              style={{
+          display:"flex",
+          height:tab_title_h,
+          overflowX:"auto",
+          overflowY:"hidden"
+        }}>
+              {menu}
             </TabList>
         {
         //   </div>
@@ -708,9 +712,9 @@ class QueryBrowserContainer extends Component {
           {this.props.databases.showingDiagram && this.renderDatabaseDiagramModal()}
         </div>
         {
-           <div style={STYLES.footer}>
-             <Footer status={status} />
-           </div>
+          <div style={STYLES.footer}>
+            <Footer status={status} />
+          </div>
         }
         <style jsx="true">{`
 #sidebar { overflow-y: hidden; overflow-x: hidden; }

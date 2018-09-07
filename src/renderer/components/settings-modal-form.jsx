@@ -6,7 +6,7 @@ import Checkbox from './checkbox.jsx';
 import { Modal } from 'semantic-ui-react';
 // require('react-select/dist/react-select.css');
 // require('./override-select.css');
-var { shell }=window.myremote.electron;
+var { shell } = window.myremote.electron;
 
 export default class SettingsModalForm extends Component {
   static propTypes = {
@@ -14,16 +14,16 @@ export default class SettingsModalForm extends Component {
     onCancelClick: PropTypes.func.isRequired,
     config: PropTypes.object,
     error: PropTypes.object,
-  }
+  };
 
   constructor(props, context) {
     super(props, context);
     this.state = {
       ...props.config.data,
-      modalOpen:false
+      modalOpen: false,
     };
-    if(!this.state.zoomFactor){
-      this.state.zoomFactor=1;
+    if (!this.state.zoomFactor) {
+      this.state.zoomFactor = 1;
     }
   }
   componentDidMount() {
@@ -36,39 +36,41 @@ export default class SettingsModalForm extends Component {
   componentWillReceiveProps(nextProps) {
     // console.log(nextProps);
     this.setState({ error: nextProps.error });
-    if(!this.props.modalOpen && nextProps.modalOpen){
+    if (!this.props.modalOpen && nextProps.modalOpen) {
       this.onShow();
-    }
-    else if(this.props.modalOpen && !nextProps.modalOpen){
+    } else if (this.props.modalOpen && !nextProps.modalOpen) {
       this.onHide();
     }
   }
-  onShow=()=>{
-
-  }
-  onHide=()=>{
-    console.log("onHide");
+  onShow = () => {};
+  onHide = () => {
+    console.log('onHide');
     //this.props.onCancelClick();
-  }
+  };
 
-  onSaveClick=()=>{
+  onSaveClick = () => {
     this.props.onSaveClick(this.mapStateToConfig(this.state));
-  }
+  };
 
   onDocClick(event) {
     event.preventDefault();
-    shell.openExternal('https://github.com/sqlectron/sqlectron-gui/blob/master/docs/app/configuration-file.md');
+    shell.openExternal(
+      'https://github.com/sqlectron/sqlectron-gui/blob/master/docs/app/configuration-file.md'
+    );
   }
 
   mapStateToConfig(state) {
     const config = {
       zoomFactor: parseFloat(state.zoomFactor) || 1,
-      limitQueryDefaultSelectTop: parseInt(state.limitQueryDefaultSelectTop, 10) || 100,
+      limitQueryDefaultSelectTop:
+        parseInt(state.limitQueryDefaultSelectTop, 10) || 100,
       enabledAutoComplete: state.enabledAutoComplete || false,
       enabledLiveAutoComplete: state.enabledLiveAutoComplete || false,
       enabledDarkTheme: state.enabledDarkTheme || false,
     };
-    if (!this.state.log) { return config; }
+    if (!this.state.log) {
+      return config;
+    }
 
     const { log } = state;
     config.log = {
@@ -115,7 +117,7 @@ export default class SettingsModalForm extends Component {
   renderLogLevelItem({ label, icon }) {
     return (
       <span>
-        <i className={`icon ${icon}`}></i> {label}
+        <i className={`icon ${icon}`} /> {label}
       </span>
     );
   }
@@ -123,18 +125,21 @@ export default class SettingsModalForm extends Component {
   renderActionsPanel() {
     return (
       <div className="actions">
-
-        <div className="small ui black deny right labeled icon button"
+        <div
+          className="small ui black deny right labeled icon button"
           onClick={this.props.onCancelClick}
-          tabIndex="0">
-          Cancel
-          <i className="ban icon"></i>
-        </div>
-        <div className="small ui green right labeled icon button"
           tabIndex="0"
-          onClick={this.onSaveClick}>
+        >
+          Cancel
+          <i className="ban icon" />
+        </div>
+        <div
+          className="small ui green right labeled icon button"
+          tabIndex="0"
+          onClick={this.onSaveClick}
+        >
           Save
-          <i className="checkmark icon"></i>
+          <i className="checkmark icon" />
         </div>
       </div>
     );
@@ -151,7 +156,8 @@ export default class SettingsModalForm extends Component {
           </div>
         </div>
         <div className="field">
-          Check out the full settings documentation at <button  onClick={this.onDocClick}>here</button>
+          Check out the full settings documentation at{' '}
+          <a onClick={this.onDocClick}>here</a>
         </div>
       </div>
     );
@@ -167,24 +173,35 @@ export default class SettingsModalForm extends Component {
     return (
       <div>
         <div className="two fields">
-          <div className={`field ${this.highlightError('zoomFactor')}`}>
+   {/*       <div className={`field ${this.highlightError('zoomFactor')}`}>
             <label>Zoom Factor: {zoomFactorLabel}</label>
-            <input type="range"
+            <input
+              type="range"
               min="0.4"
               max="3"
               step="0.2"
               name="zoomFactor"
               value={zoomFactor}
               onChange={this.handleChange.bind(this)}
-              style={{ width: '100%', 'marginTop': '10px' }} />
-          </div>
-          <div className={`field ${this.highlightError('limitQueryDefaultSelectTop')}`}>
+              style={{ width: '100%', marginTop: '10px' }}
+            />
+          </div>*/}
+          <div
+            className={`field ${this.highlightError(
+              'limitQueryDefaultSelectTop'
+            )}`}
+          >
             <label>Limit of Rows from Select Top Query</label>
-            <input type="number"
+            <input
+              type="number"
               name="limitQueryDefaultSelectTop"
               value={this.state.limitQueryDefaultSelectTop || ''}
-              onChange={this.handleChange.bind(this)} />
-            <p className="help">The limit used in the default select from the sidebar context menu.</p>
+              onChange={this.handleChange.bind(this)}
+            />
+            <p className="help">
+              The limit used in the default select from the sidebar context
+              menu.
+            </p>
           </div>
         </div>
 
@@ -195,8 +212,11 @@ export default class SettingsModalForm extends Component {
               label="Auto Complete"
               defaultChecked={this.state.enabledAutoComplete}
               onChecked={() => this.setState({ enabledAutoComplete: true })}
-              onUnchecked={() => this.setState({ enabledAutoComplete: false })} />
-            <p className="help">Enable/Disable auto complete for the query box.</p>
+              onUnchecked={() => this.setState({ enabledAutoComplete: false })}
+            />
+            <p className="help">
+              Enable/Disable auto complete for the query box.
+            </p>
           </div>
           <div className="field">
             <Checkbox
@@ -204,8 +224,13 @@ export default class SettingsModalForm extends Component {
               label="Live Auto Complete"
               defaultChecked={this.state.enabledLiveAutoComplete}
               onChecked={() => this.setState({ enabledLiveAutoComplete: true })}
-              onUnchecked={() => this.setState({ enabledLiveAutoComplete: false })} />
-            <p className="help">Enable/Disable live auto complete for the query box.</p>
+              onUnchecked={() =>
+                this.setState({ enabledLiveAutoComplete: false })
+              }
+            />
+            <p className="help">
+              Enable/Disable live auto complete for the query box.
+            </p>
           </div>
           <div className="field">
             <Checkbox
@@ -213,7 +238,8 @@ export default class SettingsModalForm extends Component {
               label="Dark Theme"
               defaultChecked={this.state.enabledDarkTheme}
               onChecked={() => this.setState({ enabledDarkTheme: true })}
-              onUnchecked={() => this.setState({ enabledDarkTheme: false })} />
+              onUnchecked={() => this.setState({ enabledDarkTheme: false })}
+            />
             <p className="help">Enable/Disable dark theme.</p>
           </div>
         </div>
@@ -225,9 +251,7 @@ export default class SettingsModalForm extends Component {
     const log = this.state.log || {};
     return (
       <div className="ui segment">
-        <div className="one field">
-          Logging
-        </div>
+        <div className="one field">Logging</div>
         <div>
           <div className="two fields">
             <div className="field">
@@ -235,12 +259,17 @@ export default class SettingsModalForm extends Component {
                 name="log.console"
                 label="Console"
                 defaultChecked={log.console}
-                onChecked={() => this.handleChange({
-                  target: { name: 'log.console', value: true },
-                })}
-                onUnchecked={() => this.handleChange({
-                  target: { name: 'log.console', value: false },
-                })} />
+                onChecked={() =>
+                  this.handleChange({
+                    target: { name: 'log.console', value: true },
+                  })
+                }
+                onUnchecked={() =>
+                  this.handleChange({
+                    target: { name: 'log.console', value: false },
+                  })
+                }
+              />
               <p className="help">Show logs in the dev tools panel.</p>
             </div>
 
@@ -249,12 +278,17 @@ export default class SettingsModalForm extends Component {
                 name="log.file"
                 label="File"
                 defaultChecked={log.file}
-                onChecked={() => this.handleChange({
-                  target: { name: 'log.file', value: true },
-                })}
-                onUnchecked={() => this.handleChange({
-                  target: { name: 'log.file', value: false },
-                })} />
+                onChecked={() =>
+                  this.handleChange({
+                    target: { name: 'log.file', value: true },
+                  })
+                }
+                onUnchecked={() =>
+                  this.handleChange({
+                    target: { name: 'log.file', value: false },
+                  })
+                }
+              />
               <p className="help">Save logs into a file.</p>
             </div>
           </div>
@@ -263,24 +297,33 @@ export default class SettingsModalForm extends Component {
             <div className={`field ${this.highlightError('log.path')}`}>
               <label>Path</label>
               <div className="ui action input">
-                <input type="text"
+                <input
+                  type="text"
                   name="log.path"
                   placeholder="~/.sqlectron.log"
                   value={log.path || ''}
-                  onChange={this.handleChange.bind(this)} />
-                <label htmlFor="file.log.path" className="ui icon button btn-file">
+                  onChange={this.handleChange.bind(this)}
+                />
+                <label
+                  htmlFor="file.log.path"
+                  className="ui icon button btn-file"
+                >
                   <i className="file outline icon" />
                   <input
                     type="file"
                     id="file.log.path"
                     name="file.log.path"
                     onChange={this.handleChange.bind(this)}
-                    style={{ display: 'none' }} />
+                    style={{ display: 'none' }}
+                  />
                 </label>
               </div>
               <p className="help">Log file path.</p>
             </div>
-            <div id="logLevel" className={`field ${this.highlightError('log.level')}`}>
+            <div
+              id="logLevel"
+              className={`field ${this.highlightError('log.level')}`}
+            >
               <label>Level</label>
               <Select
                 name="log.level"
@@ -294,7 +337,8 @@ export default class SettingsModalForm extends Component {
                 onChange={this.handleOnLogLevelChange.bind(this)}
                 optionRenderer={this.renderLogLevelItem}
                 valueRenderer={this.renderLogLevelItem}
-                value={log.level || 'error'} />
+                value={log.level || 'error'}
+              />
               <p className="help">Level logging: debug, info, warn, error.</p>
             </div>
           </div>
@@ -311,9 +355,7 @@ export default class SettingsModalForm extends Component {
       detachable="false"
       dimmer={"inverted"}
       >
-        <Modal.Header>
-          Settings
-        </Modal.Header>
+        <Modal.Header>Settings</Modal.Header>
         <Modal.Content>
           <form className="ui form">
             {this.renderBasicSettingsPanel()}
@@ -321,9 +363,7 @@ export default class SettingsModalForm extends Component {
             {this.renderSettingsPath()}
           </form>
         </Modal.Content>
-        <Modal.Actions>
-          {this.renderActionsPanel()}
-        </Modal.Actions>
+        <Modal.Actions>{this.renderActionsPanel()}</Modal.Actions>
       </Modal>
     );
   }

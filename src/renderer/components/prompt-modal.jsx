@@ -9,11 +9,10 @@ export default class PromptModal extends Component {
     title: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-  }
-  constructor()
-  {
+  };
+  constructor() {
     super();
-    this.state={modalOpen:false};
+    this.state = { modalOpen: false };
   }
 
   componentDidMount() {
@@ -29,7 +28,6 @@ export default class PromptModal extends Component {
     //     return true;
     //   },
     // }).modal('show');
-    
   }
 
   componentWillUnmount() {
@@ -50,41 +48,50 @@ export default class PromptModal extends Component {
     const { title, message, type } = this.props;
 
     return (
-      <Modal  ref="promptModal"
-      closable={false}
-      detachable={false}
-      onDeny={ () => {
-        this.props.onCancelClick();
-        return true;
-      }}
-      onApprove={ () => {
-        this.props.onOKClick(this.state.value);
-        return true;
-      }}
+      <Modal
+        ref="promptModal"
+        closable={false}
+        detachable={false}
+        onDeny={() => {
+          this.props.onCancelClick();
+          return true;
+        }}
+        onApprove={() => {
+          this.props.onOKClick(this.state.value);
+          return true;
+        }}
         open={this.state.modalOpen}
         onClose={this.handleClose}
         basic
-        size='small'
+        size="small"
       >
-        {!!this.state.showDatabaseDiagram &&
-          <Modal.Header>
-             {title}
-          </Modal.Header>
-        }
+        {!!this.state.showDatabaseDiagram && (
+          <Modal.Header>{title}</Modal.Header>
+        )}
         <Modal.Content>
-            {message}
+          {message}
           <div className="ui fluid icon input">
-            <input onChange={this.handleChange.bind(this)} type={type} onKeyPress={this.handleKeyPress.bind(this)} />
+            <input
+              onChange={this.handleChange.bind(this)}
+              type={type}
+              onKeyPress={this.handleKeyPress.bind(this)}
+            />
           </div>
         </Modal.Content>
         <Modal.Actions>
-          <div className="small ui black deny right labeled icon button" tabIndex="0">
+          <div
+            className="small ui black deny right labeled icon button"
+            tabIndex="0"
+          >
             Cancel
-            <i className="ban icon"></i>
+            <i className="ban icon" />
           </div>
-          <div className="small ui positive right labeled icon button" tabIndex="0">
+          <div
+            className="small ui positive right labeled icon button"
+            tabIndex="0"
+          >
             OK
-            <i className="checkmark icon"></i>
+            <i className="checkmark icon" />
           </div>
         </Modal.Actions>
       </Modal>

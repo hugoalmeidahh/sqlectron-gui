@@ -49,7 +49,8 @@ function buildNewWindow(app) {
   // mainWindow.loadURL(entryBasePath + '/static/index.html');
   //console.log(__dirname);
 
-  var cp=path.resolve(process.argv[1]);
+  var cp=__dirname;
+  //console.log(cp);
   let entryBasePath;
   if(localMode){//local mode
     if(localBuildMode){

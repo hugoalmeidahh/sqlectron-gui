@@ -8,7 +8,7 @@ export default class ServerModalForm extends Component {
     title: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired,
     context: PropTypes.string.isRequired,
-  }
+  };
 
   componentDidMount() {
     // $(this.refs.confirmModal).modal({
@@ -35,44 +35,45 @@ export default class ServerModalForm extends Component {
     //$(this.refs.confirmModal).modal('hide');
     this.props.onCancelClick();
   }
-      // allowMultiple={true}
-      // context={this.props.context}
-      // onDeny={ () => {
-      //   this.props.onCancelClick();
-      //   return true;
-      // }}
-      // onApprove={() => {
-      //   this.props.onRemoveClick();
-      //   return false;
-      // }}
+  // allowMultiple={true}
+  // context={this.props.context}
+  // onDeny={ () => {
+  //   this.props.onCancelClick();
+  //   return true;
+  // }}
+  // onApprove={() => {
+  //   this.props.onRemoveClick();
+  //   return false;
+  // }}
 
   render() {
     const { title, message } = this.props;
     return (
-      <Modal ref="confirmModal"
-      closable="false"
-      detachable="false"
+      <Modal
+        ref="confirmModal"
+        closable="false"
+        detachable="false"
         open={this.props.modalOpen}
         dimmer={"inverted"}
       >
-        <Modal.Header>
-          {title}
-        </Modal.Header>
-        <Modal.Content>
-           {message}
-        </Modal.Content>
+        <Modal.Header>{title}</Modal.Header>
+        <Modal.Content>{message}</Modal.Content>
         <Modal.Actions>
-          <div className="small ui black deny right labeled icon button" 
-          onClick={this.props.onCancelClick}
-          tabIndex="0">
+          <div
+            className="small ui black deny right labeled icon button"
+            onClick={this.props.onCancelClick}
+            tabIndex="0"
+          >
             No
-            <i className="ban icon"></i>
+            <i className="ban icon" />
           </div>
-          <div className="small ui positive right labeled icon button" 
-          onClick={this.props.onRemoveClick}
-          tabIndex="0">
+          <div
+            className="small ui positive right labeled icon button"
+            onClick={this.props.onRemoveClick}
+            tabIndex="0"
+          >
             Yes
-            <i className="checkmark icon"></i>
+            <i className="checkmark icon" />
           </div>
         </Modal.Actions>
       </Modal>
