@@ -37,7 +37,7 @@ export default class ServerDBClientInfoModal extends Component {
       open={this.props.modalOpen}
       closable="true"
       detachable="false"
-      dimmer={false}
+      dimmer={"inverted"}
       >
         <Modal.Header>
           {dbClient.name} Query Information

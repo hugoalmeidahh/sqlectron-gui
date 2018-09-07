@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-
 const STYLE = {
   header: { fontSize: '0.85em', color: '#636363' },
   menu: { marginLeft: '5px' },
@@ -71,6 +70,10 @@ export default class TableSubmenu extends Component {
     if (this.state.collapsed) {
       cssStyle.display = 'none';
     }
+    else{
+     cssStyle.display = 'flex'; 
+     cssStyle.justifyContent="space-between";
+    }
     const columnsIcon = (
       <i className="columns icon" style={{ float: 'left', margin: '0 0.3em 0 0' }}></i>
     );
@@ -86,8 +89,10 @@ export default class TableSubmenu extends Component {
         title={item.name}
         style={cssStyle}
         className="item">
-        {this.props.title === 'Columns' ? columnsIcon : null}
-        {item.name}
+        <span style={{display:"flex"}}>
+            {this.props.title === 'Columns' ? columnsIcon : null}
+            {item.name}
+        </span>
         {
           this.props.title === 'Columns'
             ? <span style={styleColumnType}>{item.dataType}</span>

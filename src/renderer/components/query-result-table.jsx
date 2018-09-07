@@ -8,7 +8,7 @@ import TableCell from './query-result-table-cell.jsx';
 import PreviewModal from './preview-modal.jsx';
 import { valueToString } from '../utils/convert';
 import scrollbarSize from 'dom-helpers/util/scrollbarSize';
-
+import EditModal from './EditModal';
 // import 'react-virtualized/styles.css';
 // import './query-result-table.scss';
 
@@ -38,6 +38,9 @@ export default class QueryResultTable extends Component {
     this.state = {
       columnWidths: {},
       autoColumnWidths: [],
+      showPreview:false,
+      showEdit:false,
+      pos:null,
     };
     this.resizeHandler = debounce(this.onResize.bind(this), 20);
   }
@@ -100,11 +103,18 @@ export default class QueryResultTable extends Component {
     console.log("onOpenPreviewClick");
     this.setState({ showPreview: true, valuePreview: value });
   }
-
-  onClosePreviewClick() {
+  onEditClick=(row,col)=>{
+    console.log(row +","+col);
+    console.log(this);
+    
+    this.setState({ showEdit: true, pos:{row:row,col:col}}); 
+  }
+  onClosePreviewClick=()=>{
     this.setState({ showPreview: false, valuePreview: null });
   }
-
+  onCloseEditClick=()=>{
+    this.setState({ showEdit: false, pos: null });
+  }
   onResize() {
     clearTimeout(this.resizeTimer);
     this.resizeTimer = setTimeout(this.resize.bind(this), 16);
@@ -156,13 +166,13 @@ export default class QueryResultTable extends Component {
         </Draggable>
       );
     }
-    var style=cloneDeep(params.style);
-    style.backgroundClip="border-box";
-    style.display="block";
-    style.lineHeight="20px"
-    style.overflow="hidden";
+    // var style=cloneDeep(params.style);
+    // style.backgroundClip="border-box";
+    // style.display="block";
+    // style.lineHeight="20px"
+    // style.overflow="hidden";
     return (
-      <span style={style} key={params.key} className="rowClass cell">
+      <span style={params.style} key={params.key} className="cell">
         <strong>{field.name}</strong>
         {resizeDrag}
       </span>
@@ -270,7 +280,19 @@ export default class QueryResultTable extends Component {
       </div>
     );
   }
+  renderEditModal() {
+    if (!this.state.showEdit) {
+      return null;
+    }
 
+    return (
+      <EditModal
+        modalOpen={this.state.showEdit}
+        pos={this.state.pos}
+        onCloseClick={this.onCloseEditClick}
+      />
+    );
+  }
   renderPreviewModal() {
     if (!this.state.showPreview) {
       return null;
@@ -280,7 +302,7 @@ export default class QueryResultTable extends Component {
       <PreviewModal
         modalOpen={this.state.showPreview}
         value={this.state.valuePreview}
-        onCloseClick={this.onClosePreviewClick.bind(this)}
+        onCloseClick={this.onClosePreviewClick}
       />
     );
   }
@@ -386,7 +408,8 @@ export default class QueryResultTable extends Component {
         rowIndex={params.rowIndex}
         data={this.props.rows}
         col={field.name}
-        onOpenPreviewClick={this.onOpenPreviewClick} />
+        onOpenPreviewClick={this.onOpenPreviewClick}
+        onEditClick={this.onEditClick}  />
     );
   }
 
@@ -399,7 +422,7 @@ export default class QueryResultTable extends Component {
     return (
       <div>
         {this.renderPreviewModal()}
-
+        {this.renderEditModal()}
         <ScrollSync>
           {({ 
             clientHeight,
@@ -417,6 +440,114 @@ export default class QueryResultTable extends Component {
             </div>
           )}
         </ScrollSync>
+        <style jsx="true">{`
+
+.grid-query-wrapper {
+  border-color: #d3d3d3;
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+  border-radius: 0.25rem;
+}
+
+.Grid {
+  outline: none;
+}
+
+.draggable-handle {
+  width: 5px;
+  cursor: col-resize;
+  height: 30px;
+  position: absolute;
+  right: 0;
+  border-right: 1px solid #bfbfbf;
+  top: 0;
+  z-index: 10000;
+}
+
+.Grid.grid-header-row .Grid__cell .draggable-handle:hover,
+.Grid.grid-header-row .Grid__cell .react-draggable-dragging {
+  border-right: 3px solid #0284ff;
+}
+
+.Grid.grid-body {
+  background: whitesmoke;
+  overflow: hidden !important;
+}
+
+.Grid.grid-body ::-webkit-scrollbar {
+  display: none;
+}
+
+.Grid.grid-body:hover {
+  overflow: auto !important;
+}
+
+.Grid.grid-body:hover ::-webkit-scrollbar {
+  display: block;
+}
+
+.Grid.grid-body > .Grid__innerScrollContainer {
+  background: #fff;
+}
+
+.Grid__cell {
+  overflow: hidden;
+}
+
+.Grid__cell > .item {
+  border: 1px solid #eee;
+  padding-left: 3px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.Grid.grid-header-row .Grid__cell {
+  overflow: visible;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.Grid.grid-header-row .Grid__cell span {
+  overflow: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.Grid.grid-header-row .Grid__cell > .item {
+  border: none;
+}
+
+.Grid.grid-header-row {
+  overflow: hidden !important;
+  background: #f9fafb;
+  border: 1px solid rgba(34, 36, 38, 0.1);
+  border-right: none;
+}
+
+.grid-header-row .Grid__cell > .item {
+  border: 1px solid #dadada;
+}
+
+.Grid .table-cell-type-null {
+  vertical-align: text-bottom;
+}
+.cell {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  border-right: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}        
+.HeaderGrid {
+  width: 100%;
+  overflow: hidden !important;
+}
+`}</style>
       </div>
     );
   }

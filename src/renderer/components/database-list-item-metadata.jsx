@@ -24,6 +24,7 @@ export default class DbMetadataList extends Component {
     onExecuteDefaultQuery: PropTypes.func,
     onSelectItem: PropTypes.func,
     onGetSQLScript: PropTypes.func,
+    onExecuteEditTable: PropTypes.func,
   }
 
   constructor(props, context) {
@@ -75,6 +76,7 @@ export default class DbMetadataList extends Component {
     const {
       client,
       onExecuteDefaultQuery,
+      onExecuteEditTable,
       onSelectItem,
       items,
       title,
@@ -136,6 +138,7 @@ export default class DbMetadataList extends Component {
               indexesByTable={this.props.indexesByTable}
               onSelectItem={onSelectItem}
               onExecuteDefaultQuery={onExecuteDefaultQuery}
+              onExecuteEditTable={onExecuteEditTable}
               onGetSQLScript={onGetSQLScript} />
           );
         })

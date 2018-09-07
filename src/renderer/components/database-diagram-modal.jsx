@@ -314,7 +314,7 @@ export default class DatabaseDiagramModal extends Component {
       <Modal ref="diagramModal"
       closable="true"
       detachable="false"
-      dimmer={false}
+      dimmer={"inverted"}
         open={this.props.modalOpen}
       >
         {!!this.state.showDatabaseDiagram &&

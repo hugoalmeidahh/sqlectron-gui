@@ -18,6 +18,9 @@ ipcMain.on('getconfig', (event, arg) => {
     var configData = config.get(arg);
     event.returnValue = configData;
 })
+ipcMain.on('getpath', (event, arg) => {
+    event.returnValue = process.argv[1];
+})
 // enables ES6+ support
 //if (configData.devMode) {
 //  require('babel-register');

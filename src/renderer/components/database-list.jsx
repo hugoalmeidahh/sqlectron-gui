@@ -18,6 +18,7 @@ export default class DatabaseList extends Component {
     proceduresByDatabase: PropTypes.object.isRequired,
     onSelectDatabase: PropTypes.func.isRequired,
     onExecuteDefaultQuery: PropTypes.func.isRequired,
+    onExecuteEditTable:PropTypes.func.isRequired,
     onSelectTable: PropTypes.func.isRequired,
     onGetSQLScript: PropTypes.func.isRequired,
     onRefreshDatabase: PropTypes.func.isRequired,
@@ -46,6 +47,7 @@ export default class DatabaseList extends Component {
       functionsByDatabase,
       proceduresByDatabase,
       onExecuteDefaultQuery,
+      onExecuteEditTable,
       onSelectTable,
       onSelectDatabase,
       onGetSQLScript,
@@ -85,6 +87,7 @@ export default class DatabaseList extends Component {
             functions={functionsByDatabase[database.name]}
             procedures={proceduresByDatabase[database.name]}
             onExecuteDefaultQuery={onExecuteDefaultQuery}
+            onExecuteEditTable={onExecuteEditTable}
             onSelectTable={onSelectTable}
             onSelectDatabase={onSelectDatabase}
             onGetSQLScript={onGetSQLScript}

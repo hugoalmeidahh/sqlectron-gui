@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Button, Modal } from 'semantic-ui-react';
 var {electron}=window.myremote;//
 var config=window.myremote.config.get();
-// console.log(config);
+console.log(Modal);
 export default class App extends React.Component{
   // constructor(props, context) {
   //   super(props, context);
@@ -13,11 +13,7 @@ export default class App extends React.Component{
     electron.shell.openExternal(config.website);
   }
   render=()=>{
-    return <Modal
-        open={this.props.modalOpen}
-        onClose={this.props.handleClose}
-        dimmer={false}
-      >
+    return <Modal show={this.props.showModal}  onHide={this.props.closeModal}>
         <Modal.Header content='About Sqlectron' />
         <Modal.Content>
           <table>

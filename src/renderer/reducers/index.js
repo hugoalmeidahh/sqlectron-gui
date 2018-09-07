@@ -14,6 +14,7 @@ import triggers from './triggers';
 import indexes from './indexes';
 import sqlscripts from './sqlscripts';
 import keys from './keys';
+import tableEdit from './tableEdit';
 
 
 const rootReducer = combineReducers({
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   indexes,
   sqlscripts,
   keys,
+  tableEdit,
 });
 
 

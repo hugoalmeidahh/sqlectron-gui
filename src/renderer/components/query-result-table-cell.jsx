@@ -14,6 +14,7 @@ export default class TableCell extends Component {
     data: PropTypes.any.isRequired,
     col: PropTypes.string.isRequired,
     onOpenPreviewClick: PropTypes.func.isRequired,
+    onEditClick: PropTypes.func.isRequired
   }
   // static defaultProps={style:{overflow:"hidden"}}
   constructor(props, context) {
@@ -31,16 +32,27 @@ export default class TableCell extends Component {
       || isPlainObject(value)
     );
 
-    if (!this.contextMenu && hasPreview) {
+    if (!this.contextMenu && hasPreview ) {
       this.contextMenu = new Menu();
-      this.contextMenu.append(new MenuItem({
-        label: 'Open Preview',
-        click: () => {
-          console.log("click pv");
-          console.log(this.props.onOpenPreviewClick);
-          this.props.onOpenPreviewClick(value);
-      },
-      }));
+      // this.contextMenu.append(new MenuItem({
+      //     label: 'Edit',
+      //     click: () => {
+      //       console.log("click edit");
+      //       console.log(this);
+      //       // console.log(this.props.onOpenPreviewClick);
+      //       this.props.onEditClick(this.props.rowIndex,this.props.col);
+      //   },
+      //   }));
+      // if(hasPreview){
+        this.contextMenu.append(new MenuItem({
+          label: 'Open Preview',
+          click: () => {
+            console.log("click pv");
+            console.log(this.props.onOpenPreviewClick);
+            this.props.onOpenPreviewClick(value);
+        },
+        }));
+      // }
     }
 
     if (this.contextMenu) {
@@ -80,7 +92,11 @@ export default class TableCell extends Component {
     // transition: background 0.1s ease;
 
     return (
-      <span className="rowClass cell" style={style}  onContextMenu={this.onContextMenu}>
+      <span className="cell" style={style}  onContextMenu={this.onContextMenu}
+          onClick={
+          ()=>{this.props.onEditClick(this.props.rowIndex,this.props.col);}
+        }
+      >
       {
           value === null
             ? "NULL"

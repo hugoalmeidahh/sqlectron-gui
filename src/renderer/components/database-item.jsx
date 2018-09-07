@@ -53,14 +53,22 @@ export default class DatabaseItem extends Component {
       item,
       dbObjectType,
       onExecuteDefaultQuery,
+      onExecuteEditTable,
       onGetSQLScript,
     } = this.props;
 
     this.contextMenu = new Menu();
     if (dbObjectType === 'Table' || dbObjectType === 'View') {
       this.contextMenu.append(new MenuItem({
+        label: 'Edit Table',
+        click: onExecuteEditTable.bind(this, database, item),
+      }));
+    }
+
+    if (dbObjectType === 'Table' || dbObjectType === 'View') {
+      this.contextMenu.append(new MenuItem({
         label: 'Select Rows (with limit)',
-        click: onExecuteDefaultQuery.bind(this, database, item),
+        click: this.props.onExecuteDefaultQuery.bind(this, database, item),
       }));
     }
 

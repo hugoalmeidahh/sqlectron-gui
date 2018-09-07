@@ -309,7 +309,7 @@ export default class SettingsModalForm extends Component {
       open={this.props.modalOpen}
       closable="true"
       detachable="false"
-      dimmer={false}
+      dimmer={"inverted"}
       >
         <Modal.Header>
           Settings

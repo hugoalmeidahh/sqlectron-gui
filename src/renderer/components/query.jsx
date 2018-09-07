@@ -10,16 +10,22 @@ import 'brace/ext/searchbox';
 import CheckBox from './checkbox.jsx';
 import QueryResult from './query-result.jsx';
 import ServerDBClientInfoModal from './server-db-client-info-modal.jsx';
-
 import { ResizableBox } from 'react-resizable';
-// require('./react-resizable.css');
-// require('./override-ace.css');
-
-
+import {Div} from './Elem';
+import Ace from './Ace';
 const QUERY_EDITOR_HEIGTH = 200;
 const langTools = ace.acequire('ace/ext/language_tools');
-
-
+const css=`
+position:relative;
+.ace_editor.ace_autocomplete .ace_completion-highlight {
+    /* Avoid Blurry render of Highlighting in Retina display */
+    text-shadow: 1px 0px 0px !important;
+}
+.react-resizable-handle {
+   cursor: se-resize !important;
+}
+`;
+var Tag=Div;
 const INFOS = {
   mysql: [
     'MySQL treats commented query as a non select query.' +
@@ -67,6 +73,7 @@ export default class Query extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      css:css,
       query_height:QUERY_EDITOR_HEIGTH,
       wrapEnabled: false,
     };
@@ -172,11 +179,19 @@ export default class Query extends Component {
   }
 
   onQueryBoxResize=(e,data)=>{
-    // console.log("onQueryBoxResize");
+     // console.log("onQueryBoxResize");
     // console.log(e);
-    // console.log(data);
-    this.setState({query_height:data.size.height});
-    this.refs.queryBoxTextarea.editor.resize();
+     // console.log(data);
+     // if (data.size.height<=300){//not too high 
+      this.setState({query_height:data.size.height},()=>{
+          this.refs.queryBoxTextarea.editor.resize();
+      });
+    // }
+    // else{
+    //   this.setState({query_height:300},()=>{
+    //       this.refs.queryBoxTextarea.editor.resize();
+    //   });
+    // }
   }
 
   onWrapContentsChecked() {
@@ -282,9 +297,10 @@ export default class Query extends Component {
     // console.log(this.state.query_height);
     
     return (
-      <div>
-        <div>
-          <ResizableBox
+    
+       <Tag css={this.state.css}>
+         <div>
+          <ResizableBox 
             className="react-resizable react-resizable-se-resize ui segment"
             height={QUERY_EDITOR_HEIGTH}
             width={500}
@@ -293,7 +309,7 @@ export default class Query extends Component {
               mode="sql"
               theme="github"
               name={this.props.editorName}
-              height="calc(100% - 15px)"
+              height="100%"
               width="100%"
               ref="queryBoxTextarea"
               value={query.query}
@@ -304,15 +320,17 @@ export default class Query extends Component {
               onChange={debounce(onSQLChange, 50)}
               enableBasicAutocompletion
               enableLiveAutocompletion />
-            <div className="ui secondary menu" style={{ marginTop: 0 }}>
-              <div className="right menu">
-                <CheckBox
-                  name="wrapQueryContents"
-                  label="Wrap Contents"
-                  onChecked={this.onWrapContentsChecked.bind(this)}
-                  onUnchecked={this.onWrapContentsUnchecked.bind(this)} />
-              </div>
-            </div>
+              {
+                // <div className="ui secondary menu" style={{ marginTop: 0 }}>
+                //   <div className="right menu">
+                //     <CheckBox
+                //       name="wrapQueryContents"
+                //       label="Wrap Contents"
+                //       onChecked={this.onWrapContentsChecked.bind(this)}
+                //       onUnchecked={this.onWrapContentsUnchecked.bind(this)} />
+                //   </div>
+                // </div>
+              }
           </ResizableBox>
           <div className="ui secondary menu" style={{ marginTop: 0 }}>
             {infos &&
@@ -326,8 +344,7 @@ export default class Query extends Component {
                 </span>
               </div>
             }
-            <div className="right menu">
-              <div className="item">
+            <div className="right item">
                 <div className="ui buttons">
                   <button
                     className={`ui positive button ${query.isExecuting ? 'loading' : ''}`}
@@ -348,7 +365,6 @@ export default class Query extends Component {
                   }
                 </div>
               </div>
-            </div>
           </div>
         </div>
         <QueryResult
@@ -369,7 +385,10 @@ export default class Query extends Component {
             client={client}
             onCloseClick={() => this.setState({ infoModalVisible: false })} />
         }
-      </div>
+      {
+        //<Ace css={this.state.css} cssChange={(v)=>{this.setState({css:v})}} />
+      }
+      </Tag>
     );
   }
 }

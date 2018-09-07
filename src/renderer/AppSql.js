@@ -12,7 +12,6 @@ const history = createHashHistory({
 const store = configureStore();
 class Routers extends Component{
   render=()=>{
-    // console.log(this.props);
     return(<Switch>
                 <Route path="/test" component={AppTest} />
                 <Route path="/sql/manage" component={ServerManagementContainer} />

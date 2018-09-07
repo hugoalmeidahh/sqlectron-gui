@@ -10,6 +10,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import * as ConnActions from '../actions/connections.js';
 import * as QueryActions from '../actions/queries';
 import * as DbAction from '../actions/databases';
+import * as EditActions from '../reducers/tableEdit';
 import { fetchTablesIfNeeded, selectTablesForDiagram } from '../actions/tables';
 import { fetchSchemasIfNeeded } from '../actions/schemas';
 import { fetchTableColumnsIfNeeded } from '../actions/columns';
@@ -28,16 +29,18 @@ import Query from '../components/query.jsx';
 import Loader from '../components/loader.jsx';
 import PromptModal from '../components/prompt-modal.jsx';
 import MenuHandler from '../menu-handler';
-import {requireLogos} from '../components/require-context'
+import {requireLogos} from '../components/require-context';
+import ModalEdit from './ModalEdit';
+
 //require('../components/react-resizable.css');
 var {sqlectron}=window.myremote;//
 
 const SIDEBAR_WIDTH = 235;
 const STYLES = {
-  wrapper: {},
+  wrapper:{},
   container: {
     display: 'flex',
-    height: '100vh',
+
     boxSizing: 'border-box',
     padding: '50px 10px 40px 10px',
   },
@@ -88,9 +91,8 @@ class QueryBrowserContainer extends Component {
     queries: PropTypes.object.isRequired,
     sqlscripts: PropTypes.object.isRequired,
     keys: PropTypes.object.isRequired,
+    tableEdit: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-    //router: PropTypes.object.isRequired,
-    //params: PropTypes.object.isRequired,
     children: PropTypes.node,
   };
 
@@ -115,6 +117,8 @@ class QueryBrowserContainer extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
+    // console.log("componentWillReceiveProps");
+    // console.log(nextProps);
     const { dispatch, history, connections } = nextProps;
 
     if (connections.error ||
@@ -381,7 +385,10 @@ class QueryBrowserContainer extends Component {
   newTab() {
     this.props.dispatch(QueryActions.newQuery(this.getCurrentQuery().database));
   }
-
+  onExecuteEditTable=(database, item)=>{
+    // console.log("onExecuteEditTable");
+    this.props.dispatch({type:EditActions.SHOW_EDIT,database:database,item:item});
+  }
   closeTab() {
     this.removeQuery(this.props.queries.currentQueryId);
   }
@@ -557,10 +564,8 @@ class QueryBrowserContainer extends Component {
         //   }
         //   <div style={{flex: "auto",overFlow: "hidden"}} >
         }
-            <TabList
-              ref="tabList"
-              >
-              {menu}
+            <TabList ref="tabList">
+               {menu}
             </TabList>
         {
         //   </div>
@@ -585,6 +590,8 @@ class QueryBrowserContainer extends Component {
   }
 
   render() {
+    // console.log("render query-browser==========================");
+    // console.log(this);
     const { filter } = this.state;
     const {
       status,
@@ -626,6 +633,11 @@ class QueryBrowserContainer extends Component {
     return (
       <div style={STYLES.wrapper}>
         {isLoading && <Loader message={status} type="page" />}
+        {this.props.tableEdit.show_edit && <ModalEdit modalOpen={this.props.tableEdit.show_edit} handleClose={
+          ()=>{
+            this.props.dispatch({type:EditActions.HIDE_EDIT});
+          }
+        } database={this.props.tableEdit.database} item={this.props.tableEdit.item} />}
         <div style={STYLES.header}>
           <Header items={breadcrumb}
             onCloseConnectionClick={this.onCloseConnectionClick.bind(this)}
@@ -682,6 +694,7 @@ class QueryBrowserContainer extends Component {
                   proceduresByDatabase={routines.proceduresByDatabase}
                   onSelectDatabase={this.onSelectDatabase.bind(this)}
                   onExecuteDefaultQuery={this.onExecuteDefaultQuery.bind(this)}
+                  onExecuteEditTable={this.onExecuteEditTable}
                   onSelectTable={this.onSelectTable.bind(this)}
                   onGetSQLScript={this.onGetSQLScript.bind(this)}
                   onRefreshDatabase={this.onRefreshDatabase.bind(this)}
@@ -694,9 +707,24 @@ class QueryBrowserContainer extends Component {
           </div>
           {this.props.databases.showingDiagram && this.renderDatabaseDiagramModal()}
         </div>
-        <div style={STYLES.footer}>
-          <Footer status={status} />
-        </div>
+        {
+           <div style={STYLES.footer}>
+             <Footer status={status} />
+           </div>
+        }
+        <style jsx="true">{`
+#sidebar { overflow-y: hidden; overflow-x: hidden; }
+#sidebar ::-webkit-scrollbar{ display:none }
+
+#sidebar:hover { overflow-y:auto; overflow-y:overlay }
+#sidebar:hover ::-webkit-scrollbar { display:block }
+
+#sidebar ::-webkit-scrollbar { -webkit-appearance:none }
+#sidebar ::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 -2px,inset 0 -8px,inset 0 2px,inset 0 8px;
+  min-height: 36px
+}
+          `}</style>
       </div>
     );
   }
@@ -704,8 +732,8 @@ class QueryBrowserContainer extends Component {
 
 
 function mapStateToProps (state) {
-  // console.log("query-browser");
-  // console.log(state);
+  // console.log("mapStateToProps");
+  // console.log(state)
   const {
     connections,
     databases,
@@ -720,6 +748,7 @@ function mapStateToProps (state) {
     sqlscripts,
     keys,
     status,
+    tableEdit,
   } = state;
 
   return {
@@ -736,6 +765,7 @@ function mapStateToProps (state) {
     sqlscripts,
     keys,
     status,
+    tableEdit
   };
 }
 

@@ -180,6 +180,53 @@ export default class GridExample extends React.PureComponent {
             );
           }}
         </ScrollSync>
+        <style jsx="true">{`
+.GridRow {
+  position:relative;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+}
+.GridColumn {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}          
+.LeftSideGridContainer {
+  flex: 0 0 75px;
+  z-index: 10;
+}
+
+.LeftSideGrid {
+  overflow: hidden !important;
+}
+.HeaderGrid {
+  width: 100%;
+  overflow: hidden !important;
+}          
+.cell,
+.headerCell,
+.leftCell {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 .5em;
+}
+.headerCell,
+.leftCell {
+  font-weight: bold;
+}
+
+.LeftSideGridContainer {
+  flex: 0 0 50px;
+}
+
+          `}</style>
       </div>
     );
   }

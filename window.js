@@ -9,7 +9,7 @@ const path=require("path");
 // console.log(createLogger);
 const logger = createLogger('window');
 // console.log(logger);
-
+console.log(process.argv);
 const devMode = (process.argv || []).indexOf('--dev') !== -1;
 const localMode = (process.argv || []).indexOf('--local') !== -1;
 const localBuildMode = (process.argv || []).indexOf('--build') !== -1;
@@ -49,15 +49,14 @@ function buildNewWindow(app) {
   // mainWindow.loadURL(entryBasePath + '/static/index.html');
   //console.log(__dirname);
 
-  var cp=path.resolve(".");
-  //console.log(cp);
+  var cp=path.resolve(process.argv[1]);
   let entryBasePath;
   if(localMode){//local mode
     if(localBuildMode){
         entryBasePath =  'file://' + cp+ '/build/index.html';  
     }
     else{
-        entryBasePath =  'file://' + cp+ '/src/index.html';  
+        entryBasePath =  'file://' + cp+ `/src/index.html`;  
     }
   }
   else{         //devMode  productionMode

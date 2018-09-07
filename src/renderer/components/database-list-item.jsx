@@ -48,6 +48,7 @@ export default class DatabaseListItem extends Component {
     onGetSQLScript: PropTypes.func.isRequired,
     onRefreshDatabase: PropTypes.func.isRequired,
     onShowDiagramModal: PropTypes.func.isRequired,
+    onExecuteEditTable: PropTypes.func.isRequired,
   }
 
   constructor(props, context) {
@@ -128,6 +129,7 @@ export default class DatabaseListItem extends Component {
       procedures,
       database,
       onExecuteDefaultQuery,
+      onExecuteEditTable,
       onSelectTable,
       onGetSQLScript,
     } = this.props;
@@ -176,6 +178,7 @@ export default class DatabaseListItem extends Component {
           indexesByTable={indexesByTable}
           database={database}
           onExecuteDefaultQuery={onExecuteDefaultQuery}
+          onExecuteEditTable={onExecuteEditTable}
           onSelectItem={onSelectTable}
           onGetSQLScript={onGetSQLScript} />
         <DatabaseListItemMetatada
