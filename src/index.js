@@ -7,7 +7,6 @@ import "storm-react-diagrams/dist/style.min.css";
 import "react-virtualized/styles.css";
 import "react-select/dist/react-select.css";
 import "./renderer/semantic-ui/semantic.css";
-import "renderer/components/react-resizable.css";
 
 ReactDOM.render(
   <App />,  document.getElementById('root')
