@@ -11,13 +11,13 @@ export default class App extends React.Component{
         onClose={this.props.handleClose}
         dimmer={"inverted"}
       >
-        <Modal.Header content='About Sqlectron' />
+        <Modal.Header content='Edit Table' />
         <Modal.Content>
-        <div>{this.props.database.name}:{this.props.item.name}</div>
+        <div>database name:{this.props.database.name},table:{this.props.item.name}</div>
           <table>
           <tbody>
-          <tr><td>Version:</td><td></td></tr>
-          <tr><td>Author:</td><td></td></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
           </tbody></table>
         </Modal.Content>
         <Modal.Actions>

@@ -465,7 +465,7 @@ export default class QueryResultTable extends Component {
         data={this.props.rows}
         col={field.name}
         onOpenPreviewClick={this.onOpenPreviewClick}
-        onEditClick={this.onEditClick}  />
+        onEditClick={()=>{}}  />
     );
   }
 

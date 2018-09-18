@@ -23,6 +23,7 @@ export default class DatabaseItem extends Component {
     onSelectItem: PropTypes.func,
     onExecuteDefaultQuery: PropTypes.func,
     onGetSQLScript: PropTypes.func,
+    onExecuteEditTable:PropTypes.func.isRequired,
   };
 
   constructor(props, context) {
@@ -51,6 +52,7 @@ export default class DatabaseItem extends Component {
       item,
       dbObjectType,
       onExecuteDefaultQuery,
+      onExecuteEditTable,
       onGetSQLScript,
     } = this.props;
 
@@ -63,7 +65,14 @@ export default class DatabaseItem extends Component {
         })
       );
     }
-
+    if (dbObjectType === 'Table') {
+      this.contextMenu.append(
+        new MenuItem({
+          label: 'EditTable',
+          click: onExecuteEditTable.bind(this, database, item),
+        })
+      );
+    }
     this.contextMenu.append(new MenuItem({ type: 'separator' }));
 
     const { disabledFeatures } = CLIENTS.find(

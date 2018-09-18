@@ -36,6 +36,7 @@ if (module_name==="./renderer/AppSql"){
 	link(where,"node_modules/react-tabs/style/react-tabs.css");
 	link(where,"node_modules/storm-react-diagrams/dist/style.min.css");
 	link(where,"node_modules/react-virtualized/styles.css");
+  link(where,"node_modules/react-select/dist/react-select.css")
 	link("./","renderer/semantic-ui/semantic.min.css")
 	link("./","renderer/components/react-resizable.css")
 }
