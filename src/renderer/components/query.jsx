@@ -170,10 +170,9 @@ export default class Query extends Component {
   }
 
   onQueryBoxResize = (e, data) => {
-      this.setState({ query_height: data.size.height }, () => {
-        this.refs.queryBoxTextarea.editor.resize();
-      });
-   
+    this.setState({ query_height: data.size.height }, () => {
+      this.refs.queryBoxTextarea.editor.resize();
+    });
   };
 
   onWrapContentsChecked() {
@@ -376,22 +375,21 @@ export default class Query extends Component {
           isExecuting={query.isExecuting}
           error={query.error}
         />
-        {this.state &&
-          this.state.infoModalVisible && (
-            <ServerDBClientInfoModal
-              infos={infos}
-              client={client}
-              onCloseClick={() => this.setState({ infoModalVisible: false })}
-            />
-          )}
+        {this.state && this.state.infoModalVisible && (
+          <ServerDBClientInfoModal
+            infos={infos}
+            client={client}
+            onCloseClick={() => this.setState({ infoModalVisible: false })}
+          />
+        )}
         <style jsx="true">{`
-.ace_editor.ace_autocomplete .ace_completion-highlight {
-  /* Avoid Blurry render of Highlighting in Retina display */
-  text-shadow: 1px 0px 0px !important;
-}
-#acebox1 .react-resizable-handle {
-  cursor: row-resize !important;
-}
+          .ace_editor.ace_autocomplete .ace_completion-highlight {
+            /* Avoid Blurry render of Highlighting in Retina display */
+            text-shadow: 1px 0px 0px !important;
+          }
+          #acebox1 .react-resizable-handle {
+            cursor: row-resize !important;
+          }
         `}</style>
       </div>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'proptypes';
 import UpdateChecker from './update-checker.jsx';
 // import LogStatus from './log-status.jsx';
-var {shell}=window.myremote.electron;
+var { shell } = window.myremote.electron;
 
 const STYLE = {
   footer: { minHeight: 'auto' },
@@ -34,11 +34,7 @@ const Footer = ({ status }) => (
       <a className="item" onClick={onGithubClick}>
         Github
       </a>
-      <a
-        className="item"
-        title="Keyboard Shortcuts"
-        onClick={onShortcutsClick}
-      >
+      <a className="item" title="Keyboard Shortcuts" onClick={onShortcutsClick}>
         <i className="keyboard icon" />
       </a>
     </div>

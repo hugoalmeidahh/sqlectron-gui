@@ -54,7 +54,7 @@ export default class ServerModalForm extends Component {
         closable="false"
         detachable="false"
         open={this.props.modalOpen}
-        dimmer={"inverted"}
+        dimmer={'inverted'}
       >
         <Modal.Header>{title}</Modal.Header>
         <Modal.Content>{message}</Modal.Content>

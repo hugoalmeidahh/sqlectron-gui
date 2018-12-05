@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'proptypes';
-import  LOGO_PATH from './logo-128px.png';
-var  { shell }=window.myremote.electron;
+const LOGO_PATH = './logo-128px.png';
+var { shell } = window.myremote.electron;
 function onSiteClick(event) {
   event.preventDefault();
   shell.openExternal('https://sqlectron.github.io');
@@ -35,7 +35,10 @@ const Header = ({ items, onCloseConnectionClick, onReConnectionClick }) => {
       <div style={{ margin: '0 auto' }}>
         <div className="item">{renderBreadcrumb(items)}</div>
       </div>
-      <div className="right menu" style={{ visibility: visibilityButtons,marginLeft: 0 }}>
+      <div
+        className="right menu"
+        style={{ visibility: visibilityButtons, marginLeft: 0 }}
+      >
         <div className="item borderless" style={styleItem}>
           <div className="ui mini basic icon buttons">
             <button

@@ -46,7 +46,7 @@ export default class DatabaseListItem extends Component {
     onGetSQLScript: PropTypes.func.isRequired,
     onRefreshDatabase: PropTypes.func.isRequired,
     onShowDiagramModal: PropTypes.func.isRequired,
-    onExecuteEditTable:PropTypes.func.isRequired,
+    onExecuteEditTable: PropTypes.func.isRequired,
   };
 
   constructor(props, context) {

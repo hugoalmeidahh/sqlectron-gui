@@ -35,9 +35,9 @@ export default class QueryResultTable extends Component {
     this.state = {
       columnWidths: {},
       autoColumnWidths: [],
-      showPreview:false,
-      showEdit:false,
-      pos:null,
+      showPreview: false,
+      showEdit: false,
+      pos: null,
     };
     this.resizeHandler = debounce(this.onResize.bind(this), 20);
   }
@@ -99,19 +99,19 @@ export default class QueryResultTable extends Component {
   onOpenPreviewClick = value => {
     // console.log('onOpenPreviewClick');
     this.setState({ showPreview: true, valuePreview: value });
-  }
-  onEditClick=(row,col)=>{
-    console.log(row +","+col);
+  };
+  onEditClick = (row, col) => {
+    console.log(row + ',' + col);
     console.log(this);
-    
-    this.setState({ showEdit: true, pos:{row:row,col:col}}); 
-  }
-  onClosePreviewClick=()=>{
+
+    this.setState({ showEdit: true, pos: { row: row, col: col } });
+  };
+  onClosePreviewClick = () => {
     this.setState({ showPreview: false, valuePreview: null });
-  }
-  onCloseEditClick=()=>{
+  };
+  onCloseEditClick = () => {
     this.setState({ showEdit: false, pos: null });
-  }
+  };
   onResize() {
     clearTimeout(this.resizeTimer);
     this.resizeTimer = setTimeout(this.resize.bind(this), 16);
@@ -227,11 +227,11 @@ export default class QueryResultTable extends Component {
     //if(this.props.collapseV){
     // console.log(props.widthOffset);
 
-    tableWidth = window.innerWidth - (props.widthOffset + 27+2+3+2);
+    tableWidth = window.innerWidth - (props.widthOffset + 27 + 2 + 3 + 2);
     // console.log(props.heigthOffset);
 
     let tableHeight = window.innerHeight - (props.heigthOffset + 225);
-    if(tableHeight<300) tableHeight=300;
+    if (tableHeight < 300) tableHeight = 300;
     // trigger columns resize
     this.autoResizeColumnsWidth(props.fields, props.rows, tableWidth);
 
@@ -465,7 +465,8 @@ export default class QueryResultTable extends Component {
         data={this.props.rows}
         col={field.name}
         onOpenPreviewClick={this.onOpenPreviewClick}
-        onEditClick={()=>{}}  />
+        onEditClick={() => {}}
+      />
     );
   }
 
@@ -489,112 +490,112 @@ export default class QueryResultTable extends Component {
           )}
         </ScrollSync>
         <style jsx="true">{`
-.grid-query-wrapper {
-  border-color: #d3d3d3;
-  border-style: solid;
-  border-width: 1px;
-  box-sizing: border-box;
-  border-radius: 0.25rem;
-}
+          .grid-query-wrapper {
+            border-color: #d3d3d3;
+            border-style: solid;
+            border-width: 1px;
+            box-sizing: border-box;
+            border-radius: 0.25rem;
+          }
 
-.Grid {
-  outline: none;
-}
+          .Grid {
+            outline: none;
+          }
 
-.draggable-handle {
-  width: 5px;
-  cursor: col-resize;
-  height: 30px;
-  position: absolute;
-  right: 0;
-  border-right: 1px solid #bfbfbf;
-  top: 0;
-  z-index: 10000;
-}
+          .draggable-handle {
+            width: 5px;
+            cursor: col-resize;
+            height: 30px;
+            position: absolute;
+            right: 0;
+            border-right: 1px solid #bfbfbf;
+            top: 0;
+            z-index: 10000;
+          }
 
-.Grid.grid-header-row .Grid__cell .draggable-handle:hover,
-.Grid.grid-header-row .Grid__cell .react-draggable-dragging {
-  border-right: 3px solid #0284ff;
-}
+          .Grid.grid-header-row .Grid__cell .draggable-handle:hover,
+          .Grid.grid-header-row .Grid__cell .react-draggable-dragging {
+            border-right: 3px solid #0284ff;
+          }
 
-.Grid.grid-body {
-  background: whitesmoke;
-  overflow: hidden !important;
-}
+          .Grid.grid-body {
+            background: whitesmoke;
+            overflow: hidden !important;
+          }
 
-.Grid.grid-body ::-webkit-scrollbar {
-  display: none;
-}
+          .Grid.grid-body ::-webkit-scrollbar {
+            display: none;
+          }
 
-.Grid.grid-body:hover {
-  overflow: auto !important;
-}
+          .Grid.grid-body:hover {
+            overflow: auto !important;
+          }
 
-.Grid.grid-body:hover ::-webkit-scrollbar {
-  display: block;
-}
+          .Grid.grid-body:hover ::-webkit-scrollbar {
+            display: block;
+          }
 
-.Grid.grid-body > .Grid__innerScrollContainer {
-  background: #fff;
-}
+          .Grid.grid-body > .Grid__innerScrollContainer {
+            background: #fff;
+          }
 
-.Grid__cell {
-  overflow: hidden;
-}
+          .Grid__cell {
+            overflow: hidden;
+          }
 
-.Grid__cell > .item {
-  border: 1px solid #eee;
-  padding-left: 3px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
+          .Grid__cell > .item {
+            border: 1px solid #eee;
+            padding-left: 3px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          }
 
-.Grid.grid-header-row .Grid__cell {
-  overflow: visible;
-  font-weight: bold;
-  padding-left: 10px;
-  padding-right: 10px;
-}
+          .Grid.grid-header-row .Grid__cell {
+            overflow: visible;
+            font-weight: bold;
+            padding-left: 10px;
+            padding-right: 10px;
+          }
 
-.Grid.grid-header-row .Grid__cell span {
-  overflow: hidden;
-  width: 100%;
-  text-overflow: ellipsis;
-  display: block;
-}
+          .Grid.grid-header-row .Grid__cell span {
+            overflow: hidden;
+            width: 100%;
+            text-overflow: ellipsis;
+            display: block;
+          }
 
-.Grid.grid-header-row .Grid__cell > .item {
-  border: none;
-}
+          .Grid.grid-header-row .Grid__cell > .item {
+            border: none;
+          }
 
-.Grid.grid-header-row {
-  overflow: hidden !important;
-  background: #f9fafb;
-  border: 1px solid rgba(34, 36, 38, 0.1);
-  border-right: none;
-}
+          .Grid.grid-header-row {
+            overflow: hidden !important;
+            background: #f9fafb;
+            border: 1px solid rgba(34, 36, 38, 0.1);
+            border-right: none;
+          }
 
-.grid-header-row .Grid__cell > .item {
-  border: 1px solid #dadada;
-}
+          .grid-header-row .Grid__cell > .item {
+            border: 1px solid #dadada;
+          }
 
-.Grid .table-cell-type-null {
-  vertical-align: text-bottom;
-}
-.cell {
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  border-right: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
-}        
-.HeaderGrid {
-  width: 100%;
-  overflow: hidden !important;
-}
-`}</style>
+          .Grid .table-cell-type-null {
+            vertical-align: text-bottom;
+          }
+          .cell {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            border-right: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+          }
+          .HeaderGrid {
+            width: 100%;
+            overflow: hidden !important;
+          }
+        `}</style>
       </div>
     );
   }

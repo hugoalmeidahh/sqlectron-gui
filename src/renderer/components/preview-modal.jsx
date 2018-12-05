@@ -90,7 +90,7 @@ export default class PreviewModal extends Component {
         closable="false"
         detachable="false"
         open={this.props.modalOpen}
-       dimmer={"inverted"}
+        dimmer={'inverted'}
       >
         <Modal.Header>Content Preview</Modal.Header>
         <Modal.Content>

@@ -24,7 +24,7 @@ export default class DbMetadataList extends Component {
     onSelectItem: PropTypes.func,
     onGetSQLScript: PropTypes.func,
     onExecuteEditTable: PropTypes.func,
-  }
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -122,35 +122,39 @@ export default class DbMetadataList extends Component {
 
       const body = renderChildren
         ? grouped[key].map(item => {
-          const hasChildElements = !!onSelectItem;
+            const hasChildElements = !!onSelectItem;
 
-          const cssStyle = { ...STYLE.item, marginLeft: hasGroup ? '0.5em' : '0px' };
-          if (this.state.collapsed) {
-            cssStyle.display = 'none';
-          }
-          cssStyle.cursor = hasChildElements ? 'pointer' : 'default';
+            const cssStyle = {
+              ...STYLE.item,
+              marginLeft: hasGroup ? '0.5em' : '0px',
+            };
+            if (this.state.collapsed) {
+              cssStyle.display = 'none';
+            }
+            cssStyle.cursor = hasChildElements ? 'pointer' : 'default';
 
-          const { schema, name } = item;
-          const fullName = schema ? `${schema}.${name}` : name;
+            const { schema, name } = item;
+            const fullName = schema ? `${schema}.${name}` : name;
 
-          return (
-            <DatabaseItem
-              key={`${key}.${title}.${database.name}.${fullName}`}
-              client={client}
-              database={database}
-              item={item}
-              dbObjectType={this.props.title.slice(0, -1)}
-              style={cssStyle}
-              columnsByTable={this.props.columnsByTable}
-              triggersByTable={this.props.triggersByTable}
-              indexesByTable={this.props.indexesByTable}
-              onSelectItem={onSelectItem}
-              onExecuteDefaultQuery={onExecuteDefaultQuery}
-              onExecuteEditTable={onExecuteEditTable}
-              onGetSQLScript={onGetSQLScript} />
-          );
-        })
-      : null;
+            return (
+              <DatabaseItem
+                key={`${key}.${title}.${database.name}.${fullName}`}
+                client={client}
+                database={database}
+                item={item}
+                dbObjectType={this.props.title.slice(0, -1)}
+                style={cssStyle}
+                columnsByTable={this.props.columnsByTable}
+                triggersByTable={this.props.triggersByTable}
+                indexesByTable={this.props.indexesByTable}
+                onSelectItem={onSelectItem}
+                onExecuteDefaultQuery={onExecuteDefaultQuery}
+                onExecuteEditTable={onExecuteEditTable}
+                onGetSQLScript={onGetSQLScript}
+              />
+            );
+          })
+        : null;
 
       return (
         <div key={`list-item.${key}.${title}.${database.name}`}>

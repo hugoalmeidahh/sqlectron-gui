@@ -14,8 +14,8 @@ export default class TableCell extends Component {
     data: PropTypes.any.isRequired,
     col: PropTypes.string.isRequired,
     onOpenPreviewClick: PropTypes.func.isRequired,
-    onEditClick: PropTypes.func.isRequired
-  }
+    onEditClick: PropTypes.func.isRequired,
+  };
   // static defaultProps={style:{overflow:"hidden"}}
   constructor(props, context) {
     super(props, context);
@@ -29,7 +29,7 @@ export default class TableCell extends Component {
 
     const hasPreview = typeof value === 'string' || isPlainObject(value);
 
-    if (!this.contextMenu && hasPreview ) {
+    if (!this.contextMenu && hasPreview) {
       this.contextMenu = new Menu();
       // this.contextMenu.append(new MenuItem({
       //     label: 'Edit',
@@ -41,14 +41,16 @@ export default class TableCell extends Component {
       //   },
       //   }));
       // if(hasPreview){
-        this.contextMenu.append(new MenuItem({
+      this.contextMenu.append(
+        new MenuItem({
           label: 'Open Preview',
           click: () => {
-            console.log("click pv");
+            console.log('click pv');
             console.log(this.props.onOpenPreviewClick);
             this.props.onOpenPreviewClick(value);
-        },
-        }));
+          },
+        })
+      );
       // }
     }
 
@@ -89,16 +91,15 @@ export default class TableCell extends Component {
     // transition: background 0.1s ease;
 
     return (
-      <span className="cell" style={style}  onContextMenu={this.onContextMenu}
-          onClick={
-          ()=>{this.props.onEditClick(this.props.rowIndex,this.props.col);}
-        }
+      <span
+        className="cell"
+        style={style}
+        onContextMenu={this.onContextMenu}
+        onClick={() => {
+          this.props.onEditClick(this.props.rowIndex, this.props.col);
+        }}
       >
-      {
-          value === null
-            ? "NULL"
-            : valueToString(value)
-      }
+        {value === null ? 'NULL' : valueToString(value)}
       </span>
     );
     // return (

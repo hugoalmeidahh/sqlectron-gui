@@ -71,10 +71,9 @@ export default class TableSubmenu extends Component {
     const cssStyle = { ...STYLE.item };
     if (this.state.collapsed) {
       cssStyle.display = 'none';
-    }
-    else{
-     cssStyle.display = 'flex'; 
-     cssStyle.justifyContent="space-between";
+    } else {
+      cssStyle.display = 'flex';
+      cssStyle.justifyContent = 'space-between';
     }
     const columnsIcon = (
       <i
@@ -89,20 +88,14 @@ export default class TableSubmenu extends Component {
     };
 
     return itemsByTable[table].map(item => (
-      <span
-        key={item.name}
-        title={item.name}
-        style={cssStyle}
-        className="item">
-        <span style={{display:"flex"}}>
-            {this.props.title === 'Columns' ? columnsIcon : null}
-            {item.name}
+      <span key={item.name} title={item.name} style={cssStyle} className="item">
+        <span style={{ display: 'flex' }}>
+          {this.props.title === 'Columns' ? columnsIcon : null}
+          {item.name}
         </span>
-        {
-          this.props.title === 'Columns'
-            ? <span style={styleColumnType}>{item.dataType}</span>
-            : null
-        }
+        {this.props.title === 'Columns' ? (
+          <span style={styleColumnType}>{item.dataType}</span>
+        ) : null}
       </span>
     ));
   }

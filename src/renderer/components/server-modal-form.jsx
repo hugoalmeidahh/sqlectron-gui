@@ -694,8 +694,9 @@ export default class ServerModalForm extends Component {
           <p>
             <em>
               Allow to pre filter the data available in the sidebar. It improves
-              the rendering performance for large servers.<br />Separate values
-              by break line
+              the rendering performance for large servers.
+              <br />
+              Separate values by break line
             </em>
           </p>
           {this.renderFilterPanelItem(
@@ -821,7 +822,7 @@ export default class ServerModalForm extends Component {
         closable="true"
         detachable="false"
         open={this.props.modalOpen}
-        dimmer={"inverted"}
+        dimmer={'inverted'}
       >
         <Modal.Header>Settings</Modal.Header>
         <Modal.Content>

@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import CollapseIcon from './collapse-icon.jsx';
 import TableSubmenu from './table-submenu.jsx';
+import { Popup, Dropdown } from 'semantic-ui-react';
 //import { remote } from 'electron'; // eslint-disable-line import/no-unresolved
 var { sqlectron } = window.myremote;
 var { remote } = window.myremote.electron;
 
-const Menu = remote.Menu;
-const MenuItem = remote.MenuItem;
+// const Menu = remote.Menu;
+// const MenuItem = remote.MenuItem;
 const CLIENTS = sqlectron.db.CLIENTS;
 
 export default class DatabaseItem extends Component {
@@ -23,13 +24,13 @@ export default class DatabaseItem extends Component {
     onSelectItem: PropTypes.func,
     onExecuteDefaultQuery: PropTypes.func,
     onGetSQLScript: PropTypes.func,
-    onExecuteEditTable:PropTypes.func.isRequired,
+    onExecuteEditTable: PropTypes.func.isRequired,
   };
 
   constructor(props, context) {
     super(props, context);
     this.state = {};
-    this.contextMenu = null;
+    // this.contextMenu = null;
   }
 
   // Context menu is built dinamically on click (if it does not exist), because building
@@ -42,7 +43,7 @@ export default class DatabaseItem extends Component {
       this.buildContextMenu();
     }
 
-    this.contextMenu.popup(event.clientX, event.clientY);
+    this.contextMenu.popup(event.clientX, event.clientY); //error here
   }
 
   buildContextMenu() {
@@ -56,7 +57,7 @@ export default class DatabaseItem extends Component {
       onGetSQLScript,
     } = this.props;
 
-    this.contextMenu = new Menu();
+    this.contextMenu = new ContextMenu();
     if (dbObjectType === 'Table' || dbObjectType === 'View') {
       this.contextMenu.append(
         new MenuItem({
@@ -168,9 +169,24 @@ export default class DatabaseItem extends Component {
       </div>
     );
   }
+  onRemove = (e, data) => {
+    console.log(e);
+  };
 
+  onRename = (e, data) => {
+    console.log('onRename');
+  };
   render() {
-    const { database, item, style, onSelectItem, dbObjectType } = this.props;
+    const {
+      database,
+      item,
+      style,
+      onSelectItem,
+      dbObjectType,
+      onExecuteDefaultQuery,
+      onExecuteEditTable,
+      onGetSQLScript,
+    } = this.props;
     const hasChildElements = !!onSelectItem;
     const onSingleClick = hasChildElements
       ? () => {
@@ -192,17 +208,43 @@ export default class DatabaseItem extends Component {
 
     return (
       <div>
-        <span
-          style={style}
-          className="item"
-          onClick={onSingleClick}
-          onContextMenu={this.onContextMenu.bind(this)}
-        >
+        <span style={style} className="item" onClick={onSingleClick}>
           {dbObjectType === 'Table' ? (
             <CollapseIcon arrowDirection={collapseArrowDirection} />
           ) : null}
           {dbObjectType === 'Table' ? tableIcon : null}
-          {fullName}
+          <Dropdown text={fullName}>
+            <Dropdown.Menu>
+              <Dropdown.Item
+                text="Select Rows (with limit)"
+                onClick={onExecuteDefaultQuery.bind(this, database, item)}
+              />
+              <Dropdown.Item
+                text="EditTable"
+                onClick={onExecuteEditTable.bind(this, database, item)}
+              />
+              <Dropdown.Item
+                text="Create Statement"
+                onClick={onGetSQLScript.bind(this,database,item,'CREATE',dbObjectType)}
+              />
+              <Dropdown.Item
+                text="Select Statement"
+                onClick={onGetSQLScript.bind(this,database,item,'SELECT',dbObjectType)}
+              />
+              <Dropdown.Item
+                text="Insert Statement"
+                onClick={onGetSQLScript.bind(this,database,item,'INSERT',dbObjectType)}
+              />
+              <Dropdown.Item
+                text="Update Statement"
+                onClick={onGetSQLScript.bind(this,database,item,'UPDATE',dbObjectType)}
+              />
+              <Dropdown.Item
+                text="Delete Statement"
+                onClick={onGetSQLScript.bind(this,database,item,'DELETE',dbObjectType)}
+              />
+            </Dropdown.Menu>
+          </Dropdown>
         </span>
         {this.renderSubItems(item)}
       </div>

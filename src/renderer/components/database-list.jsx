@@ -17,7 +17,7 @@ export default class DatabaseList extends Component {
     proceduresByDatabase: PropTypes.object.isRequired,
     onSelectDatabase: PropTypes.func.isRequired,
     onExecuteDefaultQuery: PropTypes.func.isRequired,
-    onExecuteEditTable:PropTypes.func.isRequired,
+    onExecuteEditTable: PropTypes.func.isRequired,
     onSelectTable: PropTypes.func.isRequired,
     onGetSQLScript: PropTypes.func.isRequired,
     onRefreshDatabase: PropTypes.func.isRequired,

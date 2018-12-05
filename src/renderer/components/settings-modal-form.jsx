@@ -173,7 +173,7 @@ export default class SettingsModalForm extends Component {
     return (
       <div>
         <div className="two fields">
-   {/*       <div className={`field ${this.highlightError('zoomFactor')}`}>
+          {/*       <div className={`field ${this.highlightError('zoomFactor')}`}>
             <label>Zoom Factor: {zoomFactorLabel}</label>
             <input
               type="range"
@@ -349,11 +349,12 @@ export default class SettingsModalForm extends Component {
 
   render() {
     return (
-      <Modal id="settings-modal"
-      open={this.props.modalOpen}
-      closable="true"
-      detachable="false"
-      dimmer={"inverted"}
+      <Modal
+        id="settings-modal"
+        open={this.props.modalOpen}
+        closable="true"
+        detachable="false"
+        dimmer={'inverted'}
       >
         <Modal.Header>Settings</Modal.Header>
         <Modal.Content>

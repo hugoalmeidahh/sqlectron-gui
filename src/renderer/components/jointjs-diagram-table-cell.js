@@ -2,19 +2,29 @@ import joint from 'jointjs/dist/joint';
 import bindAll from 'lodash.bindall';
 import template from 'lodash.template';
 
-if(!$){ var $=window.$};
+if (!$) {
+  var $ = window.$;
+}
 
 joint.shapes.sqlectron.TableCell = joint.shapes.basic.Rect.extend({
-  defaults: joint.util.deepSupplement({
-    type: 'sqlectron.TableCell',
-    attrs: {
-      rect: { stroke: 'none', 'fill-opacity': 0, style: { 'pointer-events': 'none' } },
+  defaults: joint.util.deepSupplement(
+    {
+      type: 'sqlectron.TableCell',
+      attrs: {
+        rect: {
+          stroke: 'none',
+          'fill-opacity': 0,
+          style: { 'pointer-events': 'none' },
+        },
+      },
     },
-  }, joint.shapes.basic.Rect.prototype.defaults),
+    joint.shapes.basic.Rect.prototype.defaults
+  ),
 });
 
 joint.shapes.sqlectron.TableCellView = joint.dia.ElementView.extend({
-  template: '<div class="sqlectron-table-cell"><span style="white-space:nowrap;"></span></div>',
+  template:
+    '<div class="sqlectron-table-cell"><span style="white-space:nowrap;"></span></div>',
 
   initialize(...args) {
     bindAll(this, 'updateCell');

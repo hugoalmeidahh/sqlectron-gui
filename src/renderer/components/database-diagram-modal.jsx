@@ -319,10 +319,11 @@ export default class DatabaseDiagramModal extends Component {
     // }}
     // onApprove={ () => false}
     return (
-      <Modal ref="diagramModal"
-      closable="true"
-      detachable="false"
-      dimmer={"inverted"}
+      <Modal
+        ref="diagramModal"
+        closable="true"
+        detachable="false"
+        dimmer={'inverted'}
         open={this.props.modalOpen}
       >
         {!!this.state.showDatabaseDiagram && (

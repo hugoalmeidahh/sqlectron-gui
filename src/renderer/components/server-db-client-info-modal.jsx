@@ -33,11 +33,12 @@ export default class ServerDBClientInfoModal extends Component {
     const { client, infos } = this.props;
     const dbClient = CLIENTS.find(item => item.key === client);
     return (
-      <Modal id="settings-modal"
-      open={this.props.modalOpen}
-      closable="true"
-      detachable="false"
-      dimmer={"inverted"}
+      <Modal
+        id="settings-modal"
+        open={this.props.modalOpen}
+        closable="true"
+        detachable="false"
+        dimmer={'inverted'}
       >
         <Modal.Header>{dbClient.name} Query Information</Modal.Header>
         <Modal.Content>

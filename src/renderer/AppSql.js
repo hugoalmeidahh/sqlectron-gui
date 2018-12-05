@@ -19,7 +19,7 @@ class Routers extends Component{
               </Switch>);
   }
 }
-export default class Root extends Component<Props> {
+export default class Root extends Component {
   render() {
     return (
       <Provider store={store}>
