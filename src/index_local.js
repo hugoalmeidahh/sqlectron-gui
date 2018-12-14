@@ -15,14 +15,8 @@ window.myremote={
 let where= window.require('electron').ipcRenderer.sendSync('getpath');
 window.myremote.sqlectron=require(__dirname+"/../core/lib");
 window.myremote.createLogger=require(__dirname+"/../logger.js");
-let config=require(__dirname+"/../config.js");
+window.myremote.config=require(__dirname+"/../config.js");
 
-window.myremote.config = {
-  get:function(arg){
-    arg=true;
-    return window.myremote.electron.ipcRenderer.sendSync('getconfig', arg);
-  },
-};
 function fileExist(p){
     if(fs.existsSync(p)){
       return true;

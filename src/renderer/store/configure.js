@@ -5,8 +5,8 @@ var {createLogger}=window.myremote;//
 const middlewares = [thunkMiddleware];
 
 /* eslint global-require:0 */
-const isLogConsoleEnabled = global.SQLECTRON_CONFIG.log.console;
-const isLogFileEnabled = global.SQLECTRON_CONFIG.log.file;
+const isLogConsoleEnabled = false;//global.SQLECTRON_CONFIG.log.console;
+const isLogFileEnabled = false;//global.SQLECTRON_CONFIG.log.file;
 
 // console.log("global=======================================");
 // console.log(global.SQLECTRON_CONFIG);
