@@ -2,7 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 const fs= require('fs');
 const path=require('path');
-// console.log(path);
+window.myremote={
+    fs:require('fs'),
+    path:require("path"),
+    electron:require('electron'),
+    csvStringify:require('csv-stringify')
+    // remote:electron.remote,
+    // ipcRenderer:electron.ipcRenderer,
+    // shell:electron.shell,
+    // webFrame:electron.webFrame,
+};
+let where= window.require('electron').ipcRenderer.sendSync('getpath');
+window.myremote.sqlectron=require(__dirname+"/../core/lib");
+window.myremote.createLogger=require(__dirname+"/../logger.js");
+let config=require(__dirname+"/../config.js");
+
+window.myremote.config = {
+  get:function(arg){
+    arg=true;
+    return window.myremote.electron.ipcRenderer.sendSync('getconfig', arg);
+  },
+};
 function fileExist(p){
     if(fs.existsSync(p)){
       return true;
@@ -17,19 +37,7 @@ function link(where,module_name) {
   thelink.setAttribute("href",file1);
   document.head.appendChild(thelink);
 }
-function getWhere(){
-  let path=window.require('electron').ipcRenderer.sendSync('getpath');
-  let where;
-  if(path==="."){
-     where=".."; 
-  }
-  else{
-    where="../.."
-  }
-  return where;
-}
 let module_name;
-let where=getWhere();
 let App;
 module_name="./renderer/AppSql";
 if (module_name==="./renderer/AppSql"){
