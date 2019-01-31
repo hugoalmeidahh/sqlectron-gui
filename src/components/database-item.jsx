@@ -23,7 +23,7 @@ export default class DatabaseItem extends Component {
     onSelectItem: PropTypes.func,
     onExecuteDefaultQuery: PropTypes.func,
     onGetSQLScript: PropTypes.func,
-    onExecuteEditTable:PropTypes.func.isRequired,
+    onExecuteEditTable: PropTypes.func.isRequired,
   };
 
   constructor(props, context) {
@@ -42,7 +42,7 @@ export default class DatabaseItem extends Component {
       this.buildContextMenu();
     }
 
-    this.contextMenu.popup({x:event.clientX, y:event.clientY});
+    this.contextMenu.popup({ x: event.clientX, y: event.clientY });
   }
 
   buildContextMenu() {

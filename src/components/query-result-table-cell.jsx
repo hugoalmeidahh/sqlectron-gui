@@ -56,8 +56,7 @@ export default class TableCell extends Component {
 
     if (this.contextMenu) {
       console.log(this.contextMenu);
-      this.contextMenu.popup({x:event.clientX, y:event.clientY});
-
+      this.contextMenu.popup({ x: event.clientX, y: event.clientY });
     }
   };
 

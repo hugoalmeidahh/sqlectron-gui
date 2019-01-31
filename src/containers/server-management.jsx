@@ -19,9 +19,7 @@ const STYLES = {
   container: { padding: '0px 10px 50px 10px' },
 };
 
-
 const BREADCRUMB = [{ icon: 'server', label: 'servers' }];
-
 
 class ServerManagerment extends Component {
   static propTypes = {
@@ -42,13 +40,14 @@ class ServerManagerment extends Component {
     // console.log("ServerManagerment componentWillReceiveProps");
     // console.log(nextProps);
   }
-  onConnectClick=({ id }) =>{
+  onConnectClick = ({ id }) => {
     // console.log(this.props);
     // console.log(id);
-    var path=`/sql/server/${id}`;
-    // console.log(path);
+    var path = `/server/${id}`;
+    console.log(path);
     this.props.history.push(path);
-  }
+
+  };
 
   onTestConnectionClick(server) {
     const { dispatch } = this.props;
@@ -76,19 +75,19 @@ class ServerManagerment extends Component {
     dispatch(ServersActions.duplicateServer({ server }));
   }
 
-  onSaveClick=(server)=>{
+  onSaveClick = server => {
     const { dispatch, servers } = this.props;
     const id = servers.editingServer && servers.editingServer.id;
     // console.log("onSaveClick======");
     // console.log(server);
 
     dispatch(ServersActions.saveServer({ id, server }));
-  }
+  };
 
-  onCancelClick=()=> {
+  onCancelClick = () => {
     const { dispatch } = this.props;
     dispatch(ServersActions.finishEditing());
-  }
+  };
 
   onRemoveClick() {
     const { dispatch, servers } = this.props;
@@ -96,19 +95,19 @@ class ServerManagerment extends Component {
     dispatch(ServersActions.removeServer({ id }));
   }
 
-  onSettingsSaveClick=(config)=> {
+  onSettingsSaveClick = config => {
     const { dispatch } = this.props;
     // console.log("onSettingsSaveClick");
-    var rt=ConfigActions.saveConfig(config);
+    var rt = ConfigActions.saveConfig(config);
     // console.log(dispatch);
     // console.log(rt);
     dispatch(rt);
-  }
+  };
 
-  onSettingsCancelClick=()=> {
+  onSettingsCancelClick = () => {
     const { dispatch } = this.props;
     dispatch(ConfigActions.finishEditing());
-  }
+  };
 
   onFilterChange(event) {
     this.setState({ filter: event.target.value });
@@ -118,7 +117,7 @@ class ServerManagerment extends Component {
     const regex = RegExp(name, 'i');
     return servers.filter(srv => regex.test(srv.name));
   }
-  
+
   render() {
     const { filter } = this.state;
     const { connections, servers, config, status } = this.props;
@@ -130,7 +129,7 @@ class ServerManagerment extends Component {
       connecting: connections.testConnecting,
       error: connections.testError,
     };
-
+// console.log(this.props);
     return (
       <div style={STYLES.wrapper}>
         <div style={STYLES.header}>
@@ -140,60 +139,68 @@ class ServerManagerment extends Component {
           <ServerFilter
             onFilterChange={this.onFilterChange.bind(this)}
             onAddClick={this.onAddClick.bind(this)}
-            onSettingsClick={this.onSettingsClick.bind(this)} />
-         {
-            connections.error &&
-              <Message
-                closeable
-                title="Connection Error"
-                message={connections.error.message}
-                type="error" />
-          }
+            onSettingsClick={this.onSettingsClick.bind(this)}
+          />
+          {connections.error && (
+            <Message
+              closeable
+              title="Connection Error"
+              message={connections.error.message}
+              type="error"
+            />
+          )}
 
-          <ServerList servers={filteredServers}
+          <ServerList
+            servers={filteredServers}
             onEditClick={this.onEditClick.bind(this)}
-            onConnectClick={this.onConnectClick.bind(this)} />
+            onConnectClick={this.onConnectClick.bind(this)}
+          />
 
-         {servers.isEditing && <ServerModalForm
-            modalOpen={servers.isEditing}
-            server={selected}
-            error={servers.error}
-            testConnection={testConnection}
-            onTestConnectionClick={this.onTestConnectionClick.bind(this)}
-            onDuplicateClick={this.onDuplicateClick.bind(this)}
-            onSaveClick={this.onSaveClick}
-            onCancelClick={this.onCancelClick}
-            onRemoveClick={this.onRemoveClick.bind(this)} />}
+          {servers.isEditing && (
+            <ServerModalForm
+              modalOpen={servers.isEditing}
+              server={selected}
+              error={servers.error}
+              testConnection={testConnection}
+              onTestConnectionClick={this.onTestConnectionClick.bind(this)}
+              onDuplicateClick={this.onDuplicateClick.bind(this)}
+              onSaveClick={this.onSaveClick}
+              onCancelClick={this.onCancelClick}
+              onRemoveClick={this.onRemoveClick.bind(this)}
+            />
+          )}
 
-          {config.isEditing && <SettingsModalForm 
-            modalOpen={config.isEditing}
-            config={config}
-            error={config.error}
-            onSaveClick={this.onSettingsSaveClick}
-            onCancelClick={this.onSettingsCancelClick} />}
+          {config.isEditing && (
+            <SettingsModalForm
+              modalOpen={config.isEditing}
+              config={config}
+              error={config.error}
+              onSaveClick={this.onSettingsSaveClick}
+              onCancelClick={this.onSettingsCancelClick}
+            />
+          )}
         </div>
         <div style={STYLES.footer}>
           <Footer status={status} />
         </div>
         <style jsx="true">{`
-.Select-input input {
-  padding: 0 !important;
-  border: 0 !important;
-}
+          .Select-input input {
+            padding: 0 !important;
+            border: 0 !important;
+          }
 
-.error .Select .Select-control {
-    background: #fff6f6;
-    border-color: #e0b4b4;
-    color: #9f3a38;
-    border-radius: '';
-    box-shadow: none;
-}
+          .error .Select .Select-control {
+            background: #fff6f6;
+            border-color: #e0b4b4;
+            color: #9f3a38;
+            border-radius: '';
+            box-shadow: none;
+          }
         `}</style>
       </div>
     );
   }
 }
-
 
 function mapStateToProps(state) {
   return {

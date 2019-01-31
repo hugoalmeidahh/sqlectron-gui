@@ -85,6 +85,7 @@
     "csv-stringify": "^3.0.0",
     "debug": "^4.1.1",
     "env-paths": "^1.0.0",
+    "history": "^4.7.2",
     "lodash.defaultsdeep": "^4.6.0",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
