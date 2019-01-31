@@ -3,8 +3,7 @@ import PropTypes from 'proptypes';
 import CollapseIcon from './collapse-icon.jsx';
 import DatabaseItem from './database-item.jsx';
 import groupBy from 'lodash.groupby';
-import ContextMenu from '../contextmenu/ContextMenu';
-import MenuItem from '../contextmenu/MenuItem';
+
 const STYLE = {
   header: { fontSize: '0.85em', color: '#636363' },
   menu: { marginLeft: '5px' },
@@ -25,7 +24,7 @@ export default class DbMetadataList extends Component {
     onSelectItem: PropTypes.func,
     onGetSQLScript: PropTypes.func,
     onExecuteEditTable: PropTypes.func,
-  };
+  }
 
   constructor(props, context) {
     super(props, context);
@@ -123,39 +122,35 @@ export default class DbMetadataList extends Component {
 
       const body = renderChildren
         ? grouped[key].map(item => {
-            const hasChildElements = !!onSelectItem;
+          const hasChildElements = !!onSelectItem;
 
-            const cssStyle = {
-              ...STYLE.item,
-              marginLeft: hasGroup ? '0.5em' : '0px',
-            };
-            if (this.state.collapsed) {
-              cssStyle.display = 'none';
-            }
-            cssStyle.cursor = hasChildElements ? 'pointer' : 'default';
+          const cssStyle = { ...STYLE.item, marginLeft: hasGroup ? '0.5em' : '0px' };
+          if (this.state.collapsed) {
+            cssStyle.display = 'none';
+          }
+          cssStyle.cursor = hasChildElements ? 'pointer' : 'default';
 
-            const { schema, name } = item;
-            const fullName = schema ? `${schema}.${name}` : name;
+          const { schema, name } = item;
+          const fullName = schema ? `${schema}.${name}` : name;
 
-            return (
-        <DatabaseItem
-                key={`${key}.${title}.${database.name}.${fullName}`}
-                client={client}
-                database={database}
-                item={item}
-                dbObjectType={this.props.title.slice(0, -1)}
-                style={cssStyle}
-                columnsByTable={this.props.columnsByTable}
-                triggersByTable={this.props.triggersByTable}
-                indexesByTable={this.props.indexesByTable}
-                onSelectItem={onSelectItem}
-                onExecuteDefaultQuery={onExecuteDefaultQuery}
-                onExecuteEditTable={onExecuteEditTable}
-                onGetSQLScript={onGetSQLScript}
-              />
-            );
-          })
-        : null;
+          return (
+            <DatabaseItem
+              key={`${key}.${title}.${database.name}.${fullName}`}
+              client={client}
+              database={database}
+              item={item}
+              dbObjectType={this.props.title.slice(0, -1)}
+              style={cssStyle}
+              columnsByTable={this.props.columnsByTable}
+              triggersByTable={this.props.triggersByTable}
+              indexesByTable={this.props.indexesByTable}
+              onSelectItem={onSelectItem}
+              onExecuteDefaultQuery={onExecuteDefaultQuery}
+              onExecuteEditTable={onExecuteEditTable}
+              onGetSQLScript={onGetSQLScript} />
+          );
+        })
+      : null;
 
       return (
         <div key={`list-item.${key}.${title}.${database.name}`}>
@@ -173,22 +168,6 @@ export default class DbMetadataList extends Component {
         <div className="menu" style={STYLE.menu}>
           {this.renderItems()}
         </div>
-        <ContextMenu id={"menu_item"}>
-          <MenuItem onClick={
-            ()=>{
-              console.log("select rows;");
-            }
-          }
-            data={{ item: 'item 1' }}>
-            Select Rows (with limit)
-          </MenuItem>
-          <MenuItem onClick={
-            ()=>{console.log("edit");}
-          } 
-          data={{ item: 'item 2' }}>
-            EditTable
-          </MenuItem>
-        </ContextMenu>
       </div>
     );
   }

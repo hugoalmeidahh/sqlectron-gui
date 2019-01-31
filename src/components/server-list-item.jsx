@@ -3,7 +3,7 @@ import PropTypes from 'proptypes';
 import { requireLogos } from './require-context';
 var { sqlectron } = window.myremote;
 //var e=require('electron');
-//console.log(e);
+console.log(sqlectron);
 
 //var { sqlectron }= require('electron').remote;
 /**

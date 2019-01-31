@@ -33,27 +33,11 @@ if (process.argv[0].indexOf("Sqlectron.exe")>0)
 {
   cp=cp+"/resources/app";
 }
-//console.log(corepath);
+console.log(cp);
 
 window.myremote.sqlectron=require(cp+"/core/lib");
-//window.myremote.config=require(cp+"\\config.js");
 window.myremote.createLogger=require(cp+"/logger.js");
-// var createLogger=function(namespace){
-//     return new Logger(namespace);
-
-// };
-// window.myremote.createLogger =createLogger;
-// const logger = createLogger('window');
-// logger.error("hi");
-
-const ipcRenderer = window.myremote.ipcRenderer;
-var Config={
-  get:function(arg){
-    arg=true;
-    return ipcRenderer.sendSync('getconfig', arg);
-  },
-}
-window.myremote.config = Config;
+window.myremote.config =require(cp+"/config.js");
 window.myremote.csvStringify=require('csv-stringify');
 //console.log(window.myremote);
   //todo remove config,logger user ipc
