@@ -38,11 +38,7 @@ if (module_name==="./AppSql"){
 	link(where,"node_modules/react-tabs/style/react-tabs.css");
 	link(where,"node_modules/storm-react-diagrams/dist/style.min.css");
 	link(where,"node_modules/react-virtualized/styles.css");
-  link(where,"node_modules/react-select/dist/react-select.css")
   link(where,"node_modules/semantic-ui-css/semantic.css")
-  // link(where, 'node_modules/bootstrap/dist/css/bootstrap.min.css');
-  // link(where, 'node_modules/bootstrap/dist/css/bootstrap-theme.min.css');
-  
 	link("./","components/react-resizable.css")
   link('./', 'react-contextmenu.css');
 }

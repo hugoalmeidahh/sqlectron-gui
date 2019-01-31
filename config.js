@@ -31,7 +31,7 @@ module.exports.get = function getConfiguration(cleanCache) {
   }
 
   const basePath = path.resolve(__dirname);
-  console.log(basePath);
+  // console.log(basePath);
 
   const packageConfig = readJSON(path.resolve(basePath, './package.json'));
 

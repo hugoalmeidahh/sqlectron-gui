@@ -120,7 +120,7 @@ export default class DatabaseDiagramModal extends Component {
 
   onExportDatabaseDiagram(imageType) {
     const { onExportDatabaseDiagram } = this.props;
-    const diagram = this.refs.databaseDiagram.refs.diagram;
+    // const diagram = this.refs.databaseDiagram.refs.diagram;
 
     // fix - reapply css roles which html2canvas ignores for some reason
     // $('.link-tools, .marker-arrowheads', diagram).css({ display: 'none' });
@@ -320,7 +320,6 @@ export default class DatabaseDiagramModal extends Component {
     // onApprove={ () => false}
     return (
       <Modal
-        ref="diagramModal"
         closable="true"
         detachable="false"
         dimmer={'inverted'}
