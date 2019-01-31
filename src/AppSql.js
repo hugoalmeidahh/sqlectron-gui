@@ -19,12 +19,23 @@ class NoMatch extends Component{
               </div>);
   }
 }
+class NoID extends Component{
+  render=()=>{
+    console.log(this.props.history.location.pathname);
+    return(<div>
+      NoID
+                <Link to="/manage" >manage</Link>
+              </div>);
+  }
+}
 
 class Routers extends Component{
   render=()=>{
     return(<Switch>
                 <Route path="/manage" component={ServerManagementContainer} />
                 <Route path="/server/:id" component={QueryBrowserContainer} />
+                <Route path="/server" component={NoID} />
+                <Redirect exact path="/" to="/manage" />
                 <Route component={NoMatch}/>
               </Switch>);
   }

@@ -1,11 +1,11 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from '../reducers';
-var {createLogger}=window.myremote;//
+import { createLogger } from 'redux-logger'
 const middlewares = [thunkMiddleware];
 
 /* eslint global-require:0 */
-const isLogConsoleEnabled = false;//global.SQLECTRON_CONFIG.log.console;
+const isLogConsoleEnabled = true;//global.SQLECTRON_CONFIG.log.console;
 const isLogFileEnabled = false;//global.SQLECTRON_CONFIG.log.file;
 
 // console.log("global=======================================");
@@ -19,7 +19,7 @@ if (isLogConsoleEnabled || isLogFileEnabled) {
     collapsed: true,
   };
 
-  const mainLogger = isLogFileEnabled ? createLogger('renderer:redux') : null;
+  const mainLogger = isLogFileEnabled ? window.myremote.createLogger('renderer:redux') : null;
 
   loggerConfig.logger = {};
 
@@ -45,7 +45,7 @@ if (isLogConsoleEnabled || isLogFileEnabled) {
     }
   }
 
-  middlewares.push(require('redux-logger')(loggerConfig));
+  middlewares.push(createLogger(loggerConfig));
 }
 
 
