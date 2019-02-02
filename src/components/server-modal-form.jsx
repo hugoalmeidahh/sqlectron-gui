@@ -8,10 +8,20 @@ import Checkbox from './checkbox.jsx';
 import { requireLogos } from './require-context';
 import { Modal } from 'semantic-ui-react';
 var { sqlectron } = window.myremote;
-// require('react-select/dist/react-select.css');
-// require('./override-select.css');
+// const MenuList = (props) => {
+//   console.log(props);
+//   const new_children = props.children.map((one) =>{
+//     return (<div key={one.key} >
+//       <img alt="logo" src={one.props.data.logo} style={{ width: '16px' }} />
+//       {one}</div>);
+//   });
 
-//console.log(sqlectron.db.CLIENTS);
+//   return (
+//     <components.MenuList {...props}>
+//       {new_children}
+//     </components.MenuList>
+//   );
+// };
 const CLIENTS = sqlectron.db.CLIENTS.map(dbClient => ({
   value: dbClient.key,
   logo: requireLogos(dbClient.key),
@@ -317,6 +327,15 @@ export default class ServerModalForm extends Component {
     // console.log(className_client);
     // console.log("hiiiiiiiiiiiiiiiii");
     // console.log(this.state.value);
+    // const CustomOption = ({ innerProps, isDisabled }) =>{
+    //   return !isDisabled ? (
+    //     <div {...innerProps}>{/* your component internals */}
+    //       <div>
+    //       <img alt="logo" src={CLIENTS[0].logo} style={{ width: '16px' }} /> {CLIENTS[0].label}
+    //       </div>
+    //     </div>
+    //   ) : null;
+    // }
     return (
       <div>
         <div className="fields">
