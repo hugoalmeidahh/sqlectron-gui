@@ -88,7 +88,7 @@ class AppContainer extends Component {
     //console.log("App render=======");
     const { children, config } = this.props;
     // console.log("render========");
-    // console.log(this.props);
+    console.log(this.props);
     return (
       <div className="ui">
         <ModalAbout

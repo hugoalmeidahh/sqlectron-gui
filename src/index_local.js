@@ -16,6 +16,16 @@ let where= window.require('electron').ipcRenderer.sendSync('getpath');
 window.myremote.sqlectron=require(__dirname+"/../core/lib");
 window.myremote.createLogger=require(__dirname+"/../logger.js");
 window.myremote.config=require(__dirname+"/../config.js");
+// let configv=null;
+// let rconfig=require(__dirname+"/../config.js");
+// window.myremote.config ={
+//   get:function(){
+//     if (configv===null){
+//       configv=rconfig.get();
+//     }
+//     return configv;
+//   }
+// }//require(cp+"/config.js");
 
 function fileExist(p){
     if(fs.existsSync(p)){
@@ -40,7 +50,6 @@ if (module_name==="./AppSql"){
 	link(where,"node_modules/react-virtualized/styles.css");
   link(where,"node_modules/semantic-ui-css/semantic.css")
 	link("./","components/react-resizable.css")
-  link('./', 'react-contextmenu.css');
 }
 
 

@@ -80,7 +80,7 @@ export default class ServerModalForm extends Component {
 
   componentWillUnmount() {
     //$(this.refs.serverModal).modal('hide');
-    this.props.onCancelClick();
+    // this.props.onCancelClick();
   }
 
   onSaveClick() {

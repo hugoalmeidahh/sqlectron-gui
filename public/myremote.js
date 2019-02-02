@@ -15,20 +15,7 @@
     webFrame:electron.webFrame,
     clipboard:electron.clipboard
   };
-// class Logger{
-//   constructor(namespace){
-//         this.namespace=namespace;
-//   }
-//   error(p){
-//     console.log(p);
-//   }
-//   info(p){
-//     console.log(p);
-//   }
-// }
-//var l=new Logger();
 var cp=window.myremote.path.resolve(".")
-//let corepath;
 if (process.argv[0].indexOf("Sqlectron.exe")>0)
 {
   cp=cp+"/resources/app";
@@ -37,7 +24,19 @@ console.log(cp);
 
 window.myremote.sqlectron=require(cp+"/core/lib");
 window.myremote.createLogger=require(cp+"/logger.js");
-window.myremote.config =require(cp+"/config.js");
+window.myremote.config=require(__dirname+"/../config.js");
+// let configv=null;
+// let rconfig=require(cp+"/config.js");
+// window.myremote.config ={
+//   get:function(){
+//     if (configv===null){
+//       configv=rconfig.get();
+//     }
+//     else{
+//       return configv;
+//     }
+//   }
+// }//require(cp+"/config.js");
 window.myremote.csvStringify=require('csv-stringify');
 //console.log(window.myremote);
   //todo remove config,logger user ipc

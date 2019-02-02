@@ -33,7 +33,7 @@ export default class ServerModalForm extends Component {
 
   componentWillUnmount() {
     //$(this.refs.confirmModal).modal('hide');
-    this.props.onCancelClick();
+    // this.props.onCancelClick();
   }
   // allowMultiple={true}
   // context={this.props.context}

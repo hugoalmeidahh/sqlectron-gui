@@ -4,8 +4,7 @@ import set from 'lodash.set';
 import Select from 'react-select';
 import Checkbox from './checkbox.jsx';
 import { Modal } from 'semantic-ui-react';
-// require('react-select/dist/react-select.css');
-// require('./override-select.css');
+
 var { shell } = window.myremote.electron;
 
 export default class SettingsModalForm extends Component {
@@ -31,7 +30,7 @@ export default class SettingsModalForm extends Component {
   }
   componentWillUnmount() {
     // console.log("settings-modal un mount");
-    this.props.onCancelClick();
+    // this.props.onCancelClick();
   }
   componentWillReceiveProps(nextProps) {
     // console.log(nextProps);

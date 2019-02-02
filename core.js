@@ -1,1 +1,1 @@
-const sqlectron = require('../core/index.js');
+const sqlectron = require('./core/index.js');

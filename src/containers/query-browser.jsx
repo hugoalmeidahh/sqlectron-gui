@@ -116,16 +116,16 @@ class QueryBrowserContainer extends Component {
     // console.log("componentWillReceiveProps");
     // console.log(nextProps);
     const { dispatch, history, connections } = nextProps;
-
-    if (
-      connections.error ||
-      (!connections.connecting &&
-        !connections.server &&
-        !connections.waitingSSHPassword)
-    ) {
-      history.push('/');
-      return;
-    }
+    // console.log(connections);
+    // if (
+    //   connections.error ||
+    //   (!connections.connecting &&
+    //     !connections.server &&
+    //     !connections.waitingSSHPassword)
+    // ) {
+    //   history.push('/');
+    //   return;
+    // }
 
     if (!connections.connected) {
       return;
@@ -235,6 +235,7 @@ class QueryBrowserContainer extends Component {
   onCloseConnectionClick() {
     const { dispatch } = this.props;
     dispatch(ConnActions.disconnect());
+    this.props.history.push("/");
   }
 
   onReConnectionClick() {
