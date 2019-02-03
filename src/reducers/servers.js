@@ -59,7 +59,7 @@ export default function servers(state = INITIAL_STATE, action) {
         items: remove(state.items, action.id),
         error: null,
         isSaving: false,
-        isEditing: false,
+        isEditing: false,//to close modal
       };
     case types.SAVE_SERVER_FAILURE:
     case types.DUPLICATE_SERVER_FAILURE:

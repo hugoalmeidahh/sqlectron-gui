@@ -39,12 +39,12 @@ class ServerManagerment extends Component {
   componentWillReceiveProps(nextProps) {
     // console.log("ServerManagerment componentWillReceiveProps");
     // console.log(nextProps);
-    if(this.props.servers.isEditing && !nextProps.servers.isEditing){
-      this.onCancelClick();
-    }
-    if(this.props.config.isEditing && !nextProps.config.isEditing){
-      this.onSettingsCancelClick();
-    }
+    // if(this.props.servers.isEditing && !nextProps.servers.isEditing){
+    //   this.onCancelClick();
+    // }
+    // if(this.props.config.isEditing && !nextProps.config.isEditing){
+    //   this.onSettingsCancelClick();
+    // }
   }
   onConnectClick = ({ id }) => {
     // console.log(this.props);
