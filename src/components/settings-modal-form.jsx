@@ -17,7 +17,6 @@ export default class SettingsModalForm extends Component {
     super(props, context);
     this.state = {
       ...props.config.data,
-      modalOpen: false,
     };
     if (!this.state.zoomFactor) {
       this.state.zoomFactor = 1;
@@ -28,22 +27,20 @@ export default class SettingsModalForm extends Component {
   }
   componentWillUnmount() {
     // console.log("settings-modal un mount");
-    this.props.onCancelClick();
+    // this.props.onCancelClick();
   }
   componentWillReceiveProps(nextProps) {
     // console.log(nextProps);
-    this.setState({ error: nextProps.error });
-    if (!this.props.modalOpen && nextProps.modalOpen) {
-      this.onShow();
-    } else if (this.props.modalOpen && !nextProps.modalOpen) {
-      this.onHide();
-    }
+    // this.setState({ error: nextProps.error });
+    // if (!this.props.modalOpen && nextProps.modalOpen) {
+    //   this.onShow();
+    // } else if (this.props.modalOpen && !nextProps.modalOpen) {
+    //   this.onHide();
+    // }
+    this.setState ({
+      ...nextProps.config.data
+    });
   }
-  onShow = () => {};
-  onHide = () => {
-    console.log('onHide');
-    //this.props.onCancelClick();
-  };
 
   onSaveClick = () => {
     this.props.onSaveClick(this.mapStateToConfig(this.state));
@@ -368,6 +365,8 @@ export default class SettingsModalForm extends Component {
   }
 
   render() {
+    console.log("settings-modal");
+    console.log(this.props);
     return (
       <Modal
         id="settings-modal"

@@ -39,6 +39,12 @@ class ServerManagerment extends Component {
   componentWillReceiveProps(nextProps) {
     // console.log("ServerManagerment componentWillReceiveProps");
     // console.log(nextProps);
+    if(this.props.servers.isEditing && !nextProps.servers.isEditing){
+      this.onCancelClick();
+    }
+    if(this.props.config.isEditing && !nextProps.config.isEditing){
+      this.onSettingsCancelClick();
+    }
   }
   onConnectClick = ({ id }) => {
     // console.log(this.props);
@@ -119,6 +125,8 @@ class ServerManagerment extends Component {
   }
 
   render() {
+    console.log("server manage render====================")
+    console.log(this.props)
     const { filter } = this.state;
     const { connections, servers, config, status } = this.props;
     const selected = servers.editingServer || {};
@@ -156,7 +164,6 @@ class ServerManagerment extends Component {
             onConnectClick={this.onConnectClick.bind(this)}
           />
 
-          {servers.isEditing && (
             <ServerModalForm
               modalOpen={servers.isEditing}
               server={selected}
@@ -168,9 +175,6 @@ class ServerManagerment extends Component {
               onCancelClick={this.onCancelClick}
               onRemoveClick={this.onRemoveClick.bind(this)}
             />
-          )}
-
-          {config.isEditing && (
             <SettingsModalForm
               modalOpen={config.isEditing}
               config={config}
@@ -178,7 +182,6 @@ class ServerManagerment extends Component {
               onSaveClick={this.onSettingsSaveClick}
               onCancelClick={this.onSettingsCancelClick}
             />
-          )}
         </div>
         <div style={STYLES.footer}>
           <Footer status={status} />

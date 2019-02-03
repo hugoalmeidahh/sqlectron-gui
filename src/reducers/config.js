@@ -56,6 +56,9 @@ export default function config(state = INITIAL_STATE, action) {
           ...action.config,
         },
         isSaving: false,
+        isEditing:false,
+        isLoaded:true,
+        error:null,
       };
     }
     default:

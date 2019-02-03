@@ -41,7 +41,6 @@ export default class ServerModalForm extends Component {
       value:client,
       isNew: !server.id,
       showPlainPassword: false,
-      modalOpen: false,
     };
   }
 
@@ -65,12 +64,21 @@ export default class ServerModalForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ error: nextProps.error });
+    let server = nextProps.server || {};
+    //rename client to value
+    let client=server.client;
+    delete server.client;
+    this.setState({
+      ...server,
+      value:client,
+      isNew: !server.id,
+      showPlainPassword: false,
+    });
   }
 
   componentWillUnmount() {
     //$(this.refs.serverModal).modal('hide');
-    this.props.onCancelClick();
+    // this.props.onCancelClick();
   }
 
   onSaveClick() {
