@@ -31,22 +31,23 @@ export default class TableCell extends Component {
 
     if (!this.contextMenu && hasPreview) {
       this.contextMenu = new Menu();
-      // this.contextMenu.append(new MenuItem({
-      //     label: 'Edit',
-      //     click: () => {
-      //       console.log("click edit");
-      //       console.log(this);
-      //       // console.log(this.props.onOpenPreviewClick);
-      //       this.props.onEditClick(this.props.rowIndex,this.props.col);
-      //   },
-      //   }));
+      this.contextMenu.append(new MenuItem({
+          label: 'Edit',
+          click: () => {
+            this.props.onEditClick(this.props.rowIndex,this.props.col);
+          },
+      }));
+      this.contextMenu.append(new MenuItem({
+          label: 'Delete',
+          click: () => {
+            this.props.onDeleteClick(this.props.rowIndex,this.props.col);
+          },
+      }));
       // if(hasPreview){
       this.contextMenu.append(
         new MenuItem({
           label: 'Open Preview',
           click: () => {
-            console.log('click pv');
-            console.log(this.props.onOpenPreviewClick);
             this.props.onOpenPreviewClick(value);
           },
         })
@@ -55,7 +56,6 @@ export default class TableCell extends Component {
     }
 
     if (this.contextMenu) {
-      console.log(this.contextMenu);
       this.contextMenu.popup({ x: event.clientX, y: event.clientY });
     }
   };

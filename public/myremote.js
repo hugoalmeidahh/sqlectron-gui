@@ -24,7 +24,7 @@ console.log(cp);
 
 window.myremote.sqlectron=require(cp+"/core/lib");
 window.myremote.createLogger=require(cp+"/logger.js");
-window.myremote.config=require(__dirname+"/../config.js");
+window.myremote.config=require(cp+"/config.js");
 // let configv=null;
 // let rconfig=require(cp+"/config.js");
 // window.myremote.config ={

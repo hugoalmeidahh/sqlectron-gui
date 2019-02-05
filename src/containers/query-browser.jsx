@@ -542,6 +542,7 @@ class QueryBrowserContainer extends Component {
       return (
         <TabPanel key={queryId}>
           <Query
+            model={{queryId:queryId, store:this.props}}
             ref={`queryBox_${queryId}`}
             editorName={`querybox${queryId}`}
             client={connections.server.client}

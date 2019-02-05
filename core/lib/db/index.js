@@ -1,23 +1,21 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _clients = require('./clients');
-
-Object.defineProperty(exports, 'CLIENTS', {
+Object.defineProperty(exports, "CLIENTS", {
   enumerable: true,
   get: function () {
     return _clients.CLIENTS;
   }
 });
-
-var _server = require('./server');
-
-Object.defineProperty(exports, 'createServer', {
+Object.defineProperty(exports, "createServer", {
   enumerable: true,
   get: function () {
     return _server.createServer;
   }
 });
+
+var _clients = require("./clients");
+
+var _server = require("./server");

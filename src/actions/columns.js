@@ -31,6 +31,7 @@ function fetchTableColumns (database, table, schema) {
     try {
       const dbConn = getDBConnByName(database);
       const columns = await dbConn.listTableColumns(table, schema);
+      console.log(columns);
       dispatch({ type: FETCH_COLUMNS_SUCCESS, database, table, columns });
     } catch (error) {
       dispatch({ type: FETCH_COLUMNS_FAILURE, error });

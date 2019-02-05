@@ -1,16 +1,13 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 exports.createServer = createServer;
 
-var _client = require('./client');
+var _client = require("./client");
 
-var _clients = require('./clients');
+var _clients = require("./clients");
 
 function createServer(serverConfig) {
   if (!serverConfig) {
@@ -26,15 +23,14 @@ function createServer(serverConfig) {
      * All connected dbs
      */
     db: {},
-
-    config: _extends({}, serverConfig, {
+    config: { ...serverConfig,
       host: serverConfig.host || serverConfig.socketPath
-    })
+    }
   };
-
   /**
   * Server public API
   */
+
   return {
     db(dbName) {
       return server.db[dbName];
@@ -42,9 +38,8 @@ function createServer(serverConfig) {
 
     end() {
       // disconnect from all DBs
-      Object.keys(server.db).forEach(key => server.db[key].disconnect());
+      Object.keys(server.db).forEach(key => server.db[key].disconnect()); // close SSH tunnel
 
-      // close SSH tunnel
       if (server.sshTunnel) {
         server.sshTunnel.close();
         server.sshTunnel = null;
@@ -61,10 +56,9 @@ function createServer(serverConfig) {
         connection: null,
         connecting: false
       };
-
       server.db[dbName] = (0, _client.createConnection)(server, database, cryptoSecret);
-
       return server.db[dbName];
     }
+
   };
 }

@@ -1,168 +1,23 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-let connect = (() => {
-  var _ref = _asyncToGenerator(function* (server, database) {
-    /* eslint no-param-reassign: 0 */
-    if (database.connecting) {
-      throw new Error('There is already a connection in progress for this server. Aborting this new request.');
-    }
-
-    if (database.connecting) {
-      throw new Error('There is already a connection in progress for this database. Aborting this new request.');
-    }
-
-    try {
-      database.connecting = true;
-
-      // terminate any previous lost connection for this DB
-      if (database.connection) {
-        database.connection.disconnect();
-      }
-
-      // reuse existing tunnel
-      if (server.config.ssh && !server.sshTunnel) {
-        logger().debug('creating ssh tunnel');
-        server.sshTunnel = yield (0, _tunnel2.default)(server.config);
-
-        const { address, port } = server.sshTunnel.address();
-        logger().debug('ssh forwarding through local connection %s:%d', address, port);
-
-        server.config.localHost = address;
-        server.config.localPort = port;
-      }
-
-      const driver = _clients2.default[server.config.client];
-
-      const [connection] = yield Promise.all([driver(server, database), handleSSHError(server.sshTunnel)]);
-
-      database.connection = connection;
-    } catch (err) {
-      logger().error('Connection error %j', err);
-      disconnect(server, database);
-      throw err;
-    } finally {
-      database.connecting = false;
-    }
-  });
-
-  return function connect(_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-})();
-
-let getQuerySelectTop = (() => {
-  var _ref2 = _asyncToGenerator(function* (server, database, table, schema, limit) {
-    checkIsConnected(server, database);
-    let limitValue = limit;
-    if (typeof _limit === 'undefined') {
-      yield loadConfigLimit();
-      limitValue = typeof limitSelect !== 'undefined' ? limitSelect : DEFAULT_LIMIT;
-    }
-    return database.connection.getQuerySelectTop(table, limitValue, schema);
-  });
-
-  return function getQuerySelectTop(_x3, _x4, _x5, _x6, _x7) {
-    return _ref2.apply(this, arguments);
-  };
-})();
-
-let getTableSelectScript = (() => {
-  var _ref3 = _asyncToGenerator(function* (server, database, table, schema) {
-    const columnNames = yield getTableColumnNames(server, database, table, schema);
-    const schemaSelection = resolveSchema(database, schema);
-    return [`SELECT ${wrap(database, columnNames).join(', ')}`, `FROM ${schemaSelection}${wrap(database, table)};`].join(' ');
-  });
-
-  return function getTableSelectScript(_x8, _x9, _x10, _x11) {
-    return _ref3.apply(this, arguments);
-  };
-})();
-
-let getTableInsertScript = (() => {
-  var _ref4 = _asyncToGenerator(function* (server, database, table, schema) {
-    const columnNames = yield getTableColumnNames(server, database, table, schema);
-    const schemaSelection = resolveSchema(database, schema);
-    return [`INSERT INTO ${schemaSelection}${wrap(database, table)}`, `(${wrap(database, columnNames).join(', ')})\n`, `VALUES (${columnNames.fill('?').join(', ')});`].join(' ');
-  });
-
-  return function getTableInsertScript(_x12, _x13, _x14, _x15) {
-    return _ref4.apply(this, arguments);
-  };
-})();
-
-let getTableUpdateScript = (() => {
-  var _ref5 = _asyncToGenerator(function* (server, database, table, schema) {
-    const columnNames = yield getTableColumnNames(server, database, table, schema);
-    const setColumnForm = wrap(database, columnNames).map(function (col) {
-      return `${col}=?`;
-    }).join(', ');
-    const schemaSelection = resolveSchema(database, schema);
-    return [`UPDATE ${schemaSelection}${wrap(database, table)}\n`, `SET ${setColumnForm}\n`, 'WHERE <condition>;'].join(' ');
-  });
-
-  return function getTableUpdateScript(_x16, _x17, _x18, _x19) {
-    return _ref5.apply(this, arguments);
-  };
-})();
-
-let getTableColumnNames = (() => {
-  var _ref6 = _asyncToGenerator(function* (server, database, table, schema) {
-    checkIsConnected(server, database);
-    const columns = yield database.connection.listTableColumns(database.database, table, schema);
-    return columns.map(function (column) {
-      return column.columnName;
-    });
-  });
-
-  return function getTableColumnNames(_x20, _x21, _x22, _x23) {
-    return _ref6.apply(this, arguments);
-  };
-})();
-
-let loadConfigLimit = (() => {
-  var _ref7 = _asyncToGenerator(function* () {
-    if (limitSelect === null) {
-      const { limitQueryDefaultSelectTop } = yield config.get();
-      limitSelect = limitQueryDefaultSelectTop;
-    }
-    return limitSelect;
-  });
-
-  return function loadConfigLimit() {
-    return _ref7.apply(this, arguments);
-  };
-})();
-
 exports.createConnection = createConnection;
 
-var _tunnel = require('./tunnel');
+var _tunnel = _interopRequireDefault(require("./tunnel"));
 
-var _tunnel2 = _interopRequireDefault(_tunnel);
+var _clients = _interopRequireDefault(require("./clients"));
 
-var _clients = require('./clients');
+var config = _interopRequireWildcard(require("../config"));
 
-var _clients2 = _interopRequireDefault(_clients);
+var _logger = _interopRequireDefault(require("../logger"));
 
-var _config = require('../config');
-
-var config = _interopRequireWildcard(_config);
-
-var _logger = require('../logger');
-
-var _logger2 = _interopRequireDefault(_logger);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-const logger = (0, _logger2.default)('db');
-
+const logger = (0, _logger.default)('db');
 const DEFAULT_LIMIT = 1000;
 let limitSelect = null;
 
@@ -195,6 +50,48 @@ function createConnection(server, database) {
     getRoutineCreateScript: getRoutineCreateScript.bind(null, server, database),
     truncateAllTables: truncateAllTables.bind(null, server, database)
   };
+}
+
+async function connect(server, database) {
+  /* eslint no-param-reassign: 0 */
+  if (database.connecting) {
+    throw new Error('There is already a connection in progress for this server. Aborting this new request.');
+  }
+
+  if (database.connecting) {
+    throw new Error('There is already a connection in progress for this database. Aborting this new request.');
+  }
+
+  try {
+    database.connecting = true; // terminate any previous lost connection for this DB
+
+    if (database.connection) {
+      database.connection.disconnect();
+    } // reuse existing tunnel
+
+
+    if (server.config.ssh && !server.sshTunnel) {
+      logger().debug('creating ssh tunnel');
+      server.sshTunnel = await (0, _tunnel.default)(server.config);
+      const {
+        address,
+        port
+      } = server.sshTunnel.address();
+      logger().debug('ssh forwarding through local connection %s:%d', address, port);
+      server.config.localHost = address;
+      server.config.localPort = port;
+    }
+
+    const driver = _clients.default[server.config.client];
+    const [connection] = await Promise.all([driver(server, database), handleSSHError(server.sshTunnel)]);
+    database.connection = connection;
+  } catch (err) {
+    logger().error('Connection error %j', err);
+    disconnect(server, database);
+    throw err;
+  } finally {
+    database.connecting = false;
+  }
 }
 
 function handleSSHError(sshTunnel) {
@@ -284,9 +181,40 @@ function listDatabases(server, database, filter) {
   return database.connection.listDatabases(filter);
 }
 
+async function getQuerySelectTop(server, database, table, schema, limit) {
+  checkIsConnected(server, database);
+  let limitValue = limit;
+
+  if (typeof _limit === 'undefined') {
+    await loadConfigLimit();
+    limitValue = typeof limitSelect !== 'undefined' ? limitSelect : DEFAULT_LIMIT;
+  }
+
+  return database.connection.getQuerySelectTop(table, limitValue, schema);
+}
+
 function getTableCreateScript(server, database, table, schema) {
   checkIsConnected(server, database);
   return database.connection.getTableCreateScript(table, schema);
+}
+
+async function getTableSelectScript(server, database, table, schema) {
+  const columnNames = await getTableColumnNames(server, database, table, schema);
+  const schemaSelection = resolveSchema(database, schema);
+  return [`SELECT ${wrap(database, columnNames).join(', ')}`, `FROM ${schemaSelection}${wrap(database, table)};`].join(' ');
+}
+
+async function getTableInsertScript(server, database, table, schema) {
+  const columnNames = await getTableColumnNames(server, database, table, schema);
+  const schemaSelection = resolveSchema(database, schema);
+  return [`INSERT INTO ${schemaSelection}${wrap(database, table)}`, `(${wrap(database, columnNames).join(', ')})\n`, `VALUES (${columnNames.fill('?').join(', ')});`].join(' ');
+}
+
+async function getTableUpdateScript(server, database, table, schema) {
+  const columnNames = await getTableColumnNames(server, database, table, schema);
+  const setColumnForm = wrap(database, columnNames).map(col => `${col}=?`).join(', ');
+  const schemaSelection = resolveSchema(database, schema);
+  return [`UPDATE ${schemaSelection}${wrap(database, table)}\n`, `SET ${setColumnForm}\n`, 'WHERE <condition>;'].join(' ');
 }
 
 function getTableDeleteScript(server, database, table, schema) {
@@ -294,7 +222,9 @@ function getTableDeleteScript(server, database, table, schema) {
   return [`DELETE FROM ${schemaSelection}${wrap(database, table)}`, 'WHERE <condition>;'].join(' ');
 }
 
-function getViewCreateScript(server, database, view /* , schema */) {
+function getViewCreateScript(server, database, view
+/* , schema */
+) {
   checkIsConnected(server, database);
   return database.connection.getViewCreateScript(view);
 }
@@ -308,6 +238,12 @@ function truncateAllTables(server, database, schema) {
   return database.connection.truncateAllTables(database.database, schema);
 }
 
+async function getTableColumnNames(server, database, table, schema) {
+  checkIsConnected(server, database);
+  const columns = await database.connection.listTableColumns(database.database, table, schema);
+  return columns.map(column => column.columnName);
+}
+
 function resolveSchema(database, schema) {
   return schema ? `${wrap(database, schema)}.` : '';
 }
@@ -318,6 +254,17 @@ function wrap(database, identifier) {
   }
 
   return identifier.map(item => database.connection.wrapIdentifier(item));
+}
+
+async function loadConfigLimit() {
+  if (limitSelect === null) {
+    const {
+      limitQueryDefaultSelectTop
+    } = await config.get();
+    limitSelect = limitQueryDefaultSelectTop;
+  }
+
+  return limitSelect;
 }
 
 function checkIsConnected(server, database) {

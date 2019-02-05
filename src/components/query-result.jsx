@@ -27,15 +27,15 @@ export default class QueryResult extends Component {
     error: PropTypes.object,
   };
 
-  shouldComponentUpdate(nextProps) {
-    return (
-      (!nextProps.isExecuting && this.props.isExecuting) ||
-      nextProps.query !== this.props.query ||
-      (nextProps.copied && !this.props.copied) ||
-      nextProps.heigthOffset !== this.props.heigthOffset ||
-      nextProps.widthOffset !== this.props.widthOffset
-    );
-  }
+  // shouldComponentUpdate(nextProps) {
+  //   // return (
+  //   //   (!nextProps.isExecuting && this.props.isExecuting) ||
+  //   //   nextProps.query !== this.props.query ||
+  //   //   (nextProps.copied && !this.props.copied) ||
+  //   //   nextProps.heigthOffset !== this.props.heigthOffset ||
+  //   //   nextProps.widthOffset !== this.props.widthOffset
+  //   // );
+  // }
 
   componentWillUpdate(nextProps) {
     const renderingResults = !nextProps.isExecuting && this.props.isExecuting;
@@ -111,6 +111,7 @@ export default class QueryResult extends Component {
     const tableResult = (
       <QueryResultTable
         key={queryIndex}
+        model={this.props.model}
         widthOffset={widthOffset}
         heigthOffset={this.props.heigthOffset}
         resultItemsPerPage={this.props.resultItemsPerPage}

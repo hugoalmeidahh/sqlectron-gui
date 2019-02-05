@@ -1,36 +1,26 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CLIENTS = undefined;
+exports.default = exports.CLIENTS = void 0;
 
-var _mysql = require('./mysql');
+var _mysql = _interopRequireDefault(require("./mysql"));
 
-var _mysql2 = _interopRequireDefault(_mysql);
+var _postgresql = _interopRequireDefault(require("./postgresql"));
 
-var _postgresql = require('./postgresql');
+var _sqlserver = _interopRequireDefault(require("./sqlserver"));
 
-var _postgresql2 = _interopRequireDefault(_postgresql);
+var _sqlite = _interopRequireDefault(require("./sqlite"));
 
-var _sqlserver = require('./sqlserver');
-
-var _sqlserver2 = _interopRequireDefault(_sqlserver);
-
-var _sqlite = require('./sqlite');
-
-var _sqlite2 = _interopRequireDefault(_sqlite);
-
-var _cassandra = require('./cassandra');
-
-var _cassandra2 = _interopRequireDefault(_cassandra);
+var _cassandra = _interopRequireDefault(require("./cassandra"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * List of supported database clients
  */
-const CLIENTS = exports.CLIENTS = [{
+const CLIENTS = [{
   key: 'mysql',
   name: 'MySQL',
   defaultPort: 3306,
@@ -56,11 +46,12 @@ const CLIENTS = exports.CLIENTS = [{
   defaultPort: 9042,
   disabledFeatures: ['server:ssl', 'server:socketPath', 'server:user', 'server:password', 'server:schema', 'server:domain', 'scriptCreateTable', 'cancelQuery']
 }];
-
-exports.default = {
-  mysql: _mysql2.default,
-  postgresql: _postgresql2.default,
-  sqlserver: _sqlserver2.default,
-  sqlite: _sqlite2.default,
-  cassandra: _cassandra2.default
+exports.CLIENTS = CLIENTS;
+var _default = {
+  mysql: _mysql.default,
+  postgresql: _postgresql.default,
+  sqlserver: _sqlserver.default,
+  sqlite: _sqlite.default,
+  cassandra: _cassandra.default
 };
+exports.default = _default;

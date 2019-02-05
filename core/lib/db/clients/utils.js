@@ -1,11 +1,14 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.buildSchemaFilter = buildSchemaFilter;
 exports.buildDatabseFilter = buildDatabseFilter;
-function buildSchemaFilter({ schema } = {}, schemaField = 'schema_name') {
+
+function buildSchemaFilter({
+  schema
+} = {}, schemaField = 'schema_name') {
   if (!schema) {
     return null;
   }
@@ -15,7 +18,10 @@ function buildSchemaFilter({ schema } = {}, schemaField = 'schema_name') {
   }
 
   const where = [];
-  const { only, ignore } = schema;
+  const {
+    only,
+    ignore
+  } = schema;
 
   if (only && only.length) {
     where.push(`${schemaField} IN (${only.map(name => `'${name}'`).join(',')})`);
@@ -28,7 +34,9 @@ function buildSchemaFilter({ schema } = {}, schemaField = 'schema_name') {
   return where.join(' AND ');
 }
 
-function buildDatabseFilter({ database } = {}, databaseField) {
+function buildDatabseFilter({
+  database
+} = {}, databaseField) {
   if (!database) {
     return null;
   }
@@ -38,7 +46,10 @@ function buildDatabseFilter({ database } = {}, databaseField) {
   }
 
   const where = [];
-  const { only, ignore } = database;
+  const {
+    only,
+    ignore
+  } = database;
 
   if (only && only.length) {
     where.push(`${databaseField} IN (${only.map(name => `'${name}'`).join(',')})`);
