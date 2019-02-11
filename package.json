@@ -97,6 +97,7 @@
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-router-redux": "^4.0.8",
+    "react-test-renderer": "^16.8.1",
     "semantic-ui-css": "^2.4.1",
     "sql-query-identifier": "^1.1.0",
     "sqlite3": "^4.0.0",
