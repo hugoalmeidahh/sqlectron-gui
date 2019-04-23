@@ -6,7 +6,6 @@ import "react-tabs/style/react-tabs.css";
 import "storm-react-diagrams/dist/style.min.css";
 import "react-virtualized/styles.css";
 import "semantic-ui-css/semantic.css";
-
 ReactDOM.render(
   <App />,  document.getElementById('root')
 );

@@ -80,27 +80,27 @@ export default class Query extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.enabledAutoComplete) {
-      return;
-    }
+    // if (!nextProps.enabledAutoComplete) {
+    //   return;
+    // }
 
-    const isMetadataChanged =
-      (nextProps.tables || []).length !== (this.props.tables || []).length ||
-      (nextProps.views || []).length !== (this.props.views || []).length ||
-      (nextProps.functions || []).length !==
-        (this.props.functions || []).length ||
-      (nextProps.procedures || []).length !==
-        (this.props.procedures || []).length ||
-      Object.keys(nextProps.columnsByTable || {}).length !==
-        Object.keys(this.props.columnsByTable || []).length ||
-      Object.keys(nextProps.triggersByTable || {}).length !==
-        Object.keys(this.props.triggersByTable || []).length ||
-      Object.keys(nextProps.indexesByTable || {}).length !==
-        Object.keys(this.props.indexesByTable || []).length;
+    // const isMetadataChanged =
+    //   (nextProps.tables || []).length !== (this.props.tables || []).length ||
+    //   (nextProps.views || []).length !== (this.props.views || []).length ||
+    //   (nextProps.functions || []).length !==
+    //     (this.props.functions || []).length ||
+    //   (nextProps.procedures || []).length !==
+    //     (this.props.procedures || []).length ||
+    //   Object.keys(nextProps.columnsByTable || {}).length !==
+    //     Object.keys(this.props.columnsByTable || []).length ||
+    //   Object.keys(nextProps.triggersByTable || {}).length !==
+    //     Object.keys(this.props.triggersByTable || []).length ||
+    //   Object.keys(nextProps.indexesByTable || {}).length !==
+    //     Object.keys(this.props.indexesByTable || []).length;
 
-    if (!isMetadataChanged) {
-      return;
-    }
+    // if (!isMetadataChanged) {
+    //   return;
+    // }
 
     const completions = this.getQueryCompletions(nextProps);
 
@@ -363,6 +363,7 @@ export default class Query extends Component {
           </div>
         </div>
         <QueryResult
+          model={this.props.model}
           widthOffset={widthOffset}
           heigthOffset={this.state.query_height}
           onSaveToFileClick={onSaveToFileClick}

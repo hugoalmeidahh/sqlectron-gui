@@ -1,92 +1,9 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.truncateAllTables = undefined;
-
-exports.default = function (server, database) {
-  return new Promise((() => {
-    var _ref = _asyncToGenerator(function* (resolve, reject) {
-      const dbConfig = configDatabase(server, database);
-
-      logger().debug('creating database client %j', dbConfig);
-      const client = new _cassandraDriver.Client(dbConfig);
-
-      logger().debug('connecting');
-      client.connect(function (err) {
-        if (err) {
-          client.shutdown();
-          return reject(err);
-        }
-
-        logger().debug('connected');
-        resolve({
-          wrapIdentifier,
-          disconnect: function () {
-            return disconnect(client);
-          },
-          listTables: function (db) {
-            return listTables(client, db);
-          },
-          listViews: function () {
-            return listViews(client);
-          },
-          listRoutines: function () {
-            return listRoutines(client);
-          },
-          listTableColumns: function (db, table) {
-            return listTableColumns(client, db, table);
-          },
-          listTableTriggers: function (table) {
-            return listTableTriggers(client, table);
-          },
-          listTableIndexes: function (db, table) {
-            return listTableIndexes(client, table);
-          },
-          listSchemas: function () {
-            return listSchemas(client);
-          },
-          getTableReferences: function (table) {
-            return getTableReferences(client, table);
-          },
-          getTableKeys: function (db, table) {
-            return getTableKeys(client, db, table);
-          },
-          query: function (queryText) {
-            return executeQuery(client, queryText);
-          },
-          executeQuery: function (queryText) {
-            return executeQuery(client, queryText);
-          },
-          listDatabases: function () {
-            return listDatabases(client);
-          },
-          getQuerySelectTop: function (table, limit) {
-            return getQuerySelectTop(client, table, limit);
-          },
-          getTableCreateScript: function (table) {
-            return getTableCreateScript(client, table);
-          },
-          getViewCreateScript: function (view) {
-            return getViewCreateScript(client, view);
-          },
-          getRoutineCreateScript: function (routine) {
-            return getRoutineCreateScript(client, routine);
-          },
-          truncateAllTables: function (db) {
-            return truncateAllTables(client, db);
-          }
-        });
-      });
-    });
-
-    return function (_x, _x2) {
-      return _ref.apply(this, arguments);
-    };
-  })());
-};
-
+exports.default = _default;
 exports.disconnect = disconnect;
 exports.listTables = listTables;
 exports.listViews = listViews;
@@ -104,24 +21,58 @@ exports.getTableCreateScript = getTableCreateScript;
 exports.getViewCreateScript = getViewCreateScript;
 exports.getRoutineCreateScript = getRoutineCreateScript;
 exports.wrapIdentifier = wrapIdentifier;
+exports.truncateAllTables = void 0;
 
-var _cassandraDriver = require('cassandra-driver');
+var _cassandraDriver = require("cassandra-driver");
 
-var _sqlQueryIdentifier = require('sql-query-identifier');
+var _sqlQueryIdentifier = require("sql-query-identifier");
 
-var _logger = require('../../logger');
-
-var _logger2 = _interopRequireDefault(_logger);
+var _logger = _interopRequireDefault(require("../../logger"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-const logger = (0, _logger2.default)('db:clients:cassandra');
-
+const logger = (0, _logger.default)('db:clients:cassandra');
 /**
  * To keep compatibility with the other clients we treat keyspaces as database.
  */
+
+function _default(server, database) {
+  return new Promise(async (resolve, reject) => {
+    const dbConfig = configDatabase(server, database);
+    logger().debug('creating database client %j', dbConfig);
+    const client = new _cassandraDriver.Client(dbConfig);
+    logger().debug('connecting');
+    client.connect(err => {
+      if (err) {
+        client.shutdown();
+        return reject(err);
+      }
+
+      logger().debug('connected');
+      resolve({
+        wrapIdentifier,
+        disconnect: () => disconnect(client),
+        listTables: db => listTables(client, db),
+        listViews: () => listViews(client),
+        listRoutines: () => listRoutines(client),
+        listTableColumns: (db, table) => listTableColumns(client, db, table),
+        listTableTriggers: table => listTableTriggers(client, table),
+        listTableIndexes: (db, table) => listTableIndexes(client, table),
+        listSchemas: () => listSchemas(client),
+        getTableReferences: table => getTableReferences(client, table),
+        getTableKeys: (db, table) => getTableKeys(client, db, table),
+        query: queryText => executeQuery(client, queryText),
+        executeQuery: queryText => executeQuery(client, queryText),
+        listDatabases: () => listDatabases(client),
+        getQuerySelectTop: (table, limit) => getQuerySelectTop(client, table, limit),
+        getTableCreateScript: table => getTableCreateScript(client, table),
+        getViewCreateScript: view => getViewCreateScript(client, view),
+        getRoutineCreateScript: routine => getRoutineCreateScript(client, routine),
+        truncateAllTables: db => truncateAllTables(client, db)
+      });
+    });
+  });
+}
 
 function disconnect(client) {
   client.shutdown();
@@ -137,7 +88,9 @@ function listTables(client, database) {
     const params = [database];
     client.execute(sql, params, (err, data) => {
       if (err) return reject(err);
-      resolve(data.rows.map(row => ({ name: row.name })));
+      resolve(data.rows.map(row => ({
+        name: row.name
+      })));
     });
   });
 }
@@ -161,8 +114,7 @@ function listTableColumns(client, database, table) {
     const params = [database, table];
     client.execute(sql, params, (err, data) => {
       if (err) return reject(err);
-      resolve(data.rows
-      // force pks be placed at the results beginning
+      resolve(data.rows // force pks be placed at the results beginning
       .sort((a, b) => b.position - a.position).map(row => ({
         columnName: row.column_name,
         dataType: row.type
@@ -174,6 +126,7 @@ function listTableColumns(client, database, table) {
 function listTableTriggers() {
   return Promise.resolve([]);
 }
+
 function listTableIndexes() {
   return Promise.resolve([]);
 }
@@ -216,11 +169,9 @@ function query(conn, queryText) {
 
 function executeQuery(client, queryText) {
   const commands = identifyCommands(queryText).map(item => item.type);
-
   return new Promise((resolve, reject) => {
     client.execute(queryText, (err, data) => {
       if (err) return reject(err);
-
       resolve([parseRowQueryResult(data, commands[0])]);
     });
   });
@@ -256,35 +207,29 @@ function getRoutineCreateScript() {
 function wrapIdentifier(value) {
   if (value === '*') return value;
   const matched = value.match(/(.*?)(\[[0-9]\])/); // eslint-disable-line no-useless-escape
+
   if (matched) return wrapIdentifier(matched[1]) + matched[2];
   return `"${value.replace(/"/g, '""')}"`;
 }
 
-const truncateAllTables = exports.truncateAllTables = (() => {
-  var _ref2 = _asyncToGenerator(function* (connection, database) {
-    const sql = `
+const truncateAllTables = async (connection, database) => {
+  const sql = `
     SELECT table_name
     FROM system_schema.tables
     WHERE keyspace_name = '${database}'
   `;
-    const [result] = yield executeQuery(connection, sql);
-    const tables = result.rows.map(function (row) {
-      return row.table_name;
-    });
-    const promises = tables.map(function (t) {
-      const truncateSQL = `
+  const [result] = await executeQuery(connection, sql);
+  const tables = result.rows.map(row => row.table_name);
+  const promises = tables.map(t => {
+    const truncateSQL = `
       TRUNCATE TABLE ${wrapIdentifier(database)}.${wrapIdentifier(t)};
     `;
-      return executeQuery(connection, truncateSQL);
-    });
-
-    yield Promise.all(promises);
+    return executeQuery(connection, truncateSQL);
   });
+  await Promise.all(promises);
+};
 
-  return function truncateAllTables(_x3, _x4) {
-    return _ref2.apply(this, arguments);
-  };
-})();
+exports.truncateAllTables = truncateAllTables;
 
 function configDatabase(server, database) {
   const config = {
@@ -300,8 +245,7 @@ function configDatabase(server, database) {
     config.protocolOptions.port = server.config.localPort;
   }
 
-  if (server.config.ssl) {
-    // TODO: sslOptions
+  if (server.config.ssl) {// TODO: sslOptions
   }
 
   return config;

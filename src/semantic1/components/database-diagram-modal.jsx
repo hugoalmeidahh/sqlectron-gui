@@ -126,7 +126,7 @@ export default class DatabaseDiagramModal extends Component {
     // $('.link-tools, .marker-arrowheads', diagram).css({ display: 'none' });
     // $('.link, .connection', diagram).css({ fill: 'none' });
 
-    onExportDatabaseDiagram(diagram, imageType);
+    // onExportDatabaseDiagram(diagram, imageType);
   }
 
   showDiagramIfNeeded(props) {

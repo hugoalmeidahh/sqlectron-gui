@@ -60,6 +60,7 @@ export function saveServer ({ server, id }) {
 
       dispatch(ConfigActions.loadConfig());
     } catch (error) {
+      console.log(error);
       dispatch({ type: SAVE_SERVER_FAILURE, error });
     }
   };

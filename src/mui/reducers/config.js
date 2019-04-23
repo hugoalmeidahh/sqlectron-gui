@@ -56,6 +56,9 @@ export default function config(state = INITIAL_STATE, action) {
           ...action.config,
         },
         isSaving: false,
+        isEditing:false,//to close modal
+        isLoaded:true,
+        error:null,
       };
     }
     default:

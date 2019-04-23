@@ -28,7 +28,7 @@ import Footer from '../components/footer.jsx';
 import Query from '../components/query.jsx';
 import Loader from '../components/loader.jsx';
 import PromptModal from '../components/prompt-modal.jsx';
-import MenuHandler from '../../menu-handler';
+import MenuHandler from '../menu-handler';
 import { requireLogos } from '../components/require-context';
 import ModalEdit from './ModalEdit';
 
@@ -542,6 +542,7 @@ class QueryBrowserContainer extends Component {
       return (
         <TabPanel key={queryId}>
           <Query
+            model={{queryId:queryId, store:this.props}}
             ref={`queryBox_${queryId}`}
             editorName={`querybox${queryId}`}
             client={connections.server.client}

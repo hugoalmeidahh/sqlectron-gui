@@ -59,4 +59,3 @@ if (module_name==="./semantic1/AppSql"){
 }
 App=require(module_name).default;
 ReactDOM.render(<App />, document.getElementById('root'));
-

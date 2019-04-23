@@ -141,6 +141,7 @@ export async function listTableColumns(conn, database, table) {
   return data.map((row) => ({
     columnName: row.name,
     dataType: row.type,
+    pk:row.pk
   }));
 }
 

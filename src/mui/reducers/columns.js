@@ -49,6 +49,7 @@ export default function (state = INITIAL_STATE, action) {
             [action.table]: action.columns.map(column => ({
               name: column.columnName,
               dataType: column.dataType,
+              pk:column.pk,
             })),
           },
         },

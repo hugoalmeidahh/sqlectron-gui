@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import set from 'lodash.set';
-import Select from 'react-select';
 import ConfirmModal from './confim-modal.jsx';
 import Message from './message.jsx';
 import Checkbox from './checkbox.jsx';
 import { requireLogos } from './require-context';
-import { Modal } from 'semantic-ui-react';
+import { Dropdown,Modal,Header } from 'semantic-ui-react'
 var { sqlectron } = window.myremote;
-// require('react-select/dist/react-select.css');
-// require('./override-select.css');
 
-//console.log(sqlectron.db.CLIENTS);
 const CLIENTS = sqlectron.db.CLIENTS.map(dbClient => ({
-  value: dbClient.key,
+  client: dbClient.key,
   logo: requireLogos(dbClient.key),
   label: dbClient.name,
   defaultPort: dbClient.defaultPort,
@@ -36,46 +32,24 @@ export default class ServerModalForm extends Component {
 
   constructor(props, context) {
     super(props, context);
-    let server = props.server || {};
-    // if(server.client instanceof Object){
-    // }
-    // else{
-    //   server.client=CLIENTS.find((dbc) =>{
-    //     return dbc.value === server.client;
-    //   });
-    // }
     this.state = {
-      ...server,
-      isNew: !server.id,
+      ...props.server,
+      isNew: !props.server.id,
       showPlainPassword: false,
-      modalOpen: false,
     };
-    this.state.value = this.state.client;
-    // console.log("constructor======");
-    // console.log(this.state);
   }
 
   componentDidMount() {
-    //console.log($(this.refs.serverModal));
-    // $(this.refs.serverModal).modal({
-    //   closable: true,
-    //   detachable: false,
-    //   allowMultiple: true,
-    //   observeChanges: true,
-    //   onHidden: () => {
-    //     this.props.onCancelClick();
-    //     return true;
-    //   },
-    //   onDeny: () => {
-    //     this.props.onCancelClick();
-    //     return true;
-    //   },
-    //   onApprove: () => false,
-    // }).modal('show');
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ error: nextProps.error });
+    let server = nextProps.server || {};
+    //rename client to value
+    this.setState({
+      ...server,
+      isNew: !server.id,
+      showPlainPassword: false,
+    });
   }
 
   componentWillUnmount() {
@@ -119,7 +93,7 @@ export default class ServerModalForm extends Component {
     // console.log("isFeatureDisabled");
     // console.log(feature);
     // console.log(this.state.client);
-    if (!this.state.value) {
+    if (!this.state.client) {
       return false;
     }
     //console.log("("+CLIENTS);
@@ -128,21 +102,19 @@ export default class ServerModalForm extends Component {
     const dbClient = CLIENTS.find(dbc => {
       // console.log(dbc.value);
       // console.log(this.state);
-      return dbc.value === this.state.value;
+      return dbc.client === this.state.client;
     });
-    //console.log(dbClient);
-    //console.log(dbClient.disabledFeatures);
     return !!(
       dbClient.disabledFeatures && ~dbClient.disabledFeatures.indexOf(feature)
     );
   }
 
   mapStateToServer(state) {
-    // console.log("mapStateToServer");
-    // console.log(state)
+    console.log("mapStateToServer");
+    console.log(state)
     const server = {
       name: state.name,
-      client: state.value,
+      client: state.client,//rename value to client
       ssl: !!state.ssl,
       host: state.host && state.host.length ? state.host : null,
       port: state.port || state.defaultPort,
@@ -213,10 +185,10 @@ export default class ServerModalForm extends Component {
   handleOnClientChange(client) {
     this.setState(client, () => {
       // console.log("after handleOnClientChange==========");
-      // console.log(this.state);
+      console.log(this.state);
     });
 
-    const clientConfig = CLIENTS.find(entry => entry.value === client.value);
+    const clientConfig = CLIENTS.find(entry => entry.client === client.value);
     if (clientConfig && clientConfig.defaultPort) {
       this.setState({ defaultPort: clientConfig.defaultPort });
     }
@@ -299,7 +271,7 @@ export default class ServerModalForm extends Component {
     var className_schema = `four wide field ${this.highlightError('schema')}`;
     let className_sqlite1 = '';
     let input_sqlite;
-    if (this.state.value && this.state.value === 'sqlite') {
+    if (this.state.client && this.state.client === 'sqlite') {
       className_sqlite1 = 'ui action input';
       input_sqlite = (
         <label htmlFor="file.database" className="ui icon button btn-file">
@@ -314,9 +286,22 @@ export default class ServerModalForm extends Component {
         </label>
       );
     }
-    // console.log(className_client);
-    // console.log("hiiiiiiiiiiiiiiiii");
-    // console.log(this.state.value);
+    const options=CLIENTS.map((one,index) =>{
+      return{
+        key: index,
+        text: one.client,
+        value: one.client,
+        content: <span onClick={()=>{
+          console.log(one);
+          this.handleOnClientChange(one);
+        }}>
+        <img alt="logo" src={one.logo} style={{ width: '16px' }} />
+        {one.label}>
+        </span>,
+      };
+    });
+    console.log("render==================")
+    console.log(this.state);
     return (
       <div>
         <div className="fields">
@@ -332,15 +317,8 @@ export default class ServerModalForm extends Component {
           </div>
           <div className={className_client}>
             <label>Database Type</label>
-            <Select
-              name="client"
-              placeholder="Select"
-              options={CLIENTS}
-              clearable={false}
-              onChange={this.handleOnClientChange.bind(this)}
-              optionRenderer={this.renderClientItem}
-              valueRenderer={this.renderClientItem}
-              value={this.state.value}
+            <Dropdown selection fluid options={options} placeholder="client" 
+            value={this.state.client}
             />
           </div>
           <div className="one field" style={{ paddingTop: '2em' }}>
@@ -734,11 +712,11 @@ export default class ServerModalForm extends Component {
 
   renderActionsPanel() {
     const { testConnection } = this.props;
-    const { isNew, value } = this.state;
+    const { isNew, client } = this.state;
 
     const classStatusButtons = testConnection.connecting ? 'disabled' : '';
     const classStatusTestButton = [
-      value ? '' : 'disabled',
+      client ? '' : 'disabled',
       testConnection.connecting ? 'loading' : '',
     ].join(' ');
     //console.log("renderActionsPanel");
