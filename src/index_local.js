@@ -43,16 +43,20 @@ function link(where,module_name) {
 }
 let module_name;
 let App;
-module_name="./AppSql";
-if (module_name==="./AppSql"){
+// module_name="./semantic1/AppSql";
+module_name="./mui/AppSql";
+if (module_name==="./semantic1/AppSql"){
 	link(where,"node_modules/react-tabs/style/react-tabs.css");
 	link(where,"node_modules/storm-react-diagrams/dist/style.min.css");
 	link(where,"node_modules/react-virtualized/styles.css");
   link(where,"node_modules/semantic-ui-css/semantic.css")
-	link("./","components/react-resizable.css")
+	link("./","react-resizable.css")
+}else{
+  link(where,"node_modules/react-tabs/style/react-tabs.css");
+  link(where,"node_modules/storm-react-diagrams/dist/style.min.css");
+  link(where,"node_modules/react-virtualized/styles.css");
+  link("./","react-resizable.css")
 }
-
-
 App=require(module_name).default;
 ReactDOM.render(<App />, document.getElementById('root'));
 
