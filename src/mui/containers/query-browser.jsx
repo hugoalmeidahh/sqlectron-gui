@@ -235,7 +235,7 @@ class QueryBrowserContainer extends Component {
   onCloseConnectionClick() {
     const { dispatch } = this.props;
     dispatch(ConnActions.disconnect());
-    this.props.history.push("/");
+    this.props.history.push('/');
   }
 
   onReConnectionClick() {

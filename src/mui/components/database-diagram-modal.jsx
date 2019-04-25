@@ -6,7 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import Dropdown from './DropdownButton'
+import Dropdown from './DropdownButton';
 // import Immutable from 'immutable';
 
 //import update from 'immutability-helper';
@@ -288,17 +288,17 @@ export default class DatabaseDiagramModal extends Component {
           </div>
           <div className="or" />
           <div>
-            <Dropdown title="Export to" floating labeled button className="icon">
-                <div
-                  onClick={() => this.onExportDatabaseDiagram('png')}
-                >
-                  PNG
-                </div>
-                <div
-                  onClick={() => this.onExportDatabaseDiagram('jpeg')}
-                >
-                  JPEG
-                </div>
+            <Dropdown
+              title="Export to"
+              floating
+              labeled
+              button
+              className="icon"
+            >
+              <div onClick={() => this.onExportDatabaseDiagram('png')}>PNG</div>
+              <div onClick={() => this.onExportDatabaseDiagram('jpeg')}>
+                JPEG
+              </div>
             </Dropdown>
           </div>
         </div>

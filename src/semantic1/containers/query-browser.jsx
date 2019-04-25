@@ -235,7 +235,7 @@ class QueryBrowserContainer extends Component {
   onCloseConnectionClick() {
     const { dispatch } = this.props;
     dispatch(ConnActions.disconnect());
-    this.props.history.push("/");
+    this.props.history.push('/');
   }
 
   onReConnectionClick() {
@@ -542,7 +542,7 @@ class QueryBrowserContainer extends Component {
       return (
         <TabPanel key={queryId}>
           <Query
-            model={{queryId:queryId, store:this.props}}
+            model={{ queryId: queryId, store: this.props }}
             ref={`queryBox_${queryId}`}
             editorName={`querybox${queryId}`}
             client={connections.server.client}

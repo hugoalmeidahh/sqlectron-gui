@@ -52,7 +52,6 @@ class ServerManagerment extends Component {
     var path = `/server/${id}`;
     console.log(path);
     this.props.history.push(path);
-
   };
 
   onTestConnectionClick(server) {
@@ -125,8 +124,8 @@ class ServerManagerment extends Component {
   }
 
   render() {
-    console.log("server manage render====================")
-    console.log(this.props)
+    console.log('server manage render====================');
+    console.log(this.props);
     const { filter } = this.state;
     const { connections, servers, config, status } = this.props;
     const selected = servers.editingServer || {};
@@ -137,7 +136,7 @@ class ServerManagerment extends Component {
       connecting: connections.testConnecting,
       error: connections.testError,
     };
-// console.log(this.props);
+    // console.log(this.props);
     return (
       <div style={STYLES.wrapper}>
         <div style={STYLES.header}>
@@ -164,24 +163,24 @@ class ServerManagerment extends Component {
             onConnectClick={this.onConnectClick.bind(this)}
           />
 
-            <ServerModalForm
-              modalOpen={servers.isEditing}
-              server={selected}
-              error={servers.error}
-              testConnection={testConnection}
-              onTestConnectionClick={this.onTestConnectionClick.bind(this)}
-              onDuplicateClick={this.onDuplicateClick.bind(this)}
-              onSaveClick={this.onSaveClick}
-              onCancelClick={this.onCancelClick}
-              onRemoveClick={this.onRemoveClick.bind(this)}
-            />
-            <SettingsModalForm
-              modalOpen={config.isEditing}
-              config={config}
-              error={config.error}
-              onSaveClick={this.onSettingsSaveClick}
-              onCancelClick={this.onSettingsCancelClick}
-            />
+          <ServerModalForm
+            modalOpen={servers.isEditing}
+            server={selected}
+            error={servers.error}
+            testConnection={testConnection}
+            onTestConnectionClick={this.onTestConnectionClick.bind(this)}
+            onDuplicateClick={this.onDuplicateClick.bind(this)}
+            onSaveClick={this.onSaveClick}
+            onCancelClick={this.onCancelClick}
+            onRemoveClick={this.onRemoveClick.bind(this)}
+          />
+          <SettingsModalForm
+            modalOpen={config.isEditing}
+            config={config}
+            error={config.error}
+            onSaveClick={this.onSettingsSaveClick}
+            onCancelClick={this.onSettingsCancelClick}
+          />
         </div>
         <div style={STYLES.footer}>
           <Footer status={status} />

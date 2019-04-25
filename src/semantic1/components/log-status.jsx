@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-var config=window.myremote.config.get();
+var config = window.myremote.config.get();
 const log = config.log;
 
 export default class LogStatus extends Component {

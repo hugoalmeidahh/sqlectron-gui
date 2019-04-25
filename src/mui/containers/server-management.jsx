@@ -45,7 +45,6 @@ class ServerManagerment extends Component {
     var path = `/server/${id}`;
     console.log(path);
     this.props.history.push(path);
-
   };
 
   onTestConnectionClick(server) {
@@ -128,10 +127,10 @@ class ServerManagerment extends Component {
       connecting: connections.testConnecting,
       error: connections.testError,
     };
-// console.log(this.props);
+    // console.log(this.props);
     return (
-      <div >
-        <div >
+      <div>
+        <div>
           <Header items={BREADCRUMB} />
         </div>
         <div style={STYLES.container}>
@@ -179,7 +178,7 @@ class ServerManagerment extends Component {
             />
           )}
         </div>
-          <Footer status={status} />
+        <Footer status={status} />
       </div>
     );
   }
