@@ -31,9 +31,19 @@ import PromptModal from '../components/prompt-modal.jsx';
 import MenuHandler from '../../menu-handler';
 import { requireLogos } from '../components/require-context';
 import ModalEdit from './ModalEdit';
-
+import { withStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import AppBar from '@material-ui/core/AppBar';
+import Typography from '@material-ui/core/Typography';
+import StorageIcon from '@material-ui/icons/Storage';
 //require('../components/react-resizable.css');
+const LOGO_PATH = './logo-128px.png';
 var { sqlectron } = window.myremote; //
+const styles = theme => ({
+  grow: {
+    flexGrow: 1,
+  },
+});
 const tab_title_h = '45px';
 const SIDEBAR_WIDTH = 235;
 const STYLES = {
@@ -41,7 +51,7 @@ const STYLES = {
   container: {
     display: 'flex',
     boxSizing: 'border-box',
-    padding: '50px 10px 40px 10px',
+    padding: '0px 10px 0px 10px',
   },
   sidebar: {
     transition: 'all .2s',
@@ -667,12 +677,12 @@ class QueryBrowserContainer extends Component {
       return <Loader message={status} type="page" />;
     }
 
-    const breadcrumb = connections.server
-      ? [
-          { icon: 'server', label: connections.server.name },
-          { icon: 'database', label: this.getCurrentQuery().database },
-        ]
-      : [];
+    // const breadcrumb = connections.server
+    //   ? [
+    //       { icon: 'server', label: connections.server.name },
+    //       { icon: 'database', label: this.getCurrentQuery().database },
+    //     ]
+    //   : [];
 
     const filteredDatabases = this.filterDatabases(filter, databases.items);
     return (
@@ -688,13 +698,36 @@ class QueryBrowserContainer extends Component {
             item={this.props.tableEdit.item}
           />
         )}
-        <div style={STYLES.header}>
-          <Header
-            items={breadcrumb}
-            onCloseConnectionClick={this.onCloseConnectionClick.bind(this)}
-            onReConnectionClick={this.onReConnectionClick.bind(this)}
-          />
-        </div>
+        <AppBar position="static">
+          <Toolbar>
+            <img alt="logo" src={LOGO_PATH} style={{ width: '5.5em' }} />
+            <StorageIcon />
+            <Typography
+              variant="h6"
+              color="inherit"
+              className={this.props.classes.grow}
+            >
+              {connections.server.name}
+              {this.getCurrentQuery().database}
+            </Typography>
+            <button
+              className="ui button"
+              title="Reconnect"
+              onClick={this.onReConnectionClick.bind(this)}
+            >
+              <i className="plug icon" />
+              Reconnect
+            </button>
+            <button
+              className="ui icon button"
+              title="Close connection"
+              onClick={this.onCloseConnectionClick.bind(this)}
+            >
+              close
+              <i className="power icon" />
+            </button>
+          </Toolbar>
+        </AppBar>
         <div onClick={this.onCollapseClick} style={STYLES.collapse}>
           <i
             className={`${
@@ -824,4 +857,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(withRouter(QueryBrowserContainer));
+export default connect(mapStateToProps)(withRouter( withStyles(styles)(QueryBrowserContainer)));

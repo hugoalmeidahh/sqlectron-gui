@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import debounce from 'lodash.debounce';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
 export default class ServerFilter extends Component {
   static propTypes = {
     onFilterChange: PropTypes.func.isRequired,
@@ -20,14 +22,12 @@ export default class ServerFilter extends Component {
 
   render() {
     return (
-      <div
-        className="ui small action left icon input fluid"
-        style={{ marginBottom: '1em', fontSize: '0.8em' }}
-      >
-        <i className="search icon" />
-        <input
+      <form style={{ display: 'flex',
+    flexWrap: 'wrap'}}>
+        <SearchIcon />
+        <TextField variant="outlined"
           type="text"
-          placeholder="Search..."
+          label="Search..."
           onChange={this.onFilterChange.bind(this)}
         />
         <Button variant="outlined" onClick={this.props.onAddClick.bind(this)}>
@@ -39,7 +39,7 @@ export default class ServerFilter extends Component {
         >
           Settings
         </Button>
-      </div>
+      </form>
     );
   }
 }
