@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 const styles = theme => ({
   close: {
-    padding: theme.spacing(2),
+    // padding: theme.spacing(2),
   },
 });
 class Loading extends Component {

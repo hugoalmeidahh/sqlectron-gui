@@ -10,6 +10,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 var { sqlectron } = window.myremote;
 // require('react-select/dist/react-select.css');
 // require('./override-select.css');
@@ -320,9 +324,9 @@ export default class ServerModalForm extends Component {
     // console.log("hiiiiiiiiiiiiiiiii");
     // console.log(this.state.value);
     return (
-      <div>
+      <div style={{display:"flex"}}>
         <div className="fields">
-          <div className={className_name}>
+          <div>
             <label>Name</label>
             <input
               type="text"
@@ -840,3 +844,60 @@ export default class ServerModalForm extends Component {
     );
   }
 }
+/*<FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Gender</FormLabel>
+          <RadioGroup
+            aria-label="Gender"
+            name="gender1"
+            className={classes.group}
+            value={this.state.value}
+            onChange={this.handleChange}
+          >
+            <FormControlLabel value="female" control={<Radio />} label="Female" />
+            <FormControlLabel value="male" control={<Radio />} label="Male" />
+            <FormControlLabel value="other" control={<Radio />} label="Other" />
+            <FormControlLabel
+              value="disabled"
+              disabled
+              control={<Radio />}
+              label="(Disabled option)"
+            />
+          </RadioGroup>
+        </FormControl>
+        <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Gender</FormLabel>
+          <RadioGroup
+            aria-label="gender"
+            name="gender2"
+            className={classes.group}
+            value={this.state.value}
+            onChange={this.handleChange}
+          >
+            <FormControlLabel
+              value="female"
+              control={<Radio color="primary" />}
+              label="Female"
+              labelPlacement="start"
+            />
+            <FormControlLabel
+              value="male"
+              control={<Radio color="primary" />}
+              label="Male"
+              labelPlacement="start"
+            />
+            <FormControlLabel
+              value="other"
+              control={<Radio color="primary" />}
+              label="Other"
+              labelPlacement="start"
+            />
+            <FormControlLabel
+              value="disabled"
+              disabled
+              control={<Radio />}
+              label="(Disabled option)"
+              labelPlacement="start"
+            />
+          </RadioGroup>
+          <FormHelperText>labelPlacement start</FormHelperText>
+        </FormControl>*/
