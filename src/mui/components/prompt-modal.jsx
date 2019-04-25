@@ -68,9 +68,7 @@ export default class PromptModal extends Component {
         basic
         size="small"
       >
-        {!!this.state.showDatabaseDiagram && (
-          <DialogTitle>{title}</DialogTitle>
-        )}
+        {!!this.state.showDatabaseDiagram && <DialogTitle>{title}</DialogTitle>}
         <DialogContent>
           {message}
           <div className="ui fluid icon input">

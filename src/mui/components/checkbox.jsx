@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import Checkbox from '@material-ui/core/Checkbox'
+import Checkbox from '@material-ui/core/Checkbox';
 export default class CheckboxMe extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
@@ -21,15 +21,15 @@ export default class CheckboxMe extends Component {
     const { name, label, disabled } = this.props;
     //todo
     return (
-    <div>
-      {label}
-      <Checkbox
-        name={name}
-        disabled={disabled}
-        checked={this.props.defaultChecked}
-        onChange={this.onChange}
-      />
-    </div>
+      <div>
+        {label}
+        <Checkbox
+          name={name}
+          disabled={disabled}
+          checked={this.props.defaultChecked}
+          onChange={this.onChange}
+        />
+      </div>
     );
   }
 }

@@ -21,7 +21,7 @@ export default class Message extends Component {
     const { closeable, title, message, type, preformatted } = this.props;
     var classtype = `ui message ${type || ''}`;
     return (
-      <div visible={""+this.state.visible} animation="fade" duration={500}>
+      <div visible={'' + this.state.visible} animation="fade" duration={500}>
         <div className={classtype}>
           {closeable && (
             <i className="close icon" onClick={this.onClose.bind(this)} />

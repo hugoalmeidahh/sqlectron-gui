@@ -466,13 +466,13 @@ export default class QueryResultTable extends Component {
         col={field.name}
         onOpenPreviewClick={this.onOpenPreviewClick}
         onDeleteClick={() => {
-          window.model=this.props.model;
+          window.model = this.props.model;
           console.log(this.props.model);
           console.log(this.props.model.store.columns.columnsByTable);
-          console.log("delete");
+          console.log('delete');
         }}
         onEditClick={() => {
-          console.log("edit");
+          console.log('edit');
         }}
       />
     );

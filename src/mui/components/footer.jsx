@@ -25,22 +25,26 @@ function onShortcutsClick(event) {
 
 const Footer = ({ status }) => (
   <Snackbar>
-  <SnackbarContent>
-    <div style={STYLE.status}>{status}</div>
-    <div className="right menu">
-      <div className="item">
-        {
-          //<LogStatus />
-        }
-        <UpdateChecker />
+    <SnackbarContent>
+      <div style={STYLE.status}>{status}</div>
+      <div className="right menu">
+        <div className="item">
+          {
+            //<LogStatus />
+          }
+          <UpdateChecker />
+        </div>
+        <a className="item" onClick={onGithubClick}>
+          Github
+        </a>
+        <a
+          className="item"
+          title="Keyboard Shortcuts"
+          onClick={onShortcutsClick}
+        >
+          <i className="keyboard icon" />
+        </a>
       </div>
-      <a className="item" onClick={onGithubClick}>
-        Github
-      </a>
-      <a className="item" title="Keyboard Shortcuts" onClick={onShortcutsClick}>
-        <i className="keyboard icon" />
-      </a>
-    </div>
     </SnackbarContent>
   </Snackbar>
 );

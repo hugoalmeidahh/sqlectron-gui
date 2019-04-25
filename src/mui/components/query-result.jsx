@@ -164,10 +164,7 @@ export default class QueryResult extends Component {
     }
 
     if (isExecuting) {
-      return (
-        <div ref="loader" style={{ minHeight: '250px' }}>
-        </div>
-      );
+      return <div ref="loader" style={{ minHeight: '250px' }} />;
     }
 
     if (!results) {

@@ -35,11 +35,9 @@ const ServerListItem = ({ server, onConnectClick, onEditClick }) => (
           src={ICONS[server.client]}
         />
       </div>
-      <Button
-        variant="outlined"
-        onClick={() => onEditClick(server)}
-      >
-        edit<i className="icon pencil" />
+      <Button variant="outlined" onClick={() => onEditClick(server)}>
+        edit
+        <i className="icon pencil" />
       </Button>
       <div className="header">{server.name}</div>
       <div
@@ -51,13 +49,14 @@ const ServerListItem = ({ server, onConnectClick, onEditClick }) => (
       </div>
     </CardContent>
     <CardActions>
-    <Button variant="outlined"
-      tabIndex="0"
-      onClick={() => onConnectClick(server)}
-    >
-      <i className="plug icon" />
-      Connect
-    </Button>
+      <Button
+        variant="outlined"
+        tabIndex="0"
+        onClick={() => onConnectClick(server)}
+      >
+        <i className="plug icon" />
+        Connect
+      </Button>
     </CardActions>
   </Card>
 );

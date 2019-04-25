@@ -35,22 +35,22 @@ const Header = ({ items, onCloseConnectionClick, onReConnectionClick }) => {
       </a>
       {renderBreadcrumb(items)}
       <div style={{ visibility: visibilityButtons, marginLeft: 0 }}>
-            <button
-              className="ui button"
-              title="Reconnect"
-              onClick={onReConnectionClick}
-            >
-              <i className="plug icon" />
-              Reconnect
-            </button>
-            <button
-              className="ui icon button"
-              title="Close connection"
-              onClick={onCloseConnectionClick}
-            >
-              close            
-              <i className="power icon" />
-            </button>
+        <button
+          className="ui button"
+          title="Reconnect"
+          onClick={onReConnectionClick}
+        >
+          <i className="plug icon" />
+          Reconnect
+        </button>
+        <button
+          className="ui icon button"
+          title="Close connection"
+          onClick={onCloseConnectionClick}
+        >
+          close
+          <i className="power icon" />
+        </button>
       </div>
     </Toolbar>
   );

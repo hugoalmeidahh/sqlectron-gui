@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import set from 'lodash.set';
 import Checkbox from './checkbox.jsx';
-import { Modal,Dropdown ,Header} from 'semantic-ui-react';
+import { Modal, Dropdown, Header } from 'semantic-ui-react';
 var { shell } = window.myremote.electron;
 
 export default class SettingsModalForm extends Component {
@@ -37,8 +37,8 @@ export default class SettingsModalForm extends Component {
     // } else if (this.props.modalOpen && !nextProps.modalOpen) {
     //   this.onHide();
     // }
-    this.setState ({
-      ...nextProps.config.data
+    this.setState({
+      ...nextProps.config.data,
     });
   }
 
@@ -106,7 +106,7 @@ export default class SettingsModalForm extends Component {
 
   handleOnLogLevelChange(level) {
     console.log(level);
-    this.setState({ log: { ...this.state.log, level:level.value } });
+    this.setState({ log: { ...this.state.log, level: level.value } });
   }
 
   renderLogLevelItem({ label, icon }) {
@@ -244,35 +244,39 @@ export default class SettingsModalForm extends Component {
 
   renderLoggingSettingsPanel() {
     const log = this.state.log || {};
-              //     <Select
-              //   name="log.level"
-              //   options={[
-              //     { value: 'debug', label: 'Debug', icon: 'bug' },
-              //     { value: 'info', label: 'Info', icon: 'info' },
-              //     { value: 'warn', label: 'Warn', icon: 'warning sign' },
-              //     { value: 'error', label: 'Error', icon: 'remove circle' },
-              //   ]}
-              //   clearable={false}
-              //   onChange={this.handleOnLogLevelChange.bind(this)}
-              //   optionRenderer={this.renderLogLevelItem}
-              //   valueRenderer={this.renderLogLevelItem}
-              //   value={log.level || 'error'}
-              // />
-    const options0=[
-                  { value: 'debug', label: 'Debug', icon: 'bug' },
-                  { value: 'info', label: 'Info', icon: 'info' },
-                  { value: 'warn', label: 'Warn', icon: 'warning sign' },
-                  { value: 'error', label: 'Error', icon: 'remove circle' },
-                ];
-    const options=options0.map((one,index)=>{
-      return{
+    //     <Select
+    //   name="log.level"
+    //   options={[
+    //     { value: 'debug', label: 'Debug', icon: 'bug' },
+    //     { value: 'info', label: 'Info', icon: 'info' },
+    //     { value: 'warn', label: 'Warn', icon: 'warning sign' },
+    //     { value: 'error', label: 'Error', icon: 'remove circle' },
+    //   ]}
+    //   clearable={false}
+    //   onChange={this.handleOnLogLevelChange.bind(this)}
+    //   optionRenderer={this.renderLogLevelItem}
+    //   valueRenderer={this.renderLogLevelItem}
+    //   value={log.level || 'error'}
+    // />
+    const options0 = [
+      { value: 'debug', label: 'Debug', icon: 'bug' },
+      { value: 'info', label: 'Info', icon: 'info' },
+      { value: 'warn', label: 'Warn', icon: 'warning sign' },
+      { value: 'error', label: 'Error', icon: 'remove circle' },
+    ];
+    const options = options0.map((one, index) => {
+      return {
         value: one.value,
-        text:one.label,
-        content:  <Header icon={one.icon} content={one.label} onClick={
-          ()=>{
-            this.handleOnLogLevelChange(one);
-          }
-        } />
+        text: one.label,
+        content: (
+          <Header
+            icon={one.icon}
+            content={one.label}
+            onClick={() => {
+              this.handleOnLogLevelChange(one);
+            }}
+          />
+        ),
       };
     });
     console.log(log);
@@ -352,9 +356,13 @@ export default class SettingsModalForm extends Component {
               className={`field ${this.highlightError('log.level')}`}
             >
               <label>Level</label>
-              <Dropdown selection fluid options={options} 
-              placeholder="log level" 
-              value={log.level || 'error'} />
+              <Dropdown
+                selection
+                fluid
+                options={options}
+                placeholder="log level"
+                value={log.level || 'error'}
+              />
 
               <p className="help">Level logging: debug, info, warn, error.</p>
             </div>
@@ -365,7 +373,7 @@ export default class SettingsModalForm extends Component {
   }
 
   render() {
-    console.log("settings-modal");
+    console.log('settings-modal');
     console.log(this.props);
     return (
       <Modal

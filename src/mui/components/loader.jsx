@@ -39,33 +39,38 @@ class Loading extends Component {
     const { classes } = this.props;
     //const inverted = this.props.inverted ? 'inverted' : '';
     return (
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          open={this.state.active}
-          autoHideDuration={6000}
-          onClose={this.handleClose}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">{message}</span>}
-          action={[
-            <Button key="undo" color="secondary" size="small" onClick={this.handleClose}>
-              UNDO
-            </Button>,
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              className={classes.close}
-              onClick={this.handleClose}
-            >
-              <CloseIcon />
-            </IconButton>,
-          ]}
-        />
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={this.state.active}
+        autoHideDuration={6000}
+        onClose={this.handleClose}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">{message}</span>}
+        action={[
+          <Button
+            key="undo"
+            color="secondary"
+            size="small"
+            onClick={this.handleClose}
+          >
+            UNDO
+          </Button>,
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            className={classes.close}
+            onClick={this.handleClose}
+          >
+            <CloseIcon />
+          </IconButton>,
+        ]}
+      />
     );
   }
 }

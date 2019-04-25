@@ -60,7 +60,7 @@ const STYLES = {
     WebkitUserSelect: 'none',
     msUserSelect: 'none',
   },
-  resizeable: { width: 'auto', maxWidth: '100%' },
+  resizeable: { width: 'auto', maxWidth: '100%',minHeight:'100vh' },
 };
 
 const CLIENTS = sqlectron.db.CLIENTS.reduce((clients, dbClient) => {
@@ -235,7 +235,7 @@ class QueryBrowserContainer extends Component {
   onCloseConnectionClick() {
     const { dispatch } = this.props;
     dispatch(ConnActions.disconnect());
-    this.props.history.push("/");
+    this.props.history.push('/');
   }
 
   onReConnectionClick() {
@@ -542,7 +542,7 @@ class QueryBrowserContainer extends Component {
       return (
         <TabPanel key={queryId}>
           <Query
-            model={{queryId:queryId, store:this.props}}
+            model={{ queryId: queryId, store: this.props }}
             ref={`queryBox_${queryId}`}
             editorName={`querybox${queryId}`}
             client={connections.server.client}
@@ -778,9 +778,9 @@ class QueryBrowserContainer extends Component {
             this.renderDatabaseDiagramModal()}
         </div>
         {
-          <div style={STYLES.footer}>
-            <Footer status={status} />
-          </div>
+          //<div style={STYLES.footer}>
+          //  <Footer status={status} />
+          //</div>
         }
         <style jsx="true">{`
           #sidebar {

@@ -21,7 +21,9 @@
 
 .react-resizable-ew-resize .react-resizable-handle {
   position: absolute;
-  width: 15px;
+  height:100% !important;
+  background-color: #666;
+  width: 5px;
   top: 7.5px;
   right: 7.5px;
   margin-top: 0;

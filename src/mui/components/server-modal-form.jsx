@@ -823,10 +823,7 @@ export default class ServerModalForm extends Component {
     // console.log("render== ServerModalForm")
     // console.log(this.state);
     return (
-      <Dialog
-        open={this.props.modalOpen}
-        fullScreen
-      >
+      <Dialog open={this.props.modalOpen} fullScreen>
         <DialogTitle>Settings</DialogTitle>
         <DialogContent>
           {this.renderMessage()}

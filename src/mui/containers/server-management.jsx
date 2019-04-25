@@ -12,14 +12,16 @@ import ServerModalForm from '../components/server-modal-form.jsx';
 import SettingsModalForm from '../components/settings-modal-form.jsx';
 import ServerFilter from '../components/server-filter.jsx';
 import Message from '../components/message.jsx';
-
-const STYLES = {
-  wrapper: { paddingTop: '50px' },
-  container: { padding: '0px 10px 50px 10px' },
-};
-
-const BREADCRUMB = [{ icon: 'server', label: 'servers' }];
-
+import { withStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import AppBar from '@material-ui/core/AppBar';
+import Typography from '@material-ui/core/Typography';
+import StorageIcon from '@material-ui/icons/Storage';
+const styles = theme => ({
+  grow: {
+    flexGrow: 1,
+  },
+});
 class ServerManagerment extends Component {
   static propTypes = {
     status: PropTypes.string.isRequired,
@@ -45,7 +47,6 @@ class ServerManagerment extends Component {
     var path = `/server/${id}`;
     console.log(path);
     this.props.history.push(path);
-
   };
 
   onTestConnectionClick(server) {
@@ -128,13 +129,30 @@ class ServerManagerment extends Component {
       connecting: connections.testConnecting,
       error: connections.testError,
     };
-// console.log(this.props);
+    // console.log(this.props);
+    // const BREADCRUMB = [{ icon: 'server', label: 'servers' }];
     return (
-      <div >
-        <div >
-          <Header items={BREADCRUMB} />
-        </div>
-        <div style={STYLES.container}>
+      <div>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography
+              variant="h6"
+              color="inherit"
+              className={this.props.classes.grow}
+            >
+              sqlectron
+            </Typography>
+            <StorageIcon />
+            <Typography
+              variant="h6"
+              color="inherit"
+              className={this.props.classes.grow}
+            >
+              servers
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <div>
           <ServerFilter
             onFilterChange={this.onFilterChange.bind(this)}
             onAddClick={this.onAddClick.bind(this)}
@@ -179,7 +197,7 @@ class ServerManagerment extends Component {
             />
           )}
         </div>
-          <Footer status={status} />
+        <Footer status={status} />
       </div>
     );
   }
@@ -193,5 +211,7 @@ function mapStateToProps(state) {
     status: state.status,
   };
 }
-
-export default connect(mapStateToProps)(withRouter(ServerManagerment));
+ServerManagerment.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+export default connect(mapStateToProps)(withRouter(withStyles(styles)(ServerManagerment)));

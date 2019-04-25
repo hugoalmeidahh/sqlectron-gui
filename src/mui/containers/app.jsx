@@ -91,10 +91,7 @@ class AppContainer extends Component {
     // console.log(this.props);
     return (
       <div className="ui">
-        <ModalAbout
-          onClose={this.handleClose}
-          open={this.state.modalOpen}
-        />
+        <ModalAbout onClose={this.handleClose} open={this.state.modalOpen} />
         {config.isLoaded ? children : null}
       </div>
     );

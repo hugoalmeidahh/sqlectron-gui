@@ -5,7 +5,7 @@ import ConfirmModal from './confim-modal.jsx';
 import Message from './message.jsx';
 import Checkbox from './checkbox.jsx';
 import { requireLogos } from './require-context';
-import { Dropdown,Modal,Header } from 'semantic-ui-react'
+import { Dropdown, Modal, Header } from 'semantic-ui-react';
 var { sqlectron } = window.myremote;
 
 const CLIENTS = sqlectron.db.CLIENTS.map(dbClient => ({
@@ -39,8 +39,7 @@ export default class ServerModalForm extends Component {
     };
   }
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
     let server = nextProps.server || {};
@@ -110,11 +109,11 @@ export default class ServerModalForm extends Component {
   }
 
   mapStateToServer(state) {
-    console.log("mapStateToServer");
-    console.log(state)
+    console.log('mapStateToServer');
+    console.log(state);
     const server = {
       name: state.name,
-      client: state.client,//rename value to client
+      client: state.client, //rename value to client
       ssl: !!state.ssl,
       host: state.host && state.host.length ? state.host : null,
       port: state.port || state.defaultPort,
@@ -286,21 +285,25 @@ export default class ServerModalForm extends Component {
         </label>
       );
     }
-    const options=CLIENTS.map((one,index) =>{
-      return{
+    const options = CLIENTS.map((one, index) => {
+      return {
         key: index,
         text: one.client,
         value: one.client,
-        content: <span onClick={()=>{
-          console.log(one);
-          this.handleOnClientChange(one);
-        }}>
-        <img alt="logo" src={one.logo} style={{ width: '16px' }} />
-        {one.label}>
-        </span>,
+        content: (
+          <span
+            onClick={() => {
+              console.log(one);
+              this.handleOnClientChange(one);
+            }}
+          >
+            <img alt="logo" src={one.logo} style={{ width: '16px' }} />
+            {one.label}>
+          </span>
+        ),
       };
     });
-    console.log("render==================")
+    console.log('render==================');
     console.log(this.state);
     return (
       <div>
@@ -317,8 +320,12 @@ export default class ServerModalForm extends Component {
           </div>
           <div className={className_client}>
             <label>Database Type</label>
-            <Dropdown selection fluid options={options} placeholder="client" 
-            value={this.state.client}
+            <Dropdown
+              selection
+              fluid
+              options={options}
+              placeholder="client"
+              value={this.state.client}
             />
           </div>
           <div className="one field" style={{ paddingTop: '2em' }}>

@@ -31,18 +31,22 @@ export default class TableCell extends Component {
 
     if (!this.contextMenu && hasPreview) {
       this.contextMenu = new Menu();
-      this.contextMenu.append(new MenuItem({
+      this.contextMenu.append(
+        new MenuItem({
           label: 'Edit',
           click: () => {
-            this.props.onEditClick(this.props.rowIndex,this.props.col);
+            this.props.onEditClick(this.props.rowIndex, this.props.col);
           },
-      }));
-      this.contextMenu.append(new MenuItem({
+        })
+      );
+      this.contextMenu.append(
+        new MenuItem({
           label: 'Delete',
           click: () => {
-            this.props.onDeleteClick(this.props.rowIndex,this.props.col);
+            this.props.onDeleteClick(this.props.rowIndex, this.props.col);
           },
-      }));
+        })
+      );
       // if(hasPreview){
       this.contextMenu.append(
         new MenuItem({

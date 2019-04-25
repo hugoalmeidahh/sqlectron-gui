@@ -30,10 +30,7 @@ export default class ServerFilter extends Component {
           placeholder="Search..."
           onChange={this.onFilterChange.bind(this)}
         />
-        <Button
-          variant="outlined"
-          onClick={this.props.onAddClick.bind(this)}
-        >
+        <Button variant="outlined" onClick={this.props.onAddClick.bind(this)}>
           Add
         </Button>
         <Button
