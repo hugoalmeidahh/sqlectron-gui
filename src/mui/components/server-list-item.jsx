@@ -5,7 +5,9 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-
+import FormGroup from '@material-ui/core/FormGroup';
+import EditIcon from '@material-ui/icons/Edit';
+import PowerIcon from '@material-ui/icons/Power';
 var { sqlectron } = window.myremote;
 //var e=require('electron');
 // console.log(sqlectron);
@@ -24,40 +26,30 @@ const ICONS = sqlectron.db.CLIENTS.reduce((clients, dbClient) => {
 const ServerListItem = ({ server, onConnectClick, onEditClick }) => (
   <Card>
     <CardContent>
-      <div
-        className="left floated"
-        style={{ height: '35px', width: '35px', margin: '5px 10px 0 0' }}
-      >
+      <FormGroup row>
+        <div className="header">{server.name}</div>
         <img
           alt="client"
-          className="ui image"
-          style={{ width: '100%' }}
+          style={{height:"1em"}}
           src={ICONS[server.client]}
         />
-      </div>
       <Button variant="outlined" onClick={() => onEditClick(server)}>
-        edit
-        <i className="icon pencil" />
+        <EditIcon />edit
       </Button>
-      <div className="header">{server.name}</div>
-      <div
-        className="meta"
-        style={{ lineHeight: '1.5em', marginTop: '5px', marginLeft: '45px' }}
-      >
+      <div  style={{ lineHeight: '1.5em', marginTop: '5px', marginLeft: '45px' }}>
         {server.host ? `${server.host}:${server.port}` : server.socketPath}
         {server.ssh && <div>via {server.ssh.host}</div>}
       </div>
-    </CardContent>
-    <CardActions>
       <Button
         variant="outlined"
         tabIndex="0"
         onClick={() => onConnectClick(server)}
       >
-        <i className="plug icon" />
+        <PowerIcon />
         Connect
       </Button>
-    </CardActions>
+    </FormGroup>
+    </CardContent>
   </Card>
 );
 

@@ -4,7 +4,7 @@ import set from 'lodash.set';
 import Select from 'react-select';
 import ConfirmModal from './confim-modal.jsx';
 import Message from './message.jsx';
-import Checkbox from './checkbox.jsx';
+import Checkbox from '@material-ui/core/Checkbox';
 import { requireLogos } from './require-context';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -12,13 +12,39 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Button from '@material-ui/core/Button';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 var { sqlectron } = window.myremote;
-// require('react-select/dist/react-select.css');
-// require('./override-select.css');
-
-//console.log(sqlectron.db.CLIENTS);
+const styles={
+ container:(provided,state)=>{
+  return{
+    ...provided,
+    minWidth:"200px",
+    maxWidth:"300px",
+  }
+ },
+};
+const components={
+  Option: (props) => {
+    // console.log(props);
+    return (
+      <div {...props.innerProps} style={{ backgroundColor:props.isFocused?"#ddd":"#fff"}}>
+        <img src={props.data.logo} style={{height:"1em"}} />{props.children}
+      </div>
+    );
+  },
+  SingleValue:(props)=>{
+    const { children, innerProps } = props;
+    return (
+      <div {...innerProps}>
+        <img src={props.data.logo} style={{height:"1em"}} />{children}
+      </div>
+    );    
+  }
+};
 const CLIENTS = sqlectron.db.CLIENTS.map(dbClient => ({
   value: dbClient.key,
   logo: requireLogos(dbClient.key),
@@ -44,41 +70,18 @@ export default class ServerModalForm extends Component {
   constructor(props, context) {
     super(props, context);
     let server = props.server || {};
-    // if(server.client instanceof Object){
-    // }
-    // else{
-    //   server.client=CLIENTS.find((dbc) =>{
-    //     return dbc.value === server.client;
-    //   });
-    // }
     this.state = {
       ...server,
       isNew: !server.id,
       showPlainPassword: false,
       modalOpen: false,
     };
-    this.state.value = this.state.client;
-    // console.log("constructor======");
-    // console.log(this.state);
+    // this.state.value = this.state.client;
+    console.log(props);
+    console.log(this.state);
   }
 
   componentDidMount() {
-    //console.log($(this.refs.serverModal));
-    // $(this.refs.serverModal).modal({
-    //   closable: true,
-    //   detachable: false,
-    //   allowMultiple: true,
-    //   observeChanges: true,
-    //   onHidden: () => {
-    //     this.props.onCancelClick();
-    //     return true;
-    //   },
-    //   onDeny: () => {
-    //     this.props.onCancelClick();
-    //     return true;
-    //   },
-    //   onApprove: () => false,
-    // }).modal('show');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -86,15 +89,10 @@ export default class ServerModalForm extends Component {
   }
 
   componentWillUnmount() {
-    //$(this.refs.serverModal).modal('hide');
-    // this.props.onCancelClick();
   }
 
   onSaveClick() {
-    // console.log("server-modal-form onSaveClick");
-    // console.log(this.state);
     var tmp = this.mapStateToServer(this.state);
-    // console.log(tmp);
     this.props.onSaveClick(tmp);
   }
 
@@ -123,25 +121,19 @@ export default class ServerModalForm extends Component {
   }
 
   isFeatureDisabled(feature) {
-    // console.log("isFeatureDisabled");
-    // console.log(feature);
-    // console.log(this.state.client);
-    if (!this.state.value) {
+    if (!this.state.client) {
       return false;
     }
-    //console.log("("+CLIENTS);
-    //console.log(this.state.client);
 
     const dbClient = CLIENTS.find(dbc => {
-      // console.log(dbc.value);
-      // console.log(this.state);
-      return dbc.value === this.state.value;
+      return dbc.value === this.state.client;
     });
-    //console.log(dbClient);
-    //console.log(dbClient.disabledFeatures);
-    return !!(
-      dbClient.disabledFeatures && ~dbClient.disabledFeatures.indexOf(feature)
-    );
+    if(dbClient.disabledFeatures && dbClient.disabledFeatures.indexOf(feature)>=0){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   mapStateToServer(state) {
@@ -149,7 +141,7 @@ export default class ServerModalForm extends Component {
     // console.log(state)
     const server = {
       name: state.name,
-      client: state.value,
+      client: state.client,
       ssl: !!state.ssl,
       host: state.host && state.host.length ? state.host : null,
       port: state.port || state.defaultPort,
@@ -217,18 +209,15 @@ export default class ServerModalForm extends Component {
     return hasError ? 'error' : '';
   }
 
-  handleOnClientChange(client) {
-    this.setState(client, () => {
-      // console.log("after handleOnClientChange==========");
-      // console.log(this.state);
+  handleOnClientChange=(client)=>{
+    this.setState({client:client.value}, () => {
+      console.log("after handleOnClientChange==========");
+      console.log(this.state);
+      const clientConfig = CLIENTS.find(entry => entry.value === client.value);
+      if (clientConfig && clientConfig.defaultPort) {
+        this.setState({ defaultPort: clientConfig.defaultPort });
+      }
     });
-
-    const clientConfig = CLIENTS.find(entry => entry.value === client.value);
-    if (clientConfig && clientConfig.defaultPort) {
-      this.setState({ defaultPort: clientConfig.defaultPort });
-    }
-    console.log('handleOnClientChange');
-    //console.log()
   }
 
   handleChange(event) {
@@ -288,16 +277,12 @@ export default class ServerModalForm extends Component {
   }
 
   renderBasicPanel() {
-    // console.log("renderBasicPanel======");
-    // console.log(this.state.value);
     var className_name = `nine wide field ${this.highlightError('name')}`;
     var className_client = `six wide field ${this.highlightError('client')}`;
     var className_host = `five wide field ${this.highlightError('host')}`;
     var className_port = `two wide field ${this.highlightError('port')}`;
     var className_domain = `four wide field ${this.highlightError('domain')}`;
-    var className_socketPath = `five wide field ${this.highlightError(
-      'socketPath'
-    )}`;
+    var className_socketPath = `five wide field ${this.highlightError('socketPath')}`;
     var className_user = `four wide field ${this.highlightError('user')}`;
     var className_passwd = `four wide field ${this.highlightError('password')}`;
     var className_database = `four wide field ${this.highlightError(
@@ -306,17 +291,16 @@ export default class ServerModalForm extends Component {
     var className_schema = `four wide field ${this.highlightError('schema')}`;
     let className_sqlite1 = '';
     let input_sqlite;
-    if (this.state.value && this.state.value === 'sqlite') {
-      className_sqlite1 = 'ui action input';
+    if (this.state.client && this.state.client === 'sqlite') {
       input_sqlite = (
-        <label htmlFor="file.database" className="ui icon button btn-file">
-          <i className="file outline icon" />
+        <label>
+          <FolderOpenIcon />
           <input
             type="file"
             id="file.database"
             name="file.database"
             onChange={this.handleChange.bind(this)}
-          />
+          ></input>
         </label>
       );
     }
@@ -324,58 +308,55 @@ export default class ServerModalForm extends Component {
     // console.log("hiiiiiiiiiiiiiiiii");
     // console.log(this.state.value);
     return (
-      <div style={{display:"flex"}}>
-        <div className="fields">
-          <div>
+      <div >
+        <FormGroup row>
             <label>Name</label>
+            <FormControlLabel label="Name" control={
             <input
               type="text"
               name="name"
               placeholder="Name"
               value={this.state.name || ''}
               onChange={this.handleChange.bind(this)}
-            />
-          </div>
-          <div className={className_client}>
-            <label>Database Type</label>
-            <Select
-              name="client"
+            />} />
+          <label>Database Type</label>
+          <Select  name="client"
+              components={components}
+              styles={styles}
               placeholder="Select"
               options={CLIENTS}
               clearable={false}
-              onChange={this.handleOnClientChange.bind(this)}
-              optionRenderer={this.renderClientItem}
-              valueRenderer={this.renderClientItem}
-              value={this.state.value}
+              onChange={this.handleOnClientChange}
+              value={CLIENTS.find(dbc => {
+                return dbc.value === this.state.client;
+              })}
             />
-          </div>
-          <div className="one field" style={{ paddingTop: '2em' }}>
             <Checkbox
               name="ssl"
               label="SSL"
-              disabled={this.isFeatureDisabled('server:ssl')}
-              defaultChecked={this.state.ssl}
-              onChecked={() => this.setState({ ssl: true })}
-              onUnchecked={() => this.setState({ ssl: false })}
+              style={{display:this.isFeatureDisabled('server:ssl')?"none":"inline"}}
+              checked={this.state.ssl}
+              onChange={()=>{
+                 if(this.state.ssl){
+                  this.setState({ssl:false})
+                 }
+                 else{
+                  this.setState({ssl:true})
+                 }
+              }}
             />
-          </div>
-        </div>
-        <div className="field">
-          <label>Server Address</label>
-          <div className="fields">
-            <div className={className_host}>
+        </FormGroup>
+        <FormGroup row>
+              <label style={{display:this.isFeatureDisabled('server:host')?"none":"inline"}}
+              >Server Address</label>
               <input
                 type="text"
                 name="host"
                 placeholder="Host"
                 value={this.state.host || ''}
                 onChange={this.handleChange.bind(this)}
-                disabled={
-                  this.isFeatureDisabled('server:host') || this.state.socketPath
-                }
+                style={{display:this.isFeatureDisabled('server:host') || this.state.socketPath?"none":"inline"}}
               />
-            </div>
-            <div className={className_port}>
               <input
                 type="number"
                 name="port"
@@ -383,34 +364,25 @@ export default class ServerModalForm extends Component {
                 placeholder="Port"
                 value={this.state.port || this.state.defaultPort || ''}
                 onChange={this.handleChange.bind(this)}
-                disabled={
-                  this.isFeatureDisabled('server:port') || this.state.socketPath
-                }
+                style={{display:this.isFeatureDisabled('server:host') || this.state.socketPath?"none":"inline"}}
               />
-            </div>
-            <div className={className_domain}>
               <input
                 type="text"
                 name="domain"
                 placeholder="Domain"
                 value={this.state.domain || ''}
-                disabled={this.isFeatureDisabled('server:domain')}
+                style={{display:this.isFeatureDisabled('server:domain')?"none":"inline"}}
                 onChange={this.handleChange.bind(this)}
               />
-            </div>
-            <div className={className_socketPath}>
-              <div className="ui action input">
                 <input
                   type="text"
                   name="socketPath"
                   placeholder="Unix socket path"
                   value={this.state.socketPath || ''}
                   onChange={this.handleChange.bind(this)}
-                  disabled={
-                    this.state.host ||
+                  style={{display:this.state.host ||
                     this.state.port ||
-                    this.isFeatureDisabled('server:socketPath')
-                  }
+                    this.isFeatureDisabled('server:socketPath')?"none":"inline"}}
                 />
                 <label
                   htmlFor="file.socketPath"
@@ -430,27 +402,21 @@ export default class ServerModalForm extends Component {
                     }
                   />
                 </label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="fields">
-          <div className={className_user}>
-            <label>User</label>
+        </FormGroup>
+        <FormGroup row>
+            <label style={{display:this.isFeatureDisabled('server:user')?"none":"inline"}}>User</label>
             <input
               type="text"
               name="user"
               placeholder="User"
               value={this.state.user || ''}
-              disabled={this.isFeatureDisabled('server:user')}
+              style={{display:this.isFeatureDisabled('server:user')?"none":"inline"}}
               onChange={this.handleChange.bind(this)}
             />
-          </div>
-          <div className={className_passwd}>
-            <div>
+            <div style={{display:this.isFeatureDisabled('server:password')?"none":"inline"}}>
               <label>Password</label>
             </div>
-            <div className="ui action input">
+            <div style={{display:this.isFeatureDisabled('server:password')?"none":"inline"}}>
               <input
                 type={this.state.showPlainPassword ? 'text' : 'password'}
                 name="password"
@@ -466,8 +432,6 @@ export default class ServerModalForm extends Component {
                 <i className="unhide icon" />
               </span>
             </div>
-          </div>
-          <div className={className_database}>
             <label>Initial Database/Keyspace</label>
             <div className={className_sqlite1}>
               <input
@@ -479,20 +443,17 @@ export default class ServerModalForm extends Component {
               />
               {input_sqlite}
             </div>
-          </div>
-          <div className={className_schema}>
-            <label>Initial Schema</label>
+            <label style={{display:this.isFeatureDisabled('server:schema')?"none":"inline"}}>Initial Schema</label>
             <input
               type="text"
               name="schema"
               maxLength="100"
               placeholder="Schema"
-              disabled={this.isFeatureDisabled('server:schema')}
+              style={{display:this.isFeatureDisabled('server:schema')?"none":"inline"}}
               value={this.state.schema || ''}
               onChange={this.handleChange.bind(this)}
             />
-          </div>
-        </div>
+        </FormGroup>
       </div>
     );
   }
@@ -507,14 +468,20 @@ export default class ServerModalForm extends Component {
     }
 
     return (
-      <div className="ui segment">
+      <div style={{display:"flex",flexWrap:"wrap"}}>
         <div className="one field">
           <Checkbox
             name="sshTunnel"
             label="SSH Tunnel"
-            defaultChecked={isSSHChecked}
-            onChecked={() => this.setState({ ssh: {} })}
-            onUnchecked={() => this.setState({ ssh: null })}
+             checked={isSSHChecked}
+              onChange={()=>{
+                 if(isSSHChecked){
+                  this.setState({ssl:null})
+                 }
+                 else{
+                  this.setState({ssl:{}})
+                 }
+              }}
           />
         </div>
         {isSSHChecked && (
@@ -618,21 +585,23 @@ export default class ServerModalForm extends Component {
                   name="ssh.privateKeyWithPassphrase"
                   label="Passphrase"
                   disabled={!!(!isSSHChecked || ssh.password)}
-                  defaultChecked={ssh && ssh.privateKeyWithPassphrase}
-                  onChecked={() => {
+              checked={ssh && ssh.privateKeyWithPassphrase}
+              onChange={()=>{
+                 if(isSSHChecked){
                     const stateSSH = this.state.ssh
                       ? { ...this.state.ssh }
                       : {};
                     stateSSH.privateKeyWithPassphrase = true;
                     this.setState({ ssh: stateSSH });
-                  }}
-                  onUnchecked={() => {
+                 }
+                 else{
                     const stateSSH = this.state.ssh
                       ? { ...this.state.ssh }
                       : {};
                     stateSSH.privateKeyWithPassphrase = false;
                     this.setState({ ssh: stateSSH });
-                  }}
+                 }
+              }}
                 />
               </div>
             </div>
@@ -725,13 +694,20 @@ export default class ServerModalForm extends Component {
     return (
       <div className="ui segment">
         <div className="one field">
+          <FormControlLabel label="Filter" control={
           <Checkbox
             name="filter"
-            label="Filter"
-            defaultChecked={isFilterChecked}
-            onChecked={() => this.setState({ filter: {} })}
-            onUnchecked={() => this.setState({ filter: null })}
-          />
+            
+            checked={isFilterChecked}
+              onChange={()=>{
+                 if(isFilterChecked){
+                  this.setState({filter:null})
+                 }
+                 else{
+                  this.setState({filter:{}})
+                 }
+              }}
+          />} />
         </div>
         {addDiv}
       </div>
@@ -740,63 +716,64 @@ export default class ServerModalForm extends Component {
 
   renderActionsPanel() {
     const { testConnection } = this.props;
-    const { isNew, value } = this.state;
+    const { isNew, client } = this.state;
 
     const classStatusButtons = testConnection.connecting ? 'disabled' : '';
     const classStatusTestButton = [
-      value ? '' : 'disabled',
+      client ? '' : 'disabled',
       testConnection.connecting ? 'loading' : '',
     ].join(' ');
     //console.log("renderActionsPanel");
     //console.log(classStatusButtons);
 
     return (
-      <div className="actions">
-        <div
+      <React.Fragment>
+        <Button variant="outlined"
           className={`small ui blue right labeled icon button ${classStatusTestButton}`}
           tabIndex="0"
           onClick={this.onTestConnectionClick.bind(this)}
         >
           Test
           <i className="plug icon" />
-        </div>
+        </Button>
         {!isNew && (
-          <div
+          <Button variant="outlined"
             className={`small ui right labeled icon button ${classStatusButtons}`}
             tabIndex="0"
             onClick={this.onDuplicateClick.bind(this)}
           >
             Duplicate
             <i className="copy icon" />
-          </div>
+          </Button>
         )}
-        <div
+        <Button variant="outlined"
           className={`small ui black deny right labeled icon button ${classStatusButtons}`}
           onClick={this.props.onCancelClick}
           tabIndex="0"
         >
           Cancel
           <i className="ban icon" />
-        </div>
-        <div
+        </Button>
+        <Button variant="outlined"
           className={`small ui green right labeled icon button ${classStatusButtons}`}
           tabIndex="0"
           onClick={this.onSaveClick.bind(this)}
         >
           Save
           <i className="checkmark icon" />
-        </div>
+        </Button>
         {!isNew && (
-          <div
+          <Button
+            variant="outlined"
             className={`small ui red right labeled icon button ${classStatusButtons}`}
             tabIndex="0"
             onClick={this.onRemoveOpenClick.bind(this)}
           >
             Remove
             <i className="trash icon" />
-          </div>
+          </Button>
         )}
-      </div>
+     </React.Fragment>
     );
   }
 
@@ -824,14 +801,12 @@ export default class ServerModalForm extends Component {
     // console.log(this.state);
     return (
       <Dialog open={this.props.modalOpen} fullScreen>
-        <DialogTitle>Settings</DialogTitle>
+        <DialogTitle>Edit Server</DialogTitle>
         <DialogContent>
           {this.renderMessage()}
-          <form className="ui form">
-            {this.renderBasicPanel()}
-            {this.renderSSHPanel()}
-            {this.renderFilterPanel()}
-          </form>
+          {this.renderBasicPanel()}
+          {this.renderSSHPanel()}
+          {this.renderFilterPanel()}
         </DialogContent>
         <DialogActions>
           {this.renderActionsPanel()}
@@ -841,60 +816,3 @@ export default class ServerModalForm extends Component {
     );
   }
 }
-/*<FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Gender</FormLabel>
-          <RadioGroup
-            aria-label="Gender"
-            name="gender1"
-            className={classes.group}
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
-            <FormControlLabel value="female" control={<Radio />} label="Female" />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel value="other" control={<Radio />} label="Other" />
-            <FormControlLabel
-              value="disabled"
-              disabled
-              control={<Radio />}
-              label="(Disabled option)"
-            />
-          </RadioGroup>
-        </FormControl>
-        <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Gender</FormLabel>
-          <RadioGroup
-            aria-label="gender"
-            name="gender2"
-            className={classes.group}
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
-            <FormControlLabel
-              value="female"
-              control={<Radio color="primary" />}
-              label="Female"
-              labelPlacement="start"
-            />
-            <FormControlLabel
-              value="male"
-              control={<Radio color="primary" />}
-              label="Male"
-              labelPlacement="start"
-            />
-            <FormControlLabel
-              value="other"
-              control={<Radio color="primary" />}
-              label="Other"
-              labelPlacement="start"
-            />
-            <FormControlLabel
-              value="disabled"
-              disabled
-              control={<Radio />}
-              label="(Disabled option)"
-              labelPlacement="start"
-            />
-          </RadioGroup>
-          <FormHelperText>labelPlacement start</FormHelperText>
-        </FormControl>*/

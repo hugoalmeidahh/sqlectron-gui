@@ -1,0 +1,16 @@
+CONFLICT (content): Merge conflict in src/semantic1/containers/query-browser.jsx
+Auto-merging src/semantic1/containers/app.jsx
+CONFLICT (content): Merge conflict in src/semantic1/containers/app.jsx
+CONFLICT (rename/delete): src/AppTabs.js deleted in c75557ecfd5a5c0c0d9b9769b6a721e52e7f3e26
+1/containers/app.css in HEAD. Version HEAD of src/semantic1/containers/app.css left in tree.
+
+CONFLICT (rename/delete): src/containers/query-browser-l.js deleted in c75557ecfd
+med to src/mui/containers/query-browser-l.js in HEAD. Version HEAD of src/mui/con
+
+CONFLICT (content): Merge conflict in src/index_local.js
+CONFLICT (rename/delete): src/components/Elem.js deleted in HEAD and renamed to src/containers/Elem.js in c75
+0c0d9b9769b6a721e52e7f3e26. Version c75557ecfd5a5c0c0d9b9769b6a721e52e7f3e26 of src/containers/Elem.js left i
+CONFLICT (rename/delete): src/components/Ace.js deleted in HEAD and renamed to src/containers/Ace.js in c7555
+0d9b9769b6a721e52e7f3e26. Version c75557ecfd5a5c0c0d9b9769b6a721e52e7f3e26 of src/containers/Ace.js left in t
+Removing src/boot.js
+Automatic merge failed; fix conflicts and then commit the result.
