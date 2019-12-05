@@ -41,9 +41,9 @@ function link(where,module_name) {
   thelink.setAttribute("href",file1);
   document.head.appendChild(thelink);
 }
-// module_name="./semantic1/AppSql";
+let module_name="./semantic1/AppSql";
 // let module_name="./Select1";
-let module_name="./mui/AppSql";
+// let module_name="./mui/AppSql";
 if (module_name==="./semantic1/AppSql"){
   link(where,"node_modules/semantic-ui-css/semantic.css")
 }
