@@ -39,7 +39,7 @@ class AppContainer extends Component {
     this.state = { modalOpen: false };
     this.menuHandler = new MenuHandler();
   }
-  componentWillMount() {
+  UNSAVE_componentWillMount() {
     this.props.dispatch(ConfigActions.loadConfig());
   }
   setMenus = () => {
