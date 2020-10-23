@@ -55,7 +55,7 @@ export default class DatabaseListItem extends Component {
     this.contextMenu = null;
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.contextMenu || !this.isMetadataLoaded(nextProps)) {
       return;
     }
