@@ -2,8 +2,8 @@ import * as React from 'react';
 import {Button, Modal } from 'semantic-ui-react';
 import * as QueryActions from '../actions/queries';
 import { connect } from 'react-redux';
-import Elem, { A, Tag } from './Elem';
-import Ace from './Ace';
+// import Elem, { A, Tag } from './Elem';
+// import Ace from './Ace';
 const table_css=`
   display:block;
   width:800px;
@@ -98,15 +98,17 @@ class App extends React.Component{
           <textarea rows="3" cols="20" style={{width:"100%"}} value={this.state.sql} onChange={(e)=>{
             this.setState({sql:e.target.value})
           }} />
-          <Tag name="table" css={this.state.css}>
-          <thead>
-          <tr>{heads_show}</tr>
-          </thead>
-          <tbody>
-          {rows_show}
-          </tbody>
-          </Tag>
-          <Ace css={this.state.css} cssChange={this.onChange_css} />
+          {
+            //<Tag name="table" css={this.state.css}>
+          // <thead>
+          // <tr>{heads_show}</tr>
+          // </thead>
+          // <tbody>
+          // {rows_show}
+          // </tbody>
+          // </Tag>
+          // <Ace css={this.state.css} cssChange={this.onChange_css} />
+            }
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={this.handlePrev}>

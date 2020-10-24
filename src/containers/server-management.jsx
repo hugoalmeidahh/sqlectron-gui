@@ -36,8 +36,8 @@ class ServerManagerment extends Component {
     super(props, context);
     this.state = {};
   }
-  componentWillReceiveProps(nextProps) {
-    // console.log("ServerManagerment componentWillReceiveProps");
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    // console.log("ServerManagerment UNSAFE_componentWillReceiveProps");
     // console.log(nextProps);
     // if(this.props.servers.isEditing && !nextProps.servers.isEditing){
     //   this.onCancelClick();

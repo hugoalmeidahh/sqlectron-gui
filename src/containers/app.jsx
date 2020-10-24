@@ -57,7 +57,7 @@ class AppContainer extends Component {
     this.setMenus();
   }
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     const { config } = newProps;
     if (!config.data) {
       return;

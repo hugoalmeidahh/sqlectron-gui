@@ -29,7 +29,7 @@ export default class SettingsModalForm extends Component {
     // console.log("settings-modal un mount");
     // this.props.onCancelClick();
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // console.log(nextProps);
     // this.setState({ error: nextProps.error });
     // if (!this.props.modalOpen && nextProps.modalOpen) {
@@ -354,7 +354,7 @@ export default class SettingsModalForm extends Component {
               <label>Level</label>
               <Dropdown selection fluid options={options} 
               placeholder="log level" 
-              value={log.level || 'error'} />
+              />
 
               <p className="help">Level logging: debug, info, warn, error.</p>
             </div>

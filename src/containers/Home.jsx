@@ -6,7 +6,7 @@ class Home extends Component {
     console.log(this.props);
     this.props.history.push('/manage');
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     console.log(nextProps);
   }
   render() {

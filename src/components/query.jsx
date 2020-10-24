@@ -79,7 +79,7 @@ export default class Query extends Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // if (!nextProps.enabledAutoComplete) {
     //   return;
     // }

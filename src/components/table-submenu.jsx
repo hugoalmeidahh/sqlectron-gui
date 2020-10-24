@@ -21,7 +21,7 @@ export default class TableSubmenu extends Component {
     this.state = {};
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.state.collapsed === undefined) {
       this.setState({ collapsed: !!nextProps.collapsed });
     }

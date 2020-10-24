@@ -36,6 +36,8 @@ function buildNewWindow(app) {
     minWidth: 512,
     minHeight: 350,
     webPreferences: {
+      nodeIntegration: true,
+      enableRemoteModule: true,
       preload: resolve(__dirname, 'preload.js'),
     },
   });

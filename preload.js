@@ -6,10 +6,10 @@
  * without passing through a transpiler, this file must use ES5.
  */
 
-var config = require('./config');
+// var config = require('./config');
 
 
-process.once('loaded', function onLoaded() {
-  global.SQLECTRON_CONFIG = config.get();
-});
+// process.once('loaded', function onLoaded() {
+//   global.SQLECTRON_CONFIG = config.get();
+// });
 

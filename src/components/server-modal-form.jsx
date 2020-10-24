@@ -42,7 +42,7 @@ export default class ServerModalForm extends Component {
   componentDidMount() {
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     let server = nextProps.server || {};
     //rename client to value
     this.setState({

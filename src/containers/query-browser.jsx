@@ -102,7 +102,7 @@ class QueryBrowserContainer extends Component {
     this.menuHandler = new MenuHandler();
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // console.log(this.props);
     const { dispatch, match } = this.props;
     dispatch(ConnActions.connect(match.params.id));
@@ -112,8 +112,8 @@ class QueryBrowserContainer extends Component {
     this.setMenus();
   }
 
-  componentWillReceiveProps(nextProps) {
-    // console.log("componentWillReceiveProps");
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    // console.log("UNSAFE_componentWillReceiveProps");
     // console.log(nextProps);
     const { dispatch, history, connections } = nextProps;
     // console.log(connections);

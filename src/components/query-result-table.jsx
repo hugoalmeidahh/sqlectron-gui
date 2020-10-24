@@ -47,8 +47,8 @@ export default class QueryResultTable extends Component {
     this.resize();
   }
 
-  componentWillReceiveProps(nextProps) {
-    // console.log("componentWillReceiveProps");
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    // console.log("UNSAFE_componentWillReceiveProps");
     // console.log(nextProps);
 
     this.resize(nextProps);

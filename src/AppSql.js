@@ -5,8 +5,9 @@ import ServerManagementContainer from './containers/server-management2.jsx';
 import QueryBrowserContainer from './containers/query-browser2.jsx';
 import {Redirect,Router, Route,Switch,Link} from 'react-router-dom'
 import configureStore from './store/configure';
-import createHashHistory from "history/createHashHistory";
+// import createHashHistory from "history/createHashHistory";
 // import createBrowserHistory from "history"
+var createHashHistory= require("history").createHashHistory
 const history = createHashHistory({
   hashType: "slash" // the default
 })
