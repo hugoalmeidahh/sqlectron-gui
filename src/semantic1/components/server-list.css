@@ -1,0 +1,35 @@
+#server-list {
+  /**
+   * 1 card per row
+   */
+  /**
+   * 2 cards per row
+   */
+  /**
+   * 4 cards per row
+   */
+}
+#server-list .ui.cards > .card {
+  width: 100%;
+}
+#server-list .ui.cards {
+  margin-left: -1em;
+  margin-right: -1em;
+}
+#server-list .ui.cards > .card {
+  width: calc( 50% - 2em );
+  margin-left: 1em;
+  margin-right: 1em;
+}
+#server-list .ui.cards {
+  margin-left: -0.75em;
+  margin-right: -0.75em;
+}
+#server-list .ui.cards > .card {
+  width: calc( 25% - 1.5em );
+  margin-left: 0.75em;
+  margin-right: 0.75em;
+}
+#server-list .card .content .header, #server-list .card .content .meta {
+  word-break: break-all;
+}

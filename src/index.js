@@ -1,5 +1,5 @@
 //use with react-scripts
-import App from './AppSql';
+import App from './semantic1/AppSql';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import "react-tabs/style/react-tabs.css";
