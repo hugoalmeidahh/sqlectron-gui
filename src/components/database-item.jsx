@@ -6,8 +6,8 @@ import TableSubmenu from './table-submenu.jsx';
 var { sqlectron } = window.myremote;
 var { remote } = window.myremote.electron;
 
-const Menu = remote.Menu;
-const MenuItem = remote.MenuItem;
+// const Menu = remote.Menu;
+// const MenuItem = remote.MenuItem;
 const CLIENTS = sqlectron.db.CLIENTS;
 
 export default class DatabaseItem extends Component {
@@ -38,85 +38,85 @@ export default class DatabaseItem extends Component {
   onContextMenu(event) {
     event.preventDefault();
 
-    if (!this.contextMenu) {
-      this.buildContextMenu();
-    }
+    // if (!this.contextMenu) {
+    //   this.buildContextMenu();
+    // }
 
-    this.contextMenu.popup({ x: event.clientX, y: event.clientY });
+    // this.contextMenu.popup({ x: event.clientX, y: event.clientY });
   }
 
   buildContextMenu() {
-    const {
-      client,
-      database,
-      item,
-      dbObjectType,
-      onExecuteDefaultQuery,
-      onExecuteEditTable,
-      onGetSQLScript,
-    } = this.props;
+    // const {
+    //   client,
+    //   database,
+    //   item,
+    //   dbObjectType,
+    //   onExecuteDefaultQuery,
+    //   onExecuteEditTable,
+    //   onGetSQLScript,
+    // } = this.props;
 
-    this.contextMenu = new Menu();
-    if (dbObjectType === 'Table' || dbObjectType === 'View') {
-      this.contextMenu.append(
-        new MenuItem({
-          label: 'Select Rows (with limit)',
-          click: onExecuteDefaultQuery.bind(this, database, item),
-        })
-      );
-    }
-    if (dbObjectType === 'Table') {
-      this.contextMenu.append(
-        new MenuItem({
-          label: 'EditTable',
-          click: onExecuteEditTable.bind(this, database, item),
-        })
-      );
-    }
-    this.contextMenu.append(new MenuItem({ type: 'separator' }));
+    // this.contextMenu = new Menu();
+    // if (dbObjectType === 'Table' || dbObjectType === 'View') {
+    //   this.contextMenu.append(
+    //     new MenuItem({
+    //       label: 'Select Rows (with limit)',
+    //       click: onExecuteDefaultQuery.bind(this, database, item),
+    //     })
+    //   );
+    // }
+    // if (dbObjectType === 'Table') {
+    //   this.contextMenu.append(
+    //     new MenuItem({
+    //       label: 'EditTable',
+    //       click: onExecuteEditTable.bind(this, database, item),
+    //     })
+    //   );
+    // }
+    // this.contextMenu.append(new MenuItem({ type: 'separator' }));
 
-    const { disabledFeatures } = CLIENTS.find(
-      dbClient => dbClient.key === client
-    );
-    if (!disabledFeatures || !~disabledFeatures.indexOf('scriptCreateTable')) {
-      this.contextMenu.append(
-        new MenuItem({
-          label: 'Create Statement',
-          click: onGetSQLScript.bind(
-            this,
-            database,
-            item,
-            'CREATE',
-            dbObjectType
-          ),
-        })
-      );
-    }
+    // const { disabledFeatures } = CLIENTS.find(
+    //   dbClient => dbClient.key === client
+    // );
+    // if (!disabledFeatures || !~disabledFeatures.indexOf('scriptCreateTable')) {
+    //   this.contextMenu.append(
+    //     new MenuItem({
+    //       label: 'Create Statement',
+    //       click: onGetSQLScript.bind(
+    //         this,
+    //         database,
+    //         item,
+    //         'CREATE',
+    //         dbObjectType
+    //       ),
+    //     })
+    //   );
+    // }
 
-    if (dbObjectType === 'Table') {
-      const actionTypes = ['SELECT', 'INSERT', 'UPDATE', 'DELETE'];
-      const labelsByTypes = {
-        SELECT: 'Select Statement',
-        INSERT: 'Insert Statement',
-        UPDATE: 'Update Statement',
-        DELETE: 'Delete Statement',
-      };
+    // if (dbObjectType === 'Table') {
+    //   const actionTypes = ['SELECT', 'INSERT', 'UPDATE', 'DELETE'];
+    //   const labelsByTypes = {
+    //     SELECT: 'Select Statement',
+    //     INSERT: 'Insert Statement',
+    //     UPDATE: 'Update Statement',
+    //     DELETE: 'Delete Statement',
+    //   };
 
-      actionTypes.forEach(actionType => {
-        this.contextMenu.append(
-          new MenuItem({
-            label: labelsByTypes[actionType],
-            click: onGetSQLScript.bind(
-              this,
-              database,
-              item,
-              actionType,
-              dbObjectType
-            ),
-          })
-        );
-      });
-    }
+    //   actionTypes.forEach(actionType => {
+    //     this.contextMenu.append(
+    //       new MenuItem({
+    //         label: labelsByTypes[actionType],
+    //         click: onGetSQLScript.bind(
+    //           this,
+    //           database,
+    //           item,
+    //           actionType,
+    //           dbObjectType
+    //         ),
+    //       })
+    //     );
+    //   });
+    // }
   }
 
   toggleTableCollapse() {

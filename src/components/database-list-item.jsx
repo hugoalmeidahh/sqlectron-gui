@@ -4,7 +4,7 @@ import DatabaseListItemMetatada from './database-list-item-metadata.jsx';
 import DatabaseFilter from './database-filter.jsx';
 var { remote } = window.myremote.electron; // from '../../browser/remote';
 
-const { Menu, MenuItem } = remote;
+// const { Menu, MenuItem } = remote;
 
 const STYLE = {
   database: {
@@ -60,19 +60,19 @@ export default class DatabaseListItem extends Component {
       return;
     }
 
-    this.contextMenu = new Menu();
-    this.contextMenu.append(
-      new MenuItem({
-        label: 'Refresh Database',
-        click: this.props.onRefreshDatabase.bind(this, nextProps.database),
-      })
-    );
-    this.contextMenu.append(
-      new MenuItem({
-        label: 'Show Database Diagram',
-        click: this.props.onShowDiagramModal.bind(this, nextProps.database),
-      })
-    );
+    // this.contextMenu = new Menu();
+    // this.contextMenu.append(
+    //   new MenuItem({
+    //     label: 'Refresh Database',
+    //     click: this.props.onRefreshDatabase.bind(this, nextProps.database),
+    //   })
+    // );
+    // this.contextMenu.append(
+    //   new MenuItem({
+    //     label: 'Show Database Diagram',
+    //     click: this.props.onShowDiagramModal.bind(this, nextProps.database),
+    //   })
+    // );
   }
 
   onContextMenu(event) {

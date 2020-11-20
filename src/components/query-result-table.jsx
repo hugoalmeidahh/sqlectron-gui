@@ -7,7 +7,7 @@ import Draggable from 'react-draggable';
 import TableCell from './query-result-table-cell.jsx';
 import PreviewModal from './preview-modal.jsx';
 import { valueToString } from '../utils/convert';
-import scrollbarSize from 'dom-helpers/util/scrollbarSize';
+import scrollbarSize from 'dom-helpers/scrollbarSize';
 import EditModal from './EditModal';
 // import 'react-virtualized/styles.css';
 // import './query-result-table.scss';

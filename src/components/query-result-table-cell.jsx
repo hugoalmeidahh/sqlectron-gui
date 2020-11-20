@@ -6,7 +6,7 @@ import PropTypes from 'proptypes';
 import { valueToString } from '../utils/convert';
 //import { Label,Item } from 'semantic-ui-react';
 var { remote } = window.myremote.electron;
-const { Menu, MenuItem } = remote;
+// const { Menu, MenuItem } = remote;
 
 export default class TableCell extends Component {
   static propTypes = {
@@ -29,35 +29,35 @@ export default class TableCell extends Component {
 
     const hasPreview = typeof value === 'string' || isPlainObject(value);
 
-    if (!this.contextMenu && hasPreview) {
-      this.contextMenu = new Menu();
-      this.contextMenu.append(new MenuItem({
-          label: 'Edit',
-          click: () => {
-            this.props.onEditClick(this.props.rowIndex,this.props.col);
-          },
-      }));
-      this.contextMenu.append(new MenuItem({
-          label: 'Delete',
-          click: () => {
-            this.props.onDeleteClick(this.props.rowIndex,this.props.col);
-          },
-      }));
-      // if(hasPreview){
-      this.contextMenu.append(
-        new MenuItem({
-          label: 'Open Preview',
-          click: () => {
-            this.props.onOpenPreviewClick(value);
-          },
-        })
-      );
-      // }
-    }
+    // if (!this.contextMenu && hasPreview) {
+    //   this.contextMenu = new Menu();
+    //   this.contextMenu.append(new MenuItem({
+    //       label: 'Edit',
+    //       click: () => {
+    //         this.props.onEditClick(this.props.rowIndex,this.props.col);
+    //       },
+    //   }));
+    //   this.contextMenu.append(new MenuItem({
+    //       label: 'Delete',
+    //       click: () => {
+    //         this.props.onDeleteClick(this.props.rowIndex,this.props.col);
+    //       },
+    //   }));
+    //   // if(hasPreview){
+    //   this.contextMenu.append(
+    //     new MenuItem({
+    //       label: 'Open Preview',
+    //       click: () => {
+    //         this.props.onOpenPreviewClick(value);
+    //       },
+    //     })
+    //   );
+    //   // }
+    // }
 
-    if (this.contextMenu) {
-      this.contextMenu.popup({ x: event.clientX, y: event.clientY });
-    }
+    // if (this.contextMenu) {
+    //   this.contextMenu.popup({ x: event.clientX, y: event.clientY });
+    // }
   };
 
   getValue() {
